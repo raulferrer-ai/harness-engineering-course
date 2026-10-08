@@ -19,6 +19,31 @@ The primary goal is not to build the largest possible website. The primary goal 
 
 ---
 
+## Recorded decisions and experiment history
+
+Before making changes, consult the repository's recorded decisions and experiment history when they are relevant:
+
+* **Human decisions:** [`docs/decisions/INDEX.md`](docs/decisions/INDEX.md) is the entry point — it lists every recorded decision and links to its individual ADR record, which is the decision in full.
+* **Experiment history:** [`experiments/`](experiments/) contains the experiment reports and prompt files — what was tried, observed, and analyzed at the time.
+
+Consult these sources when relevant before making changes: recorded decisions state what the project has decided, and the experiment history explains how the repository reached its current state. *(Recorded as RD-DISC: [`docs/decisions/0005-decision-discovery.md`](docs/decisions/0005-decision-discovery.md).)*
+
+---
+
+## Authority of sources
+
+How to read this repository's sources:
+
+* **Current human decisions:** accepted decision records/ADRs in [`docs/decisions/`](docs/decisions/) are the current human decisions.
+* **Operational rules:** `AGENTS.md` (this file) contains operational rules and must remain compatible with those human decisions.
+* **Index:** [`docs/decisions/INDEX.md`](docs/decisions/INDEX.md) is navigation/index material — not an independent policy authority.
+* **Historical evidence:** `experiments/` contains historical evidence. Experiment reports document what was observed, analyzed, or decided at the time; they do not automatically represent current policy.
+* **Later decision over historical state:** when a historical experiment report conflicts with a later human decision recorded in an ADR, the ADR represents the current human decision. The report remains historical evidence — do not rewrite it merely to remove the historical state.
+
+This states only the approved minimum rule; ADR-vs-ADR conflicts, status lifecycle, supersession, amendment, and retention remain undecided. *(Recorded as RD-AUTH: [`docs/decisions/0006-decision-authority-and-precedence.md`](docs/decisions/0006-decision-authority-and-precedence.md).)*
+
+---
+
 ## Core Principles
 
 ### 1. Do not invent requirements
