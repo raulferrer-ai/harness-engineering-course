@@ -1,6 +1,7 @@
 import { readFile } from "node:fs/promises";
 
-const markdown = await readFile(new URL("../docs/release-readiness-checklist.md", import.meta.url), "utf8");
+const checklistPath = process.env.RELEASE_CHECKLIST_PATH || new URL("../docs/release-readiness-checklist.md", import.meta.url);
+const markdown = await readFile(checklistPath, "utf8");
 const failures = [];
 const requireText = (text, message = "falta texto obligatorio: " + text) => {
   if (!markdown.includes(text)) failures.push(message);
