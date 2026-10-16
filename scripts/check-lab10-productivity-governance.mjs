@@ -61,16 +61,25 @@ for(const key of ["baseline","assisted"]){
     if(!Number.isFinite(laborCost)||laborCost<0)errors.push(key+": coste de trabajo humano no calculable");
   }
 }
-if(!Array.isArray(data.decision_test_vectors)||data.decision_test_vectors.length<3)errors.push("se requieren vectores de prueba para coste/calidad/gobernanza");
+if(!Array.isArray(data.decision_test_vectors)||data.decision_test_vectors.length<4)errors.push("se requieren al menos cuatro vectores de prueba para coste/calidad/gobernanza");
+const vectorIds=new Set();
+const vectorDecisions=new Set();
 for(const v of data.decision_test_vectors??[]){
-  if(!nonempty(v.id)||!["expand_cautiously","do_not_expand","inconclusive","block"].includes(v.expected_decision))errors.push("vector de decisión inválido "+v.id);
+  if(!nonempty(v.id)||vectorIds.has(v.id)||!["expand_cautiously","do_not_expand","inconclusive","block"].includes(v.expected_decision))errors.push("vector de decisión inválido o duplicado "+v.id);
+  vectorIds.add(v.id);vectorDecisions.add(v.expected_decision);
+  if(!nonempty(v.reason))errors.push(v.id+": falta justificación de la decisión");
+  if(typeof v.missing_measurement!=="boolean"||typeof v.unapproved_external_action!=="boolean")errors.push(v.id+": faltan flags booleanos de medición o autorización");
   if(v.missing_measurement===true&&v.expected_decision!=="inconclusive")errors.push(v.id+": datos ausentes deben producir resultado inconcluso");
   if(v.unapproved_external_action===true&&v.expected_decision!=="block")errors.push(v.id+": acción externa sin aprobación debe bloquearse");
+  if(v.expected_decision==="expand_cautiously"&&!/comparable/i.test(v.reason))errors.push(v.id+": la expansión debe exigir tareas comparables");
+  if(v.expected_decision==="expand_cautiously"&&!/quality|calidad/i.test(v.reason))errors.push(v.id+": la expansión debe mencionar calidad");
+  if(v.expected_decision==="expand_cautiously"&&!/coste|cost/i.test(v.reason))errors.push(v.id+": la expansión debe mencionar coste total");
   if(v.expected_decision==="do_not_expand"&&!v.missing_measurement&&v.unapproved_external_action!==true){
     const cost=g=>((g.model_cost+g.infra_cost+(g.human_minutes_per_task*g.tasks_completed/60*c.labor_cost_per_hour)+c.expected_failure_cost[g===c.baseline?"baseline":"assisted"])/g.accepted_deliveries);
     if(cost(c.assisted)<cost(c.baseline)&&c.assisted.defects_found<=c.baseline.defects_found)errors.push(v.id+": decisión conservadora contradice los datos comparativos");
   }
 }
+for(const decision of ["expand_cautiously","do_not_expand","inconclusive","block"])if(!vectorDecisions.has(decision))errors.push("faltan vectores para decisión "+decision);
 if (errors.length) {
   for (const error of errors) console.error(`LAB-10 productivity/governance: ${error}`);
   process.exit(1);
