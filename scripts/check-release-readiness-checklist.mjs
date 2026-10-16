@@ -3,14 +3,12 @@ import { readFile } from "node:fs/promises";
 const checklistPath = process.env.RELEASE_CHECKLIST_PATH || new URL("../docs/release-readiness-checklist.md", import.meta.url);
 let markdown;
 try {
-  markdown = await readFile(checklistPath, "utf8");
+  markdown = (await readFile(checklistPath, "utf8")).replace(/\r\n?/g, "\n");
 } catch (error) {
   console.error("Release readiness checklist check failed: unable to read checklist input.");
   process.exit(1);
 }
 
-// Normalize every supported newline convention before parsing structured rows.
-const normalizedMarkdown = markdown.replace(/\r\n?/g, "\n");
 
 const failures = [];
 const requireText = (text, message = "falta texto obligatorio: " + text) => {
