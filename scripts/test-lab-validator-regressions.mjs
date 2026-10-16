@@ -60,7 +60,7 @@ const labs = [
     cases: [
       ["duplicate rubric ID", d => { d.rubric[1].id = d.rubric[0].id; }, /rúbrica: ID vacío o duplicado/],
       ["invalid score threshold", d => { d.scoring_protocol.pass_threshold_percent = 150; }, /umbral de aprobación debe estar entre 0 y 100/],
-      ["unknown minimum dimension", d => { d.cases[0].minimum_dimensions = ["invented_dimension"]; }, /dimensión mínima desconocida/]
+      ["fractional rubric score", d => { const dimension = d.rubric[0].dimension; d.scoring_protocol.decision_test_vectors[0].scores[dimension] = 2.5; }, /puntuación para .* debe ser un entero entre 0 y 4/]
     ]
   },
   {
