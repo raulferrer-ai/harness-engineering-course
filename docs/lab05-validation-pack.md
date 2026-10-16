@@ -1,21 +1,25 @@
-# LAB-05 — Fixture para evaluación sistemática de salidas
+# LAB-05 — Permisos de herramientas y aislamiento
 
-Este paquete define una rúbrica ponderada, anclajes de puntuación, casos de referencia y un protocolo de evaluación. Separa la puntuación estructural de la revisión humana y mantiene los fallos críticos visibles.
+Diseña y verifica límites de autorización para un agente que lee archivos, ejecuta pruebas y propone cambios. Impide que instrucciones no confiables o errores del agente se conviertan en acciones no autorizadas.
 
-## Ejecutar
+## Archivos y ejecución
+
+- `fixtures/lab05-tool-permissions.json`: matriz de herramientas, riesgos, permisos, amenazas y criterios.
+- `scripts/check-lab05-tool-permissions.mjs`: validador estructural.
 
 ```sh
 npm run check:lab05
 ```
 
-## Procedimiento
+## Procedimiento práctico
 
-1. Fija el modelo, versión, parámetros y fecha; conserva cada salida sin editar.
-2. Puntúa cada dimensión de 0 a 4 y adjunta justificación y evidencia.
-3. Calcula la media ponderada con la fórmula declarada, pero registra por separado cualquier fallo crítico.
-4. Haz una segunda revisión humana de una muestra y documenta desacuerdos.
-5. Informa del tamaño de muestra y de los datos no disponibles. No infieras calidad general a partir de estos tres casos didácticos.
+1. Trabaja en un entorno desechable con datos sintéticos; no uses credenciales reales.
+2. Clasifica cada herramienta por riesgo, recursos permitidos, operaciones denegadas y requisitos de aprobación.
+3. Implementa controles fuera del prompt: permisos del sistema operativo, sandbox, allowlist de comandos y restricciones de red.
+4. Ejecuta los casos negativos y conserva los registros de autorización.
+5. Comprueba que el contenido de archivos no puede conceder permisos.
+6. Revisa de forma independiente que los intentos denegados no produjeron efectos secundarios.
 
-## Alcance del chequeo
+## Limitaciones
 
-El validador comprueba IDs, dimensiones, suma de pesos, anclajes y campos obligatorios. No puntúa respuestas reales, no demuestra la validez de la rúbrica y no sustituye la revisión humana.
+El validador comprueba la estructura de la fixture. No crea un sandbox ni demuestra que los controles de una implementación real sean efectivos.

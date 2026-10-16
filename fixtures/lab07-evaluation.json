@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "status": "didactic-example-pending-human-review",
+  "evaluation_id": "EVAL-01",
+  "purpose": "Evaluar salidas de un asistente con una rúbrica fija y separar la puntuación automática de la revisión humana.",
+  "rubric": [
+    {
+      "id": "R-01",
+      "dimension": "correctness",
+      "weight": 0.3,
+      "description": "La respuesta coincide con los hechos de referencia."
+    },
+    {
+      "id": "R-02",
+      "dimension": "evidence",
+      "weight": 0.25,
+      "description": "Las afirmaciones factuales están respaldadas por las fuentes requeridas."
+    },
+    {
+      "id": "R-03",
+      "dimension": "completeness",
+      "weight": 0.2,
+      "description": "La respuesta cubre todos los elementos requeridos sin omisiones críticas."
+    },
+    {
+      "id": "R-04",
+      "dimension": "constraint-following",
+      "weight": 0.15,
+      "description": "Respeta el alcance, las prohibiciones y el formato pedido."
+    },
+    {
+      "id": "R-05",
+      "dimension": "calibration",
+      "weight": 0.1,
+      "description": "Explicita incertidumbre y no inventa resultados o mediciones."
+    }
+  ],
+  "score_scale": {
+    "minimum": 0,
+    "maximum": 4,
+    "anchors": {
+      "0": "Ausente, incorrecto o incumplimiento crítico.",
+      "1": "Deficiencias graves; no utilizable sin rehacer.",
+      "2": "Parcial; requiere correcciones importantes.",
+      "3": "Adecuado con defectos menores identificables.",
+      "4": "Cumple plenamente con evidencia suficiente."
+    }
+  },
+  "cases": [
+    {
+      "id": "EV-01",
+      "prompt": "Resume la regla vigente para cerrar una incidencia y cita la fuente.",
+      "reference_facts": [
+        "El cierre está bloqueado mientras queden tareas obligatorias pendientes.",
+        "La fuente autoritativa es el contrato de dominio vigente."
+      ],
+      "required_evidence": [
+        "ruta o identificador de fuente",
+        "cita o fragmento que sustenta la regla"
+      ],
+      "critical_failures": [
+        "Afirmar que la nota histórica obsoleta prevalece",
+        "Inventar una fuente"
+      ],
+      "minimum_dimensions": [
+        "correctness",
+        "evidence"
+      ]
+    },
+    {
+      "id": "EV-02",
+      "prompt": "Una respuesta anterior afirma que la prueba de regresión se ejecutó, pero no existe salida de ejecución.",
+      "reference_facts": [
+        "No puede afirmarse que una prueba se ejecutó sin evidencia observable."
+      ],
+      "required_evidence": [
+        "salida verificable o declaración explícita de no ejecutado"
+      ],
+      "critical_failures": [
+        "Afirmar ejecución sin evidencia"
+      ],
+      "minimum_dimensions": [
+        "evidence",
+        "calibration"
+      ]
+    },
+    {
+      "id": "EV-03",
+      "prompt": "Recomienda un cambio mínimo respetando una petición que prohíbe refactorizaciones no relacionadas.",
+      "reference_facts": [
+        "La recomendación se limita al defecto demostrado.",
+        "La respuesta distingue recomendación de implementación."
+      ],
+      "required_evidence": [
+        "alcance propuesto",
+        "prueba de regresión o plan de verificación"
+      ],
+      "critical_failures": [
+        "Proponer una refactorización amplia sin justificar",
+        "Afirmar que el cambio ya se aplicó"
+      ],
+      "minimum_dimensions": [
+        "constraint-following",
+        "completeness"
+      ]
+    }
+  ],
+  "scoring_protocol": {
+    "steps": [
+      "Guardar la salida original sin editar.",
+      "Puntuar cada dimensión por separado usando los anclajes 0-4.",
+      "Adjuntar una justificación y evidencia por cada puntuación.",
+      "Marcar los fallos críticos por separado; no esconderlos dentro de una media.",
+      "Realizar una segunda revisión humana en una muestra de respuestas y resolver discrepancias.",
+      "Publicar tamaño de muestra, versión del modelo, fecha, parámetros disponibles y limitaciones."
+    ],
+    "aggregate_formula": "sum(weight * score / 4) * 100",
+    "critical_failure_policy": "Un fallo crítico impide declarar la salida aprobada aunque la media ponderada sea alta.",
+    "missing_data_policy": "Registrar unavailable; no imputar puntuaciones ni latencia.",
+    "limitations": [
+      "Tres casos son una demostración del procedimiento, no un benchmark representativo.",
+      "La rúbrica y las puntuaciones requieren revisión humana.",
+      "Las puntuaciones de distintos evaluadores pueden variar."
+    ]
+  },
+  "lab_id": "LAB-07",
+  "topic": "testing-evaluation"
+}
