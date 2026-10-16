@@ -42,6 +42,27 @@ const linkPattern = /!?\[[^\]]*\]\(\s*(?:<([^>]+)>|([^\s)]+))(?:\s+[^)]*)?\)/g;
 
 for (const file of markdownFiles) {
   const source = fs.readFileSync(file, "utf8");
+  const referenceDefinitions = new Map();
+  for (const match of source.matchAll(/^\s{0,3}\[([^\]]+)\]:\s*<?([^\s>]+)>?/gm)) {
+    referenceDefinitions.set(match[1].trim().toLowerCase(), match[2].trim());
+  }
+  const referenceUses = /(?<!!)\[([^\]]+)\]\[([^\]]+)\]/g;
+  for (const match of source.matchAll(referenceUses)) {
+    const label = match[2].trim().toLowerCase();
+    const raw = referenceDefinitions.get(label);
+    if (!raw) {
+      errors.push(`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${match[2]}]".`);
+      continue;
+    }
+    if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(raw)) continue;
+    linksChecked++;
+    const result = targetExists(raw, file);
+    if (!result.exists) {
+      const from = path.relative(root, file);
+      const to = result.resolved ? path.relative(root, result.resolved) : raw;
+      errors.push(`${from}: enlace local no encontrado "${raw}" (destino: ${to})`);
+    }
+  }
   for (const match of source.matchAll(linkPattern)) {
     const raw = (match[1] ?? match[2] ?? "").trim();
     if (!raw || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(raw)) continue;
