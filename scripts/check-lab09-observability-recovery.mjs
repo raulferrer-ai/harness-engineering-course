@@ -48,7 +48,7 @@ for (const s of signals) {
   if (s.threshold?.operator === "lt" && s.threshold.value <= 0) errors.push(`${s.id}: umbral lt debe ser positivo`);
   if (s.threshold?.operator === "lte" && s.threshold.value < 0) errors.push(`${s.id}: umbral lte no puede ser negativo`);
   if (s.name === "unauthorized_action_count" && (s.threshold?.operator !== "gt" || s.threshold.value !== 0)) errors.push("las acciones no autorizadas deben disparar con conteo > 0");
-  if (/rate$/.test(s.name) && (s.threshold?.value < 0 || s.threshold?.value > 1)) errors.push(`${s.id}: una tasa debe expresarse entre 0 y 1`);
+  if (/rate$/.test(s.name) && (s.threshold?.value < 0 || s.threshold?.value > 1)) errors.push(`${s.id}: una tasa debe expresarse entre 0 y 1`);\n  if (/rate$/.test(s.name) && s.unit !== "ratio") errors.push(`${s.id}: las tasas deben usar unit=ratio`);
   if (s.name === "p95_latency_ms" && s.unit !== "milliseconds") errors.push(`${s.id}: p95_latency_ms debe usar milliseconds`);
   if (s.name === "cost_per_accepted_task" && (!/currency/i.test(s.unit) || !/^[A-Z]{3}$/.test(s.currency ?? ""))) errors.push(`${s.id}: cost_per_accepted_task debe declarar unidad monetaria por tarea y código de moneda ISO 4217`);
   if (s.name === "unauthorized_action_count" && s.unit !== "count") errors.push(`${s.id}: unauthorized_action_count debe usar count`);
@@ -62,7 +62,7 @@ for (const [key, expected] of Object.entries(requiredPolicy)) if (data.policy?.[
 const scenarios = data.scenarios ?? [];
 unique(scenarios, "escenarios");
 if (scenarios.length < 5) errors.push("se requieren al menos cinco escenarios");
-for (const s of scenarios) if (!nonempty(s.input) || !nonempty(s.expected)) errors.push(`${s.id}: falta entrada o resultado esperado`);
+for (const s of scenarios) if (!nonempty(s.input) || !nonempty(s.expected)) errors.push(`${s.id}: falta entrada o resultado esperado`);\nconst recoveryRegressionScenario = scenarios.find(s => /regresi[oó]n/i.test(s.input));\nif (!recoveryRegressionScenario || !/no se declara recuperaci[oó]n completa|no se declara recuperaci[oó]n/i.test(recoveryRegressionScenario.expected)) errors.push("debe existir un escenario que impida declarar recuperación completa si falla la regresión");\nconst costSignal = signals.find(s => s.name === "cost_per_accepted_task");\nif (costSignal && (!Number.isFinite(costSignal.threshold?.value) || costSignal.threshold.value <= 0)) errors.push("cost_per_accepted_task debe tener un umbral positivo");
 const criteria = data.acceptance_criteria ?? [];
 unique(criteria, "criterios");
 if (criteria.length < 5) errors.push("se requieren al menos cinco criterios");
