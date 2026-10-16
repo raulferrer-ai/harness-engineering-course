@@ -44,9 +44,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 a { color: inherit; text-underline-offset: .22em; }
-a:focus-visible, button:focus-visible {
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 4px;
+}
+
+/* Keep keyboard focus visible even on elements with their own border or background. */
+:where(input, select, textarea, summary, [tabindex]):focus-visible {
+  scroll-margin-block: 1rem;
 }
 ::selection { background: var(--accent-soft); color: var(--ink); }
 .skip-link {
