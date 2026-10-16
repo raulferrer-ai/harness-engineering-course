@@ -1,0 +1,118 @@
+---
+layout: layouts/base.njk
+title: Especificación de tareas y diseño
+description: "Módulo M02: convierte una petición ambigua en una especificación verificable, con alcance, restricciones y criterios de aceptación explícitos."
+permalink: modulos/especificacion-y-diseno/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M02 · ESPECIFICACIÓN Y DISEÑO</p>
+    <h1>Especificación de tareas y diseño</h1>
+    <p class="hero-lede">Una petición no es todavía una tarea delegable. Antes de pedir a un asistente o agente que cambie un sistema, define el resultado esperado, el alcance permitido y cómo se comprobará el trabajo.</p>
+    <div class="module-meta"><span>10 horas planificadas</span><span>4 h de fundamentos · 6 h de laboratorio</span><span>LAB-02</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Separar el objetivo de negocio de una solución técnica sugerida prematuramente.</li>
+      <li>Identificar ambigüedades, supuestos, restricciones y dependencias en una petición.</li>
+      <li>Redactar criterios de aceptación observables y comprobables.</li>
+      <li>Definir explícitamente el alcance permitido, los cambios prohibidos y las condiciones para detenerse y preguntar.</li>
+      <li>Evaluar si una tarea está suficientemente especificada para delegarla y qué evidencia debe producir quien la ejecute.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="principios">
+    <div class="section-heading"><div><p class="eyebrow">FUNDAMENTOS</p><h2 id="principios">La especificación es una interfaz de control</h2></div></div>
+    <p>Cuando una tarea se delega a una persona, a un asistente de código o a un agente con herramientas, el sistema ejecutor necesita saber qué resultado se considera correcto y qué límites no debe cruzar. Las instrucciones vagas transfieren decisiones importantes al ejecutor sin hacer explícitos los riesgos.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Resultado, no receta</h3><p>Describe el estado que debe alcanzarse y las condiciones que lo demuestran. Propón una implementación solo cuando sea una restricción real o una decisión ya acordada.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Alcance y límites</h3><p>Identifica archivos, interfaces y comportamientos que pueden cambiar, así como los que deben permanecer intactos. Establece límites de permisos, datos y efectos secundarios.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Verificación independiente</h3><p>Los criterios deben poder revisarse sin confiar únicamente en la explicación del ejecutor. Usa pruebas, inspección del diff, validadores o comprobaciones reproducibles.</p></div></section>
+    </div>
+    <p>Una buena especificación reduce la ambigüedad, pero no elimina la incertidumbre. Si un dato es necesario para elegir correctamente y no está disponible, la respuesta segura es formular una pregunta o registrar un supuesto explícito, no inventar el dato.</p>
+  </section>
+
+  <section class="section" aria-labelledby="estructura">
+    <div class="section-heading"><div><p class="eyebrow">PLANTILLA OPERATIVA</p><h2 id="estructura">Elementos de una tarea delegable</h2></div></div>
+    <ol>
+      <li><strong>Contexto:</strong> qué sistema existe, qué problema se observa y por qué importa.</li>
+      <li><strong>Objetivo:</strong> qué resultado observable debe obtenerse.</li>
+      <li><strong>Alcance:</strong> qué puede cambiar y qué queda expresamente fuera.</li>
+      <li><strong>Restricciones:</strong> compatibilidad, dependencias, seguridad, rendimiento, estilo, presupuesto y permisos.</li>
+      <li><strong>Criterios de aceptación:</strong> condiciones concretas que deben cumplirse para aceptar el resultado.</li>
+      <li><strong>Verificación:</strong> comandos, pruebas, revisión o evidencias que se esperan.</li>
+      <li><strong>Gestión de incertidumbre:</strong> qué supuestos se permiten y cuándo debe detenerse el trabajo para pedir aclaración.</li>
+      <li><strong>Entrega:</strong> cambios realizados, resultados de las comprobaciones, limitaciones conocidas y riesgos pendientes.</li>
+    </ol>
+    <p>Evita criterios subjetivos como «que funcione bien», «que sea moderno» o «que quede limpio» si no van acompañados de condiciones observables. Si una cualidad no puede expresarse como una prueba automática, define una pauta de revisión humana.</p>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-02 · 6 HORAS</p><h2 id="lab">De un incidente ambiguo a una especificación verificable</h2></div><p class="section-intro">Transforma una petición deliberadamente incompleta en un encargo que otra persona pueda ejecutar y evaluar sin adivinar decisiones críticas.</p></div>
+
+    <h3>Escenario de trabajo</h3>
+    <p>Un equipo recibe este reporte ficticio: «El panel de incidencias va lento y a veces muestra datos incorrectos. Arréglalo antes de la demo; aprovecha para ordenar el código». No se proporciona un repositorio concreto ni se afirma cuál es la causa.</p>
+
+    <h3>Fase 1 · Diagnosticar la ambigüedad</h3>
+    <ol>
+      <li>Enumera las preguntas necesarias para delimitar «lento», «datos incorrectos» y «ordenar el código».</li>
+      <li>Clasifica cada incógnita como bloqueante, resoluble mediante inspección o asumible con una declaración explícita.</li>
+      <li>Identifica riesgos de ampliar el alcance: refactorizaciones no relacionadas, cambios de esquema, alteraciones visuales o modificaciones de datos.</li>
+      <li>Escribe las preguntas mínimas que permitirían decidir qué medir y qué comportamiento debe preservarse.</li>
+    </ol>
+
+    <h3>Fase 2 · Crear una especificación</h3>
+    <ol>
+      <li>Redacta el contexto y el objetivo sin asumir una causa raíz.</li>
+      <li>Define el alcance permitido y una lista de cambios prohibidos para esta intervención.</li>
+      <li>Propón al menos cuatro criterios de aceptación observables. Incluye una condición funcional, una de regresión, una de rendimiento o medición y una de calidad de datos.</li>
+      <li>Especifica las pruebas o evidencias necesarias para cada criterio y quién puede verificarlas.</li>
+      <li>Incluye una regla de parada: qué hallazgo obliga a pedir aclaración o autorización antes de continuar.</li>
+    </ol>
+
+    <h3>Fase 3 · Revisión adversarial</h3>
+    <ol>
+      <li>Intercambia la especificación con otra persona o con una revisión independiente.</li>
+      <li>Pide que busque interpretaciones alternativas, criterios imposibles de comprobar, restricciones contradictorias y vías para cumplir literalmente sin resolver el problema real.</li>
+      <li>Corrige la especificación y registra los cambios derivados de la revisión.</li>
+      <li>Realiza una prueba de «lectura sin contexto»: quien revisa debe poder explicar qué entregar, qué no tocar y cómo demostrar que el trabajo está terminado.</li>
+    </ol>
+
+    <h3>Entregables</h3>
+    <ul>
+      <li>Lista priorizada de ambigüedades y preguntas de aclaración.</li>
+      <li>Especificación final con contexto, objetivo, alcance, restricciones, criterios de aceptación y estrategia de verificación.</li>
+      <li>Matriz que vincule cada criterio con su evidencia y método de comprobación.</li>
+      <li>Registro de la revisión adversarial y de los cambios realizados.</li>
+      <li>Breve decisión de delegabilidad: listo para ejecutar, listo con supuestos explícitos o bloqueado por información crítica ausente.</li>
+    </ul>
+
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>Cada criterio de aceptación describe un resultado observable, no una impresión subjetiva.</li>
+      <li>Los cambios permitidos y prohibidos están claramente delimitados.</li>
+      <li>Las comprobaciones propuestas son suficientes para detectar tanto el fallo descrito como regresiones plausibles.</li>
+      <li>Los supuestos están identificados y no se presentan como hechos confirmados.</li>
+      <li>La especificación define cuándo detenerse, pedir aclaración o solicitar autorización adicional.</li>
+      <li>Una persona que no participó en su redacción puede explicar cómo ejecutar y evaluar la tarea.</li>
+    </ul>
+
+    <h3>Preguntas de análisis</h3>
+    <ol>
+      <li>¿Qué ambigüedad habría generado el mayor riesgo si se hubiera delegado sin aclaración?</li>
+      <li>¿Qué criterios pueden automatizarse y cuáles necesitan una evaluación humana?</li>
+      <li>¿Cómo impediría tu especificación que un ejecutor «resuelva» el problema mediante un cambio fuera de alcance?</li>
+      <li>¿Qué nueva evidencia justificaría ampliar el alcance inicialmente aprobado?</li>
+    </ol>
+  </section>
+
+  <section class="closing-band" aria-labelledby="salida">
+    <p class="eyebrow">ENTREGABLE</p>
+    <h2 id="salida">Delegar con claridad es diseñar el control antes de ejecutar.</h2>
+    <p>Entrega una especificación que conecte intención, límites y pruebas. La calidad del encargo se demuestra cuando otra persona puede ejecutarlo y verificarlo sin rellenar huecos críticos por su cuenta.</p>
+    <a class="text-link" href="/#programa">Volver al programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
