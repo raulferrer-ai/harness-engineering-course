@@ -64,11 +64,12 @@ const acceptanceMetric=requiredMetrics.get("accepted_delivery_rate");
 if(acceptanceMetric && (acceptanceMetric.unit!=="ratio" || acceptanceMetric.definition!=="accepted_deliveries / tasks_completed"))errors.push("accepted_delivery_rate debe usar ratio y accepted_deliveries / tasks_completed");
 const defectMetric=requiredMetrics.get("defect_rate");
 if(defectMetric && (defectMetric.unit!=="defects_per_accepted_delivery" || defectMetric.definition!=="defects_found / accepted_deliveries"))errors.push("defect_rate debe usar defectos por entrega aceptada y el denominador correcto");
-if(costMetric && costMetric.unit!==`${c.currency}_per_delivery`)errors.push("la unidad de coste debe coincidir con la moneda declarada y expresarse por entrega aceptada");
+
 if(!/model_cost.*infra_cost|infra_cost.*model_cost/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir coste de modelo e infraestructura");
 if(!/human/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir trabajo humano");
 if(!/expected_failure_cost/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir coste esperado de fallos");
 const costMetric=requiredMetrics.get("cost_per_accepted_delivery");
+if(costMetric && costMetric.unit!==`${c.currency}_per_delivery`)errors.push("la unidad de coste debe coincidir con la moneda declarada y expresarse por entrega aceptada");
 if(costMetric){
   const expectedDefinition="(model_cost + infra_cost + human_labor_cost + expected_failure_cost) / accepted_deliveries";
   if(costMetric.definition!==expectedDefinition)errors.push("la definición del coste por entrega debe usar la fórmula canónica y unidades coherentes");
