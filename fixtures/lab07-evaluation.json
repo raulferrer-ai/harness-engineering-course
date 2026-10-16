@@ -188,7 +188,7 @@
         "critical_failures": [],
         "missing_required_evidence": false,
         "expected": "APROBADO",
-        "case_id": "EV-01"
+        "case_id": "EV-03"
       },
       {
         "id": "DEC-05",
