@@ -31,3 +31,7 @@ El fixture deja la decisión por defecto en `blocked`. Solo puede recomendarse i
 ## Ejemplo resuelto
 
 Consulta [`docs/lab04-worked-example.md`](lab04-worked-example.md) para una implementación de práctica con casos de aceptación, checklist de revisión independiente y una decisión de integración explícitamente bloqueada hasta aportar evidencia real.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab04-worked-example.md`](lab04-worked-example.md) para un caso de cambio pequeño con contrato, pruebas positivas y negativas, revisión independiente y registro de decisión basado en evidencia.
