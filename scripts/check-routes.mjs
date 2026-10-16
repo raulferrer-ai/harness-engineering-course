@@ -38,10 +38,25 @@ if (htmlFiles.length === 0) {
 }
 
 const idCache = new Map();
-async function idsIn(file) {
+async function htmlAnchorsIn(file) {
   if (!idCache.has(file)) {
-    const html = await readFile(file, "utf8");
-    idCache.set(file, new Set([...html.matchAll(/\bid\s*=\s*["']([^"']+)["']/g)].map(match => match[1])));
+    const html = (await readFile(file, "utf8"))
+      .replace(/<!--[\s\S]*?-->/g, "")
+      .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, "");
+    const ids = new Set();
+    const duplicates = new Set();
+    for (const tag of html.matchAll(/<[a-z][^>]*>/gi)) {
+      for (const match of tag[0].matchAll(/\b(id|name)\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s"'=<> \x60]+))/gi)) {
+        const value = match[2] ?? match[3] ?? match[4];
+        if (match[1].toLowerCase() === "id") {
+          if (ids.has(value)) duplicates.add(value);
+          ids.add(value);
+        } else {
+          ids.add(value);
+        }
+      }
+    }
+    idCache.set(file, { ids, duplicates });
   }
   return idCache.get(file);
 }
@@ -49,6 +64,8 @@ async function idsIn(file) {
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
   const sourcePath = browserPath(file);
+  const { duplicates } = await htmlAnchorsIn(file);
+  for (const id of duplicates) failures.push(sourcePath + ': duplicate HTML id "' + id + '"');
   const attributes = [...html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']*)["']/gi)];
 
   for (const match of attributes) {
@@ -79,7 +96,7 @@ for (const file of htmlFiles) {
     }
 
     if (resolved.fragment && target.endsWith(".html")) {
-      if (!(await idsIn(target)).has(resolved.fragment)) {
+      if (!(await htmlAnchorsIn(target)).ids.has(resolved.fragment)) {
         failures.push(`${sourcePath}: missing fragment "#${resolved.fragment}" in ${path.relative(outputDir, target)}`);
       }
     }
