@@ -37,7 +37,7 @@ function targetExists(raw, sourceFile) {
   const resolved = pathname ? (pathname.startsWith("/")
     ? path.resolve(root, "." + pathname)
     : path.resolve(path.dirname(sourceFile), pathname)) : sourceFile;
-  if (resolved !== root && !resolved.startsWith(root + path.sep)
+  if (resolved !== root && !resolved.startsWith(root + path.sep))
     return { exists: false, reason: "el enlace sale del repositorio" };
   const candidates = pathname ? [resolved, path.join(resolved, "index.md"), path.join(resolved, "index.html")] : [sourceFile];
   const target = candidates.find((candidate) => fs.existsSync(candidate) && fs.statSync(candidate).isFile());
