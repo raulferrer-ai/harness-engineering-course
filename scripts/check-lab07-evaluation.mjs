@@ -40,7 +40,8 @@ for(const v of vectors){
   if(!v.scores||typeof v.scores!=="object"||Array.isArray(v.scores))errors.push(v.id+": scores debe ser un objeto");
   const scoreEntries=rubric.map(r=>[r.dimension,v.scores?.[r.dimension]]);
   for(const dimension of Object.keys(v.scores??{}))if(!dimensions.has(dimension))errors.push(v.id+": dimensión de puntuación desconocida "+dimension);
-  const missing= v.missing_required_evidence===true || scoreEntries.some(([,score])=>typeof score!=="number"||score<0||score>4);
+  for (const [dimension, score] of scoreEntries) if (typeof score === "number" && (!Number.isInteger(score) || score < 0 || score > 4)) errors.push(v.id + ": puntuación para " + dimension + " debe ser un entero entre 0 y 4");
+  const missing= v.missing_required_evidence===true || scoreEntries.some(([,score])=>typeof score!=="number"||!Number.isInteger(score)||score<0||score>4);
   const aggregate=missing?null:rubric.reduce((sum,r)=>sum+r.weight*v.scores[r.dimension]/4*100,0);
   const critical=Array.isArray(v.critical_failures)&&v.critical_failures.length>0;
   const testCase=cases.find(item=>item.id===v.case_id);
