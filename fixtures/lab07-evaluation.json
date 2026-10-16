@@ -203,6 +203,20 @@
         "missing_required_evidence": false,
         "expected": "NO APROBADO",
         "case_id": "EV-01"
+      },
+      {
+        "id": "DEC-06",
+        "scores": {
+          "correctness": 3,
+          "evidence": 3,
+          "completeness": 4,
+          "constraint-following": 3,
+          "calibration": 3
+        },
+        "critical_failures": [],
+        "missing_required_evidence": false,
+        "expected": "APROBADO",
+        "case_id": "EV-03"
       }
     ]
   },
