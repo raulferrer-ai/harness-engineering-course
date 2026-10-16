@@ -23,7 +23,7 @@ No copies los umbrales a producción sin calibrarlos con datos reales, objetivos
 | SIG-04 | `unauthorized_action_count` | 5 min | > 0 | Contención inmediata y bloqueo de promoción |
 | SIG-05 | `cost_per_accepted_task` | 60 min | > 1,5 EUR | Limitar presupuesto y revisar reintentos y contexto |
 
-La señal SIG-04 es crítica: una acción no autorizada debe bloquear la promoción y activar el paso de recuperación REC-01. Una señal ausente o desconocida no se interpreta como estado saludable.
+La política de respuesta se declara por señal mediante `recovery_required`: SIG-01 a SIG-04 requieren un paso de recuperación definido y SIG-05 aplica control presupuestario sin paso de recuperación del servicio. La señal SIG-04 es crítica: una acción no autorizada debe bloquear la promoción y activar REC-01; el validador impide marcarla como exenta de recuperación. Una señal ausente o desconocida no se interpreta como estado saludable.
 
 ## 3. Eventos de auditoría
 
@@ -99,6 +99,6 @@ Entrega un runbook, matriz de señales, contrato de eventos, línea temporal del
 
 ## Relación con el fixture y el validador
 
-El fixture `fixtures/lab09-observability-recovery.json` y el validador `scripts/check-lab09-observability-recovery.mjs` comprueban estructura, umbrales básicos, políticas obligatorias y referencias entre elementos. Ejecuta `npm run check:lab09` para esa validación estructural. No crea alertas, no ejecuta rollback y no demuestra la recuperación de un sistema real.
+El fixture `fixtures/lab09-observability-recovery.json` y el validador `scripts/check-lab09-observability-recovery.mjs` comprueban estructura, umbrales básicos, políticas obligatorias, referencias entre elementos y correspondencia entre `recovery_required` y los pasos de recuperación definidos. Ejecuta `npm run check:lab09` para esa validación estructural. No crea alertas, no ejecuta rollback y no demuestra la recuperación de un sistema real.
 
 No marques el laboratorio como **Verificado** únicamente porque el sitio compile o el validador pase. La verificación requiere ejecución en el entorno documentado y evidencia revisada por una persona distinta.
