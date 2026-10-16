@@ -19,10 +19,13 @@ for(const x of data.trust_boundaries??[])for(const f of ["source","trust","rule"
 for(const x of data.threats??[]){
  if(!testIds.has(x.test_case_id))errors.push(x.id+": test_case_id debe referenciar una prueba existente");
  if(!Array.isArray(x.asset_ids)||x.asset_ids.length===0||x.asset_ids.some(id=>!assetIds.has(id)))errors.push(x.id+": asset_ids debe referenciar activos existentes");
+ if(Array.isArray(x.asset_ids)&&new Set(x.asset_ids).size!==x.asset_ids.length)errors.push(x.id+": asset_ids contiene referencias duplicadas");
  if(!Array.isArray(x.trust_boundary_ids)||x.trust_boundary_ids.length===0||x.trust_boundary_ids.some(id=>!boundaryIds.has(id)))errors.push(x.id+": trust_boundary_ids debe referenciar límites existentes");
+ if(Array.isArray(x.trust_boundary_ids)&&new Set(x.trust_boundary_ids).size!==x.trust_boundary_ids.length)errors.push(x.id+": trust_boundary_ids contiene referencias duplicadas");
 }
 for(const x of data.test_cases??[]){
  if(!Array.isArray(x.threat_ids)||x.threat_ids.length===0||x.threat_ids.some(id=>!threatIds.has(id)))errors.push(x.id+": threat_ids debe referenciar amenazas existentes");
+ if(Array.isArray(x.threat_ids)&&new Set(x.threat_ids).size!==x.threat_ids.length)errors.push(x.id+": threat_ids contiene referencias duplicadas");
 }
 const testById=new Map((data.test_cases??[]).map(x=>[x.id,x]));
 for(const t of data.threats??[]){const linked=testById.get(t.test_case_id);if(linked&&!linked.threat_ids?.includes(t.id))errors.push(t.id+": el caso vinculado no referencia de vuelta esta amenaza");}
