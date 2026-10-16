@@ -19,6 +19,11 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 - [Arquitectura y criterios de entrega](docs/architecture.md)
 - [Registro del reinicio del repositorio](docs/RESET-RECORD.md)
 
+## Ejemplos prácticos
+
+- [Índice de ejemplos resueltos de LAB-01 a LAB-10](docs/worked-examples-index.md)
+- [Proyecto transversal: rúbrica y defensa](docs/transversal-project-rubric.md)
+
 ## Desarrollo y verificación
 
 Instala las dependencias y ejecuta los controles:
