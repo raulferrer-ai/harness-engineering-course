@@ -22,5 +22,9 @@ for(const f of ["steps","critical_failure_policy","missing_data_policy","limitat
 if(data.scoring_protocol?.aggregate_formula!=="sum(weight * score / 4) * 100")errors.push("fórmula agregada ausente o no reconocida");
 if(!/fallo crítico/i.test(data.scoring_protocol?.critical_failure_policy??""))errors.push("la política debe declarar el tratamiento de fallos críticos");
 if(!/no imputar/i.test(data.scoring_protocol?.missing_data_policy??""))errors.push("la política de datos ausentes debe prohibir imputaciones");
+if(typeof data.scoring_protocol?.pass_threshold_percent!=="number"||data.scoring_protocol.pass_threshold_percent<0||data.scoring_protocol.pass_threshold_percent>100)errors.push("umbral de aprobación debe estar entre 0 y 100");
+if(typeof data.scoring_protocol?.minimum_dimension_score!=="number"||data.scoring_protocol.minimum_dimension_score<0||data.scoring_protocol.minimum_dimension_score>4)errors.push("mínimo por dimensión debe estar entre 0 y 4");
+if(!Array.isArray(data.scoring_protocol?.decision_rule)||data.scoring_protocol.decision_rule.length<3)errors.push("falta regla de decisión completa");
+if(!/revisión humana/i.test(data.scoring_protocol?.threshold_status??""))errors.push("el estado del umbral debe indicar revisión humana");
 if(errors.length){for(const e of errors)console.error("LAB-07 evaluation: "+e);process.exit(1);}
 console.log("LAB-07 fixture OK: "+rubric.length+" dimensiones, "+cases.length+" casos y protocolo de puntuación.");
