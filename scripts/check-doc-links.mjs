@@ -43,17 +43,20 @@ const linkPattern = /!?\[[^\]]*\]\(\s*(?:<([^>]+)>|([^\s)]+))(?:\s+[^)]*)?\)/g;
 for (const file of markdownFiles) {
   const source = fs.readFileSync(file, "utf8");
   const referenceDefinitions = new Map();
-  const withoutCode = source.replace(/```[\\s\\S]*?```|~~~[\\s\\S]*?~~~/g, "");
-  for (const match of withoutCode.matchAll(/^\\s{0,3}\\[([^\\]]+)\\]:\\s*<?([^\\s>]+)>?/gm)) {
+  const withoutCode = source.replace(/\x60\x60\x60[\s\S]*?\x60\x60\x60|~~~[\s\S]*?~~~/g, "");
+  for (const match of withoutCode.matchAll(/^\s{0,3}\[([^\]]+)\]:\s*<?([^\s>]+)>?/gm)) {
     referenceDefinitions.set(match[1].trim().toLowerCase(), match[2].trim());
   }
-  const referenceUses = /(?<!!)\\[([^\\]]+)\\](?:\\[([^\\]]*)\\])?/g;
+  const referenceUses = /(?<!!)\[([^\]]+)\](?:\[([^\]]*)\])?/g;
   for (const match of withoutCode.matchAll(referenceUses)) {
-    if (match[0].startsWith("[")) continue;
+    const lineStart = withoutCode.lastIndexOf("\n", match.index - 1) + 1;
+    const nextLine = withoutCode.indexOf("\n", match.index);
+    const line = withoutCode.slice(lineStart, nextLine < 0 ? undefined : nextLine);
+    if (/^\s{0,3}\[[^\]]+\]:/.test(line)) continue;
     const label = (match[2] || match[1]).trim().toLowerCase();
     const raw = referenceDefinitions.get(label);
     if (!raw) {
-      errors.push(`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${match[2]}]".`);
+      errors.push(\`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${label}]".\`);
       continue;
     }
     if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(raw)) continue;
@@ -62,7 +65,7 @@ for (const file of markdownFiles) {
     if (!result.exists) {
       const from = path.relative(root, file);
       const to = result.resolved ? path.relative(root, result.resolved) : raw;
-      errors.push(`${from}: enlace local no encontrado "${raw}" (destino: ${to})`);
+      errors.push(\`${from}: enlace local no encontrado "${raw}" (destino: ${to})\`);
     }
   }
   for (const match of source.matchAll(linkPattern)) {
