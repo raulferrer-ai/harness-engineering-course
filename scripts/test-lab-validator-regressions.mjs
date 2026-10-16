@@ -141,4 +141,4 @@ if (failures) {
   console.error(`Validator regression suite failed: ${failures} failure(s).`);
   process.exit(1);
 }
-console.log("Validator regression suite OK: 10 canonical fixtures accepted; 21 invalid mutations rejected for the expected reason.");
+console.log("Validator regression suite OK: 10 canonical fixtures accepted; 30 invalid mutations rejected for the expected reason.");
