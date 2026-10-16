@@ -1,0 +1,116 @@
+---
+layout: layouts/base.njk
+title: Harness engineering y control de ejecución
+description: "Módulo M06: convierte las reglas de trabajo de un agente en controles ejecutables, observables y verificables."
+permalink: modulos/harness-y-control-de-ejecucion/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M06 · HARNESS ENGINEERING</p>
+    <h1>Harness engineering y control de ejecución</h1>
+    <p class="hero-lede">Un buen prompt no es una frontera de seguridad suficiente. El harness es la capa de software que rodea al modelo: valida entradas y salidas, aplica permisos, limita recursos, ejecuta verificaciones y registra qué ocurrió.</p>
+    <div class="module-meta"><span>12 horas planificadas</span><span>4 h de fundamentos · 8 h de laboratorio</span><span>LAB-06</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Explicar qué controles deben residir fuera del modelo y por qué las instrucciones por sí solas no garantizan cumplimiento.</li>
+      <li>Diseñar una capa de ejecución con validación, autorización, límites de recursos y condiciones de parada.</li>
+      <li>Aplicar controles deterministas a llamadas de herramientas, cambios de archivos y comandos.</li>
+      <li>Registrar eventos suficientes para reconstruir una ejecución y diagnosticar fallos sin exponer secretos.</li>
+      <li>Probar el harness con entradas adversariales, errores de herramientas y salidas que incumplen el contrato.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="fundamentos">
+    <div class="section-heading"><div><p class="eyebrow">FUNDAMENTOS</p><h2 id="fundamentos">El modelo propone; el harness impone los límites</h2></div></div>
+    <p>El modelo puede proponer una acción, argumentos o un plan. El harness decide si esa acción está permitida, valida su forma, aplica límites y determina cómo se ejecuta. La separación evita que un texto persuasivo o una salida malformada se convierta directamente en un efecto no autorizado.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Validación determinista</h3><p>Comprueba esquemas, tipos, rutas, comandos y condiciones previas antes de aceptar una acción. Rechaza por defecto las operaciones que no se pueden validar.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Autorización por política</h3><p>Aplica permisos fuera del contexto generado por el modelo. Limita el acceso a archivos, red, credenciales y herramientas según la tarea y el entorno.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Ejecución observable</h3><p>Registra decisiones, acciones, resultados, errores y uso de recursos con identificadores correlacionables, sin almacenar secretos ni contenido sensible innecesario.</p></div></section>
+    </div>
+    <p>Un harness robusto utiliza varias capas: instrucciones claras, validación de entradas, aislamiento, permisos mínimos, aprobación humana para acciones de impacto y verificación posterior. Ninguna capa aislada cubre todos los fallos.</p>
+  </section>
+
+  <section class="section" aria-labelledby="controles">
+    <div class="section-heading"><div><p class="eyebrow">ARQUITECTURA</p><h2 id="controles">Controles antes, durante y después de la acción</h2></div></div>
+    <ul>
+      <li><strong>Antes:</strong> autenticar el llamante, validar el encargo, comprobar permisos y resolver el alcance de la operación.</li>
+      <li><strong>Durante:</strong> ejecutar en un entorno aislado, restringir recursos y red, aplicar límites de tiempo y pasos, y controlar cancelación y reintentos.</li>
+      <li><strong>Después:</strong> validar el resultado, ejecutar pruebas, comparar el estado real con el esperado y conservar evidencia auditable.</li>
+      <li><strong>En caso de error:</strong> detener acciones dependientes, devolver un error explícito, conservar el estado conocido y aplicar una recuperación definida.</li>
+    </ul>
+    <p>Las listas de comandos permitidos y las validaciones estructurales son preferibles a bloquear cadenas sospechosas mediante expresiones superficiales. Para operaciones de alto impacto, la autorización debe comprobarse en el punto de ejecución y no solo en la interfaz.</p>
+  </section>
+
+  <section class="section" aria-labelledby="observabilidad">
+    <div class="section-heading"><div><p class="eyebrow">OBSERVABILIDAD</p><h2 id="observabilidad">Una traza útil sin filtrar información</h2></div></div>
+    <p>Una traza operativa debe permitir responder: qué tarea se ejecutó, qué política se aplicó, qué herramienta se invocó, si fue autorizada, cuánto tardó, cómo terminó y qué verificación se realizó. Usa identificadores de ejecución, marcas de tiempo, códigos de resultado y métricas de recursos cuando estén disponibles.</p>
+    <p>No registres tokens, contraseñas, claves API ni datos personales por defecto. Redacta campos sensibles, limita la retención y restringe el acceso a los registros. La observabilidad también debe diseñarse con un modelo de amenazas.</p>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-06 · 8 HORAS</p><h2 id="lab">Construir un harness mínimo verificable</h2></div><p class="section-intro">Implementa una capa de control para un agente simulado y demuestra que las políticas se aplican incluso cuando la propuesta del modelo es inválida o maliciosa.</p></div>
+
+    <h3>Escenario</h3>
+    <p>Usa un proyecto local de ejemplo. El agente puede proponer leer archivos de una carpeta de trabajo, generar un diff y ejecutar una lista limitada de pruebas. El harness debe impedir accesos fuera del directorio autorizado, comandos no permitidos y cambios sin aprobación. No conectes el laboratorio a producción ni uses credenciales reales.</p>
+
+    <h3>Diseño del contrato</h3>
+    <ol>
+      <li>Define un formato estructurado de acción: tipo, argumentos, objetivo, motivo y nivel de riesgo.</li>
+      <li>Especifica una política de autorización separada de las instrucciones del modelo.</li>
+      <li>Define una lista pequeña de operaciones admitidas, esquemas estrictos, límites de tamaño y condiciones de rechazo.</li>
+      <li>Establece un directorio temporal de trabajo, un presupuesto de tiempo y un número máximo de acciones.</li>
+      <li>Diseña una traza con ID de ejecución, decisión de política, resultado, duración y verificación posterior; excluye secretos.</li>
+    </ol>
+
+    <h3>Implementación y pruebas</h3>
+    <ol>
+      <li>Implementa el validador de acciones y la comprobación de permisos como funciones deterministas.</li>
+      <li>Añade una herramienta simulada de lectura, una generación de diff y una ejecución restringida de pruebas.</li>
+      <li>Prueba una acción válida, una ruta fuera del directorio permitido, un tipo de acción desconocido y argumentos malformados.</li>
+      <li>Intenta una operación no permitida y comprueba que el rechazo ocurre antes de ejecutar cualquier efecto.</li>
+      <li>Simula agotamiento del tiempo o del límite de acciones y verifica que el ciclo se detiene limpiamente.</li>
+      <li>Genera una salida que contenga una cadena ficticia con apariencia de secreto y verifica que la política de registro la redacta.</li>
+      <li>Comprueba el estado final por una vía independiente y conserva los resultados de las pruebas.</li>
+    </ol>
+
+    <h3>Entregables</h3>
+    <ul>
+      <li>Diagrama o descripción del flujo entre modelo, política, herramientas y verificación.</li>
+      <li>Esquema de acción, política de permisos y configuración de límites.</li>
+      <li>Código del harness y herramientas simuladas, con instrucciones de reproducción.</li>
+      <li>Pruebas de aceptación y negativas con resultados observados.</li>
+      <li>Ejemplo de traza redactada y breve explicación de los campos.</li>
+      <li>Análisis de limitaciones, amenazas no cubiertas y mejoras antes de un uso real.</li>
+    </ul>
+
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>Las acciones se validan y autorizan fuera del modelo antes de cualquier efecto.</li>
+      <li>Las rutas y herramientas quedan restringidas al alcance declarado.</li>
+      <li>Las acciones desconocidas, malformadas o no autorizadas se rechazan de forma segura.</li>
+      <li>Los límites de tiempo o pasos producen una parada observable y no dejan el ciclo ejecutándose indefinidamente.</li>
+      <li>Los registros permiten reconstruir la secuencia sin exponer secretos ficticios de prueba.</li>
+      <li>Las pruebas verifican el estado real del entorno, no solo el mensaje devuelto por el agente.</li>
+    </ul>
+
+    <h3>Preguntas de análisis</h3>
+    <ol>
+      <li>¿Qué política no debería delegarse nunca al texto generado por el modelo?</li>
+      <li>¿Qué ocurre si la interfaz valida una acción, pero la herramienta no vuelve a comprobar los permisos?</li>
+      <li>¿Qué datos de la traza son imprescindibles para depurar y cuáles podrían ser sensibles?</li>
+      <li>¿Qué controles adicionales exigirías para habilitar acceso a red o cambios persistentes?</li>
+    </ol>
+  </section>
+
+  <section class="closing-band" aria-labelledby="salida">
+    <p class="eyebrow">ENTREGABLE</p>
+    <h2 id="salida">Las políticas se convierten en garantías mediante controles ejecutables.</h2>
+    <p>Entrega un harness pequeño, pruebas adversariales, una traza redactada y evidencia de que los límites se aplican antes de los efectos.</p>
+    <a class="text-link" href="/#programa">Volver al programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
