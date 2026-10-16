@@ -10,6 +10,20 @@ for(const [f,min] of [["assets",3],["trust_boundaries",3],["threats",5],["test_c
  if(["assets","trust_boundaries","threats","test_cases","acceptance_criteria"].includes(f))unique(data[f],f);
 }
 for(const x of data.threats??[])for(const f of ["scenario","control","expected"])if(!ok(x[f]))errors.push(x.id+": falta "+f);
+const assetIds=new Set((data.assets??[]).map(x=>x.id));
+const boundaryIds=new Set((data.trust_boundaries??[]).map(x=>x.id));
+const testIds=new Set((data.test_cases??[]).map(x=>x.id));
+const threatIds=new Set((data.threats??[]).map(x=>x.id));
+for(const x of data.assets??[])if(!ok(x.name)||!ok(x.impact))errors.push(x.id+": activo sin nombre o impacto");
+for(const x of data.trust_boundaries??[])for(const f of ["source","trust","rule"])if(!ok(x[f]))errors.push(x.id+": límite de confianza sin "+f);
+for(const x of data.threats??[]){
+ if(!testIds.has(x.test_case_id))errors.push(x.id+": test_case_id debe referenciar una prueba existente");
+ if(!Array.isArray(x.asset_ids)||x.asset_ids.length===0||x.asset_ids.some(id=>!assetIds.has(id)))errors.push(x.id+": asset_ids debe referenciar activos existentes");
+ if(!Array.isArray(x.trust_boundary_ids)||x.trust_boundary_ids.length===0||x.trust_boundary_ids.some(id=>!boundaryIds.has(id)))errors.push(x.id+": trust_boundary_ids debe referenciar límites existentes");
+}
+for(const x of data.test_cases??[]){
+ if(!Array.isArray(x.threat_ids)||x.threat_ids.length===0||x.threat_ids.some(id=>!threatIds.has(id)))errors.push(x.id+": threat_ids debe referenciar amenazas existentes");
+}
 for(const x of data.test_cases??[])for(const f of ["input","expected"])if(!ok(x[f]))errors.push(x.id+": falta "+f);
 for(const x of data.acceptance_criteria??[])for(const f of ["condition","evidence","verification"])if(!ok(x[f]))errors.push(x.id+": falta "+f);
 if(errors.length){for(const e of errors)console.error("LAB-08 security: "+e);process.exit(1);}
