@@ -42,6 +42,9 @@ for (const s of signals) {
   if (s.threshold?.operator === "lte" && s.threshold.value < 0) errors.push(`${s.id}: umbral lte no puede ser negativo`);
   if (s.name === "unauthorized_action_count" && (s.threshold?.operator !== "gt" || s.threshold.value !== 0)) errors.push("las acciones no autorizadas deben disparar con conteo > 0");
   if (/rate$/.test(s.name) && (s.threshold?.value < 0 || s.threshold?.value > 1)) errors.push(`${s.id}: una tasa debe expresarse entre 0 y 1`);
+  if (s.name === "p95_latency_ms" && s.unit !== "milliseconds") errors.push(`${s.id}: p95_latency_ms debe usar milliseconds`);
+  if (s.name === "cost_per_accepted_task" && !/currency/i.test(s.unit)) errors.push(`${s.id}: cost_per_accepted_task debe declarar unidad monetaria por tarea`);
+  if (s.name === "unauthorized_action_count" && s.unit !== "count") errors.push(`${s.id}: unauthorized_action_count debe usar count`);
 }
 const requiredPolicy = {
   unknown_signal: "do_not_assume_healthy",
@@ -59,6 +62,9 @@ if (criteria.length < 5) errors.push("se requieren al menos cinco criterios");
 for (const c of criteria) for (const field of ["condition","evidence","verification"]) if (!nonempty(c[field])) errors.push(`${c.id}: falta ${field}`);
 if (!Array.isArray(data.audit_fields) || !["incident_id","source_revision","decision","timestamp"].every(x => data.audit_fields.includes(x))) errors.push("registro de auditoría insuficiente");
 if (data.policy?.promotion_on_critical_security_signal !== "block" || data.policy?.redact_secrets !== true) errors.push("faltan salvaguardas críticas");
+if (data.policy?.unknown_signal !== "do_not_assume_healthy") errors.push("una señal ausente no debe interpretarse como estado saludable");
+if (data.policy?.rollback_target !== "immutable_revision_and_artifact") errors.push("el rollback debe identificar revisión y artefacto inmutables");
+if (data.policy?.recovery_complete_requires !== "service_health_and_regression_checks") errors.push("la recuperación requiere salud del servicio y pruebas de regresión");
 if (!Array.isArray(data.limitations) || data.limitations.length < 2) errors.push("faltan limitaciones explícitas");
 if (errors.length) {
   for (const error of errors) console.error(`LAB-09 observability/recovery: ${error}`);
