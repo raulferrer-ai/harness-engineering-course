@@ -82,6 +82,7 @@ const labs = [
     validator: "scripts/check-lab09-observability-recovery.mjs",
     cases: [
       ["invalid signal threshold", d => { d.signals[0].threshold.value = "unknown"; }, /umbral inválido/],
+      ["rate outside valid range", d => { const signal = d.signals.find(s => /rate$/.test(s.name)); signal.threshold.value = 1.5; }, /una tasa debe expresarse entre 0 y 1/],
       ["duplicate signal ID", d => { d.signals[1].id = d.signals[0].id; }, /ID vacío o duplicado/],
       ["unknown recovery trigger", d => { d.recovery_steps[0].trigger = "SIG-999"; }, /trigger desconocido/]
     ]
