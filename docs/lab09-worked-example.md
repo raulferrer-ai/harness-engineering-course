@@ -1,81 +1,104 @@
-# LAB-09 — Ejemplo resuelto: señal, contención, rollback y verificación
+# LAB-09 — Ejemplo resuelto: observabilidad y recuperación verificable
 
-Los identificadores, métricas y resultados de este ejemplo son **sintéticos**. No son SLO reales ni evidencia de un despliegue ejecutado.
+Este escenario es sintético. No describe un incidente real ni demuestra que un despliegue haya sido recuperado. Los identificadores, umbrales y relaciones del fixture `fixtures/lab09-observability-recovery.json` son la fuente de verdad para este ejemplo.
 
-## 1. Escenario
+## 1. Servicio y línea base
 
-Tras desplegar la revisión `r42`, un servicio de procesamiento presenta un aumento de errores. El objetivo del ejercicio es decidir si se detiene la promoción, contener el incidente y verificar una recuperación segura.
+| Campo | Valor del fixture |
+|---|---|
+| Servicio | `assistant-service-demo` |
+| Entorno | `staging` |
+| Línea base | `baseline-v1` |
+| Estado de los datos | Ejercicio didáctico pendiente de revisión humana |
 
-### Señales operativas de ejemplo
+No copies los umbrales a producción sin calibrarlos con datos reales, objetivos de servicio aprobados y análisis de impacto.
 
-| Señal | Ventana | Umbral ilustrativo | Acción |
-|---|---|---|---|
-| Tasa de errores | 5 min | > 2 % | Detener promoción y abrir incidente |
-| Latencia p95 | 10 min | > 800 ms | Comparar con línea base y revisar saturación |
-| Integridad de tareas | Por lote | Cualquier discrepancia | Bloqueo inmediato; reconciliación antes de reanudar |
-| Errores de autorización | 5 min | Cualquier evento confirmado | Contener la ruta afectada e investigar |
-| Telemetría sensible | Por evento | Cualquier secreto detectado | Restringir acceso, sanear logs y rotar secreto si procede |
+## 2. Señales y respuesta operativa
 
-Estos umbrales solo sirven para el ejercicio. En producción deben derivarse de una línea base, objetivos de servicio aprobados y análisis de impacto.
+| ID | Señal | Ventana | Umbral | Acción definida |
+|---|---|---:|---|---|
+| SIG-01 | `task_success_rate` | 15 min | < 0,95 | Pausar promoción y comparar con la línea base |
+| SIG-02 | `tool_error_rate` | 10 min | > 0,05 | Deshabilitar la herramienta afectada y abrir incidente |
+| SIG-03 | `p95_latency_ms` | 15 min | > 5.000 ms | Limitar tráfico y revisar trazas por etapa |
+| SIG-04 | `unauthorized_action_count` | 5 min | > 0 | Contención inmediata y bloqueo de promoción |
+| SIG-05 | `cost_per_accepted_task` | 60 min | > 1,5 EUR | Limitar presupuesto y revisar reintentos y contexto |
 
-## 2. Línea temporal simulada
+La señal SIG-04 es crítica: una acción no autorizada debe bloquear la promoción y activar el paso de recuperación REC-01. Una señal ausente o desconocida no se interpreta como estado saludable.
 
-| Hora | Evento | Evidencia | Decisión |
-|---|---|---|---|
-| 10:00 | Se promueve r42 a staging | Registro de release ligado a r42 | Observar |
-| 10:03 | Errores alcanzan 3,1 % durante 5 min | Métrica de ejemplo | Bloquear promoción |
-| 10:05 | Se confirma que el fallo coincide con r42 | Comparación con r41 en entorno equivalente | Autorizar rollback en staging |
-| 10:08 | Se restaura r41 | Digest del artefacto y registro de operación | No reabrir todavía |
-| 10:12 | Errores bajan a 0,4 %, latencia normal | Ventana de observación y prueba de regresión | Continuar verificación |
-| 10:20 | Reconciliación de tareas sin discrepancias | Informe sintético de conteos y claves | Cerrar ejercicio con limitaciones anotadas |
+## 3. Eventos de auditoría
 
-La secuencia ilustra el procedimiento; no demuestra que un sistema real se haya recuperado.
+Los eventos definidos en el fixture son:
 
-## 3. Runbook de contención
-
-1. **Detectar:** conservar la señal, ventana, versión y enlace al evento.
-2. **Contener:** detener nuevas promociones; no borrar logs ni reintentar operaciones potencialmente no idempotentes.
-3. **Evaluar impacto:** identificar tareas en vuelo, escrituras parciales y usuarios afectados sin volcar datos personales innecesarios.
-4. **Revertir:** seleccionar un artefacto inmutable conocido, verificar su digest y registrar quién autorizó la operación.
-5. **Comprobar:** ejecutar smoke tests, pruebas de regresión, reconciliación de tareas y comprobaciones de seguridad.
-6. **Reabrir:** exigir que las señales permanezcan dentro de umbrales durante la ventana aprobada y que el responsable autorice la promoción.
-7. **Aprender:** registrar causa raíz confirmada o pendiente, factores contribuyentes, acciones y responsables.
-
-## 4. Contrato de recuperación
-
-La recuperación solo se declara cuando se cumple todo lo siguiente:
-
-- [ ] La revisión y el digest del artefacto activo coinciden con el objetivo del rollback.
-- [ ] Los checks de salud y las pruebas de regresión requeridas pasan.
-- [ ] No hay discrepancias de integridad en el trabajo procesado.
-- [ ] Las métricas permanecen dentro de umbrales durante la ventana definida.
-- [ ] No quedan tareas críticas en estado desconocido.
-- [ ] Se han saneado logs sensibles y se han evaluado posibles exposiciones.
-- [ ] La decisión de reabrir está registrada con responsable y hora.
-
-Si no puede verificarse la integridad de datos, el servicio puede estar disponible pero la recuperación sigue **incompleta**.
-
-## 5. Pruebas de fallo
-
-| ID | Inyección controlada en entorno desechable | Resultado esperado |
+| ID | Evento | Datos que permiten verificar |
 |---|---|---|
-| REC-01 | Aumentar artificialmente la tasa de errores | Gate bloquea promoción dentro de la ventana |
-| REC-02 | Hacer que una prueba de regresión falle | No se reabre la promoción |
-| REC-03 | Simular digest de rollback distinto | Operación bloqueada |
-| REC-04 | Introducir discrepancia en un lote sintético | Recuperación incompleta hasta reconciliar |
-| REC-05 | Incluir un token señuelo en telemetría | Alerta, acceso restringido y sanitización |
-| REC-06 | Reiniciar servicio sin restaurar integridad | No se declara recuperación completa |
+| EVT-01 | `run_started` | Ejecución, timestamp, revisión de origen y entorno |
+| EVT-02 | `model_call_completed` | Versión de modelo, latencia, unidades de entrada/salida y estado |
+| EVT-03 | `tool_invocation` | Herramienta, decisión, duración y resultado |
+| EVT-04 | `evaluation_completed` | Versión de suite, puntuación, casos fallidos y decisión |
+| EVT-05 | `recovery_action` | Incidente, acción, actor, timestamp y resultado |
 
-No inyectes fallos en producción para este laboratorio. Usa staging o un entorno aislado, fixtures sintéticas y controles para evitar efectos externos.
+Correlaciona los eventos con `run_id` y conserva los campos de auditoría definidos en el fixture. No registres tokens, secretos ni payloads personales completos; usa datos sintéticos y redacta cualquier marcador sensible antes de compartir evidencias.
 
-## 6. Registro mínimo del incidente
+## 4. Procedimiento de recuperación
 
-Cada evento debe incluir timestamp UTC, identificador de incidente, revisión, entorno, nombre de señal, valor y unidad, ventana, umbral, acción, resultado, referencia de evidencia y responsable. No incluyas tokens, secretos ni payloads personales completos. Para correlación, usa identificadores seudónimos y controles de acceso.
+Sigue los cuatro pasos de recuperación del fixture. No cambies sus IDs por IDs de pruebas ni los presentes como si fueran la misma entidad.
 
-## 7. Entregable del alumno
+| Paso | Disparador | Acción | Verificación y condición de reversión |
+|---|---|---|---|
+| REC-01 | SIG-04 | Bloquear promoción y revocar la capacidad o credencial afectada | No hay nuevas acciones no autorizadas en pruebas sintéticas. Restaurar permisos solo tras revisión y autorización explícita |
+| REC-02 | SIG-01 | Detener promoción, comparar con `baseline-v1` y aislar el fallo | La suite de regresión vuelve al umbral acordado; revertir a revisión y artefacto identificados |
+| REC-03 | SIG-02 | Desactivar la herramienta fallida y pasar a modo degradado seguro | Las tareas restantes funcionan sin esa herramienta; rehabilitar tras prueba controlada y aprobación |
+| REC-04 | SIG-03 | Reducir concurrencia o tráfico y revisar latencia por etapa | La latencia p95 vuelve al umbral durante dos ventanas consecutivas; retirar el límite gradualmente tras observar estabilidad |
 
-Presenta un diagrama de estados (normal → degradado → contenido → rollback → verificación → recuperado), runbook, línea temporal con evidencias, resultados de REC-01 a REC-06, criterios de reapertura, riesgo residual y revisión posterior al incidente.
+Para el rollback, registra revisión inmutable y digest del artefacto. Un tag mutable o un artefacto no identificado no son un objetivo de recuperación válido.
 
-## Relación con el validador
+## 5. Escenarios de validación
 
-Complementa `fixtures/lab09-observability-recovery.json` y `scripts/check-lab09-observability-recovery.mjs`. Ejecuta `npm run check:lab09` para validar estructura y referencias; esta comprobación no crea alertas ni ejecuta un rollback real.
+Los seis escenarios `OPS-T01`–`OPS-T06` del fixture deben cubrirse en un entorno aislado:
+
+| Caso | Entrada controlada | Resultado esperado |
+|---|---|---|
+| OPS-T01 | La tasa de éxito cae por debajo del umbral durante la ventana definida | Se pausa la promoción, se registra evidencia y se compara con la línea base |
+| OPS-T02 | Se detecta una acción no autorizada | Bloqueo inmediato, incidente y verificación de ausencia de nuevos efectos |
+| OPS-T03 | Los logs incluyen un token señuelo | Se redacta el dato, se limita el acceso y no se replica el secreto en informes |
+| OPS-T04 | El rollback apunta a un tag mutable o artefacto no identificado | La recuperación se bloquea hasta identificar revisión y artefacto inmutables |
+| OPS-T05 | Una métrica se dispara por una muestra incompleta | Se aplica la ventana y la política de calidad de datos; una señal ausente no se inventa |
+| OPS-T06 | El servicio responde tras rollback, pero falla la regresión | El servicio permanece en modo seguro y no se declara recuperación completa |
+
+No inyectes fallos en producción para este laboratorio. Utiliza staging o un entorno desechable, datos sintéticos y controles que impidan efectos externos.
+
+## 6. Contrato de recuperación
+
+La recuperación solo puede declararse completa cuando se cumplen todos estos criterios:
+
+- [ ] La revisión activa y el digest coinciden con el objetivo del rollback.
+- [ ] Las comprobaciones de salud y la suite de regresión pasan.
+- [ ] No quedan discrepancias de integridad ni tareas críticas en estado desconocido.
+- [ ] Las señales están dentro de sus umbrales durante las ventanas definidas.
+- [ ] Los logs sensibles se han saneado y se ha evaluado cualquier exposición.
+- [ ] La decisión de reabrir está registrada con responsable, hora y evidencia.
+
+Si el servicio responde, pero la regresión falla, el estado sigue siendo **recuperación incompleta**.
+
+## 7. Criterios de aceptación y evidencia
+
+| Criterio | Evidencia del fixture | Qué debe comprobarse |
+|---|---|---|
+| AC-01 — Señales accionables | SIG-01 a SIG-05 | Unidad, ventana, umbral y acción |
+| AC-02 — Correlación de eventos | EVT-01 a EVT-05 | Campos obligatorios y correlación por ejecución |
+| AC-03 — Contención de seguridad | OPS-T02 y REC-01 | Ensayo sintético y ausencia de nuevas acciones no autorizadas |
+| AC-04 — Rollback verificable | OPS-T04 y OPS-T06 | Revisión y artefacto inmutables, regresión posterior |
+| AC-05 — Telemetría segura | OPS-T03 | Redacción de marcadores sintéticos de secretos |
+| AC-06 — Recuperación completa | REC-01 a REC-04 y OPS-T06 | Métricas, salud del servicio y suite de regresión |
+
+Por cada ejecución conserva timestamp UTC, ID de incidente, revisión, entorno, señal, valor y unidad, ventana, umbral, decisión, acción, resultado, responsable y referencia de evidencia. Registra cada escenario como **APROBADO**, **NO APROBADO**, **INCONCLUSO** o **NO EJECUTADO**.
+
+## 8. Entregable del alumno
+
+Entrega un runbook, matriz de señales, contrato de eventos, línea temporal del incidente, resultados de OPS-T01 a OPS-T06, evidencias sanitizadas, decisión de recuperación y riesgos residuales. Distingue los casos diseñados de los realmente ejecutados.
+
+## Relación con el fixture y el validador
+
+El fixture `fixtures/lab09-observability-recovery.json` y el validador `scripts/check-lab09-observability-recovery.mjs` comprueban estructura, umbrales básicos, políticas obligatorias y referencias entre elementos. Ejecuta `npm run check:lab09` para esa validación estructural. No crea alertas, no ejecuta rollback y no demuestra la recuperación de un sistema real.
+
+No marques el laboratorio como **Verificado** únicamente porque el sitio compile o el validador pase. La verificación requiere ejecución en el entorno documentado y evidencia revisada por una persona distinta.
