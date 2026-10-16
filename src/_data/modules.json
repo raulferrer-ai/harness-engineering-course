@@ -1,0 +1,102 @@
+[
+  {
+    "id": "M01",
+    "slug": "modelos-capacidades-limites",
+    "title": "Modelos, capacidades y límites",
+    "hours": 8,
+    "labId": "LAB-01",
+    "description": "Caracteriza las capacidades y los límites de los modelos con experimentos observables.",
+    "fundamentalsHours": 4,
+    "labHours": 4
+  },
+  {
+    "id": "M02",
+    "slug": "especificacion-y-diseno",
+    "title": "Especificación de tareas y diseño",
+    "hours": 10,
+    "labId": "LAB-02",
+    "description": "Convierte un incidente ambiguo en una especificación verificable.",
+    "fundamentalsHours": 4,
+    "labHours": 6
+  },
+  {
+    "id": "M03",
+    "slug": "ingenieria-de-contexto",
+    "title": "Ingeniería de contexto",
+    "hours": 10,
+    "labId": "LAB-03",
+    "description": "Compara estrategias de contexto y mide cómo afectan al resultado.",
+    "fundamentalsHours": 4,
+    "labHours": 6
+  },
+  {
+    "id": "M04",
+    "slug": "desarrollo-asistido-y-revision",
+    "title": "Desarrollo asistido por IA y revisión de código",
+    "hours": 12,
+    "labId": "LAB-04",
+    "description": "Integra cambios asistidos por IA con revisión independiente y evidencia.",
+    "fundamentalsHours": 4,
+    "labHours": 8
+  },
+  {
+    "id": "M05",
+    "slug": "agentes-herramientas-delegacion",
+    "title": "Agentes, herramientas y delegación",
+    "hours": 12,
+    "labId": "LAB-05",
+    "description": "Diseña agentes con herramientas, límites explícitos y control de efectos.",
+    "fundamentalsHours": 4,
+    "labHours": 8
+  },
+  {
+    "id": "M06",
+    "slug": "harness-y-control-de-ejecucion",
+    "title": "Harness engineering y control de ejecución",
+    "hours": 12,
+    "labId": "LAB-06",
+    "description": "Traduce políticas de ejecución en controles y verificaciones ejecutables.",
+    "fundamentalsHours": 4,
+    "labHours": 8
+  },
+  {
+    "id": "M07",
+    "slug": "testing-evals-verificacion",
+    "title": "Testing, evals y verificación",
+    "hours": 12,
+    "labId": "LAB-07",
+    "description": "Construye pruebas y evaluaciones que detectan regresiones y fallos.",
+    "fundamentalsHours": 4,
+    "labHours": 8
+  },
+  {
+    "id": "M08",
+    "slug": "seguridad-y-riesgos",
+    "title": "Seguridad y gestión de riesgos",
+    "hours": 10,
+    "labId": "LAB-08",
+    "description": "Analiza amenazas y valida defensas mediante pruebas adversariales.",
+    "fundamentalsHours": 4,
+    "labHours": 6
+  },
+  {
+    "id": "M09",
+    "slug": "cicd-observabilidad-mantenimiento",
+    "title": "CI/CD, observabilidad y mantenimiento",
+    "hours": 10,
+    "labId": "LAB-09",
+    "description": "Automatiza verificaciones y planifica observabilidad, recuperación y operación.",
+    "fundamentalsHours": 4,
+    "labHours": 6
+  },
+  {
+    "id": "M10",
+    "slug": "productividad-costes-gobernanza",
+    "title": "Productividad, costes y gobernanza",
+    "hours": 8,
+    "labId": "LAB-10",
+    "description": "Evalúa productividad, coste total, gobernanza y responsabilidad.",
+    "fundamentalsHours": 4,
+    "labHours": 4
+  }
+]

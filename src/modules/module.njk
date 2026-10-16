@@ -1,0 +1,27 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: modules
+  size: 1
+  alias: module
+permalink: "modulos/{{ module.slug }}/index.html"
+eleventyComputed:
+  title: "{{ module.id }} — {{ module.title }}"
+  description: "{{ module.description }}"
+---
+<article class="module-page">
+  <a class="back-link" href="/#programa">← Volver al programa</a>
+  <header class="module-hero">
+    <p class="eyebrow">{{ module.id }} / MÓDULO</p>
+    <h1>{{ module.title }}</h1>
+    <p class="hero-lede">{{ module.description }}</p>
+    <div class="module-facts" aria-label="Distribución de la carga lectiva">
+      <span><strong>{{ module.hours }} h</strong> en total</span>
+      <span><strong>{{ module.fundamentalsHours }} h</strong> de fundamentos</span>
+      <span><strong>{{ module.labHours }} h</strong> de laboratorio</span>
+    </div>
+  </header>
+  <section class="content-section"><p class="eyebrow">LABORATORIO · {{ module.labId }}</p><h2>Aprender haciendo</h2><p>{{ module.description }} El laboratorio detallado de este módulo está pendiente de desarrollo y verificación. No se presentan todavía instrucciones como si hubieran sido probadas.</p></section>
+  <aside class="notice"><strong>Estado del material</strong><p>Esta página es la estructura inicial del módulo. Los objetivos operativos, prerrequisitos, pasos, criterios de aceptación y procedimiento de recuperación se añadirán antes de declarar el laboratorio listo para el alumnado.</p></aside>
+  <nav class="module-next" aria-label="Navegación del curso"><a href="/#programa">← Todos los módulos</a><a href="/principios/">Principios del curso →</a></nav>
+</article>
