@@ -57,18 +57,10 @@ function targetExists(raw, sourceFile) {
     .replace(/(^|[^\x60])\x60+[^\x60\n]*\x60+(?!\x60)/g, "$1")
     .replace(/<!--[\s\S]*?-->/g, "");
   const ids = new Set();
-  const lines = content.split(/\r?\n/);
-  for (let index = 0; index < lines.length; index++) {
-    const atx = lines[index].match(/^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$/);
-    const heading = atx ? atx[1].replace(/\s+#+\s*$/, "") : null;
-    if (!heading) continue;
+  const headingPattern = /^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$|^ {0,3}(.+?)\r?\n {0,3}(=+|-+)\s*$/gm;
+  for (const match of content.matchAll(headingPattern)) {
+    const heading = (match[1] ?? match[2]).trim().replace(/\s+#+\s*$/, "");
     const base = slugHeading(heading);
-    let slug = base, suffix = 1;
-    while (ids.has(slug)) slug = base + "-" + suffix++;
-    ids.add(slug);
-  }
-  for (const match of content.matchAll(/^ {0,3}(.+?)\r?\n {0,3}(=+|-+)\s*$/gm)) {
-    const base = slugHeading(match[1].trim());
     if (!base) continue;
     let slug = base, suffix = 1;
     while (ids.has(slug)) slug = base + "-" + suffix++;
