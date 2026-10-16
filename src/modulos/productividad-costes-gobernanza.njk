@@ -1,0 +1,118 @@
+---
+layout: layouts/base.njk
+title: Productividad, costes y gobernanza
+description: "Módulo M10: evalúa productividad real, coste total, calidad, gobernanza y responsabilidad en sistemas de desarrollo asistido por IA."
+permalink: modulos/productividad-costes-gobernanza/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M10 · VALOR Y RESPONSABILIDAD</p>
+    <h1>Productividad, costes y gobernanza</h1>
+    <p class="hero-lede">La adopción de IA no se justifica por el volumen de código generado ni por una demostración llamativa. Se justifica con resultados medibles, costes completos, riesgos aceptables y responsabilidades explícitas.</p>
+    <div class="module-meta"><span>8 horas planificadas</span><span>4 h de fundamentos · 4 h de laboratorio</span><span>LAB-10</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Definir una línea base y comparar productividad con métricas de resultado, calidad y tiempo de ciclo.</li>
+      <li>Calcular el coste total de una tarea asistida por IA, incluyendo revisión, corrección, infraestructura y fallos.</li>
+      <li>Evaluar cuándo la asistencia aporta valor y cuándo añade complejidad o riesgo.</li>
+      <li>Asignar responsables humanos para aprobación, publicación, tratamiento de datos e incidentes.</li>
+      <li>Diseñar una matriz de gobernanza proporcional al impacto y la reversibilidad de cada uso.</li>
+      <li>Presentar una recomendación de adopción sustentada en evidencia, incertidumbre y criterios de salida.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="productividad">
+    <div class="section-heading"><div><p class="eyebrow">MEDICIÓN</p><h2 id="productividad">Mide resultados, no actividad</h2></div></div>
+    <p>El volumen de tokens, las líneas de código y el número de sugerencias aceptadas son métricas de actividad, no pruebas de productividad. Una evaluación útil compara tareas equivalentes y conserva calidad, alcance y condiciones de trabajo comparables.</p>
+    <ul>
+      <li><strong>Tiempo de ciclo:</strong> tiempo desde una tarea lista hasta una entrega aceptada, incluyendo espera, revisión y retrabajo.</li>
+      <li><strong>Calidad:</strong> defectos, regresiones, cambios rechazados, deuda introducida y resultados que requieren corrección posterior.</li>
+      <li><strong>Flujo:</strong> tareas terminadas y aceptadas, tamaño de lote, bloqueos y tiempo de revisión.</li>
+      <li><strong>Intervención humana:</strong> minutos de revisión, número de correcciones, escalados y decisiones que requieren criterio experto.</li>
+      <li><strong>Resultado:</strong> cumplimiento de requisitos, satisfacción de usuarios, mantenibilidad y fiabilidad después de la entrega.</li>
+    </ul>
+    <aside class="notice"><strong>Evita atribuciones engañosas</strong><p>Compara una línea base con un grupo de tareas representativas, registra cambios de dificultad y declara sesgos. Una mejora en velocidad no es una mejora neta si aumenta los defectos o el coste de mantenimiento.</p></aside>
+  </section>
+
+  <section class="section" aria-labelledby="costes">
+    <div class="section-heading"><div><p class="eyebrow">ECONOMÍA</p><h2 id="costes">Calcula el coste total de propiedad</h2></div></div>
+    <p>El coste real incluye más que la tarifa del modelo. Para cada flujo, calcula el coste directo y el coste del trabajo humano, y expresa las hipótesis para que otra persona pueda reproducir el análisis.</p>
+    <ul>
+      <li><strong>Uso de modelos:</strong> entradas, salidas, contexto repetido, llamadas de evaluación, reintentos y modelos de respaldo.</li>
+      <li><strong>Herramientas e infraestructura:</strong> ejecución, almacenamiento, observabilidad, integración, licencias y mantenimiento.</li>
+      <li><strong>Trabajo humano:</strong> preparación del contexto, revisión, depuración, corrección, evaluación y coordinación.</li>
+      <li><strong>Coste de fallos:</strong> incidentes, reversión, pérdida de tiempo, exposición de datos y defectos que llegan a usuarios.</li>
+      <li><strong>Coste de oportunidad:</strong> complejidad añadida, dependencia de proveedor y tiempo que se deja de dedicar a alternativas.</li>
+    </ul>
+    <p>Una fórmula práctica para comparar escenarios es:</p>
+    <p><strong>Coste por entrega aceptada = (coste de modelos + infraestructura + trabajo humano + coste esperado de fallos) / entregas aceptadas.</strong></p>
+    <p>Incluye rangos de incertidumbre y sensibilidad a volumen, longitud del contexto, tasa de aceptación, tasa de retrabajo y precio del proveedor. No presentes estimaciones como datos observados.</p>
+  </section>
+
+  <section class="section" aria-labelledby="gobernanza">
+    <div class="section-heading"><div><p class="eyebrow">CONTROL</p><h2 id="gobernanza">Gobernanza proporcional al riesgo</h2></div></div>
+    <p>Las reglas deben aclarar qué está permitido, quién responde y qué evidencia se exige. La supervisión aumenta con el impacto potencial, la exposición de datos, la autonomía del sistema y la dificultad para revertir sus efectos.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Clasificar el uso</h3><p>Documenta propósito, usuarios afectados, datos tratados, herramientas, permisos, impacto y límites conocidos.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Asignar responsabilidad</h3><p>Identifica propietario del sistema, responsable de datos, revisor técnico, aprobador de operaciones y contacto de incidentes. La responsabilidad no se delega al modelo.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Aplicar controles verificables</h3><p>Define revisión humana, permisos mínimos, pruebas, registros, aprobación explícita, límites de gasto y condiciones de parada.</p></div></section>
+      <section><span class="principle-number">04</span><div><h3>Revisar y retirar</h3><p>Establece fecha de revisión, señales de degradación, proceso de cambio y criterios para suspender o retirar el uso.</p></div></section>
+    </div>
+    <p>Las decisiones de alto impacto, los efectos externos y las operaciones irreversibles requieren controles más estrictos que la generación de borradores en un entorno aislado.</p>
+  </section>
+
+  <section class="section" aria-labelledby="decision">
+    <div class="section-heading"><div><p class="eyebrow">DECISIÓN</p><h2 id="decision">Adoptar, limitar o descartar</h2></div></div>
+    <p>Una recomendación debe comparar la alternativa asistida con el proceso actual y, cuando proceda, con una solución automatizada convencional. Incluye beneficios, costes, riesgos residuales, evidencia y condiciones de reevaluación.</p>
+    <ul>
+      <li><strong>Adoptar:</strong> hay una mejora repetible, controles adecuados y coste total justificable.</li>
+      <li><strong>Limitar:</strong> el valor existe solo para ciertas tareas, usuarios, datos o niveles de autonomía.</li>
+      <li><strong>Experimentar:</strong> la evidencia aún no basta; define hipótesis, duración, métricas y límites antes de empezar.</li>
+      <li><strong>Descartar:</strong> el riesgo no se puede mitigar, el coste supera el valor o la mejora no se sostiene en tareas reales.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-10 · 4 HORAS</p><h2 id="lab">Construir un caso de adopción responsable</h2></div></div>
+    <h3>Objetivo</h3>
+    <p>Comparar un flujo de trabajo con y sin asistencia de IA, calcular su coste total y producir una decisión de gobernanza basada en evidencia sintética o de práctica, sin utilizar datos confidenciales.</p>
+    <h3>Procedimiento</h3>
+    <ol>
+      <li><strong>Definir la comparación (30 min):</strong> selecciona tareas comparables, criterios de aceptación, línea base, variables y amenazas a la validez.</li>
+      <li><strong>Recoger evidencia (45 min):</strong> registra duración, aceptación, retrabajo, defectos y uso de recursos para cada escenario. Identifica los datos simulados.</li>
+      <li><strong>Modelar el coste (45 min):</strong> calcula coste por entrega aceptada y crea escenarios bajo, central y alto para las hipótesis inciertas.</li>
+      <li><strong>Evaluar riesgos (45 min):</strong> completa una matriz de datos, permisos, impacto, reversibilidad, dependencia y controles requeridos.</li>
+      <li><strong>Redactar la decisión (45 min):</strong> recomienda adoptar, limitar, experimentar o descartar, con responsable, umbrales y fecha de revisión.</li>
+      <li><strong>Revisión crítica (30 min):</strong> pide a otra persona que cuestione atribución, supuestos, métricas omitidas y condiciones de parada.</li>
+    </ol>
+    <h3>Evidencias requeridas</h3>
+    <ul>
+      <li>Protocolo de comparación y definición de métricas.</li>
+      <li>Tabla de resultados con unidades, procedencia y limitaciones de los datos.</li>
+      <li>Modelo de coste con hipótesis y análisis de sensibilidad.</li>
+      <li>Matriz de riesgos y controles con responsables identificados por función.</li>
+      <li>Recomendación ejecutiva de una página con decisión, evidencia, incertidumbre y fecha de revisión.</li>
+    </ul>
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>La comparación incorpora calidad y retrabajo, no solo velocidad o volumen producido.</li>
+      <li>El coste incluye uso del modelo y trabajo humano, y distingue observaciones de estimaciones.</li>
+      <li>Los riesgos relevantes tienen controles, responsables y criterios de escalado.</li>
+      <li>La recomendación incluye umbrales medibles para continuar, revisar o detener la adopción.</li>
+      <li>Otra persona puede reproducir el cálculo y entender las limitaciones del análisis.</li>
+    </ul>
+    <h3>Preguntas de reflexión</h3>
+    <ul>
+      <li>¿Qué resultado cambiaría tu recomendación de adopción?</li>
+      <li>¿Qué coste suele omitirse y cómo podría estimarse?</li>
+      <li>¿Qué decisiones no deberían delegarse y por qué?</li>
+      <li>¿Qué indicador demostraría que la mejora inicial se ha degradado con el tiempo?</li>
+    </ul>
+  </section>
+
+  <nav class="module-next" aria-label="Navegación del curso"><a href="/#programa">← Todos los módulos</a><a href="/modulos/cicd-observabilidad-mantenimiento/">← M09</a></nav>
+</article>
