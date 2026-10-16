@@ -22,3 +22,7 @@ npm run check:lab06
 ## Limitaciones
 
 El validador comprueba la estructura del fixture; no valida que las referencias existan ni configura despliegues reales. Los controles efectivos requieren protección del entorno y permisos mínimos en CI/CD.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab06-worked-example.md`](lab06-worked-example.md) para un gate de publicación vinculado a commit y artefacto, seis escenarios negativos, separación de responsabilidades y criterios de evidencia verificable.
