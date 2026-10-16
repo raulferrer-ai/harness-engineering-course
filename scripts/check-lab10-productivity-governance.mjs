@@ -117,7 +117,7 @@ for(const v of data.decision_test_vectors??[]){
   }
   if(v.expected_decision==="do_not_expand"&&!v.missing_measurement&&v.unapproved_external_action!==true){
     const cost=g=>((g.model_cost+g.infra_cost+(g.human_minutes_per_task*g.tasks_completed/60*c.labor_cost_per_hour)+c.expected_failure_cost[g===c.baseline?"baseline":"assisted"])/g.accepted_deliveries);
-    if(cost(c.assisted)<cost(c.baseline)&&c.assisted.defects_found<=c.baseline.defects_found)errors.push(v.id+": decisión conservadora contradice los datos comparativos");
+    const baselineDefectRate=c.baseline.defects_found/c.baseline.accepted_deliveries; const assistedDefectRate=c.assisted.defects_found/c.assisted.accepted_deliveries; if(cost(c.assisted)<cost(c.baseline)&&assistedDefectRate<=baselineDefectRate)errors.push(v.id+": decisión conservadora contradice los datos comparativos");
   }
 }
 for(const decision of ["expand_cautiously","do_not_expand","inconclusive","block"])if(!vectorDecisions.has(decision))errors.push("faltan vectores para decisión "+decision);
