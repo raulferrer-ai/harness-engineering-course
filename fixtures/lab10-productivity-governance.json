@@ -260,7 +260,14 @@
         "defect_rate": "not_higher",
         "tasks_comparable": true
       },
-      "evidence_basis": "hypothetical_gate"
+      "evidence_basis": "hypothetical_gate",
+      "expansion_gate": {
+        "tasks_comparable": true,
+        "quality_non_inferior": true,
+        "lower_total_cost": true,
+        "source_data_verified": true,
+        "human_review_required": true
+      }
     }
   ]
 }
