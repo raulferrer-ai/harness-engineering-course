@@ -37,3 +37,7 @@ Consulta [`docs/lab02-worked-example.md`](lab02-worked-example.md) para ver una 
 ## Ejemplo resuelto
 
 Consulta [`docs/lab02-worked-example.md`](lab02-worked-example.md) para transformar una petición ambigua en requisitos verificables, preguntas bloqueantes, pruebas y una decisión de ejecución condicionada por evidencia.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab02-worked-example.md`](lab02-worked-example.md) para convertir una petición ambigua en requisitos verificables, fijar criterios de aceptación y distinguir resultados ejecutados de comprobaciones pendientes.
