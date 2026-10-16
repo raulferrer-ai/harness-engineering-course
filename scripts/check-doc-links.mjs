@@ -53,8 +53,11 @@ for (const file of markdownFiles) {
     const nextLine = withoutCode.indexOf("\n", match.index);
     const line = withoutCode.slice(lineStart, nextLine < 0 ? undefined : nextLine);
     if (/^\s{0,3}\[[^\]]+\]:/.test(line) || withoutCode[match.index + match[0].length] === "(") continue;
+    const hasExplicitLabel = match[0].includes("][");
     const label = (match[2] || match[1]).trim().toLowerCase();
     const raw = referenceDefinitions.get(label);
+    // Single bracketed prose is not a reference unless a matching definition exists.
+    if (!hasExplicitLabel && !raw) continue;
     if (!raw) {
       errors.push(`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${label}]".`);
       continue;
