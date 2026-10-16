@@ -42,10 +42,10 @@ const linkPattern = /!?\[[^\]]*\]\(\s*(?:<([^>]+)>|([^\s)]+))(?:\s+[^)]*)?\)/g;
 
 for (const file of markdownFiles) {
   const source = fs.readFileSync(file, "utf8");
-  const referenceDefinitions = new Map();
   const withoutCode = source
     .replace(/\x60\x60\x60[\s\S]*?\x60\x60\x60|~~~[\s\S]*?~~~/g, "")
     .replace(/(^|[^\x60])\x60+[^\x60\n]*\x60+(?!\x60)/g, "$1");
+  const referenceDefinitions = new Map();
   for (const match of withoutCode.matchAll(/^\s{0,3}\[([^\]]+)\]:\s*<?([^\s>]+)>?/gm)) {
     referenceDefinitions.set(match[1].trim().toLowerCase(), match[2].trim());
   }
@@ -58,7 +58,6 @@ for (const file of markdownFiles) {
     const hasExplicitLabel = match[0].includes("][");
     const label = (match[2] || match[1]).trim().toLowerCase();
     const raw = referenceDefinitions.get(label);
-    // Single bracketed prose is not a reference unless a matching definition exists.
     if (!hasExplicitLabel && !raw) continue;
     if (!raw) {
       errors.push(`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${label}]".`);
