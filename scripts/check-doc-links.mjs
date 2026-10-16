@@ -38,7 +38,9 @@ function targetExists(raw, sourceFile) {
   const target = candidates.find((candidate) => fs.existsSync(candidate) && fs.statSync(candidate).isFile());
   if (!target) return { exists: false, resolved };
   if (!fragment) return { exists: true, resolved };
-  const content = fs.readFileSync(target, "utf8");
+  const content = fs.readFileSync(target, "utf8")
+    .replace(/\x60\x60\x60[\s\S]*?\x60\x60\x60|~~~[\s\S]*?~~~/g, "")
+    .replace(/(^|[^\x60])\x60+[^\x60\n]*\x60+(?!\x60)/g, "$1");
   const ids = new Set();
   for (const match of content.matchAll(/^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$/gm)) {
     const heading = match[1].replace(/\s+#+\s*$/, "");
