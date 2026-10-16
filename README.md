@@ -36,7 +36,7 @@ npm ci
 npm run check
 ```
 
-El comando `check` compila el sitio y verifica rutas y enlaces locales generados. No sustituye las revisiones manuales de accesibilidad, teclado, diseño adaptable, calidad pedagógica o reproducibilidad de los laboratorios.
+El comando `check` compila el sitio, verifica las rutas y los enlaces locales del HTML generado, y comprueba los enlaces Markdown locales de la documentación. No sustituye las revisiones manuales de accesibilidad, teclado, diseño adaptable, calidad pedagógica o reproducibilidad de los laboratorios.
 
 ## Próximas etapas
 
