@@ -4,15 +4,15 @@ Date: 2026-10-16
 
 ## Scope of this increment
 
-The initial Eleventy static-site skeleton is on the dedicated feature branch `feat/initial-eleventy-site`. It includes the course landing page, module landing-page template, principles page, curriculum metadata, responsive CSS, and a GitHub Actions workflow that builds the site and checks generated local routes.
+The initial Eleventy static-site skeleton is on the dedicated feature branch `feat/initial-eleventy-site`. It includes the course landing page, module landing-page template, principles page, curriculum metadata, responsive CSS, a committed npm lockfile, and a GitHub Actions workflow that installs from the lockfile, builds the site, and checks generated local routes.
 
 ## Verification record
 
 - Initial scaffold commit: `2ae5cb8380888c9073aa3e2186a6ba3859080bf2`; its GitHub Actions build passed: [workflow run 38862664781](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38862664781).
 - The route-check increment was verified successfully in CI: [workflow run 38864875493](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38864875493). The check runs the Eleventy build followed by local `href`/`src` and fragment checks against generated HTML.
-- A follow-up CI experiment generated `package-lock.json` on a GitHub-hosted runner, then successfully ran `npm ci` and `npm run check`: [workflow run 38865103950](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38865103950).
-- The generated lockfile was uploaded as a workflow artifact, but has not yet been committed to the repository. The local environment cannot reach GitHub to generate it locally, and the artifact could not be transferred into the repository through the available repository-file interface. Therefore the committed project still lacks a lockfile, and reproducible `npm ci` installation is not yet established for the normal workflow.
-- The committed workflow has been returned to read-only repository permissions. Its current artifact-generation variant was not re-run after that final cleanup change.
+- The lockfile was generated on a GitHub-hosted runner and verified with `npm ci` and `npm run check`: [workflow run 38868954308](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38868954308).
+- `package-lock.json` is committed on this feature branch. It uses lockfile format v3 and records 134 package entries, including Eleventy `3.1.2`.
+- The workflow is being finalized to use read-only repository permissions, `npm ci`, and `npm run check`, without regenerating or committing the lockfile during CI. The final read-only workflow commit still requires its own CI result before this increment can be considered complete.
 
 ## Curriculum integrity
 
@@ -21,7 +21,6 @@ Module IDs, titles, total hours, descriptions, and lab IDs are represented in th
 ## Explicitly not complete
 
 - Detailed lesson content and fully specified lab instructions.
-- Committed lockfile and normal-workflow `npm ci` installation.
 - Accessibility automation and manual keyboard, screen-reader, contrast, and responsive review.
 - Learner pilot and observed-duration validation.
 - Netlify configuration, deploy preview, or production deployment.
