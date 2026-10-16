@@ -1,26 +1,24 @@
-# LAB-07 — Permisos de herramientas y aislamiento
+# LAB-07 — Testing, evals y verificación
 
-Diseña y verifica límites de autorización para un agente que lee, ejecuta pruebas y propone cambios. El objetivo es impedir que instrucciones no confiables o errores del agente se conviertan en acciones con efectos no autorizados.
+Define una rúbrica ponderada, anclajes de puntuación, casos de referencia y un protocolo de evaluación. Separa la puntuación de la revisión humana y mantiene los fallos críticos visibles.
 
-## Ejecutar
+## Archivos y ejecución
+
+- `fixtures/lab07-evaluation.json`: rúbrica, escala 0–4, casos y protocolo de puntuación.
+- `scripts/check-lab07-evaluation.mjs`: validador estructural.
 
 ```sh
 npm run check:lab07
 ```
 
-## Procedimiento práctico
+## Procedimiento
 
-1. Trabaja en una máquina virtual o contenedor desechable con datos sintéticos; no uses credenciales reales.
-2. Clasifica cada herramienta por riesgo, recursos permitidos, operaciones denegadas y requisitos de aprobación.
-3. Implementa los controles fuera del prompt: permisos del sistema operativo, sandbox, allowlist de comandos y restricciones de red.
-4. Ejecuta los casos negativos de la fixture y conserva los registros de autorización.
-5. Comprueba que el contenido de archivos se trata como dato no confiable y no puede conceder permisos.
-6. Revisa de forma independiente que los intentos denegados no produjeron efectos secundarios.
-
-## Criterio de aceptación
-
-La decisión predeterminada es denegar. La revisión debe comprobar el control real en el entorno aislado, no solo la existencia de una política escrita.
+1. Fija modelo, versión, parámetros y fecha; conserva cada salida sin editar.
+2. Puntúa cada dimensión y adjunta justificación y evidencia.
+3. Calcula la media ponderada, pero registra por separado cualquier fallo crítico.
+4. Haz una segunda revisión humana de una muestra y documenta desacuerdos.
+5. Informa del tamaño de muestra y de datos no disponibles. No infieras calidad general a partir de estos casos didácticos.
 
 ## Limitaciones
 
-El chequeo automático valida el formato de la fixture. No crea un sandbox ni demuestra que los controles de una implementación real sean efectivos.
+El validador comprueba IDs, dimensiones, suma de pesos, anclajes y campos obligatorios. No puntúa respuestas reales ni sustituye la revisión humana.
