@@ -2,7 +2,7 @@
 
 ## Estado
 
-Este documento organiza el diseño de evaluación ya descrito en `docs/curriculum.md`. **No define todavía una nota de aprobado, ponderaciones, umbrales ni reglas de compensación.** Las reglas operativas y los fallos críticos de seguridad siguen pendientes de aprobación; no se debe automatizar la puntuación hasta resolverlos.
+Este documento organiza el diseño de evaluación global descrito en `docs/curriculum.md`. La fixture didáctica de LAB-07 contiene una rúbrica local y un umbral provisional para demostrar cómo formalizar una decisión, pero **no constituye la rúbrica ni el umbral aprobados para la evaluación final del curso**. Las ponderaciones globales, los umbrales de curso, las reglas operativas y los fallos críticos de seguridad siguen pendientes de aprobación.
 
 ## Componentes previstos
 
@@ -58,7 +58,7 @@ La distribución de horas, los formatos concretos, los criterios puntuables y lo
 
 ## Dimensiones de una rúbrica por aprobar
 
-Estas dimensiones se proponen para discusión. No tienen ponderación ni umbral aprobado.
+Estas dimensiones se proponen para discusión de la evaluación global. No tienen ponderación ni umbral de curso aprobado; los valores de LAB-07 solo ilustran un protocolo local.
 
 - Corrección respecto a la especificación.
 - Calidad y trazabilidad de la evidencia.
@@ -97,7 +97,7 @@ Hasta aprobar estas reglas, los evaluadores deben registrar los incidentes obser
 
 - [ ] Confirmar la distribución definitiva de las 16 horas.
 - [ ] Aprobar resultados evaluables y su relación con COMP-01–COMP-09.
-- [ ] Aprobar rúbrica, niveles, ponderaciones y umbral de aprobado.
+- [ ] Aprobar rúbrica global, niveles, ponderaciones y umbral de aprobado; revisar por separado el ejemplo didáctico local de LAB-07.
 - [ ] Aprobar los fallos críticos de seguridad y su tratamiento.
 - [ ] Definir revisión, recuperación, integridad y conservación de evidencias.
 - [ ] Pilotar la evaluación y comprobar duración, claridad y consistencia entre evaluadores.
