@@ -53,6 +53,21 @@ try {
   });
   expectPass("enlaces relativos, directorios y externos", run(valid), "enlaces locales comprobados");
 
+  const references = await fixture("references", {
+    "README.md": "[Guía][guide] y [ancla][start].\n\n[guide]: docs/guia.md\n[start]: #inicio\n",
+    "docs/guia.md": "# Guía\n"
+  });
+  expectPass("enlaces Markdown de referencia", run(references), "enlaces locales comprobados");
+
+  const brokenReference = await fixture("broken-reference", {
+    "README.md": "[Guía][missing]\n"
+  });
+  expectFail("referencia sin definición", run(brokenReference), "definición de enlace Markdown no encontrada");
+
+  const missingReferenceTarget = await fixture("missing-reference-target", {
+    "README.md": "[Guía][guide]\n\n[guide]: docs/no-existe.md\n"
+  });
+  expectFail("destino de referencia inexistente", run(missingReferenceTarget), "enlace local no encontrado");
   const missing = await fixture("missing", {
     "README.md": "[No existe](docs/no-existe.md)\n"
   });
