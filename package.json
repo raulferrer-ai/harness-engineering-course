@@ -3,7 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "description": "Curso abierto en español sobre ingeniería de software asistida por IA y agentes.",
-  "scripts": {"build": "eleventy", "clean": "node -e \"require('fs').rmSync('_site',{recursive:true,force:true})\""},
-  "devDependencies": {"@11ty/eleventy": "3.1.2"},
-  "engines": {"node": ">=20"}
+  "scripts": {
+    "build": "eleventy",
+    "check:routes": "node scripts/check-routes.mjs",
+    "check": "npm run build && npm run check:routes"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
 }

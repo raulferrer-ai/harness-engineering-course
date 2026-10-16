@@ -20,5 +20,5 @@ jobs:
           node-version: 22
       - name: Install dependencies
         run: npm install
-      - name: Build static site
-        run: npm run build
+      - name: Build and verify generated routes
+        run: npm run check
