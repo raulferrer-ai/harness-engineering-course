@@ -7,13 +7,14 @@
     "build": "eleventy",
     "check:routes": "node scripts/check-routes.mjs",
     "check:curriculum": "node scripts/check-curriculum.mjs",
-    "check": "npm run build && npm run check:routes && npm run check:curriculum && npm run check:lab01 && npm run check:lab02 && npm run check:lab03 && npm run check:lab04 && npm run check:lab05 && npm run check:lab06",
+    "check": "npm run build && npm run check:routes && npm run check:curriculum && npm run check:lab01 && npm run check:lab02 && npm run check:lab03 && npm run check:lab04 && npm run check:lab05 && npm run check:lab06 && npm run check:lab07",
     "check:lab01": "node scripts/check-lab01-fixtures.mjs",
     "check:lab02": "node scripts/check-lab02-specification.mjs",
     "check:lab03": "node scripts/check-lab03-context-fixture.mjs",
     "check:lab04": "node scripts/check-lab04-code-review.mjs",
     "check:lab05": "node scripts/check-lab05-evaluation.mjs",
-    "check:lab06": "node scripts/check-lab06-observability.mjs"
+    "check:lab06": "node scripts/check-lab06-observability.mjs",
+    "check:lab07": "node scripts/check-lab07-tool-permissions.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.2"
