@@ -14,7 +14,10 @@
       "name": "task_success_rate",
       "unit": "ratio",
       "window_minutes": 15,
-      "threshold": { "operator": "lt", "value": 0.95 },
+      "threshold": {
+        "operator": "lt",
+        "value": 0.95
+      },
       "action": "pausar promoción y comparar con la línea base"
     },
     {
@@ -22,7 +25,10 @@
       "name": "tool_error_rate",
       "unit": "ratio",
       "window_minutes": 10,
-      "threshold": { "operator": "gt", "value": 0.05 },
+      "threshold": {
+        "operator": "gt",
+        "value": 0.05
+      },
       "action": "deshabilitar la herramienta afectada y abrir incidente"
     },
     {
@@ -30,7 +36,10 @@
       "name": "p95_latency_ms",
       "unit": "milliseconds",
       "window_minutes": 15,
-      "threshold": { "operator": "gt", "value": 5000 },
+      "threshold": {
+        "operator": "gt",
+        "value": 5000
+      },
       "action": "limitar tráfico y revisar trazas por etapa"
     },
     {
@@ -38,7 +47,10 @@
       "name": "unauthorized_action_count",
       "unit": "count",
       "window_minutes": 5,
-      "threshold": { "operator": "gt", "value": 0 },
+      "threshold": {
+        "operator": "gt",
+        "value": 0
+      },
       "action": "contención inmediata y bloqueo de promoción"
     },
     {
@@ -47,38 +59,173 @@
       "unit": "currency_per_task",
       "currency": "EUR",
       "window_minutes": 60,
-      "threshold": { "operator": "gt", "value": 1.5 },
+      "threshold": {
+        "operator": "gt",
+        "value": 1.5
+      },
       "action": "limitar presupuesto y revisar reintentos/contexto"
     }
   ],
   "events": [
-    { "id": "EVT-01", "name": "run_started", "required_fields": ["run_id", "timestamp", "source_revision", "environment"] },
-    { "id": "EVT-02", "name": "model_call_completed", "required_fields": ["run_id", "model_version", "latency_ms", "input_units", "output_units", "status", "timestamp"] },
-    { "id": "EVT-03", "name": "tool_invocation", "required_fields": ["run_id", "tool_name", "decision", "duration_ms", "result_status", "timestamp"] },
-    { "id": "EVT-04", "name": "evaluation_completed", "required_fields": ["run_id", "eval_suite_version", "score", "failed_cases", "decision", "timestamp"] },
-    { "id": "EVT-05", "name": "recovery_action", "required_fields": ["incident_id", "action", "actor", "timestamp", "outcome"] }
+    {
+      "id": "EVT-01",
+      "name": "run_started",
+      "required_fields": [
+        "run_id",
+        "timestamp",
+        "source_revision",
+        "environment"
+      ]
+    },
+    {
+      "id": "EVT-02",
+      "name": "model_call_completed",
+      "required_fields": [
+        "run_id",
+        "model_version",
+        "latency_ms",
+        "input_units",
+        "output_units",
+        "status",
+        "timestamp"
+      ]
+    },
+    {
+      "id": "EVT-03",
+      "name": "tool_invocation",
+      "required_fields": [
+        "run_id",
+        "tool_name",
+        "decision",
+        "duration_ms",
+        "result_status",
+        "timestamp"
+      ]
+    },
+    {
+      "id": "EVT-04",
+      "name": "evaluation_completed",
+      "required_fields": [
+        "run_id",
+        "eval_suite_version",
+        "score",
+        "failed_cases",
+        "decision",
+        "timestamp"
+      ]
+    },
+    {
+      "id": "EVT-05",
+      "name": "recovery_action",
+      "required_fields": [
+        "run_id",
+        "incident_id",
+        "action",
+        "actor",
+        "timestamp",
+        "outcome"
+      ]
+    }
   ],
   "recovery_steps": [
-    { "id": "REC-01", "trigger": "SIG-04", "action": "Bloquear promoción y revocar la capacidad o credencial afectada.", "verification": "No se producen nuevas acciones no autorizadas en pruebas sintéticas.", "rollback": "Restaurar permisos solo tras revisión y autorización explícita." },
-    { "id": "REC-02", "trigger": "SIG-01", "action": "Detener promoción, comparar resultados con baseline-v1 y aislar la categoría de fallo.", "verification": "La suite de regresión vuelve al umbral acordado.", "rollback": "Revertir a la revisión estable identificada por commit y artefacto." },
-    { "id": "REC-03", "trigger": "SIG-02", "action": "Desactivar la herramienta fallida y pasar a modo degradado seguro.", "verification": "Las tareas restantes funcionan sin invocar la herramienta deshabilitada.", "rollback": "Rehabilitar solo después de prueba controlada y aprobación." },
-    { "id": "REC-04", "trigger": "SIG-03", "action": "Reducir concurrencia o tráfico y revisar latencia por etapa.", "verification": "La latencia p95 vuelve al umbral durante dos ventanas consecutivas.", "rollback": "Retirar el límite gradualmente tras observar estabilidad." }
+    {
+      "id": "REC-01",
+      "trigger": "SIG-04",
+      "action": "Bloquear promoción y revocar la capacidad o credencial afectada.",
+      "verification": "No se producen nuevas acciones no autorizadas en pruebas sintéticas.",
+      "rollback": "Restaurar permisos solo tras revisión y autorización explícita."
+    },
+    {
+      "id": "REC-02",
+      "trigger": "SIG-01",
+      "action": "Detener promoción, comparar resultados con baseline-v1 y aislar la categoría de fallo.",
+      "verification": "La suite de regresión vuelve al umbral acordado.",
+      "rollback": "Revertir a la revisión estable identificada por commit y artefacto."
+    },
+    {
+      "id": "REC-03",
+      "trigger": "SIG-02",
+      "action": "Desactivar la herramienta fallida y pasar a modo degradado seguro.",
+      "verification": "Las tareas restantes funcionan sin invocar la herramienta deshabilitada.",
+      "rollback": "Rehabilitar solo después de prueba controlada y aprobación."
+    },
+    {
+      "id": "REC-04",
+      "trigger": "SIG-03",
+      "action": "Reducir concurrencia o tráfico y revisar latencia por etapa.",
+      "verification": "La latencia p95 vuelve al umbral durante dos ventanas consecutivas.",
+      "rollback": "Retirar el límite gradualmente tras observar estabilidad."
+    }
   ],
   "scenarios": [
-    { "id": "OPS-T01", "input": "La tasa de éxito cae por debajo del umbral durante la ventana definida.", "expected": "se pausa la promoción, se registra evidencia y se compara con la línea base." },
-    { "id": "OPS-T02", "input": "Se detecta una acción no autorizada.", "expected": "bloqueo inmediato, incidente y verificación de ausencia de nuevos efectos." },
-    { "id": "OPS-T03", "input": "Los logs incluyen un token o secreto.", "expected": "se redacta el dato, se limita acceso, se trata como incidente y no se replica el secreto en informes." },
-    { "id": "OPS-T04", "input": "La reversión apunta a un tag mutable o artefacto no identificado.", "expected": "la recuperación se bloquea hasta identificar revisión y artefacto inmutables." },
-    { "id": "OPS-T05", "input": "La métrica se dispara por una sola muestra incompleta.", "expected": "se aplica la ventana y la política de calidad de datos declaradas; no se inventa una señal ausente." },
-    { "id": "OPS-T06", "input": "Tras rollback el sistema vuelve a responder, pero la suite de regresión sigue fallando.", "expected": "el servicio permanece en modo seguro; no se declara recuperación completa." }
+    {
+      "id": "OPS-T01",
+      "input": "La tasa de éxito cae por debajo del umbral durante la ventana definida.",
+      "expected": "se pausa la promoción, se registra evidencia y se compara con la línea base."
+    },
+    {
+      "id": "OPS-T02",
+      "input": "Se detecta una acción no autorizada.",
+      "expected": "bloqueo inmediato, incidente y verificación de ausencia de nuevos efectos."
+    },
+    {
+      "id": "OPS-T03",
+      "input": "Los logs incluyen un token o secreto.",
+      "expected": "se redacta el dato, se limita acceso, se trata como incidente y no se replica el secreto en informes."
+    },
+    {
+      "id": "OPS-T04",
+      "input": "La reversión apunta a un tag mutable o artefacto no identificado.",
+      "expected": "la recuperación se bloquea hasta identificar revisión y artefacto inmutables."
+    },
+    {
+      "id": "OPS-T05",
+      "input": "La métrica se dispara por una sola muestra incompleta.",
+      "expected": "se aplica la ventana y la política de calidad de datos declaradas; no se inventa una señal ausente."
+    },
+    {
+      "id": "OPS-T06",
+      "input": "Tras rollback el sistema vuelve a responder, pero la suite de regresión sigue fallando.",
+      "expected": "el servicio permanece en modo seguro; no se declara recuperación completa."
+    }
   ],
   "acceptance_criteria": [
-    { "id": "AC-01", "condition": "Cada señal tiene unidad, ventana, umbral y acción operativa.", "evidence": "SIG-01 a SIG-05", "verification": "validar campos y operadores permitidos." },
-    { "id": "AC-02", "condition": "Los eventos permiten correlacionar ejecución, versión, herramienta y resultado.", "evidence": "EVT-01 a EVT-05", "verification": "comprobar campos obligatorios por tipo de evento." },
-    { "id": "AC-03", "condition": "Los incidentes de seguridad bloquean promoción y activan contención.", "evidence": "OPS-T02 y REC-01", "verification": "ensayo sintético en entorno aislado." },
-    { "id": "AC-04", "condition": "El rollback identifica revisión y artefacto concretos y se verifica con regresión.", "evidence": "OPS-T04 y OPS-T06", "verification": "ejecutar simulacro sin desplegar a producción." },
-    { "id": "AC-05", "condition": "La telemetría minimiza datos sensibles y aplica redacción.", "evidence": "OPS-T03", "verification": "buscar marcadores sintéticos de secretos en logs de prueba." },
-    { "id": "AC-06", "condition": "La recuperación no se declara hasta superar comprobaciones posteriores.", "evidence": "REC-01 a REC-04 y OPS-T06", "verification": "revisar métricas y suite de regresión después de la acción." }
+    {
+      "id": "AC-01",
+      "condition": "Cada señal tiene unidad, ventana, umbral y acción operativa.",
+      "evidence": "SIG-01 a SIG-05",
+      "verification": "validar campos y operadores permitidos."
+    },
+    {
+      "id": "AC-02",
+      "condition": "Los eventos permiten correlacionar ejecución, versión, herramienta y resultado.",
+      "evidence": "EVT-01 a EVT-05",
+      "verification": "comprobar campos obligatorios por tipo de evento."
+    },
+    {
+      "id": "AC-03",
+      "condition": "Los incidentes de seguridad bloquean promoción y activan contención.",
+      "evidence": "OPS-T02 y REC-01",
+      "verification": "ensayo sintético en entorno aislado."
+    },
+    {
+      "id": "AC-04",
+      "condition": "El rollback identifica revisión y artefacto concretos y se verifica con regresión.",
+      "evidence": "OPS-T04 y OPS-T06",
+      "verification": "ejecutar simulacro sin desplegar a producción."
+    },
+    {
+      "id": "AC-05",
+      "condition": "La telemetría minimiza datos sensibles y aplica redacción.",
+      "evidence": "OPS-T03",
+      "verification": "buscar marcadores sintéticos de secretos en logs de prueba."
+    },
+    {
+      "id": "AC-06",
+      "condition": "La recuperación no se declara hasta superar comprobaciones posteriores.",
+      "evidence": "REC-01 a REC-04 y OPS-T06",
+      "verification": "revisar métricas y suite de regresión después de la acción."
+    }
   ],
   "policy": {
     "promotion_on_critical_security_signal": "block",
@@ -87,7 +234,18 @@
     "recovery_complete_requires": "service_health_and_regression_checks",
     "redact_secrets": true
   },
-  "audit_fields": ["incident_id", "run_id", "source_revision", "artifact_digest", "signal_id", "decision", "action", "actor", "timestamp", "verification_result"],
+  "audit_fields": [
+    "incident_id",
+    "run_id",
+    "source_revision",
+    "artifact_digest",
+    "signal_id",
+    "decision",
+    "action",
+    "actor",
+    "timestamp",
+    "verification_result"
+  ],
   "limitations": [
     "Fixture didáctica: no instala alertas, telemetría, rollback ni controles de producción.",
     "El validador solo comprueba estructura y coherencia referencial; no verifica que métricas, logs o artefactos existan.",
