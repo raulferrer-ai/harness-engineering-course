@@ -1,86 +1,124 @@
-# LAB-10 — Ejemplo resuelto: medir productividad neta y decidir con incertidumbre
+# LAB-10 — Ejemplo resuelto: productividad neta y gobernanza basada en evidencia
 
-Todos los datos de esta práctica son **sintéticos**. No describen resultados del repositorio ni una implantación real.
+Todos los valores numéricos de este ejercicio proceden del fixture sintético `fixtures/lab10-productivity-governance.json`. No son resultados observados de una implantación real. El fixture es la fuente de verdad para los datos, las métricas, las reglas y los vectores de decisión.
 
-## 1. Caso
+## 1. Comparación y límites de los datos
 
-Un equipo compara un flujo habitual (A) con un flujo asistido por IA (B). Ambos deben entregar cambios que satisfagan la misma rúbrica. Se cuentan únicamente entregas aceptadas; las entregas rechazadas generan retrabajo y coste adicional.
-
-## 2. Datos ilustrativos de cuatro semanas
-
-| Métrica | Flujo A | Flujo B |
+| Variable | BASE-01: flujo habitual | AI-01: flujo asistido |
 |---|---:|---:|
-| Entregas iniciadas | 40 | 40 |
-| Entregas aceptadas al primer intento | 28 | 30 |
-| Entregas aceptadas al final | 34 | 35 |
-| Tiempo mediano de ciclo por entrega aceptada | 8 h | 6 h |
-| Coste de herramientas e infraestructura | 400 € | 720 € |
-| Trabajo humano total registrado | 320 h | 280 h |
-| Coste laboral supuesto | 50 €/h | 50 €/h |
-| Coste de retrabajo/fallos estimado | 600 € | 750 € |
+| Tareas completadas | 40 | 42 |
+| Entregas aceptadas | 34 | 35 |
+| Tiempo de ciclo por tarea (min) | 90 | 75 |
+| Minutos de trabajo humano por tarea | 65 | 52 |
+| Defectos encontrados | 6 | 9 |
+| Coste de infraestructura | 12 € | 18 € |
+| Coste de modelo | 0 € | 24 € |
+| Coste esperado de fallos | 30 € | 75 € |
 
-El coste laboral y el coste esperado de fallos son supuestos de este ejemplo. En una evaluación real deben proceder de fuentes verificables y explicitar su incertidumbre.
+El coste laboral supuesto es de **45 €/hora**. El fixture declara que la definición de tarea, los criterios de aceptación y la ventana de observación coinciden para el ejercicio; también declara `source_data_verified: false`. Por tanto, los resultados calculados son ilustrativos y no justifican por sí solos una decisión de despliegue.
 
-## 3. Cálculo del coste por entrega aceptada
+## 2. Cálculos reproducibles
 
-Fórmula:
+### Tasa de entregas aceptadas
 
-`coste total = herramientas + (horas humanas × coste por hora) + coste de retrabajo`
+`tasa de aceptación = entregas aceptadas / tareas completadas`
 
-- Flujo A: 400 € + (320 h × 50 €/h) + 600 € = **17.000 €**.
-- Flujo B: 720 € + (280 h × 50 €/h) + 750 € = **15.470 €**.
+- BASE-01: 34 / 40 = **85,00 %**.
+- AI-01: 35 / 42 = **83,33 %**.
 
-Coste por entrega aceptada al final:
+El flujo asistido completa más tareas, pero su tasa de aceptación final es inferior en este conjunto de datos.
 
-- A: 17.000 € / 34 = **500,00 €**.
-- B: 15.470 € / 35 = **441,99 €**.
+### Coste de trabajo humano
 
-Diferencia relativa: (441,99 / 500,00 − 1) × 100 ≈ **−11,6 %**. Bajo estos supuestos, B cuesta menos por entrega aceptada. No es una conclusión estadística ni una garantía de ahorro real.
+`coste laboral = minutos por tarea × tareas completadas / 60 × coste por hora`
 
-## 4. Contrapesos de calidad
+- BASE-01: 65 × 40 / 60 × 45 € = **1.950 €**.
+- AI-01: 52 × 42 / 60 × 45 € = **1.638 €**.
 
-- Aceptación al primer intento: A = 28/40 = 70 %; B = 30/40 = 75 %.
-- Aceptación final: A = 34/40 = 85 %; B = 35/40 = 87,5 %.
-- El coste estimado de retrabajo es mayor en B (750 € frente a 600 €), por lo que la diferencia de coste depende de cómo se contabilice ese riesgo.
-- La mediana de ciclo baja de 8 h a 6 h, pero no se debe confundir tiempo de ciclo con horas humanas: miden fenómenos diferentes.
+### Coste total y coste por entrega aceptada
 
-No atribuyas automáticamente las diferencias a la IA. El equipo, la dificultad de las tareas, el aprendizaje y la selección de entregas pueden explicar parte del cambio.
+`coste total = coste de modelo + infraestructura + trabajo humano + coste esperado de fallos`
 
-## 5. Decisión de gobernanza
+- BASE-01: 0 € + 12 € + 1.950 € + 30 € = **1.992 €**.
+- AI-01: 24 € + 18 € + 1.638 € + 75 € = **1.755 €**.
 
-**Recomendación ilustrativa: ampliar gradualmente, no desplegar a toda la organización.**
+`coste por entrega aceptada = coste total / entregas aceptadas`
 
-Condiciones previas:
+- BASE-01: 1.992 € / 34 = **58,59 €** por entrega aceptada.
+- AI-01: 1.755 € / 35 = **50,14 €** por entrega aceptada.
 
-1. Repetir la medición con tareas comparables y un periodo suficiente.
-2. Registrar procedencia de costes, definición de entrega aceptada y distribución de defectos.
-3. Segmentar resultados por riesgo y tipo de tarea; no mezclar cambios triviales con cambios críticos.
-4. Mantener revisión humana y aprobación para operaciones externas de alto impacto.
-5. Definir umbrales de parada por regresiones, fuga de datos, aumento de defectos o coste inesperado.
-6. Asignar responsable y fecha de revisión; revertir la expansión si la calidad cae por debajo del mínimo acordado.
+La diferencia del coste unitario calculado es aproximadamente **−14,4 %** para AI-01. Sin embargo, el dato de origen no está verificado y el coste esperado de fallos es una estimación; la cifra no debe presentarse como ahorro demostrado.
 
-## 6. Matriz de riesgo
+### Defectos por entrega aceptada
 
-| Caso de uso | Impacto | Autonomía permitida | Control |
-|---|---|---|---|
-| Borrador de documentación interna | Bajo | Propuesta automática | Revisión del propietario |
-| Cambio de código no crítico | Medio | Preparar cambio y ejecutar tests aislados | Revisión de diff y CI |
-| Migración de datos | Alto | Análisis y plan; no ejecutar por defecto | Simulación, backup, aprobación explícita y rollback probado |
-| Despliegue en producción | Alto | Preparar evidencia | Gate externo, identidad autorizada y aprobación |
+`tasa de defectos = defectos encontrados / entregas aceptadas`
+
+- BASE-01: 6 / 34 = **0,1765 defectos** por entrega aceptada.
+- AI-01: 9 / 35 = **0,2571 defectos** por entrega aceptada.
+
+AI-01 muestra más defectos por entrega aceptada. Por tanto, el menor coste unitario no basta para concluir que hay una mejora neta ni para autorizar una expansión.
+
+### Tiempo y esfuerzo humano
+
+El tiempo de ciclo declarado baja de 90 a 75 minutos por tarea; los minutos de trabajo humano bajan de 65 a 52. Son medidas diferentes: el tiempo de ciclo puede incluir esperas y retrabajo, mientras que el trabajo humano mide esfuerzo. No deben intercambiarse ni agregarse sin una definición explícita.
+
+## 3. Decisión sobre los vectores de prueba
+
+| Vector | Condición | Decisión esperada |
+|---|---|---|
+| TV-01 | Menor coste unitario, pero más defectos | `do_not_expand` |
+| TV-02 | Falta una medición requerida | `inconclusive` |
+| TV-03 | Acción externa sin aprobación | `block` |
+| TV-04 | Escenario hipotético con tareas comparables, calidad no inferior, menor coste verificado y revisión humana | `expand_cautiously` |
+
+TV-04 es una puerta hipotética, no una conclusión derivada de los datos actuales. Para superar esa puerta, la evidencia de origen debe verificarse y la comparación debe demostrar comparabilidad, calidad no inferior y menor coste total, con revisión humana documentada.
+
+## 4. Reglas de decisión
+
+- **No ampliar** si el tiempo mejora pero empeora la calidad o no hay una reducción de coste total demostrada.
+- **Resultado inconcluso** si faltan mediciones, la fuente no es fiable o los grupos no son comparables. No sustituyas un dato desconocido por cero.
+- **Bloquear** cualquier acción externa no aprobada y escalar al rol responsable.
+- **Reclasificar el riesgo** si un caso de uso empieza a tratar datos confidenciales o personales.
+- **Ampliar gradualmente** solo cuando las tareas sean comparables, la calidad cumpla el mínimo acordado, el coste total sea inferior y esté verificado, y una persona responsable apruebe la decisión.
+
+## 5. Matriz de gobernanza del fixture
+
+| ID | Caso de uso | Riesgo | Aprobación | Responsable |
+|---|---|---|---|---|
+| GOV-01 | Borradores internos no sensibles | Bajo | Revisión humana antes de uso externo | `content_owner` |
+| GOV-02 | Modificar código y pruebas | Medio | Revisión independiente del diff y CI verde | `engineering_owner` |
+| GOV-03 | Acciones externas o irreversibles | Alto | Aprobación humana explícita por acción | `operations_owner` |
+| GOV-04 | Datos personales o confidenciales | Alto | Revisión de privacidad y autorización de datos | `data_owner` |
+
+Cada fila también define una regla de datos y una condición de parada en el fixture. No interpretes una etiqueta de riesgo como permiso automático: el control y la aprobación exigidos deben cumplirse antes de actuar.
+
+## 6. Criterios de aceptación
+
+| Criterio | Evidencia del fixture | Comprobación |
+|---|---|---|
+| AC-01 — Coste completo | `comparison` y MET-03 | Recalcular modelos, infraestructura, trabajo humano y coste esperado de fallos |
+| AC-02 — Calidad de evidencia | `measurement_notes`, VAL-T01 y VAL-T02 | Distinguir datos observados, estimaciones y datos desconocidos |
+| AC-03 — Responsabilidad y controles | GOV-01 a GOV-04 | Confirmar riesgo, propietario, aprobación, regla de datos y parada |
+| AC-04 — Acciones externas | GOV-03 y DEC-04 | Verificar que sin aprobación explícita la acción se bloquea |
+| AC-05 — Mejora neta | DEC-01 a DEC-03 y VAL-T01 | Revisar coste, calidad, retrabajo y comparabilidad |
+| AC-06 — Decisión revisable | `decision_rules` | Registrar decisión, responsable, evidencia y fecha de revisión |
 
 ## 7. Entregable del alumno
 
-Presenta la hoja de cálculo o script que reproduce cada cifra, fuentes y unidades, datos desconocidos, sensibilidad al coste laboral y al retrabajo, métricas de calidad, matriz de riesgo, recomendación y criterios para revisar o retirar la decisión.
+Entrega un cálculo reproducible, fuente y unidad de cada dato, supuestos, análisis de sensibilidad al coste laboral y a los fallos, métricas de calidad, matriz de gobernanza, decisión y criterios para ampliar, mantener, corregir o retirar el uso. Identifica explícitamente qué datos siguen sin verificar.
 
 ## Autoevaluación
 
-- [ ] Distingo costes observados, supuestos y estimaciones.
-- [ ] El denominador incluye solo entregas aceptadas según una definición estable.
-- [ ] Comparo coste, calidad, retrabajo y tiempo, no solo velocidad.
-- [ ] No infiero causalidad de una comparación sin controlar sesgos.
-- [ ] La autonomía y la aprobación son proporcionales al impacto.
-- [ ] La recomendación incluye condiciones de parada y fecha de revisión.
+- [ ] Los cálculos usan los valores del fixture y se pueden reproducir.
+- [ ] El coste por entrega incluye trabajo humano y coste esperado de fallos.
+- [ ] Distingo tasa de aceptación, defectos por entrega, tiempo de ciclo y esfuerzo humano.
+- [ ] No afirmo causalidad ni ahorro real a partir de datos sintéticos.
+- [ ] Los datos ausentes producen un resultado inconcluso, no un cero inventado.
+- [ ] Las acciones de alto riesgo requieren los controles y aprobaciones definidos.
+- [ ] La decisión tiene responsable, evidencia y fecha de revisión.
 
-## Relación con el validador
+## Relación con el fixture y el validador
 
-Complementa `fixtures/lab10-productivity-governance.json` y `scripts/check-lab10-productivity-governance.mjs`. Ejecutar `npm run check:lab10` valida estructura; no certifica el caso de negocio ni la validez de las cifras.
+El fixture `fixtures/lab10-productivity-governance.json` define las métricas MET-01–MET-05, los controles GOV-01–GOV-04, las reglas DEC-01–DEC-04, los escenarios VAL-T01–VAL-T05 y los vectores TV-01–TV-04. Este ejemplo sigue sus datos e identificadores.
+
+Ejecuta `npm run check:lab10` para validar estructura y coherencia básica. El validador no certifica los datos de origen, no demuestra causalidad y no decide si el caso de negocio es válido. La decisión real requiere revisión humana de fuentes, comparabilidad, privacidad, seguridad y contexto organizativo.
