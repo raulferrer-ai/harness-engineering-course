@@ -46,3 +46,7 @@ El comando `check` compila el sitio, verifica las rutas y los enlaces locales de
 4. Realizar una revisión de accesibilidad y un piloto con estudiantes.
 
 El proyecto mantiene el flujo de trabajo basado en ramas revisables, controles automatizados y revisión humana antes de integrar cambios.
+
+## Verificación local antes de publicar
+
+Ejecuta `npm ci` y después `npm run check` con Node.js 20 o posterior. El control integral construye el sitio, comprueba las rutas generadas, valida enlaces Markdown locales y ejecuta los controles del currículo, los diez laboratorios y las regresiones. Un resultado satisfactorio debe asociarse al commit exacto revisado; no sustituye una revisión humana ni la validación pedagógica con participantes.
