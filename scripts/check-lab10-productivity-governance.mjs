@@ -95,6 +95,12 @@ for(const v of data.decision_test_vectors??[]){
   if(v.expected_decision==="expand_cautiously"&&!/comparable/i.test(v.reason))errors.push(v.id+": la expansión debe exigir tareas comparables");
   if(v.expected_decision==="expand_cautiously"&&!/quality|calidad/i.test(v.reason))errors.push(v.id+": la expansión debe mencionar calidad");
   if(v.expected_decision==="expand_cautiously"&&!/coste|cost/i.test(v.reason))errors.push(v.id+": la expansión debe mencionar coste total");
+  if(["expand_cautiously","do_not_expand"].includes(v.expected_decision)){
+    const result=v.comparison_result;
+    if(!result||!["lower","equal","higher","unknown"].includes(result.cost_per_delivery)||!["lower","not_higher","higher","unknown"].includes(result.defect_rate)||typeof result.tasks_comparable!=="boolean")errors.push(v.id+": falta comparación explícita de coste, defectos y comparabilidad");
+    if(v.expected_decision==="expand_cautiously"&&result&&(result.cost_per_delivery!=="lower"||result.defect_rate!=="not_higher"||result.tasks_comparable!==true))errors.push(v.id+": no se puede ampliar sin menor coste, calidad no inferior y tareas comparables");
+    if(v.expected_decision==="do_not_expand"&&result&&result.cost_per_delivery==="lower"&&result.defect_rate==="not_higher"&&result.tasks_comparable===true)errors.push(v.id+": la decisión conservadora contradice la evidencia declarada");
+  }
   if(v.expected_decision==="do_not_expand"&&!v.missing_measurement&&v.unapproved_external_action!==true){
     const cost=g=>((g.model_cost+g.infra_cost+(g.human_minutes_per_task*g.tasks_completed/60*c.labor_cost_per_hour)+c.expected_failure_cost[g===c.baseline?"baseline":"assisted"])/g.accepted_deliveries);
     if(cost(c.assisted)<cost(c.baseline)&&c.assisted.defects_found<=c.baseline.defects_found)errors.push(v.id+": decisión conservadora contradice los datos comparativos");
