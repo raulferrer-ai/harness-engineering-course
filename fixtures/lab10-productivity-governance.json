@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "status": "didactic-example-pending-human-review",
+  "exercise_id": "VALUE-GOV-01",
+  "purpose": "Comparar un flujo asistido por IA con una línea base usando coste total, calidad, tiempo y controles de gobernanza.",
+  "comparison": {
+    "baseline": {
+      "id": "BASE-01",
+      "description": "Flujo habitual sin asistencia de IA",
+      "tasks_completed": 40,
+      "accepted_deliveries": 34,
+      "cycle_time_minutes": 90,
+      "human_minutes_per_task": 65,
+      "defects_found": 6,
+      "infra_cost": 12,
+      "model_cost": 0
+    },
+    "assisted": {
+      "id": "AI-01",
+      "description": "Flujo con asistencia de IA y revisión humana",
+      "tasks_completed": 42,
+      "accepted_deliveries": 35,
+      "cycle_time_minutes": 75,
+      "human_minutes_per_task": 52,
+      "defects_found": 9,
+      "infra_cost": 18,
+      "model_cost": 24
+    },
+    "labor_cost_per_hour": 45,
+    "expected_failure_cost": {
+      "baseline": 30,
+      "assisted": 75
+    },
+    "currency": "EUR",
+    "measurement_notes": [
+      "Valores sintéticos para practicar el cálculo; no representan resultados observados.",
+      "Los dos grupos deben compararse por dificultad, criterios de aceptación y periodo de observación.",
+      "Las entregas aceptadas, defectos, tiempo humano y costes deben verificarse con datos de origen."
+    ]
+  },
+  "metrics": [
+    {
+      "id": "MET-01",
+      "name": "accepted_delivery_rate",
+      "unit": "ratio",
+      "direction": "higher_is_better",
+      "definition": "accepted_deliveries / tasks_completed"
+    },
+    {
+      "id": "MET-02",
+      "name": "cycle_time_minutes",
+      "unit": "minutes_per_task",
+      "direction": "lower_is_better",
+      "definition": "tiempo total desde tarea lista hasta entrega aceptada, incluyendo espera y retrabajo"
+    },
+    {
+      "id": "MET-03",
+      "name": "cost_per_accepted_delivery",
+      "unit": "EUR_per_delivery",
+      "direction": "lower_is_better",
+      "definition": "(model_cost + infra_cost + human_labor_cost + expected_failure_cost) / accepted_deliveries"
+    },
+    {
+      "id": "MET-04",
+      "name": "defect_rate",
+      "unit": "defects_per_accepted_delivery",
+      "direction": "lower_is_better",
+      "definition": "defects_found / accepted_deliveries"
+    },
+    {
+      "id": "MET-05",
+      "name": "human_review_minutes",
+      "unit": "minutes_per_task",
+      "direction": "lower_is_better",
+      "definition": "minutos de preparación, revisión, corrección y validación humana por tarea"
+    }
+  ],
+  "governance_matrix": [
+    {
+      "id": "GOV-01",
+      "use_case": "Generar borradores internos no sensibles",
+      "risk": "low",
+      "approval": "revisión humana antes de uso externo",
+      "data_rule": "no incluir datos personales o secretos",
+      "owner_role": "content_owner",
+      "stop_condition": "salida con afirmaciones no verificadas"
+    },
+    {
+      "id": "GOV-02",
+      "use_case": "Modificar código y pruebas",
+      "risk": "medium",
+      "approval": "revisión independiente del diff y CI verde",
+      "data_rule": "mínimo acceso al repositorio y secretos aislados",
+      "owner_role": "engineering_owner",
+      "stop_condition": "regresión, cambio fuera de alcance o evidencia ausente"
+    },
+    {
+      "id": "GOV-03",
+      "use_case": "Ejecutar acciones externas o irreversibles",
+      "risk": "high",
+      "approval": "aprobación humana explícita por acción",
+      "data_rule": "credenciales limitadas, auditadas y revocables",
+      "owner_role": "operations_owner",
+      "stop_condition": "permiso ambiguo, efecto no reversible o señal crítica"
+    },
+    {
+      "id": "GOV-04",
+      "use_case": "Procesar datos personales o confidenciales",
+      "risk": "high",
+      "approval": "revisión de privacidad y autorización de datos",
+      "data_rule": "minimización, retención limitada y redacción",
+      "owner_role": "data_owner",
+      "stop_condition": "base jurídica, destino o retención desconocidos"
+    }
+  ],
+  "decision_rules": [
+    {
+      "id": "DEC-01",
+      "condition": "El coste por entrega aceptada baja y la calidad no empeora.",
+      "decision": "considerar expansión gradual, con seguimiento"
+    },
+    {
+      "id": "DEC-02",
+      "condition": "El tiempo baja pero aumentan defectos o retrabajo.",
+      "decision": "no declarar mejora neta; corregir y volver a medir"
+    },
+    {
+      "id": "DEC-03",
+      "condition": "Faltan datos fiables o los grupos no son comparables.",
+      "decision": "resultado inconcluso; recopilar evidencia adicional"
+    },
+    {
+      "id": "DEC-04",
+      "condition": "El uso supera permisos, tratamiento de datos o riesgo aprobado.",
+      "decision": "detener el uso y escalar al responsable"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "VAL-T01",
+      "input": "El flujo asistido completa más tareas, pero tiene más defectos y mayor coste por entrega aceptada.",
+      "expected": "no se declara aumento de productividad neta; se informa el trade-off y se propone corregir o limitar el uso."
+    },
+    {
+      "id": "VAL-T02",
+      "input": "No se dispone de datos de tiempo humano para uno de los grupos.",
+      "expected": "el cálculo se marca incompleto; no se sustituye el dato ausente por cero."
+    },
+    {
+      "id": "VAL-T03",
+      "input": "Un agente propone ejecutar una operación externa sin aprobación.",
+      "expected": "se bloquea la acción y se solicita aprobación explícita al rol responsable."
+    },
+    {
+      "id": "VAL-T04",
+      "input": "Una tarea de bajo riesgo empieza a tratar datos confidenciales.",
+      "expected": "se reclasifica el riesgo y se aplican controles de datos antes de continuar."
+    },
+    {
+      "id": "VAL-T05",
+      "input": "Una mejora aparente depende de tareas más sencillas en el grupo asistido.",
+      "expected": "se declara el sesgo y se repite la comparación con tareas equivalentes."
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "condition": "El coste por entrega aceptada incluye modelos, infraestructura, trabajo humano y coste esperado de fallos.",
+      "evidence": "comparison y MET-03",
+      "verification": "recalcular desde datos de origen y comprobar unidades."
+    },
+    {
+      "id": "AC-02",
+      "condition": "La recomendación separa métricas observadas, estimaciones e incertidumbre.",
+      "evidence": "measurement_notes y escenarios VAL-T01/VAL-T02",
+      "verification": "auditar cada cifra y etiquetar valores no observados."
+    },
+    {
+      "id": "AC-03",
+      "condition": "Cada caso de uso tiene riesgo, responsable, control y condición de parada.",
+      "evidence": "GOV-01 a GOV-04",
+      "verification": "comprobar campos y cobertura de niveles de riesgo."
+    },
+    {
+      "id": "AC-04",
+      "condition": "Los efectos externos o irreversibles requieren aprobación humana explícita.",
+      "evidence": "GOV-03 y DEC-04",
+      "verification": "ensayo de denegación ante ausencia de aprobación."
+    },
+    {
+      "id": "AC-05",
+      "condition": "Una mejora de velocidad no compensa automáticamente el deterioro de calidad o coste.",
+      "evidence": "DEC-01 a DEC-03 y VAL-T01",
+      "verification": "revisar la decisión frente a todas las métricas."
+    },
+    {
+      "id": "AC-06",
+      "condition": "La recomendación incluye condiciones para ampliar, mantener, corregir o retirar el uso.",
+      "evidence": "decision_rules",
+      "verification": "documentar una decisión reproducible con responsable y fecha de revisión."
+    }
+  ],
+  "policy": {
+    "missing_measurement": "mark_unknown_not_zero",
+    "unapproved_external_action": "block",
+    "high_risk_requires_human_approval": true,
+    "claim_productivity_gain_requires": "comparable_tasks_quality_and_total_cost",
+    "review_cadence_days": 90
+  },
+  "limitations": [
+    "Datos numéricos sintéticos: sirven para probar el procedimiento, no para afirmar ahorros reales.",
+    "El validador comprueba estructura y coherencia básica; no calcula ni certifica un caso de negocio.",
+    "La decisión final requiere revisión humana de fuentes, comparabilidad, privacidad, seguridad y contexto organizativo."
+  ]
+}
