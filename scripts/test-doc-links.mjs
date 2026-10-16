@@ -81,6 +81,11 @@ try {
   });
   expectPass("anclas de encabezados Setext", run(setextAnchors), "enlaces locales comprobados");
 
+  const atxBeforeThematicBreak = await fixture("atx-before-thematic-break", {
+    "README.md": "# Inicio\n===\n\n[Ancla inventada](#inicio-1)\n"
+  });
+  expectFail("no interpreta una regla horizontal tras un encabezado ATX como otro encabezado", run(atxBeforeThematicBreak), "ancla no encontrada");
+
   const mixedHeadingDuplicates = await fixture("mixed-heading-duplicates", {
     "README.md": "Repetida\n========\n\n# Repetida\n\n[Primera](#repetida) [Segunda](#repetida-1)\n"
   });
