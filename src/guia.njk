@@ -1,0 +1,105 @@
+---
+layout: layouts/base.njk
+title: Guía de uso del curso
+description: "Cómo recorrer el curso, preparar el entorno, ejecutar laboratorios y conservar evidencias reproducibles."
+permalink: guia/index.html
+---
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">GUÍA DE PARTICIPACIÓN</p>
+    <h1>Cómo trabajar con el curso</h1>
+    <p class="hero-lede">El curso está diseñado para desarrolladores con experiencia que quieren integrar asistentes y agentes en procesos de ingeniería sin renunciar a la verificación, la seguridad ni la responsabilidad humana.</p>
+    <div class="module-meta"><span>10 módulos</span><span>160 horas planificadas</span><span>Aprendizaje basado en evidencia</span></div>
+  </header>
+
+  <aside class="notice" aria-label="Estado del material">
+    <strong>Material en desarrollo y validación progresiva.</strong>
+    <p>La duración es una planificación, no una medida de esfuerzo validada mediante un piloto. Los ejercicios y fixtures ilustrativos no sustituyen las ejecuciones reales. Comprueba siempre qué se ha ejecutado y qué está pendiente.</p>
+  </aside>
+
+  <section class="section" aria-labelledby="ruta">
+    <div class="section-heading"><div><p class="eyebrow">SECUENCIA</p><h2 id="ruta">Ruta recomendada</h2></div></div>
+    <ol>
+      <li><strong>Comprende el problema:</strong> lee los resultados de aprendizaje y distingue los hechos dados de los supuestos del escenario.</li>
+      <li><strong>Define el resultado esperado:</strong> formula criterios observables antes de pedir una solución a un modelo.</li>
+      <li><strong>Prepara una línea base:</strong> identifica versión del repositorio, entorno, comandos y estado inicial de las pruebas.</li>
+      <li><strong>Realiza el laboratorio:</strong> sigue el procedimiento, registra las entradas exactas y conserva también los resultados fallidos.</li>
+      <li><strong>Verifica de forma independiente:</strong> compara las salidas con los criterios, inspecciona cambios y prueba casos negativos y regresiones.</li>
+      <li><strong>Documenta los límites:</strong> señala qué se midió, qué se estimó, qué no pudo ejecutarse y qué conclusiones no permite extraer la muestra.</li>
+      <li><strong>Revisa y mejora:</strong> solicita una revisión independiente y convierte los defectos importantes en casos de regresión.</li>
+    </ol>
+  </section>
+
+  <section class="section" aria-labelledby="horas">
+    <div class="section-heading"><div><p class="eyebrow">PLANIFICACIÓN</p><h2 id="horas">Cómo se distribuyen las 160 horas</h2></div></div>
+    <div class="table-wrapper">
+      <table>
+        <caption>Distribución planificada del curso</caption>
+        <thead><tr><th scope="col">Componente</th><th scope="col">Horas</th><th scope="col">Enfoque</th></tr></thead>
+        <tbody>
+          <tr><td>Fundamentos de los 10 módulos</td><td>40</td><td>Conceptos, diseño, decisiones y análisis de fallos.</td></tr>
+          <tr><td>Laboratorios de los 10 módulos</td><td>64</td><td>Experimentos, implementación, pruebas y evidencias.</td></tr>
+          <tr><td>Proyecto transversal</td><td>40</td><td>Aplicación integrada sobre un problema acotado.</td></tr>
+          <tr><td>Evaluación</td><td>16</td><td>Revisión, análisis, comunicación y defensa.</td></tr>
+          <tr><th scope="row">Total</th><th>160</th><th>Planificación inicial pendiente de validación mediante piloto.</th></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>La distribución horaria sirve para planificar. Registra el tiempo real, los bloqueos y las dependencias para identificar si el diseño requiere ajustes.</p>
+  </section>
+
+  <section class="section" aria-labelledby="entorno">
+    <div class="section-heading"><div><p class="eyebrow">PREPARACIÓN</p><h2 id="entorno">Preparar el entorno de trabajo</h2></div></div>
+    <ul>
+      <li>Utiliza un repositorio de práctica cuya licencia y procedencia permitan el uso previsto.</li>
+      <li>Registra sistema operativo, runtime, versiones de dependencias y comandos relevantes.</li>
+      <li>Empieza desde un commit identificable y una rama aislada; conserva los cambios que ya existían antes de empezar.</li>
+      <li>Evita credenciales reales, datos personales innecesarios, servicios de producción y acciones externas no autorizadas.</li>
+      <li>Usa una herramienta de IA permitida por el curso y registra modelo o versión cuando esa información esté disponible. No asumas que todas las herramientas ofrecen las mismas capacidades.</li>
+      <li>Si una herramienta, suscripción o capacidad no está disponible, registra la limitación y usa una alternativa autorizada; no inventes resultados.</li>
+    </ul>
+    <p>La matriz definitiva de herramientas y versiones requiere aprobación docente. Antes de un piloto formal, confirma los requisitos publicados por el equipo responsable.</p>
+  </section>
+
+  <section class="section" aria-labelledby="evidencia">
+    <div class="section-heading"><div><p class="eyebrow">TRAZABILIDAD</p><h2 id="evidencia">Qué significa una evidencia válida</h2></div></div>
+    <p>Una evidencia útil permite que otra persona compruebe una afirmación sin depender únicamente de la explicación del alumno o del modelo. Como mínimo, identifica el contexto de ejecución, el procedimiento, el resultado observado y el criterio aplicado.</p>
+    <ul>
+      <li><strong>Reproducibilidad:</strong> revisión del repositorio, entorno, comandos y entradas identificables.</li>
+      <li><strong>Integridad:</strong> resultados originales conservados, incluidos los fallos relevantes.</li>
+      <li><strong>Verificación:</strong> criterio definido, método de comprobación y estado observado.</li>
+      <li><strong>Seguridad:</strong> datos sensibles eliminados y permisos o efectos dentro del alcance autorizado.</li>
+      <li><strong>Honestidad epistémica:</strong> distinción explícita entre observado, estimado, supuesto y no disponible.</li>
+    </ul>
+    <p>Utiliza la <a href="https://github.com/raulferrer-ai/harness-engineering-course/blob/main/docs/lab-evidence-template.md">plantilla de evidencia para laboratorios</a>. Para una decisión de publicación, consulta además la <a href="https://github.com/raulferrer-ai/harness-engineering-course/blob/main/docs/release-readiness-checklist.md">lista de preparación para publicar</a>.</p>
+  </section>
+
+  <section class="section" aria-labelledby="criterios">
+    <div class="section-heading"><div><p class="eyebrow">REGLAS DE TRABAJO</p><h2 id="criterios">Reglas para evitar conclusiones falsas</h2></div></div>
+    <ul>
+      <li>No afirmes que una prueba ha pasado si no se ejecutó y no hay salida verificable.</li>
+      <li>No uses ejemplos sintéticos como si fueran mediciones obtenidas en un sistema real.</li>
+      <li>No cambies los criterios de aceptación después de ver el resultado para justificar una aprobación.</li>
+      <li>No consideres que una respuesta JSON válida es necesariamente correcta semánticamente.</li>
+      <li>No confundas una tasa media de éxito con la ausencia de fallos críticos.</li>
+      <li>No permitas que instrucciones halladas en archivos, páginas o salidas de herramientas amplíen por sí solas los permisos del sistema.</li>
+      <li>Si falta información crítica, detente y solicita aclaración en lugar de rellenar el vacío con una suposición no declarada.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="siguiente">
+    <div class="section-heading"><div><p class="eyebrow">CONTINUAR</p><h2 id="siguiente">Del laboratorio al proyecto</h2></div></div>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3><a href="/#programa">Recorrer los módulos</a></h3><p>Empieza por M01 y avanza hacia especificación, contexto, desarrollo, agentes, control, evaluación, seguridad y operación.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3><a href="/proyecto/">Desarrollar el proyecto transversal</a></h3><p>Integra las prácticas en un cambio de alcance acotado con línea base, pruebas, revisión y análisis.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3><a href="/evaluacion/">Consultar evaluación y defensa</a></h3><p>Revisa la rúbrica propuesta y las decisiones docentes que deben aprobarse antes de la evaluación sumativa.</p></div></section>
+    </div>
+  </section>
+
+  <section class="closing-band" aria-labelledby="cierre">
+    <p class="eyebrow">PRINCIPIO DE APRENDIZAJE</p>
+    <h2 id="cierre">No basta con obtener una respuesta: hay que poder comprobarla.</h2>
+    <p>El objetivo de cada ejercicio es practicar un ciclo completo: especificar, ejecutar, verificar, registrar y decidir con límites explícitos.</p>
+    <a class="text-link" href="/#programa">Explorar el programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
