@@ -66,6 +66,11 @@ try {
   });
   expectPass("anclas Markdown, IDs HTML y referencias locales", run(validAnchors), "enlaces locales comprobados");
 
+  const unquotedHtmlId = await fixture("unquoted-html-id", {
+    "README.md": '<section id=detalle></section>\n\n[Ir al detalle](#detalle)\n'
+  });
+  expectPass("IDs HTML sin comillas", run(unquotedHtmlId), "enlaces locales comprobados");
+
   const missingAnchor = await fixture("missing-anchor", {
     "README.md": "# Inicio\n\n[Sección ausente](#no-existe)\n"
   });
