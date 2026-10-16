@@ -43,12 +43,14 @@ const linkPattern = /!?\[[^\]]*\]\(\s*(?:<([^>]+)>|([^\s)]+))(?:\s+[^)]*)?\)/g;
 for (const file of markdownFiles) {
   const source = fs.readFileSync(file, "utf8");
   const referenceDefinitions = new Map();
-  for (const match of source.matchAll(/^\s{0,3}\[([^\]]+)\]:\s*<?([^\s>]+)>?/gm)) {
+  const withoutCode = source.replace(/```[\\s\\S]*?```|~~~[\\s\\S]*?~~~/g, "");
+  for (const match of withoutCode.matchAll(/^\\s{0,3}\\[([^\\]]+)\\]:\\s*<?([^\\s>]+)>?/gm)) {
     referenceDefinitions.set(match[1].trim().toLowerCase(), match[2].trim());
   }
-  const referenceUses = /(?<!!)\[([^\]]+)\]\[([^\]]+)\]/g;
-  for (const match of source.matchAll(referenceUses)) {
-    const label = match[2].trim().toLowerCase();
+  const referenceUses = /(?<!!)\\[([^\\]]+)\\](?:\\[([^\\]]*)\\])?/g;
+  for (const match of withoutCode.matchAll(referenceUses)) {
+    if (match[0].startsWith("[")) continue;
+    const label = (match[2] || match[1]).trim().toLowerCase();
     const raw = referenceDefinitions.get(label);
     if (!raw) {
       errors.push(`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${match[2]}]".`);
