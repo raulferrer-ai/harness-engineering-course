@@ -113,6 +113,7 @@ for (const id of competencyRows) {
 }
 for (const id of expectedCompetencyIds) {
   const count = competencyRows.filter(value => value === id).length;
+  if (count === 0) errors.push(`Traceability matrix has no primary mapping row for competency ${id}.`);
   if (count > 1) errors.push(`Traceability matrix defines competency ${id} more than once in its primary mapping.`);
 }
 const moduleRows = traceabilityRows
@@ -121,6 +122,11 @@ const moduleRows = traceabilityRows
   .map(match => match[1]);
 for (const id of moduleRows) {
   if (!expectedModuleIds.includes(id)) errors.push(`Traceability matrix references unapproved module ${id}.`);
+}
+for (const id of expectedModuleIds) {
+  const count = moduleRows.filter(value => value === id).length;
+  if (count === 0) errors.push(`Traceability matrix has no primary mapping row for module ${id}.`);
+  if (count > 1) errors.push(`Traceability matrix maps module ${id} more than once in its primary mapping.`);
 }
 
 // Ensure every repository artifact linked in the traceability matrix actually exists.
