@@ -16,6 +16,7 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 
 - [Visión del producto](docs/vision.md)
 - [Currículo aprobado](docs/curriculum.md)
+- [Matriz de trazabilidad curricular y gates de evidencia](docs/traceability.md)
 - [Arquitectura y criterios de entrega](docs/architecture.md)
 - [Registro del reinicio del repositorio](docs/RESET-RECORD.md)
 
