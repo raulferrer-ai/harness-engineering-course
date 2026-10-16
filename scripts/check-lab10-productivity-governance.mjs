@@ -60,6 +60,11 @@ if (data.policy?.missing_measurement !== "mark_unknown_not_zero" || data.policy?
 if (!Array.isArray(data.limitations) || data.limitations.length < 2) errors.push("faltan limitaciones explícitas");
 const requiredMetrics=new Map(metrics.map(m=>[m.name,m]));
 for(const name of ["accepted_delivery_rate","cost_per_accepted_delivery","defect_rate"])if(!requiredMetrics.has(name))errors.push("falta métrica clave "+name);
+const acceptanceMetric=requiredMetrics.get("accepted_delivery_rate");
+if(acceptanceMetric && (acceptanceMetric.unit!=="ratio" || acceptanceMetric.definition!=="accepted_deliveries / tasks_completed"))errors.push("accepted_delivery_rate debe usar ratio y accepted_deliveries / tasks_completed");
+const defectMetric=requiredMetrics.get("defect_rate");
+if(defectMetric && (defectMetric.unit!=="defects_per_accepted_delivery" || defectMetric.definition!=="defects_found / accepted_deliveries"))errors.push("defect_rate debe usar defectos por entrega aceptada y el denominador correcto");
+if(costMetric && costMetric.unit!==`${c.currency}_per_delivery`)errors.push("la unidad de coste debe coincidir con la moneda declarada y expresarse por entrega aceptada");
 if(!/model_cost.*infra_cost|infra_cost.*model_cost/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir coste de modelo e infraestructura");
 if(!/human/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir trabajo humano");
 if(!/expected_failure_cost/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir coste esperado de fallos");
@@ -112,7 +117,7 @@ for(const v of data.decision_test_vectors??[]){
     const baselineCost=totalCost(c.baseline), assistedCost=totalCost(c.assisted);
     const baselineDefectRate=c.baseline.defects_found/c.baseline.accepted_deliveries, assistedDefectRate=c.assisted.defects_found/c.assisted.accepted_deliveries;
     const costDirection=assistedCost<baselineCost?"lower":assistedCost>baselineCost?"higher":"equal";
-    const defectDirection=assistedDefectRate<c.baseline.defects_found/c.baseline.accepted_deliveries?"lower":assistedDefectRate>baselineDefectRate?"higher":"not_higher";
+    const defectDirection=assistedDefectRate<baselineDefectRate?"lower":assistedDefectRate>baselineDefectRate?"higher":"not_higher";
     if(v.comparison_result.cost_per_delivery!==costDirection)errors.push(v.id+": dirección de coste no coincide con el cálculo del fixture");
     if(v.comparison_result.defect_rate!==defectDirection)errors.push(v.id+": dirección de defectos por entrega aceptada no coincide con el cálculo del fixture");
   }
