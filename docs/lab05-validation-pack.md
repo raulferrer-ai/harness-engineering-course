@@ -27,3 +27,7 @@ El validador comprueba la estructura de la fixture. No crea un sandbox ni demues
 ## Ejemplo resuelto
 
 Consulta [`docs/lab05-worked-example.md`](lab05-worked-example.md) para una matriz de permisos mínimos, pruebas negativas de escalada e inyección, controles externos al modelo y criterios de evidencia verificable.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab05-worked-example.md`](lab05-worked-example.md) para revisar permisos mínimos, operaciones permitidas y denegadas, límites del sandbox y criterios de aceptación basados en evidencia.
