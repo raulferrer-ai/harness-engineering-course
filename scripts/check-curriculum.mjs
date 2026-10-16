@@ -66,6 +66,19 @@ for (const [index, module] of modules.entries()) {
     errors.push(`${where}: lab ID is missing from docs/curriculum.md.`);
   }
 
+  if (module?.id && [module?.fundamentalsHours, module?.labHours, module?.hours].every(Number.isFinite)) {
+    const escapedId = module.id.replace(/[.*+?^${}()|[\]\\]/g, "\\  if (module?.labId && !curriculum.includes(module.labId)) {
+    errors.push(`${where}: lab ID is missing from docs/curriculum.md.`);
+  }
+");
+    const row = new RegExp(`^\\|\\s*${escapedId}\\s*\\|[^\\n]*?\\|\\s*(\\d+)\\s*h\\s*\\|\\s*(\\d+)\\s*h\\s*\\|\\s*(\\d+)\\s*h\\s*\\|`, "m").exec(curriculum);
+    if (!row) {
+      errors.push(`${where}: no matching hours row found in docs/curriculum.md.`);
+    } else if (Number(row[1]) !== module.fundamentalsHours || Number(row[2]) !== module.labHours || Number(row[3]) !== module.hours) {
+      errors.push(`${where}: hours in docs/curriculum.md do not match module metadata (expected ${module.fundamentalsHours}/${module.labHours}/${module.hours}).`);
+    }
+  }
+
   if (typeof module?.slug === "string" && module.slug) {
     const pagePath = path.join(root, "src/modulos", `${module.slug}.njk`);
     try {
