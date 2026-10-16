@@ -20,6 +20,9 @@ for (const key of ["baseline","assisted"]) {
     if (!Number.isFinite(group?.[field]) || group[field] < 0) errors.push(`${key}: ${field} debe ser numérico y no negativo`);
   }
   if (Number.isFinite(group?.accepted_deliveries) && Number.isFinite(group?.tasks_completed) && group.accepted_deliveries > group.tasks_completed) errors.push(`${key}: entregas aceptadas superan tareas completadas`);
+  for (const field of ["tasks_completed", "accepted_deliveries", "defects_found"]) {
+    if (Number.isFinite(group?.[field]) && !Number.isInteger(group[field])) errors.push(key + ": " + field + " debe ser un recuento entero");
+  }
 }
 if (!Number.isFinite(c.labor_cost_per_hour) || c.labor_cost_per_hour <= 0) errors.push("labor_cost_per_hour debe ser positivo");
 for (const key of ["baseline","assisted"]) {
