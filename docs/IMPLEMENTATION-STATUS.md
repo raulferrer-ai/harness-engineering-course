@@ -12,7 +12,7 @@ The initial Eleventy static-site skeleton is on the dedicated feature branch `fe
 - The route-check increment was verified successfully in CI: [workflow run 38864875493](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38864875493). The check runs the Eleventy build followed by local `href`/`src` and fragment checks against generated HTML.
 - The lockfile was generated on a GitHub-hosted runner and verified with `npm ci` and `npm run check`: [workflow run 38868954308](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38868954308).
 - `package-lock.json` is committed on this feature branch. It uses lockfile format v3 and records 134 package entries, including Eleventy `3.1.2`.
-- The workflow is being finalized to use read-only repository permissions, `npm ci`, and `npm run check`, without regenerating or committing the lockfile during CI. The final read-only workflow commit still requires its own CI result before this increment can be considered complete.
+- The finalized workflow uses read-only repository permissions, `npm ci`, and `npm run check`; it does not regenerate or commit the lockfile during CI. This workflow passed on the preceding implementation commit: [workflow run 38869032187](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38869032187).
 
 ## Curriculum integrity
 
