@@ -116,3 +116,15 @@ Para cada control conserva el commit probado, la mutación aplicada, el código 
 
 No edites la evidencia para que coincida con el resultado esperado. Si una mutación inválida pasa, registra el defecto, corrige el validador y repite tanto la prueba negativa como la positiva.
 
+### Ejecutar la suite automatizada de regresión negativa
+
+Con dependencias instaladas, ejecuta:
+
+```bash
+npm run check:validator-regressions
+```
+
+La suite comprueba primero que los tres fixtures canónicos siguen siendo aceptados y después aplica nueve mutaciones temporales a copias aisladas de los fixtures de LAB-08, LAB-09 y LAB-10. Cada mutación solo cuenta como prueba superada si el validador termina con código de error y el mensaje corresponde a la regla esperada. Los archivos temporales se eliminan al terminar.
+
+Esta suite no reemplaza `npm run check` ni cubre automáticamente todos los posibles contratos de los diez laboratorios; su alcance actual son tres validadores y nueve mutaciones negativas concretas.
+
