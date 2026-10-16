@@ -29,8 +29,13 @@ if(!/revisión humana/i.test(data.scoring_protocol?.threshold_status??""))errors
 const protocol=data.scoring_protocol??{};
 const vectors=protocol.decision_test_vectors??[];
 if(vectors.length<5)errors.push("se requieren al menos cinco vectores de prueba de decisión");
+const vectorIds=new Set();
+const coveredOutcomes=new Set();
 for(const v of vectors){
-  if(!ok(v.id)||!["APROBADO","NO APROBADO","INCONCLUSO"].includes(v.expected)||!cases.some(x=>x.id===v.case_id)) {errors.push("vector de decisión inválido: "+v.id);continue;}
+  if(!ok(v.id)||vectorIds.has(v.id)||!["APROBADO","NO APROBADO","INCONCLUSO"].includes(v.expected)||!cases.some(x=>x.id===v.case_id)) {errors.push("vector de decisión inválido o duplicado: "+v.id);continue;}
+  vectorIds.add(v.id);coveredOutcomes.add(v.expected);
+  if(!Array.isArray(v.critical_failures))errors.push(v.id+": critical_failures debe ser un array");
+  if(typeof v.missing_required_evidence!=="boolean")errors.push(v.id+": missing_required_evidence debe ser booleano");
   const scoreEntries=rubric.map(r=>[r.dimension,v.scores?.[r.dimension]]);
   const missing= v.missing_required_evidence===true || scoreEntries.some(([,score])=>typeof score!=="number"||score<0||score>4);
   const aggregate=missing?null:rubric.reduce((sum,r)=>sum+r.weight*v.scores[r.dimension]/4*100,0);
@@ -40,5 +45,6 @@ for(const v of vectors){
   else if(critical||aggregate<protocol.pass_threshold_percent||cases.find(testCase=>testCase.id===v.case_id).minimum_dimensions.some(d=>v.scores[d]<protocol.minimum_dimension_score)) actual="NO APROBADO";
   if(actual!==v.expected)errors.push(v.id+": esperado "+v.expected+", obtenido "+actual);
 }
+for(const outcome of ["APROBADO","NO APROBADO","INCONCLUSO"])if(!coveredOutcomes.has(outcome))errors.push("faltan vectores de decisión para "+outcome);
 if(errors.length){for(const e of errors)console.error("LAB-07 evaluation: "+e);process.exit(1);}
 console.log("LAB-07 fixture OK: "+rubric.length+" dimensiones, "+cases.length+" casos y protocolo de puntuación.");
