@@ -71,3 +71,19 @@ La revisión detectó que algunos fixtures y scripts estaban numerados según el
 
 Los validadores anteriores comprueban contratos de datos y campos obligatorios. Su éxito no demuestra por sí solo que un sistema de IA real sea seguro, que una evaluación sea representativa ni que un pipeline aplique las políticas. Esas afirmaciones requieren pruebas de integración y evidencia de ejecución independiente.
 
+## Gate de evidencia para futuras revisiones
+
+Esta tabla sirve para planificar la verificación; no declara que las actividades se hayan ejecutado. Actualizar la columna de estado únicamente con evidencia versionada y reproducible.
+
+| Gate | Condición de aceptación | Evidencia mínima | Estado inicial |
+|---|---|---|---|
+| TG-01 — Integridad curricular | Los diez módulos, nueve competencias y diez laboratorios conservan IDs únicos y relaciones explícitas. | Salida de `npm run check:curriculum` asociada al commit revisado. | Pendiente de ejecución en el commit candidato |
+| TG-02 — Fixtures de laboratorio | Cada fixture canónica es aceptada y las mutaciones inválidas se rechazan con el diagnóstico esperado. | Salida de `npm run check:lab01` … `npm run check:lab10` y `npm run check:validator-regressions`. | Pendiente de ejecución en el commit candidato |
+| TG-03 — Rutas publicadas | Los enlaces locales de las páginas generadas apuntan a destinos existentes. | Salida de `npm run check:routes` después de construir. | Pendiente de ejecución en el commit candidato |
+| TG-04 — Preparación para publicar | La lista de preparación contiene las secciones requeridas, campos únicos y salvaguardas de evidencia. | Salida de `npm run check:release-readiness` y `npm run test:release-readiness-mutations`. | Pendiente de ejecución en el commit candidato |
+| TG-05 — Reproducibilidad integral | La secuencia completa termina con código cero en un entorno limpio compatible con la versión de Node declarada. | Log íntegro de `npm ci` y `npm run check`, con commit, versión de Node y fecha. | No demostrado por este documento |
+| TG-06 — Validación pedagógica | Participantes completan las actividades previstas y los resultados se registran sin inventar datos ausentes. | Protocolo de piloto aprobado e informe real con denominadores, incidencias y limitaciones. | No ejecutado |
+
+### Regla de cierre
+
+No cambiar un gate a «aprobado» por la mera existencia de su script, fixture o documentación. Adjuntar la salida de la ejecución, revisar los fallos y registrar el commit exacto. Un gate sin evidencia permanece pendiente; un gate fallido bloquea la afirmación de preparación correspondiente.
