@@ -1,22 +1,40 @@
 # Harness Engineering Course
 
-Open educational website in Spanish for experienced software developers learning to engineer reliable software with AI coding assistants and agents.
+Sitio educativo abierto en español para desarrolladores con experiencia que quieren diseñar, construir, verificar, operar y mantener software con asistentes de IA y agentes.
 
-## Project status
+## Estado actual
 
-The previous repository project has been archived in the Git branch `archive/pre-course-reset-2026-10-16`. The current `main` branch is the clean starting point for the approved ten-module curriculum. No production deployment is implied by this reset.
+- **Sitio público:** https://harnessengineeringcourse.netlify.app/
+- **Fuente:** rama `main` de este repositorio.
+- **Generador:** Eleventy 3.1.2.
+- **Despliegue:** Netlify, con compilación mediante `npm run build` y publicación de `_site/`.
+- **Currículo aprobado:** diez módulos y 160 horas planificadas.
 
-## Authoritative project documents
+La web inicial está publicada. Esto confirma el despliegue de la estructura del sitio, pero no significa que el contenido completo de las lecciones y laboratorios esté terminado ni que se haya completado un piloto de aprendizaje.
 
-- [Vision](docs/vision.md)
-- [Curriculum](docs/curriculum.md)
-- [Technical architecture and delivery gates](docs/architecture.md)
-- [Reset record](docs/RESET-RECORD.md)
+## Documentos de referencia
 
-## Intended delivery
+- [Visión del producto](docs/vision.md)
+- [Currículo aprobado](docs/curriculum.md)
+- [Arquitectura y criterios de entrega](docs/architecture.md)
+- [Registro del reinicio del repositorio](docs/RESET-RECORD.md)
 
-A static educational website hosted on Netlify, built from version-controlled source. The implementation should support accessible lessons, practical labs, references, and reproducible instructions without requiring learners to purchase a subscription.
+## Desarrollo y verificación
 
-## Status
+Instala las dependencias y ejecuta los controles:
 
-The curriculum design is approved. The site implementation, automated checks, learner pilot, and production deployment remain to be completed and verified.
+```sh
+npm ci
+npm run check
+```
+
+El comando `check` compila el sitio y verifica rutas y enlaces locales generados. No sustituye las revisiones manuales de accesibilidad, teclado, diseño adaptable, calidad pedagógica o reproducibilidad de los laboratorios.
+
+## Próximas etapas
+
+1. Revisar navegación, enlaces y presentación en móvil y escritorio.
+2. Desarrollar progresivamente el contenido de los diez módulos y sus laboratorios.
+3. Ampliar la automatización de calidad y documentar resultados de verificación.
+4. Realizar una revisión de accesibilidad y un piloto con estudiantes.
+
+El proyecto mantiene el flujo de trabajo basado en ramas revisables, controles automatizados y revisión humana antes de integrar cambios.
