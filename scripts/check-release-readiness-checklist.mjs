@@ -9,6 +9,9 @@ try {
   process.exit(1);
 }
 
+// Normalize every supported newline convention before parsing structured rows.
+const normalizedMarkdown = markdown.replace(/\r\n?/g, "\n");
+
 const failures = [];
 const requireText = (text, message = "falta texto obligatorio: " + text) => {
   if (!markdown.includes(text)) failures.push(message);
@@ -43,7 +46,7 @@ const decisionRows = [
   "Decisión"
 ];
 for (const row of decisionRows) {
-  const matchingRows = markdown.split(/\r\n|\n|\r/).filter(line => line.startsWith("| " + row + " |"));
+  const matchingRows = normalizedMarkdown.split("\n").filter(line => line.startsWith("| " + row + " |"));
   if (matchingRows.length === 0) failures.push("falta campo en el registro de decisión: " + row);
   if (matchingRows.length > 1) failures.push("campo duplicado en el registro de decisión: " + row);
 }
