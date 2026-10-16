@@ -18,7 +18,8 @@
         "operator": "lt",
         "value": 0.95
       },
-      "action": "pausar promoción y comparar con la línea base"
+      "action": "pausar promoción y comparar con la línea base",
+      "recovery_required": true
     },
     {
       "id": "SIG-02",
@@ -29,7 +30,8 @@
         "operator": "gt",
         "value": 0.05
       },
-      "action": "deshabilitar la herramienta afectada y abrir incidente"
+      "action": "deshabilitar la herramienta afectada y abrir incidente",
+      "recovery_required": true
     },
     {
       "id": "SIG-03",
@@ -40,7 +42,8 @@
         "operator": "gt",
         "value": 5000
       },
-      "action": "limitar tráfico y revisar trazas por etapa"
+      "action": "limitar tráfico y revisar trazas por etapa",
+      "recovery_required": true
     },
     {
       "id": "SIG-04",
@@ -51,7 +54,8 @@
         "operator": "gt",
         "value": 0
       },
-      "action": "contención inmediata y bloqueo de promoción"
+      "action": "contención inmediata y bloqueo de promoción",
+      "recovery_required": true
     },
     {
       "id": "SIG-05",
@@ -63,7 +67,8 @@
         "operator": "gt",
         "value": 1.5
       },
-      "action": "limitar presupuesto y revisar reintentos/contexto"
+      "action": "limitar presupuesto y revisar reintentos/contexto",
+      "recovery_required": false
     }
   ],
   "events": [
