@@ -25,6 +25,15 @@ for (const s of signals) {
 const events = data.events ?? [];
 unique(events, "eventos");
 if (events.length < 4) errors.push("se requieren al menos cuatro tipos de evento");
+const eventNames=new Set();
+for(const e of events){
+  if(!nonempty(e.name)||eventNames.has(e.name))errors.push(`${e.id}: nombre de evento vacío o duplicado`);
+  eventNames.add(e.name);
+  if(!Array.isArray(e.required_fields)||new Set(e.required_fields).size!==e.required_fields.length)errors.push(`${e.id}: required_fields debe ser una lista sin duplicados`);
+  if(Array.isArray(e.required_fields)&&!e.required_fields.includes("run_id"))errors.push(`${e.id}: todo evento debe incluir run_id para correlación`);
+}
+const requiredByEvent={run_started:["source_revision","environment"],model_call_completed:["model_version","latency_ms","status"],tool_invocation:["tool_name","decision","result_status"],evaluation_completed:["eval_suite_version","score","failed_cases","decision"],recovery_action:["incident_id","action","actor","outcome"]};
+for(const e of events)for(const field of requiredByEvent[e.name]??[])if(!e.required_fields?.includes(field))errors.push(`${e.id}: ${e.name} debe incluir ${field}`);
 for (const e of events) if (!Array.isArray(e.required_fields) || !e.required_fields.includes("timestamp")) errors.push(`${e.id}: faltan campos obligatorios o timestamp`);
 for (const e of events) {
   if (!Array.isArray(e.required_fields) || e.required_fields.length===0) continue;
