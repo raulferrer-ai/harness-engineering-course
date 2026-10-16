@@ -6,7 +6,7 @@
 
 ## 1. Objetivo
 
-Comprobar si el curso puede completarse con las instrucciones, herramientas y evidencias previstas; detectar bloqueos técnicos o pedagógicos; medir el esfuerzo observado frente a las 160 horas planificadas; y revisar si los criterios de aceptación se interpretan de forma consistente.
+Comprobar si el curso puede completarse con las instrucciones, herramientas y evidencias previstas; detectar bloqueos técnicos o pedagógicos; medir el esfuerzo observado frente a las 104 horas de los diez módulos registradas en el currículo; y revisar si los criterios de aceptación se interpretan de forma consistente.
 
 El piloto evalúa el diseño del curso, no demuestra por sí solo la eficacia general de la IA ni la competencia profesional de una población más amplia.
 
