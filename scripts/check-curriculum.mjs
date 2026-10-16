@@ -90,6 +90,16 @@ for (const id of expectedCompetencyIds) {
   if (!traceability.includes(id)) errors.push(`Traceability matrix does not reference ${id}.`);
 }
 
+// Ensure every repository artifact linked in the traceability matrix actually exists.
+const artifactRefs = [...traceability.matchAll(/`((?:src|fixtures|scripts)\\/[^\`]+)`/g)].map(match => match[1]);
+for (const artifact of new Set(artifactRefs)) {
+  try {
+    await access(path.join(root, artifact));
+  } catch {
+    errors.push(`Traceability matrix references missing artifact: ${artifact}.`);
+  }
+}
+
 const total = Array.isArray(modules) ? modules.reduce((sum, module) => sum + (Number.isFinite(module?.hours) ? module.hours : 0), 0) : 0;
 if (total !== 104) errors.push(`Expected 104 hours across the ten modules; found ${total}.`);
 
