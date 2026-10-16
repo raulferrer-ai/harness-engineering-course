@@ -1,0 +1,115 @@
+---
+layout: layouts/base.njk
+title: Ingeniería de contexto
+description: "Módulo M03: diseña, compara y evalúa estrategias de contexto para tareas de desarrollo asistidas por IA."
+permalink: modulos/ingenieria-de-contexto/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M03 · INGENIERÍA DE CONTEXTO</p>
+    <h1>Ingeniería de contexto</h1>
+    <p class="hero-lede">La calidad de una delegación depende también de qué información recibe el modelo, cómo se organiza, qué puede consultar y qué debe ignorar. El contexto se diseña y verifica; no consiste en añadir documentos indiscriminadamente.</p>
+    <div class="module-meta"><span>10 horas planificadas</span><span>4 h de fundamentos · 6 h de laboratorio</span><span>LAB-03</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Seleccionar contexto pertinente para una tarea y justificar las exclusiones.</li>
+      <li>Distinguir instrucciones, datos de referencia, evidencia recuperada y contenido no confiable.</li>
+      <li>Diseñar una estrategia de recuperación y reducción de contexto con trazabilidad a las fuentes.</li>
+      <li>Comparar estrategias mediante una evaluación controlada de exactitud, omisiones, coste y latencia.</li>
+      <li>Identificar riesgos de contexto obsoleto, contradicciones, contaminación y prompt injection.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="fundamentos">
+    <div class="section-heading"><div><p class="eyebrow">FUNDAMENTOS</p><h2 id="fundamentos">Contexto útil frente a contexto abundante</h2></div></div>
+    <p>Una tarea de ingeniería puede requerir la petición, la estructura del repositorio, contratos de interfaces, pruebas, convenciones, documentación y resultados de herramientas. Incluirlo todo sin criterio puede ocultar señales importantes, introducir contradicciones o aumentar el coste sin mejorar el resultado.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Selección</h3><p>Parte de la especificación de la tarea. Incorpora primero los archivos, contratos y ejemplos directamente relevantes; registra qué información falta y por qué.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Jerarquía y procedencia</h3><p>Separa las instrucciones autorizadas de los documentos y salidas de herramientas, que son datos potencialmente no confiables. Una instrucción encontrada en un archivo no adquiere autoridad por estar en el contexto.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Actualización y verificación</h3><p>Vincula la información a una versión o fecha cuando sea relevante. Comprueba las afirmaciones importantes contra el repositorio, las pruebas o fuentes primarias antes de actuar.</p></div></section>
+    </div>
+    <p>El presupuesto de contexto es una restricción operativa, no un objetivo de llenado. Resumir, recuperar fragmentos o dividir tareas puede ser útil, pero toda compresión puede perder detalles: conserva referencias para volver a consultar los originales.</p>
+  </section>
+
+  <section class="section" aria-labelledby="estrategias">
+    <div class="section-heading"><div><p class="eyebrow">DISEÑO</p><h2 id="estrategias">Patrones y riesgos que conviene comparar</h2></div></div>
+    <ul>
+      <li><strong>Contexto mínimo:</strong> especificación y contratos imprescindibles; facilita atribuir resultados, pero puede omitir dependencias.</li>
+      <li><strong>Contexto ampliado:</strong> incorpora documentación y archivos relacionados; puede resolver omisiones o introducir ruido.</li>
+      <li><strong>Recuperación dirigida:</strong> consulta fragmentos relevantes bajo demanda y registra ruta, versión y motivo de selección.</li>
+      <li><strong>Resumen estructurado:</strong> reduce volumen conservando decisiones, restricciones y enlaces a fuentes; exige comprobar pérdidas.</li>
+      <li><strong>Contexto contradictorio u obsoleto:</strong> requiere detectar discrepancias y resolverlas antes de ejecutar cambios irreversibles.</li>
+    </ul>
+    <p>Define una política de confianza: los datos recuperados sirven como evidencia que debe interpretarse, nunca como permiso para modificar objetivos, desactivar controles, revelar secretos o ejecutar instrucciones ajenas a la tarea.</p>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-03 · 6 HORAS</p><h2 id="lab">Experimento controlado de ingeniería de contexto</h2></div><p class="section-intro">Compara cómo cambia el resultado de una misma tarea cuando modificas únicamente la estrategia de contexto.</p></div>
+
+    <h3>Escenario y preparación</h3>
+    <p>Usa un repositorio pequeño, propio o de ejemplo, con código, pruebas y documentación. Plantea una tarea verificable, por ejemplo identificar el archivo responsable de una validación y proponer un cambio acotado sin implementarlo. Evita datos personales, secretos y servicios de producción.</p>
+    <ol>
+      <li>Congela una versión del repositorio y redacta una especificación única con resultado esperado y criterios de aceptación.</li>
+      <li>Prepara un conjunto de al menos cinco casos o preguntas, con respuestas de referencia comprobadas previamente.</li>
+      <li>Registra modelo y versión disponibles, instrucciones, herramientas, parámetros, fecha y presupuesto de contexto cuando puedan conocerse.</li>
+      <li>Define qué constituye una respuesta correcta, una omisión, una afirmación sin evidencia y una violación de restricciones.</li>
+    </ol>
+
+    <h3>Variantes a comparar</h3>
+    <ol>
+      <li><strong>A · Mínima:</strong> proporciona solo la especificación y los contratos imprescindibles.</li>
+      <li><strong>B · Ampliada:</strong> añade documentación y archivos relacionados sin cambiar la tarea ni los criterios.</li>
+      <li><strong>C · Recuperación dirigida:</strong> permite consultar fragmentos relevantes y exige citar rutas o referencias concretas.</li>
+      <li>Incluye al menos un caso con documentación desactualizada o contradictoria para observar si el sistema identifica el conflicto.</li>
+      <li>Como prueba negativa aislada, incorpora en un documento ficticio una instrucción ajena a la tarea y comprueba que se trate como dato no confiable. No utilices secretos reales.</li>
+    </ol>
+
+    <h3>Ejecución y análisis</h3>
+    <ol>
+      <li>Ejecuta los mismos casos con las tres variantes. Mantén constantes las demás variables en la medida en que el entorno lo permita.</li>
+      <li>Conserva las entradas, fragmentos seleccionados y salidas originales sin corregirlas.</li>
+      <li>Evalúa exactitud, completitud, fundamentación, respeto de restricciones y detección de contradicciones; registra también tokens, tiempo o coste solo si son observables.</li>
+      <li>Repite los casos de resultado variable si es posible y distingue observaciones de hipótesis.</li>
+      <li>Compara las variantes por caso, no solo mediante una puntuación agregada. Describe qué información ayudó, sobró o faltó.</li>
+    </ol>
+
+    <h3>Registro de evidencia</h3>
+    <ul>
+      <li>Versión del repositorio y especificación fija de la tarea.</li>
+      <li>Manifiesto de contexto por variante: archivos, fragmentos, versiones, procedencia y exclusiones.</li>
+      <li>Entradas, salidas originales, respuestas esperadas y resultados de cada criterio.</li>
+      <li>Tabla comparativa por caso, con costes o latencias observados y valores «no disponibles» cuando corresponda.</li>
+      <li>Análisis de contradicciones, obsolescencia y prueba negativa de instrucciones no confiables.</li>
+      <li>Recomendación de estrategia con límites de aplicabilidad y mecanismos de actualización.</li>
+    </ul>
+
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>La tarea y sus criterios permanecen constantes entre variantes; las diferencias de contexto quedan documentadas.</li>
+      <li>Las respuestas de referencia se definen antes de puntuar las salidas.</li>
+      <li>Las afirmaciones importantes pueden rastrearse a fuentes concretas o se marcan como no verificadas.</li>
+      <li>Se documenta al menos un caso de contexto contradictorio u obsoleto y una prueba negativa de contenido no confiable.</li>
+      <li>La comparación distingue datos medidos de estimaciones y declara las limitaciones del tamaño de muestra.</li>
+      <li>La conclusión recomienda una estrategia y controles verificables, sin generalizar resultados de una muestra pequeña.</li>
+    </ul>
+
+    <h3>Preguntas de análisis</h3>
+    <ol>
+      <li>¿En qué caso añadir contexto empeoró o no mejoró el resultado y qué evidencia lo demuestra?</li>
+      <li>¿Cómo detectarías que una referencia recuperada ya no coincide con el código actual?</li>
+      <li>¿Qué detalles se perdieron al resumir o seleccionar fragmentos?</li>
+      <li>¿Cómo evitarías que una instrucción maliciosa dentro de un documento modificara el encargo original?</li>
+    </ol>
+  </section>
+
+  <section class="closing-band" aria-labelledby="salida">
+    <p class="eyebrow">ENTREGABLE</p>
+    <h2 id="salida">El contexto se selecciona con criterio y se valida con evidencia.</h2>
+    <p>Entrega las tres variantes, sus manifiestos de contexto, las salidas sin editar, la comparación por caso y una recomendación reproducible.</p>
+    <a class="text-link" href="/#programa">Volver al programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
