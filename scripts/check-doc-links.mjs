@@ -60,7 +60,8 @@ function targetExists(raw, sourceFile) {
   const lines = content.split(/\r?\n/);
   for (let index = 0; index < lines.length; index++) {
     const atx = lines[index].match(/^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$/);
-    const setext = index + 1 < lines.length && /^ {0,3}(?:=+|-+)\s*$/.test(lines[index + 1])
+    const underline = lines[index + 1]?.trim();
+    const setext = underline && /^(?:=+|-+)$/.test(underline)
       ? lines[index].match(/^ {0,3}(.+?)\s*$/)
       : null;
     const heading = atx ? atx[1].replace(/\s+#+\s*$/, "") : setext?.[1];
