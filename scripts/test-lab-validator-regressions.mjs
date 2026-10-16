@@ -98,6 +98,23 @@ const labs = [
   }
 ];
 
+const expectedLabIds = Array.from({ length: 10 }, (_, index) => `LAB-${String(index + 1).padStart(2, "0")}`);
+const actualLabIds = labs.map(lab => lab.id);
+if (JSON.stringify(actualLabIds) !== JSON.stringify(expectedLabIds)) {
+  throw new Error(`Regression suite must cover LAB-01 through LAB-10 in order; got: ${actualLabIds.join(", ")}`);
+}
+for (const lab of labs) {
+  if (lab.cases.length !== 3) {
+    throw new Error(`${lab.id} must define exactly three negative mutations; got ${lab.cases.length}`);
+  }
+}
+for (const field of ["env", "fixture", "validator"]) {
+  const values = labs.map(lab => lab[field]);
+  if (new Set(values).size !== values.length) {
+    throw new Error(`Regression suite contains duplicate ${field} entries`);
+  }
+}
+
 const temp = await mkdtemp(join(tmpdir(), "lab-validator-regressions-"));
 let failures = 0;
 function runValidator(lab, fixturePath) {
