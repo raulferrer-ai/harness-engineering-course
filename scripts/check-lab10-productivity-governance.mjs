@@ -22,6 +22,11 @@ for (const key of ["baseline","assisted"]) {
   if (Number.isFinite(group?.accepted_deliveries) && Number.isFinite(group?.tasks_completed) && group.accepted_deliveries > group.tasks_completed) errors.push(`${key}: entregas aceptadas superan tareas completadas`);
 }
 if (!Number.isFinite(c.labor_cost_per_hour) || c.labor_cost_per_hour <= 0) errors.push("labor_cost_per_hour debe ser positivo");
+for (const key of ["baseline","assisted"]) {
+  const group=c[key];
+  if (Number.isFinite(group?.accepted_deliveries) && group.accepted_deliveries <= 0) errors.push(key+": accepted_deliveries debe ser mayor que cero para calcular costes unitarios");
+  if (Number.isFinite(group?.cycle_time_minutes) && group.cycle_time_minutes <= 0) errors.push(key+": cycle_time_minutes debe ser mayor que cero");
+}
 if (!c.expected_failure_cost || !["baseline","assisted"].every(k => Number.isFinite(c.expected_failure_cost[k]) && c.expected_failure_cost[k] >= 0)) errors.push("faltan costes esperados de fallos por grupo");
 if (!Array.isArray(c.measurement_notes) || c.measurement_notes.length < 2) errors.push("faltan notas sobre calidad de medición");
 const metrics = data.metrics ?? [];
@@ -54,6 +59,22 @@ for(const name of ["accepted_delivery_rate","cost_per_accepted_delivery","defect
 if(!/model_cost.*infra_cost|infra_cost.*model_cost/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir coste de modelo e infraestructura");
 if(!/human/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir trabajo humano");
 if(!/expected_failure_cost/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir coste esperado de fallos");
+const costMetric=requiredMetrics.get("cost_per_accepted_delivery");
+if(costMetric){
+  const expectedDefinition="(model_cost + infra_cost + human_labor_cost + expected_failure_cost) / accepted_deliveries";
+  if(costMetric.definition!==expectedDefinition)errors.push("la definición del coste por entrega debe usar la fórmula canónica y unidades coherentes");
+}
+for(const key of ["baseline","assisted"]){
+  const g=c[key];
+  if(g&&Number.isFinite(g.accepted_deliveries)&&g.accepted_deliveries>0&&Number.isFinite(g.tasks_completed)&&g.tasks_completed>0){
+    const acceptanceRate=g.accepted_deliveries/g.tasks_completed;
+    if(acceptanceRate<0||acceptanceRate>1)errors.push(key+": tasa de aceptación fuera de [0,1]");
+    const humanCost=g.human_minutes_per_task*g.tasks_completed/60*c.labor_cost_per_hour;
+    const failureCost=c.expected_failure_cost?.[key];
+    const total=(g.model_cost+g.infra_cost+humanCost+failureCost)/g.accepted_deliveries;
+    if(!Number.isFinite(total)||total<0)errors.push(key+": coste total por entrega no calculable");
+  }
+}
 for(const key of ["baseline","assisted"]){
   const g=c[key];
   if(Number.isFinite(g?.human_minutes_per_task)&&Number.isFinite(g?.tasks_completed)&&Number.isFinite(c.labor_cost_per_hour)){
