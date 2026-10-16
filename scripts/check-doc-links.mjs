@@ -43,7 +43,9 @@ const linkPattern = /!?\[[^\]]*\]\(\s*(?:<([^>]+)>|([^\s)]+))(?:\s+[^)]*)?\)/g;
 for (const file of markdownFiles) {
   const source = fs.readFileSync(file, "utf8");
   const referenceDefinitions = new Map();
-  const withoutCode = source.replace(/\x60\x60\x60[\s\S]*?\x60\x60\x60|~~~[\s\S]*?~~~/g, "");
+  const withoutCode = source
+    .replace(/\x60\x60\x60[\\s\\S]*?\x60\x60\x60|~~~[\\s\\S]*?~~~/g, "")
+    .replace(/(^|[^\\x60])\x60+[^\\x60\\n]*\x60+(?!\x60)/g, "$1");
   for (const match of withoutCode.matchAll(/^\s{0,3}\[([^\]]+)\]:\s*<?([^\s>]+)>?/gm)) {
     referenceDefinitions.set(match[1].trim().toLowerCase(), match[2].trim());
   }
@@ -71,7 +73,7 @@ for (const file of markdownFiles) {
       errors.push(`${from}: enlace local no encontrado "${raw}" (destino: ${to})`);
     }
   }
-  for (const match of source.matchAll(linkPattern)) {
+  for (const match of withoutCode.matchAll(linkPattern)) {
     const raw = (match[1] ?? match[2] ?? "").trim();
     if (!raw || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(raw)) continue;
     linksChecked++;
