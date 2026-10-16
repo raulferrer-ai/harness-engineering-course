@@ -1,5 +1,6 @@
 import { readFile, access } from "node:fs/promises";
 import path from "node:path";
+import { parsePrimaryTraceability } from "./lib/parse-traceability.mjs";
 
 const root = process.cwd();
 const modulesPath = path.join(root, "src/_data/modules.json");
@@ -100,14 +101,7 @@ for (const id of expectedCompetencyIds) {
   if (!traceability.includes(id)) errors.push(`Traceability matrix does not reference ${id}.`);
 }
 
-const traceabilityRows = traceability
-  .split("\n")
-  .map(line => line.trim().split("|").map(cell => cell.trim()))
-  .filter(cells => cells.length >= 3);
-const competencyRows = traceabilityRows
-  .map(cells => cells[1]?.match(/^(COMP-\d{2})\s+—/))
-  .filter(Boolean)
-  .map(match => match[1]);
+const { competencyRows, moduleRows } = parsePrimaryTraceability(traceability);
 for (const id of competencyRows) {
   if (!expectedCompetencyIds.includes(id)) errors.push(`Traceability matrix contains unapproved competency ${id}.`);
 }
@@ -116,10 +110,6 @@ for (const id of expectedCompetencyIds) {
   if (count === 0) errors.push(`Traceability matrix has no primary mapping row for competency ${id}.`);
   if (count > 1) errors.push(`Traceability matrix defines competency ${id} more than once in its primary mapping.`);
 }
-const moduleRows = traceabilityRows
-  .map(cells => cells[2]?.match(/^(M\d{2}):/))
-  .filter(Boolean)
-  .map(match => match[1]);
 for (const id of moduleRows) {
   if (!expectedModuleIds.includes(id)) errors.push(`Traceability matrix references unapproved module ${id}.`);
 }
