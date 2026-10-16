@@ -47,7 +47,10 @@ for (const r of steps) for (const field of ["trigger","action","verification","r
 const signalIds = new Set(signals.map(x => x.id));
 const signalById = new Map(signals.map(x => [x.id, x]));
 const recoveryTriggers=new Set(steps.map(r=>r.trigger));
-for(const signal of signals)if(signal.name==="unauthorized_action_count"&&!recoveryTriggers.has(signal.id))errors.push(`${signal.id}: una señal de acción no autorizada requiere paso de recuperación`);
+for (const signal of signals) {
+  const critical = signal.name === "unauthorized_action_count" || /bloqueo|inmediata/i.test(signal.action ?? "");
+  if (critical && !recoveryTriggers.has(signal.id)) errors.push(`${signal.id}: señal crítica requiere paso de recuperación`);
+}
 for (const r of steps) {
   if (!signalIds.has(r.trigger)) errors.push(`${r.id}: trigger desconocido ${r.trigger}`);
   const signal = signalById.get(r.trigger);
