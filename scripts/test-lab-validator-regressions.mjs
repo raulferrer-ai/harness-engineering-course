@@ -71,7 +71,7 @@ const labs = [
     cases: [
       ["missing asset name", d => { delete d.assets[0].name; }, /activo sin nombre o impacto/],
       ["duplicate asset ID", d => { d.assets[1].id = d.assets[0].id; }, /ID vacío o duplicado/],
-      ["broken threat-to-test reference", d => { d.threats[0].test_case_id = "SEC-T999"; }, /test_case_id debe referenciar una prueba existente/]
+      ["duplicate asset reference", d => { d.threats[0].asset_ids.push(d.threats[0].asset_ids[0]); }, /asset_ids contiene referencias duplicadas/]
     ]
   },
   {
