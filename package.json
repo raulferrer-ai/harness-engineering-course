@@ -7,9 +7,10 @@
     "build": "eleventy",
     "check:routes": "node scripts/check-routes.mjs",
     "check:curriculum": "node scripts/check-curriculum.mjs",
-    "check": "npm run build && npm run check:routes && npm run check:curriculum && npm run check:lab01 && npm run check:lab02",
+    "check": "npm run build && npm run check:routes && npm run check:curriculum && npm run check:lab01 && npm run check:lab02 && npm run check:lab03",
     "check:lab01": "node scripts/check-lab01-fixtures.mjs",
-    "check:lab02": "node scripts/check-lab02-specification.mjs"
+    "check:lab02": "node scripts/check-lab02-specification.mjs",
+    "check:lab03": "node scripts/check-lab03-context-fixture.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.2"
