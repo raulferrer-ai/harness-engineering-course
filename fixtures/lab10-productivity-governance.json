@@ -225,7 +225,7 @@
       "expected_decision": "do_not_expand",
       "missing_measurement": false,
       "unapproved_external_action": false,
-      "reason": "Los datos sintéticos muestran más defectos y un coste por entrega aceptada no menor; no basta la reducción de tiempo.",
+      "reason": "El coste por entrega aceptada es menor en el fixture, pero la tasa de defectos por entrega aceptada es mayor; no basta la reducción de tiempo ni el menor coste para justificar expansión.",
       "comparison_result": {
         "cost_per_delivery": "lower",
         "defect_rate": "higher",
