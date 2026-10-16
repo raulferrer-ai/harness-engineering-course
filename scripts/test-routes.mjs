@@ -59,6 +59,18 @@ try {
   });
   expectPass("local files, directory indexes, quoted and unquoted fragment IDs", valid);
 
+  const unquotedLocalAttributes = await fixture("unquoted-local-attributes", {
+    "index.html": '<a href=/guide/>Guide</a><img src=/assets/site.css alt="">\n',
+    "guide/index.html": '<h1 id="top">Guide</h1>\n',
+    "assets/site.css": "body { margin: 0; }\n"
+  });
+  expectPass("unquoted local href and src attributes", unquotedLocalAttributes);
+
+  const unquotedMissingTarget = await fixture("unquoted-missing-target", {
+    "index.html": '<a href=/missing/>Missing</a>\n'
+  });
+  expectFail("unquoted href to missing local target", unquotedMissingTarget, "broken local URL");
+
   const missingFile = await fixture("missing-file", {
     "index.html": '<a href="/missing/">Missing</a>\n'
   });
