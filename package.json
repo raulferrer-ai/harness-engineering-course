@@ -7,7 +7,8 @@
     "build": "eleventy",
     "check:routes": "node scripts/check-routes.mjs",
     "check:curriculum": "node scripts/check-curriculum.mjs",
-    "check": "npm run build && npm run check:routes && npm run check:curriculum"
+    "check": "npm run build && npm run check:routes && npm run check:curriculum && npm run check:lab01",
+    "check:lab01": "node scripts/check-lab01-fixtures.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.2"
