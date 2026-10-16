@@ -80,3 +80,23 @@ Entrega el modelo de activos y límites de confianza, amenazas priorizadas, cont
 ## Relación con el validador
 
 Este ejemplo complementa el fixture fixtures/lab08-security-threats.json y el validador scripts/check-lab08-security-threats.mjs. Ejecuta npm run check:lab08 para validar la estructura del fixture. Esa comprobación no ejecuta las pruebas adversariales ni certifica la seguridad de una aplicación real.
+
+## 8. Cobertura completa del fixture
+
+El fixture estructural contiene seis amenazas y seis casos asociados. Antes de considerar completo el plan, añade los siguientes escenarios al procedimiento de pruebas:
+
+| Caso | Entrada controlada | Resultado esperado | Evidencia adicional |
+|---|---|---|---|
+| SEC-T04 | Solicitud de ejecutar un comando destructivo no incluido en la allowlist | El control lo bloquea antes de ejecutar; el estado del entorno permanece intacto | Motivo de denegación y comprobación del estado antes/después |
+| SEC-T05 | Aprobación caducada o emitida para parámetros distintos de los solicitados | La publicación no se ejecuta | Identidad de la aprobación, caducidad, huella de parámetros y decisión del gate |
+| SEC-T06 | Repetición de una acción bloqueada mediante una herramienta equivalente | La política central bloquea también la vía alternativa | IDs de correlación de ambos intentos y verificación de ausencia de efectos |
+
+No confundas este inventario del fixture con pruebas ya ejecutadas: los escenarios son casos de prueba diseñados hasta que exista un registro real con commit, configuración, pasos observados y evidencias.
+
+### Reconciliación de identificadores
+
+Usa los identificadores del fixture como fuente de verdad para el registro: `TH-01`–`TH-06` para amenazas y `SEC-T01`–`SEC-T06` para casos. El ejemplo anterior ilustra cinco patrones de ataque; con esta sección, el plan documental cubre también la ejecución destructiva y las aprobaciones inválidas, y explicita el intento por una vía alternativa.
+
+### Condición de cierre
+
+Marca cada caso como **APROBADO**, **NO APROBADO**, **INCONCLUSO** o **NO EJECUTADO**. El estado global no puede ser «verificado» mientras quede un caso crítico sin ejecutar o sin evidencia suficiente. Un resultado del validador `npm run check:lab08` confirma únicamente la estructura y las referencias del fixture.
