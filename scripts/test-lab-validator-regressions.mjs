@@ -87,6 +87,7 @@ const labs = [
       ["invalid currency code", d => { d.signals.find(s => s.name === "cost_per_accepted_task").currency = "EURO"; }, /debe declarar unidad monetaria por tarea y código de moneda ISO 4217/],
       ["missing audit timestamp", d => { d.audit_fields = d.audit_fields.filter(field => field !== "timestamp"); }, /registro de auditoría insuficiente/],
       ["missing artifact digest audit field", d => { d.audit_fields = d.audit_fields.filter(field => field !== "artifact_digest"); }, /registro de auditoría insuficiente/],
+      ["duplicate audit field", d => { d.audit_fields.push(d.audit_fields[0]); }, /registro de auditoría insuficiente/],
       ["duplicate signal ID", d => { d.signals[1].id = d.signals[0].id; }, /ID vacío o duplicado/],
       ["unknown recovery trigger", d => { d.recovery_steps[0].trigger = "SIG-999"; }, /trigger desconocido/],
       ["recovery marked complete despite failed regression", d => { const scenario = d.scenarios.find(s => /regresi[oó]n/i.test(s.input)); scenario.expected = "se declara recuperación completa aunque la suite de regresión falla"; }, /debe existir un escenario que impida declarar recuperación completa si falla la regresión/]
