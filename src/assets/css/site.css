@@ -229,8 +229,8 @@ h1 em { color: var(--accent); font-weight: 400; }
 }
 @media (max-width: 720px) {
   .header-inner, .footer-inner { width: min(calc(100% - 2rem), var(--content)); }
-  .header-inner { min-height: 68px; gap: 1rem; }
-  .site-header nav { gap: 1rem; }
+  .header-inner { min-height: 68px; align-items: flex-start; flex-direction: column; justify-content: center; gap: .55rem; padding: .8rem 0; }
+  .site-header nav { flex-wrap: wrap; justify-content: flex-start; gap: .5rem 1rem; }
   .hero, .section { width: min(calc(100% - 2rem), var(--content)); }
   .hero { grid-template-columns: minmax(0, 1fr); padding: 4rem 0; gap: 2.5rem; }
   .section-heading { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
