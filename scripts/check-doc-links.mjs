@@ -18,7 +18,7 @@ function walk(directory) {
 
 function slugHeading(heading) {
   return heading.toLowerCase().replace(/<[^>]*>/g, "").replace(/`([^`]*)`/g, "$1")
-    .replace(/[^\\p{L}\\p{N}\\s-]/gu, "").trim().replace(/\\s+/g, "-");
+    .replace(/[^\p{L}\p{N}\s-]/gu, "").trim().replace(/\s+/g, "-");
 }
 
 function targetExists(raw, sourceFile) {
@@ -40,14 +40,14 @@ function targetExists(raw, sourceFile) {
   if (!fragment) return { exists: true, resolved };
   const content = fs.readFileSync(target, "utf8");
   const ids = new Set();
-  for (const match of content.matchAll(/^ {0,3}#{1,6}\\s+(.+?)\\s*#*\\s*$/gm)) {
-    const heading = match[1].replace(/\\s+#+\\s*$/, "");
+  for (const match of content.matchAll(/^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$/gm)) {
+    const heading = match[1].replace(/\s+#+\s*$/, "");
     const base = slugHeading(heading);
     let slug = base, suffix = 1;
     while (ids.has(slug)) slug = base + "-" + suffix++;
     ids.add(slug);
   }
-  for (const match of content.matchAll(/\\b(?:id|name)\\s*=\\s*[\"']([^\"']+)[\"']/gi)) ids.add(match[1]);
+  for (const match of content.matchAll(/\\b(?:id|name)\s*=\s*[\"']([^\"']+)[\"']/gi)) ids.add(match[1]);
   return ids.has(fragment) ? { exists: true, resolved } : { exists: false, reason: "ancla no encontrada", resolved, fragment };
 }
 
