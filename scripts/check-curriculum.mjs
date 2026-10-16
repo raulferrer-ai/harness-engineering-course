@@ -116,7 +116,7 @@ for (const id of expectedCompetencyIds) {
   if (count > 1) errors.push(`Traceability matrix defines competency ${id} more than once in its primary mapping.`);
 }
 const moduleRows = traceabilityRows
-  .map(cells => cells[2].match(/^(M\d{2}):/)
+  .map(cells => cells[2].match(/^(M\d{2}):/))
   .filter(Boolean)
   .map(match => match[1]);
 for (const id of moduleRows) {
