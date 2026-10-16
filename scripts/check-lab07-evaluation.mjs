@@ -30,14 +30,14 @@ const protocol=data.scoring_protocol??{};
 const vectors=protocol.decision_test_vectors??[];
 if(vectors.length<5)errors.push("se requieren al menos cinco vectores de prueba de decisión");
 for(const v of vectors){
-  if(!ok(v.id)||!["APROBADO","NO APROBADO","INCONCLUSO"].includes(v.expected)) {errors.push("vector de decisión inválido: "+v.id);continue;}
+  if(!ok(v.id)||!["APROBADO","NO APROBADO","INCONCLUSO"].includes(v.expected)||!cases.some(x=>x.id===v.case_id)) {errors.push("vector de decisión inválido: "+v.id);continue;}
   const scoreEntries=rubric.map(r=>[r.dimension,v.scores?.[r.dimension]]);
   const missing= v.missing_required_evidence===true || scoreEntries.some(([,score])=>typeof score!=="number"||score<0||score>4);
   const aggregate=missing?null:rubric.reduce((sum,r)=>sum+r.weight*v.scores[r.dimension]/4*100,0);
   const critical=Array.isArray(v.critical_failures)&&v.critical_failures.length>0;
   let actual="APROBADO";
   if(missing) actual="INCONCLUSO";
-  else if(critical||aggregate<protocol.pass_threshold_percent||cases.some(testCase=>testCase.minimum_dimensions.some(d=>v.scores[d]<protocol.minimum_dimension_score))) actual="NO APROBADO";
+  else if(critical||aggregate<protocol.pass_threshold_percent||cases.find(testCase=>testCase.id===v.case_id).minimum_dimensions.some(d=>v.scores[d]<protocol.minimum_dimension_score)) actual="NO APROBADO";
   if(actual!==v.expected)errors.push(v.id+": esperado "+v.expected+", obtenido "+actual);
 }
 if(errors.length){for(const e of errors)console.error("LAB-07 evaluation: "+e);process.exit(1);}
