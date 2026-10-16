@@ -1,0 +1,123 @@
+---
+layout: layouts/base.njk
+title: Evaluación y defensa
+description: "Rúbrica propuesta para el proyecto transversal, criterios de decisión, fallos críticos y protocolo de defensa individual."
+permalink: evaluacion/index.html
+---
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">EVALUACIÓN · PROYECTO TRANSVERSAL</p>
+    <h1>Evaluar la evidencia, no la confianza</h1>
+    <p class="hero-lede">La evaluación combina una rúbrica analítica, comprobaciones de integridad y una defensa individual. La puntuación no puede compensar una exposición crítica de seguridad ni suplir evidencias esenciales que no existen.</p>
+    <div class="module-meta"><span>16 horas planificadas de evaluación en el curso</span><span>Defensa propuesta: 15–20 min</span><span>Rúbrica pendiente de aprobación y piloto</span></div>
+  </header>
+
+  <aside class="notice" aria-label="Estado de la rúbrica">
+    <strong>Estado: propuesta para revisión docente.</strong>
+    <p>Las ponderaciones y anclajes siguientes operacionalizan el diseño actual. El umbral de aprobado, las adaptaciones, el tratamiento de fallos críticos y el proceso de revisión deben aprobarse antes de utilizar la rúbrica para calificación sumativa. No se ha validado aún la concordancia entre evaluadores.</p>
+  </aside>
+
+  <section class="section" aria-labelledby="dimensiones">
+    <div class="section-heading"><div><p class="eyebrow">RÚBRICA ANALÍTICA</p><h2 id="dimensiones">Seis dimensiones de evaluación</h2></div><p class="section-intro">Cada dimensión se puntúa de 0 a 4. La aportación ponderada se calcula como peso × puntuación / 4. El total resultante se expresa sobre 100, pero no determina por sí solo la aprobación.</p></div>
+    <div class="table-wrapper">
+      <table>
+        <caption>Propuesta de ponderación</caption>
+        <thead><tr><th scope="col">Dimensión</th><th scope="col">Peso</th><th scope="col">Evidencia principal</th><th scope="col">Qué significa obtener 4/4</th></tr></thead>
+        <tbody>
+          <tr><td>Especificación y alcance</td><td>15 %</td><td>Requisitos, exclusiones, criterios</td><td>Requisitos verificables, ambigüedades resueltas y alcance respetado.</td></tr>
+          <tr><td>Línea base y reproducibilidad</td><td>15 %</td><td>Commit, entorno, comandos, salidas</td><td>Otra persona puede reproducir el estado inicial y final.</td></tr>
+          <tr><td>Calidad técnica</td><td>20 %</td><td>Diff, pruebas, regresiones, mantenimiento</td><td>Pruebas pertinentes, cambio acotado y ninguna regresión sin resolver.</td></tr>
+          <tr><td>Seguridad y control de riesgos</td><td>20 %</td><td>Amenazas, casos negativos, controles</td><td>Controles proporcionados, sin fallos críticos abiertos y con riesgo residual explícito.</td></tr>
+          <tr><td>Evaluación y análisis</td><td>15 %</td><td>Resultados, costes y limitaciones</td><td>Métricas trazables, sesgos discutidos y conclusiones proporcionales a la evidencia.</td></tr>
+          <tr><td>Comunicación y defensa</td><td>15 %</td><td>Informe, referencias y defensa individual</td><td>Explica decisiones, alternativas, fallos y límites sin atribuirse evidencia no observada.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Anclajes generales de puntuación</h3>
+    <ul>
+      <li><strong>0 — Ausente o inválido:</strong> no existe evidencia utilizable o contradice el entregable.</li>
+      <li><strong>1 — Insuficiente:</strong> trabajo parcial, difícil de verificar o con defectos importantes.</li>
+      <li><strong>2 — Básico:</strong> evidencia presente, pero incompleta o con limitaciones relevantes.</li>
+      <li><strong>3 — Competente:</strong> cumple los requisitos acordados y permite verificar las afirmaciones principales.</li>
+      <li><strong>4 — Sólido:</strong> evidencia reproducible, decisiones justificadas, límites claros y revisión crítica.</li>
+    </ul>
+    <p>Un 0 debe acompañarse de un requisito ausente o una contradicción observable; no se utiliza como penalización subjetiva.</p>
+  </section>
+
+  <section class="section" aria-labelledby="decision">
+    <div class="section-heading"><div><p class="eyebrow">INTEGRIDAD</p><h2 id="decision">Reglas de decisión antes de puntuar</h2></div></div>
+    <ol>
+      <li>Verificar la identidad o autoría requerida y la completitud de las evidencias.</li>
+      <li>Comprobar que no hay credenciales expuestas ni acciones no autorizadas sobre sistemas reales.</li>
+      <li>Revisar fallos de integridad, pruebas declaradas como ejecutadas sin evidencia y cambios fuera del alcance autorizado.</li>
+      <li>Si existe un fallo crítico confirmado, clasificar como <strong>no aprobado pendiente de corrección</strong>, sin permitir que la media lo compense.</li>
+      <li>Si falta evidencia esencial, clasificar como <strong>inconcluso</strong> hasta resolver la ausencia; no convertir automáticamente la falta de evidencia en aprobación o suspenso definitivo.</li>
+      <li>Solo cuando la evidencia esté completa y no haya fallos críticos, aplicar el umbral que el equipo docente haya aprobado formalmente.</li>
+    </ol>
+    <aside class="notice"><strong>Umbral aún no aprobado</strong><p>Un 70/100 con un mínimo de 2/4 en cada dimensión puede servir como punto de partida para discusión, pero no debe presentarse como criterio vigente ni automatizarse antes de su aprobación.</p></aside>
+  </section>
+
+  <section class="section" aria-labelledby="defensa">
+    <div class="section-heading"><div><p class="eyebrow">DEFENSA INDIVIDUAL</p><h2 id="defensa">Protocolo propuesto de 15–20 minutos</h2></div></div>
+    <div class="table-wrapper">
+      <table>
+        <caption>Secuencia sugerida para la defensa</caption>
+        <thead><tr><th scope="col">Tiempo</th><th scope="col">Actividad</th><th scope="col">Evidencia que debe poder localizarse</th></tr></thead>
+        <tbody>
+          <tr><td>3 min</td><td>Problema, alcance y criterio de éxito</td><td>Especificación y exclusiones.</td></tr>
+          <tr><td>4 min</td><td>Recorrido por el diff y decisiones de implementación</td><td>Commit base/final y cambios relevantes.</td></tr>
+          <tr><td>4 min</td><td>Demostración de pruebas y una prueba negativa o de regresión</td><td>Comandos, salida original y resultado observado.</td></tr>
+          <tr><td>4 min</td><td>Explicar un fallo, una limitación o un riesgo residual</td><td>Hallazgo, impacto, control y estado.</td></tr>
+          <tr><td>3–5 min</td><td>Preguntas sobre alternativas, coste y conclusiones</td><td>Justificación y límites de la evidencia.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>No se exige memorizar cada herramienta. Sí se exige comprender y defender las decisiones presentadas como propias y poder localizar evidencia concreta.</p>
+  </section>
+
+  <section class="section" aria-labelledby="calibracion">
+    <div class="section-heading"><div><p class="eyebrow">CALIDAD DE LA EVALUACIÓN</p><h2 id="calibracion">Calibrar a los evaluadores</h2></div></div>
+    <ol>
+      <li>Dos evaluadores puntúan independientemente al menos dos entregas piloto.</li>
+      <li>Comparan puntuaciones por dimensión y registran discrepancias y su causa.</li>
+      <li>Revisan los anclajes ambiguos y versionan cualquier cambio de la rúbrica.</li>
+      <li>Acuerdan cómo resolver desacuerdos y cómo solicitar una revisión.</li>
+      <li>Repiten la calibración si cambian los criterios o el formato del proyecto.</li>
+    </ol>
+    <p>No se debe afirmar que la rúbrica tiene fiabilidad validada hasta disponer de resultados observados del piloto.</p>
+  </section>
+
+  <section class="section" aria-labelledby="registro">
+    <div class="section-heading"><div><p class="eyebrow">REGISTRO</p><h2 id="registro">Ficha de decisión evaluativa</h2></div></div>
+    <p>Para cada entrega, conserva un registro que permita explicar y revisar la decisión:</p>
+    <ul>
+      <li>Identificador del proyecto, commit base y commit final.</li>
+      <li>Versión de la rúbrica y puntuación por dimensión, con referencia a la evidencia.</li>
+      <li>Fallos críticos detectados, su confirmación y estado de resolución.</li>
+      <li>Evidencia esencial ausente y razón de cualquier resultado inconcluso.</li>
+      <li>Puntuación ponderada, decisión y justificación.</li>
+      <li>Riesgo residual, evaluador, fecha y solicitudes de revisión.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="previo">
+    <div class="section-heading"><div><p class="eyebrow">PUERTA DE APROBACIÓN</p><h2 id="previo">Lista de comprobación antes de evaluar estudiantes</h2></div></div>
+    <ul>
+      <li>Repositorio, licencia y entorno de trabajo aprobados.</li>
+      <li>Herramientas accesibles sin exigir una suscripción de pago no prevista.</li>
+      <li>Política de datos, secretos, red y ejecución documentada.</li>
+      <li>Rúbrica, regla de decisión y fallos críticos aprobados antes de la entrega.</li>
+      <li>Evidencias y criterios comunicados con antelación al alumnado.</li>
+      <li>Piloto realizado y carga real comparada con las horas planificadas.</li>
+      <li>Proceso de revisión, accesibilidad y adaptaciones razonables documentados.</li>
+    </ul>
+    <a class="text-link" href="/proyecto/">Volver a la guía del proyecto transversal <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="closing-band" aria-labelledby="cierre">
+    <p class="eyebrow">PRINCIPIO DE EVALUACIÓN</p>
+    <h2 id="cierre">La puntuación resume el juicio; la evidencia lo sostiene.</h2>
+    <p>Una evaluación defendible muestra qué se observó, qué criterio se aplicó, qué incertidumbre permanece y cómo puede revisarse la decisión.</p>
+    <a class="text-link" href="/#programa">Volver al programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
