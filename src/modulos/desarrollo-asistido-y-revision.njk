@@ -1,0 +1,118 @@
+---
+layout: layouts/base.njk
+title: Desarrollo asistido por IA y revisión de código
+description: "Módulo M04: integra cambios asistidos por IA con pruebas, revisión independiente y evidencia reproducible."
+permalink: modulos/desarrollo-asistido-y-revision/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M04 · DESARROLLO Y REVISIÓN</p>
+    <h1>Desarrollo asistido por IA y revisión de código</h1>
+    <p class="hero-lede">Generar código no equivale a entregar un cambio correcto. Diseña intervenciones pequeñas, conserva el control del repositorio y verifica de forma independiente las propuestas del asistente.</p>
+    <div class="module-meta"><span>12 horas planificadas</span><span>4 h de fundamentos · 8 h de laboratorio</span><span>LAB-04</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Descomponer una modificación de software en cambios revisables con criterios de aceptación claros.</li>
+      <li>Utilizar asistentes para explorar alternativas sin delegarles la decisión final de integración.</li>
+      <li>Inspeccionar el diff, los contratos afectados y las dependencias antes de aceptar código generado.</li>
+      <li>Diseñar pruebas positivas, negativas y de regresión independientes de la explicación del asistente.</li>
+      <li>Documentar decisiones, riesgos residuales y evidencia suficiente para una revisión por terceros.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="fundamentos">
+    <div class="section-heading"><div><p class="eyebrow">FUNDAMENTOS</p><h2 id="fundamentos">El cambio es la unidad de confianza</h2></div></div>
+    <p>Una respuesta plausible puede introducir regresiones, ampliar el alcance, cambiar contratos o añadir dependencias innecesarias. La revisión debe centrarse en el comportamiento del cambio dentro del sistema, no en la seguridad con que el asistente describe su propuesta.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Alcance mínimo</h3><p>Parte de una especificación verificable y limita los archivos, interfaces y efectos permitidos. Divide los cambios extensos cuando puedan revisarse por separado.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Verificación independiente</h3><p>Ejecuta pruebas, inspecciona el diff y comprueba los requisitos sin aceptar como prueba la afirmación «ya está solucionado» del generador.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Responsabilidad de integración</h3><p>Una persona autorizada decide si el cambio cumple los criterios, si quedan riesgos aceptables y si puede incorporarse al repositorio.</p></div></section>
+    </div>
+    <p>Una revisión eficaz pregunta qué cambió, por qué, qué podría romperse y qué evidencia demuestra que no se ha roto. La cobertura de pruebas ayuda, pero no sustituye la revisión de requisitos, permisos y límites de confianza.</p>
+  </section>
+
+  <section class="section" aria-labelledby="flujo">
+    <div class="section-heading"><div><p class="eyebrow">FLUJO DE TRABAJO</p><h2 id="flujo">De propuesta a cambio integrable</h2></div></div>
+    <ol>
+      <li><strong>Establecer línea base:</strong> fija versión, estado de pruebas, comportamiento actual y restricciones del entorno.</li>
+      <li><strong>Especificar:</strong> define el resultado, los archivos permitidos, los criterios de aceptación y las exclusiones.</li>
+      <li><strong>Proponer:</strong> solicita una estrategia y un cambio acotado; exige que se declaren supuestos y riesgos.</li>
+      <li><strong>Inspeccionar:</strong> revisa diff, interfaces, errores, casos límite, nuevas dependencias y posibles efectos de seguridad.</li>
+      <li><strong>Probar:</strong> ejecuta verificaciones deterministas, casos negativos y regresiones; no modifiques la prueba para ocultar un fallo.</li>
+      <li><strong>Revisar por separado:</strong> compara la implementación con la especificación sin depender exclusivamente del autor o del mismo asistente.</li>
+      <li><strong>Decidir:</strong> aceptar, solicitar cambios o rechazar, dejando constancia de la evidencia y de los riesgos pendientes.</li>
+    </ol>
+    <p>Los comandos y archivos sugeridos por un modelo deben examinarse antes de ejecutarlos. No proporciones secretos ni permisos amplios por comodidad; utiliza un entorno aislado para pruebas que puedan modificar datos o sistemas.</p>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-04 · 8 HORAS</p><h2 id="lab">Cambio de código con revisión independiente</h2></div><p class="section-intro">Implementa una modificación pequeña con asistencia de IA y demuestra que cumple la especificación sin introducir regresiones conocidas.</p></div>
+
+    <h3>Escenario</h3>
+    <p>Selecciona un repositorio pequeño con pruebas ejecutables y licencia compatible con el uso educativo, o crea un proyecto local de ejemplo. Propón un cambio acotado, como añadir una validación de entrada y un mensaje de error consistente. No trabajes sobre producción ni incluyas credenciales o datos personales reales.</p>
+
+    <h3>Preparación y línea base</h3>
+    <ol>
+      <li>Fija el commit inicial y registra el entorno, dependencias y comandos de instalación y pruebas.</li>
+      <li>Redacta la especificación: comportamiento esperado, entradas válidas e inválidas, alcance permitido y criterios de aceptación.</li>
+      <li>Ejecuta las pruebas existentes antes de modificar el código; conserva el resultado, incluidos los fallos previos.</li>
+      <li>Diseña al menos un caso positivo, dos negativos y una comprobación de regresión antes de aceptar la implementación.</li>
+    </ol>
+
+    <h3>Implementación asistida</h3>
+    <ol>
+      <li>Solicita al asistente una propuesta de solución y los supuestos que necesita confirmar.</li>
+      <li>Evalúa la propuesta antes de aplicar cambios. Registra instrucciones, contexto y herramientas utilizadas.</li>
+      <li>Aplica el cambio en una rama de trabajo y revisa cada archivo modificado. Identifica alteraciones fuera de alcance.</li>
+      <li>Ejecuta las pruebas previstas y registra los fallos. Si hay correcciones, conserva el historial de iteraciones relevantes.</li>
+      <li>Comprueba que no se introducen dependencias injustificadas, secretos, permisos adicionales o cambios incompatibles de interfaz.</li>
+    </ol>
+
+    <h3>Revisión independiente</h3>
+    <ol>
+      <li>Entrega el diff y la especificación a una segunda persona o realiza una revisión separada sin utilizar la explicación original como evidencia.</li>
+      <li>Examina comportamiento, casos límite, legibilidad, seguridad, mantenibilidad y correspondencia con los criterios de aceptación.</li>
+      <li>Introduce una prueba negativa que la propuesta inicial no haya considerado y registra su resultado.</li>
+      <li>Clasifica cada observación por impacto, resuélvela o justifica explícitamente su aceptación como riesgo residual.</li>
+      <li>Prepara una decisión final de integración basada en los resultados observados.</li>
+    </ol>
+
+    <h3>Entregables y evidencia</h3>
+    <ul>
+      <li>Referencia del commit base, especificación y alcance permitido.</li>
+      <li>Registro de la asistencia utilizada, decisiones humanas y diff final.</li>
+      <li>Resultados de instalación, pruebas iniciales y finales, casos negativos y regresiones.</li>
+      <li>Informe de revisión independiente con hallazgos y resolución.</li>
+      <li>Decisión de integración, limitaciones y riesgos residuales.</li>
+    </ul>
+
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>El cambio satisface los criterios funcionales definidos previamente y no amplía el alcance sin autorización.</li>
+      <li>Existe una línea base reproducible y las pruebas iniciales y finales están registradas.</li>
+      <li>Se ejecutan al menos un caso positivo, dos negativos y una prueba de regresión.</li>
+      <li>El diff se revisa independientemente de la descripción del asistente.</li>
+      <li>Los fallos detectados se corrigen o se documentan como riesgos explícitos antes de decidir la integración.</li>
+      <li>Otra persona puede reproducir la verificación a partir de las instrucciones y evidencias entregadas.</li>
+    </ul>
+
+    <h3>Preguntas de análisis</h3>
+    <ol>
+      <li>¿Qué error habría pasado inadvertido si hubieras aceptado la explicación del asistente sin revisar el diff?</li>
+      <li>¿Qué prueba aportó la evidencia más fuerte y qué comportamiento continúa sin cubrir?</li>
+      <li>¿Qué parte de la revisión exigió conocimiento del sistema y no pudo automatizarse de forma fiable?</li>
+      <li>¿Cómo cambiaría tu proceso si el cambio afectara autenticación, pagos o datos sensibles?</li>
+    </ol>
+  </section>
+
+  <section class="closing-band" aria-labelledby="salida">
+    <p class="eyebrow">ENTREGABLE</p>
+    <h2 id="salida">Una propuesta se convierte en software aceptable mediante verificación.</h2>
+    <p>Entrega un cambio acotado, sus pruebas, la revisión independiente y una decisión de integración sustentada en evidencia.</p>
+    <a class="text-link" href="/#programa">Volver al programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
