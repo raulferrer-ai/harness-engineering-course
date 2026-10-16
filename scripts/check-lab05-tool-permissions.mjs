@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import process from "node:process";
-const data = JSON.parse(await readFile(new URL("../fixtures/lab05-tool-permissions.json", import.meta.url), "utf8"));
+const data = JSON.parse(await readFile(process.env.LAB05_FIXTURE_PATH ?? new URL("../fixtures/lab05-tool-permissions.json", import.meta.url), "utf8"));
 const errors = [];
 const nonempty = v => typeof v === "string" && v.trim().length > 0;
 const unique = (items, label, key = "id") => { const seen = new Set(); for (const item of items ?? []) { const value = item[key]; if (!nonempty(value) || seen.has(value)) errors.push(`${label}: valor vacío o duplicado ${value}`); seen.add(value); } };
