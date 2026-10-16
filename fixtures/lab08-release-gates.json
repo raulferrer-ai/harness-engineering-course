@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "status": "didactic-example-pending-human-review",
+  "release_id": "REL-01",
+  "purpose": "Definir una puerta de publicación reproducible que vincule requisitos, pruebas, revisión, artefactos y aprobación.",
+  "required_evidence": [
+    {"id":"EV-01","name":"source_revision","description":"Commit exacto y rama de origen."},
+    {"id":"EV-02","name":"build_result","description":"Resultado observable de compilación y enlace a la ejecución."},
+    {"id":"EV-03","name":"test_result","description":"Resultado de pruebas con comando, código de salida y referencia a logs."},
+    {"id":"EV-04","name":"review_result","description":"Revisión del diff y resolución de comentarios bloqueantes."},
+    {"id":"EV-05","name":"artifact_identity","description":"Identificador o checksum del artefacto candidato."},
+    {"id":"EV-06","name":"approval_record","description":"Aprobación explícita de la persona autorizada para publicar."}
+  ],
+  "gates": [
+    {"id":"G-01","name":"source_integrity","required":["source_revision"],"failure":"block"},
+    {"id":"G-02","name":"build_and_tests","required":["build_result","test_result"],"failure":"block"},
+    {"id":"G-03","name":"independent_review","required":["review_result"],"failure":"block"},
+    {"id":"G-04","name":"artifact_identity","required":["artifact_identity"],"failure":"block"},
+    {"id":"G-05","name":"authorized_release","required":["approval_record"],"failure":"block"}
+  ],
+  "scenarios": [
+    {"id":"REL-T01","input":"Todos los registros requeridos existen y apuntan al mismo commit candidato.","expected":"candidate_eligible_for_approval"},
+    {"id":"REL-T02","input":"La compilación ha fallado aunque una ejecución anterior pasara.","expected":"blocked"},
+    {"id":"REL-T03","input":"Falta evidencia de pruebas o la referencia de logs no existe.","expected":"blocked"},
+    {"id":"REL-T04","input":"El artefacto publicado no coincide con el checksum aprobado.","expected":"blocked_and_investigate"},
+    {"id":"REL-T05","input":"No existe aprobación humana explícita.","expected":"blocked"},
+    {"id":"REL-T06","input":"Hay un comentario de revisión bloqueante sin resolver.","expected":"blocked"},
+    {"id":"REL-T07","input":"Todos los gates pasan, pero una evidencia pertenece a otro commit.","expected":"blocked"}
+  ],
+  "policy": {
+    "default": "block",
+    "missing_evidence": "block",
+    "stale_evidence": "block",
+    "commit_mismatch": "block",
+    "approval_cannot_override_failed_tests": true,
+    "deployment_is_separate_from_eligibility": true
+  },
+  "audit_record_fields": ["release_id","source_revision","artifact_digest","gate_results","evidence_refs","reviewer","approver","decision","timestamp"],
+  "acceptance_criteria": [
+    {"id":"AC-01","condition":"Cada gate exige evidencia declarada y verificable.","evidence":"matriz de gates y EV-01 a EV-06","verification":"detectar evidencia ausente en cada gate"},
+    {"id":"AC-02","condition":"Fallos de build, pruebas o revisión bloquean la publicación.","evidence":"REL-T02, REL-T03 y REL-T06","verification":"confirmar estado blocked"},
+    {"id":"AC-03","condition":"Toda evidencia corresponde al mismo commit candidato.","evidence":"REL-T07","verification":"comparar source_revision en los registros"},
+    {"id":"AC-04","condition":"El artefacto candidato se identifica mediante un digest estable.","evidence":"EV-05 y REL-T04","verification":"comparar digest aprobado y digest final"},
+    {"id":"AC-05","condition":"La elegibilidad no equivale a desplegar y requiere aprobación autorizada.","evidence":"EV-06 y política de despliegue separado","verification":"sin aprobación no se inicia publicación"},
+    {"id":"AC-06","condition":"La decisión queda registrada con evidencia suficiente para auditoría.","evidence":"audit_record_fields","verification":"inspeccionar el registro final sin secretos"}
+  ],
+  "limitations": [
+    "El fixture describe gates; no configura por sí mismo un pipeline de producción.",
+    "El validador estructural no verifica que las URLs o logs referenciados existan.",
+    "La aprobación y el despliegue reales deben protegerse mediante permisos del proveedor CI/CD."
+  ]
+}
