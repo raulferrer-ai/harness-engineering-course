@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import process from "node:process";
 
-const path = new URL("../fixtures/lab01-cases.json", import.meta.url);
+const path = process.env.LAB01_FIXTURE_PATH ?? new URL("../fixtures/lab01-cases.json", import.meta.url);
 const data = JSON.parse(await readFile(path, "utf8"));
 const fail = (message) => {
   console.error(`LAB-01 fixtures: ${message}`);
