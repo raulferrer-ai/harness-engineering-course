@@ -2,11 +2,11 @@
 
 ## Estado y criterio de lectura
 
-Esta matriz conecta las competencias y los laboratorios que ya constan en `docs/curriculum.md`. Las relaciones por módulo son **propuestas de trabajo inferidas de los títulos y descripciones aprobados**, no validaciones pedagógicas finales. Los resultados de aprendizaje observables, las actividades por lección, las evidencias concretas y los criterios de aceptación aún deben definirse y revisarse.
+Esta matriz conecta las competencias y los laboratorios que ya constan en `docs/curriculum.md`. Las páginas de los módulos publican resultados de aprendizaje resumidos, y los laboratorios incluyen fixtures y validadores en distinto grado de madurez. La asociación formal entre competencias y módulos, las actividades por lección, las evidencias generadas por el alumno y los criterios de aceptación siguen pendientes de revisión. La presencia de documentación o de un validador estructural no equivale a validación pedagógica ni a ejecución práctica.
 
 - **Base aprobada**: identificador, competencia, módulo, laboratorio y carga horaria ya recogidos en el currículo.
 - **Propuesta por validar**: asociación razonable por tema, pendiente de validación curricular.
-- **Pendiente de especificación**: no se afirma que existan lecciones, evidencias o criterios completos.
+- **Pendiente de validación**: la relación curricular, las actividades, las entregas del alumno y los criterios verificables deben revisarse antes de declarar una competencia demostrada.
 
 ## Competencias, resultados observables y evidencia disponible
 
