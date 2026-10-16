@@ -71,6 +71,16 @@ try {
   });
   expectFail("ancla inexistente", run(missingAnchor), "ancla no encontrada");
 
+  const setextAnchors = await fixture("setext-anchors", {
+    "README.md": "Guía de instalación\\n=====================\\n\\nRequisitos\\n----------\\n\\n[Ir a requisitos](#requisitos) [Ir a guía](#guía-de-instalación)\\n"
+  });
+  expectPass("anclas de encabezados Setext", run(setextAnchors), "enlaces locales comprobados");
+
+  const commentOnlyAnchor = await fixture("comment-only-anchor", {
+    "README.md": '<!-- <section id="solo-comentario"></section> -->\\n\\n[Ancla falsa](#solo-comentario)\\n'
+  });
+  expectFail("no acepta IDs HTML dentro de comentarios", run(commentOnlyAnchor), "ancla no encontrada");
+
   const codeOnlyAnchor = await fixture("code-only-anchor", {
     "README.md": "```md\n## Solo en código\n```\n\n[Ancla falsa](#solo-en-codigo)\n"
   });
