@@ -52,7 +52,7 @@ for (const file of markdownFiles) {
     const lineStart = withoutCode.lastIndexOf("\n", match.index - 1) + 1;
     const nextLine = withoutCode.indexOf("\n", match.index);
     const line = withoutCode.slice(lineStart, nextLine < 0 ? undefined : nextLine);
-    if (/^\s{0,3}\[[^\]]+\]:/.test(line)) continue;
+    if (/^\s{0,3}\[[^\]]+\]:/.test(line) || withoutCode[match.index + match[0].length] === "(") continue;
     const label = (match[2] || match[1]).trim().toLowerCase();
     const raw = referenceDefinitions.get(label);
     if (!raw) {
