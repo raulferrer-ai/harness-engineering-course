@@ -1,0 +1,12 @@
+[
+  {"id":"M01","slug":"modelos-capacidades-limites","title":"Modelos, capacidades y límites","hours":8,"fundamentals":4,"lab":4,"labId":"LAB-01","description":"Caracteriza las capacidades y los límites de los modelos con experimentos observables."},
+  {"id":"M02","slug":"especificacion-y-diseno","title":"Especificación de tareas y diseño","hours":10,"fundamentals":4,"lab":6,"labId":"LAB-02","description":"Convierte un incidente ambiguo en una especificación verificable."},
+  {"id":"M03","slug":"ingenieria-de-contexto","title":"Ingeniería de contexto","hours":10,"fundamentals":4,"lab":6,"labId":"LAB-03","description":"Compara estrategias de contexto y mide cómo afectan al resultado."},
+  {"id":"M04","slug":"desarrollo-asistido-y-revision","title":"Desarrollo asistido por IA y revisión de código","hours":12,"fundamentals":4,"lab":8,"labId":"LAB-04","description":"Integra cambios asistidos por IA con revisión independiente y evidencia."},
+  {"id":"M05","slug":"agentes-herramientas-delegacion","title":"Agentes, herramientas y delegación","hours":12,"fundamentals":4,"lab":8,"labId":"LAB-05","description":"Diseña agentes con herramientas, límites explícitos y control de efectos."},
+  {"id":"M06","slug":"harness-y-control-de-ejecucion","title":"Harness engineering y control de ejecución","hours":12,"fundamentals":4,"lab":8,"labId":"LAB-06","description":"Traduce políticas de ejecución en controles y verificaciones ejecutables."},
+  {"id":"M07","slug":"testing-evals-verificacion","title":"Testing, evals y verificación","hours":12,"fundamentals":4,"lab":8,"labId":"LAB-07","description":"Construye pruebas y evaluaciones que detectan regresiones y fallos."},
+  {"id":"M08","slug":"seguridad-y-riesgos","title":"Seguridad y gestión de riesgos","hours":10,"fundamentals":4,"lab":6,"labId":"LAB-08","description":"Analiza amenazas y valida defensas mediante pruebas adversariales."},
+  {"id":"M09","slug":"cicd-observabilidad-mantenimiento","title":"CI/CD, observabilidad y mantenimiento","hours":10,"fundamentals":4,"lab":6,"labId":"LAB-09","description":"Automatiza verificaciones y planifica observabilidad, recuperación y operación."},
+  {"id":"M10","slug":"productividad-costes-gobernanza","title":"Productividad, costes y gobernanza","hours":8,"fundamentals":4,"lab":4,"labId":"LAB-10","description":"Evalúa productividad, coste total, gobernanza y responsabilidad."}
+]
