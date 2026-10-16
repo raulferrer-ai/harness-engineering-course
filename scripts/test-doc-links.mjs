@@ -53,6 +53,23 @@ try {
   });
   expectPass("enlaces relativos, directorios y externos", run(valid), "enlaces locales comprobados");
 
+  const validAnchors = await fixture("valid-anchors", {
+    "README.md": "# Inicio\\n\\n[Segunda sección](#segunda-seccion) [ID HTML](docs/guia.md#detalle) [Referencia local][inicio]\\n\\n[inicio]: #inicio\\n",
+    "docs/guia.md": "# Guía\\n\\n<section id=\\"detalle\\">Contenido</section>\\n"
+  });
+  expectPass("anclas Markdown, IDs HTML y referencias locales", run(validAnchors), "enlaces locales comprobados");
+
+  const missingAnchor = await fixture("missing-anchor", {
+    "README.md": "# Inicio\\n\\n[Sección ausente](#no-existe)\\n"
+  });
+  expectFail("ancla inexistente", run(missingAnchor), "ancla no encontrada");
+
+  const missingTargetAnchor = await fixture("missing-target-anchor", {
+    "README.md": "[Sección ausente](docs/guia.md#no-existe)\\n",
+    "docs/guia.md": "# Guía\\n"
+  });
+  expectFail("ancla inexistente en destino", run(missingTargetAnchor), "ancla no encontrada");
+
   const references = await fixture("references", {
     "README.md": "[Guía][guide] y [ancla][start].\n\n[guide]: docs/guia.md\n[start]: #inicio\n",
     "docs/guia.md": "# Guía\n"
