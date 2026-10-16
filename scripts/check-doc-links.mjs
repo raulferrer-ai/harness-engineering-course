@@ -71,6 +71,13 @@ function targetExists(raw, sourceFile) {
     while (ids.has(slug)) slug = base + "-" + suffix++;
     ids.add(slug);
   }
+  for (const match of content.matchAll(/^ {0,3}(.+?)\r?\n {0,3}(=+|-+)\s*$/gm)) {
+    const base = slugHeading(match[1].trim());
+    if (!base) continue;
+    let slug = base, suffix = 1;
+    while (ids.has(slug)) slug = base + "-" + suffix++;
+    ids.add(slug);
+  }
   for (const match of content.matchAll(/\b(?:id|name)\s*=\s*["\']([^"\']+)["\']/gi)) ids.add(match[1]);
   return ids.has(fragment) ? { exists: true, resolved } : { exists: false, reason: "ancla no encontrada", resolved, fragment };
 }
