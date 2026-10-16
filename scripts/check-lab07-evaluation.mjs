@@ -1,6 +1,6 @@
 import { readFile } from "node:fs/promises";
 import process from "node:process";
-const data=JSON.parse(await readFile(new URL("../fixtures/lab07-evaluation.json",import.meta.url),"utf8"));
+const data=JSON.parse(await readFile(process.env.LAB07_FIXTURE_PATH ?? new URL("../fixtures/lab07-evaluation.json",import.meta.url),"utf8"));
 const errors=[]; const ok=v=>typeof v==="string"&&v.trim().length>0;
 const unique=(items,label)=>{const seen=new Set();for(const x of items??[]){if(!ok(x.id)||seen.has(x.id))errors.push(label+": ID vacío o duplicado "+x.id);seen.add(x.id);}};
 if(data.schema_version!==1||data.lab_id!=="LAB-07"||data.topic!=="testing-evaluation")errors.push("versión, ID o tema incorrecto");
