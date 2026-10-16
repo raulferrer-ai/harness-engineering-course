@@ -91,6 +91,11 @@ try {
   });
   expectPass("IDs duplicados entre encabezados Setext y ATX según orden del documento", run(mixedHeadingDuplicates), "enlaces locales comprobados");
 
+  const plainTextIdIsNotAnchor = await fixture("plain-text-id-is-not-anchor", {
+    "README.md": "La cadena id=detalle aparece en este párrafo, no en HTML.\n\n[Ancla falsa](#detalle)\n"
+  });
+  expectFail("no interpreta texto plano como atributo HTML", run(plainTextIdIsNotAnchor), "ancla no encontrada");
+
   const commentOnlyAnchor = await fixture("comment-only-anchor", {
     "README.md": '<!-- <section id="solo-comentario"></section> -->\n\n[Ancla falsa](#solo-comentario)\n'
   });
