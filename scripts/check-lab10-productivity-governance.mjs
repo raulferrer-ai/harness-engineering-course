@@ -49,6 +49,24 @@ if (criteria.length < 5) errors.push("se requieren al menos cinco criterios");
 for (const a of criteria) for (const field of ["condition","evidence","verification"]) if (!nonempty(a[field])) errors.push(`${a.id}: falta ${field}`);
 if (data.policy?.missing_measurement !== "mark_unknown_not_zero" || data.policy?.unapproved_external_action !== "block" || data.policy?.high_risk_requires_human_approval !== true) errors.push("faltan salvaguardas de medición o aprobación");
 if (!Array.isArray(data.limitations) || data.limitations.length < 2) errors.push("faltan limitaciones explícitas");
+const requiredMetrics=new Map(metrics.map(m=>[m.name,m]));
+for(const name of ["accepted_delivery_rate","cost_per_accepted_delivery","defect_rate"])if(!requiredMetrics.has(name))errors.push("falta métrica clave "+name);
+if(!/model_cost.*infra_cost|infra_cost.*model_cost/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir coste de modelo e infraestructura");
+if(!/human/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir trabajo humano");
+if(!/expected_failure_cost/i.test(requiredMetrics.get("cost_per_accepted_delivery")?.definition??""))errors.push("el coste por entrega debe incluir coste esperado de fallos");
+for(const key of ["baseline","assisted"]){
+  const g=c[key];
+  if(Number.isFinite(g?.human_minutes_per_task)&&Number.isFinite(g?.tasks_completed)&&Number.isFinite(c.labor_cost_per_hour)){
+    const laborCost=g.human_minutes_per_task*g.tasks_completed/60*c.labor_cost_per_hour;
+    if(!Number.isFinite(laborCost)||laborCost<0)errors.push(key+": coste de trabajo humano no calculable");
+  }
+}
+if(!Array.isArray(data.decision_test_vectors)||data.decision_test_vectors.length<3)errors.push("se requieren vectores de prueba para coste/calidad/gobernanza");
+for(const v of data.decision_test_vectors??[]){
+  if(!nonempty(v.id)||!["expand_cautiously","do_not_expand","inconclusive","block"].includes(v.expected_decision))errors.push("vector de decisión inválido "+v.id);
+  if(v.missing_measurement===true&&v.expected_decision!=="inconclusive")errors.push(v.id+": datos ausentes deben producir resultado inconcluso");
+  if(v.unapproved_external_action===true&&v.expected_decision!=="block")errors.push(v.id+": acción externa sin aprobación debe bloquearse");
+}
 if (errors.length) {
   for (const error of errors) console.error(`LAB-10 productivity/governance: ${error}`);
   process.exit(1);
