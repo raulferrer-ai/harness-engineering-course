@@ -124,13 +124,13 @@ Con dependencias instaladas, ejecuta:
 npm run check:validator-regressions
 ```
 
-La suite comprueba primero que los diez fixtures canónicos siguen siendo aceptados y después aplica tres mutaciones temporales por laboratorio (30 en total) a copias aisladas. Cada mutación solo cuenta como prueba superada si el validador termina con código de error y aparece exactamente un diagnóstico que coincide con la regla esperada. Pueden aparecer diagnósticos adicionales derivados de la misma mutación; por eso la prueba verifica el motivo previsto sin exigir que sea el único efecto del cambio. Los archivos temporales se eliminan al terminar.
+La suite comprueba primero que los diez fixtures canónicos siguen siendo aceptados y después aplica 39 mutaciones temporales a copias aisladas: tres en LAB-01 a LAB-07, cuatro en LAB-08, once en LAB-09 y tres en LAB-10. Cada mutación solo cuenta como prueba superada si el validador termina con código de error y aparece exactamente un diagnóstico que coincide con la regla esperada. Pueden aparecer diagnósticos adicionales derivados de la misma mutación; por eso la prueba verifica el motivo previsto sin exigir que sea el único efecto del cambio. Los archivos temporales se eliminan al terminar.
 
 Esta suite no reemplaza `npm run check` ni cubre todos los contratos posibles; es un conjunto dirigido de regresiones negativas cuya cobertura exacta está definida en `scripts/test-lab-validator-regressions.mjs`.
 
 ### Cobertura de regresión negativa por laboratorio
 
-La suite `npm run check:validator-regressions` cubre actualmente los diez validadores de fixtures (LAB-01 a LAB-10). Para cada fixture canónico, comprueba la aceptación positiva y aplica tres mutaciones negativas aisladas, con código de salida y mensaje esperado.
+La suite `npm run check:validator-regressions` cubre actualmente los diez validadores de fixtures (LAB-01 a LAB-10). Para cada fixture canónico, comprueba la aceptación positiva y aplica mutaciones negativas aisladas, con código de salida y mensaje esperado: tres en LAB-01 a LAB-07, cuatro en LAB-08, once en LAB-09 y tres en LAB-10 (39 en total).
 
 Las mutaciones cubren, según el contrato de cada laboratorio, campos obligatorios ausentes, identificadores duplicados, referencias inexistentes, valores fuera del dominio permitido y políticas de seguridad o publicación debilitadas. La cobertura exacta está definida en `scripts/test-lab-validator-regressions.mjs`; cualquier cambio en los mensajes de error debe actualizar la aserción correspondiente de forma intencional.
 
