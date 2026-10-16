@@ -58,4 +58,4 @@ Registrar una fila por publicación:
 
 ## Límites
 
-Completar esta lista es un control de proceso, no una certificación de seguridad ni una garantía de calidad del modelo. Las pruebas estructurales de CI verifican los artefactos y reglas codificadas; la ejecución real, la adecuación de los umbrales y la aceptación del riesgo requieren evidencia del entorno y responsables humanos.
+Completar esta lista es un control de proceso; no demuestra por sí sola la seguridad del sistema ni constituye una certificación de seguridad o una garantía de calidad del modelo. Las pruebas estructurales de CI verifican los artefactos y reglas codificadas; la ejecución real, la adecuación de los umbrales y la aceptación del riesgo requieren evidencia del entorno y responsables humanos.
