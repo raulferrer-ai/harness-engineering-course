@@ -31,7 +31,24 @@ unique(steps, "pasos de recuperación");
 if (steps.length < 3) errors.push("se requieren al menos tres pasos de recuperación");
 for (const r of steps) for (const field of ["trigger","action","verification","rollback"]) if (!nonempty(r[field])) errors.push(`${r.id}: falta ${field}`);
 const signalIds = new Set(signals.map(x => x.id));
-for (const r of steps) if (!signalIds.has(r.trigger)) errors.push(`${r.id}: trigger desconocido ${r.trigger}`);
+const signalById = new Map(signals.map(x => [x.id, x]));
+for (const r of steps) {
+  if (!signalIds.has(r.trigger)) errors.push(`${r.id}: trigger desconocido ${r.trigger}`);
+  const signal = signalById.get(r.trigger);
+  if (signal?.id === "SIG-04" && (!/bloque|revoc/i.test(r.action) || !/autoriz/i.test(r.rollback))) errors.push(`${r.id}: una acción no autorizada debe bloquearse y requerir autorización antes de restaurar permisos`);
+}
+for (const s of signals) {
+  if (s.threshold?.operator === "lt" && s.threshold.value <= 0) errors.push(`${s.id}: umbral lt debe ser positivo`);
+  if (s.threshold?.operator === "lte" && s.threshold.value < 0) errors.push(`${s.id}: umbral lte no puede ser negativo`);
+  if (s.name === "unauthorized_action_count" && (s.threshold?.operator !== "gt" || s.threshold.value !== 0)) errors.push("las acciones no autorizadas deben disparar con conteo > 0");
+  if (/rate$/.test(s.name) && (s.threshold?.value < 0 || s.threshold?.value > 1)) errors.push(`${s.id}: una tasa debe expresarse entre 0 y 1`);
+}
+const requiredPolicy = {
+  unknown_signal: "do_not_assume_healthy",
+  rollback_target: "immutable_revision_and_artifact",
+  recovery_complete_requires: "service_health_and_regression_checks"
+};
+for (const [key, expected] of Object.entries(requiredPolicy)) if (data.policy?.[key] !== expected) errors.push(`policy.${key} debe ser ${expected}`);
 const scenarios = data.scenarios ?? [];
 unique(scenarios, "escenarios");
 if (scenarios.length < 5) errors.push("se requieren al menos cinco escenarios");
