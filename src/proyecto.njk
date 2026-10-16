@@ -1,0 +1,121 @@
+---
+layout: layouts/base.njk
+title: Proyecto transversal
+description: "Guía de diseño del proyecto transversal de 40 horas: especificación, línea base, implementación asistida, verificación y defensa."
+permalink: proyecto/index.html
+---
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">PROYECTO TRANSVERSAL · 40 HORAS</p>
+    <h1>Demostrar ingeniería con evidencia</h1>
+    <p class="hero-lede">Integra las competencias del curso en un cambio acotado sobre un repositorio real o educativo. El objetivo no es producir más código, sino entregar un resultado verificable, seguro y mantenible, y explicar qué demuestra la evidencia.</p>
+    <div class="module-meta"><span>40 horas planificadas</span><span>Trabajo individual o de equipo según se acuerde</span><span>Diseño pendiente de validación docente</span></div>
+  </header>
+
+  <aside class="notice" aria-label="Estado del diseño">
+    <strong>Estado: propuesta de trabajo, no especificación definitiva.</strong>
+    <p>El repositorio de referencia, su licencia, la matriz de herramientas, los umbrales de evaluación y las condiciones de accesibilidad deben aprobarse antes de usar este proyecto como evaluación sumativa. La distribución horaria es una hipótesis pendiente de piloto.</p>
+  </aside>
+
+  <section class="section" aria-labelledby="objetivo">
+    <div class="section-heading"><div><p class="eyebrow">PROPÓSITO</p><h2 id="objetivo">Qué debe demostrar el proyecto</h2></div></div>
+    <ul>
+      <li>Convertir un problema acotado en una especificación verificable, con exclusiones y criterios de aceptación.</li>
+      <li>Registrar el estado inicial y hacer reproducible la línea base antes de modificar el sistema.</li>
+      <li>Utilizar asistentes o agentes con contexto, herramientas y permisos proporcionados al riesgo.</li>
+      <li>Verificar los cambios mediante pruebas pertinentes, inspección del diff y revisión independiente.</li>
+      <li>Comparar calidad, regresiones, esfuerzo de verificación, intervención humana y costes observables.</li>
+      <li>Comunicar limitaciones, incertidumbre, riesgos residuales y decisiones que requieren responsabilidad humana.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="seleccion">
+    <div class="section-heading"><div><p class="eyebrow">ALCANCE</p><h2 id="seleccion">Elegir un problema adecuado</h2></div></div>
+    <p>Selecciona un cambio suficientemente pequeño para verificarse, pero lo bastante realista como para exigir decisiones de ingeniería. Puede ser una corrección de defecto, una mejora acotada, una prueba que falta o una automatización interna de bajo riesgo.</p>
+    <h3>Condiciones para aceptar el alcance</h3>
+    <ul>
+      <li>Existe un estado inicial identificable y un resultado esperado que puede observarse.</li>
+      <li>El repositorio y sus dependencias pueden utilizarse legalmente con fines educativos.</li>
+      <li>El trabajo puede realizarse en una rama aislada, sin acceso necesario a producción.</li>
+      <li>Hay pruebas o métodos razonables para detectar errores y regresiones.</li>
+      <li>El entorno no exige una suscripción de pago no prevista ni credenciales personales compartidas.</li>
+    </ul>
+    <h3>Excluir expresamente</h3>
+    <ul>
+      <li>Operaciones sobre sistemas de producción o datos reales de clientes.</li>
+      <li>Credenciales, tokens, datos personales innecesarios o secretos en prompts, logs o entregables.</li>
+      <li>Refactorizaciones no relacionadas que amplíen el alcance sin autorización.</li>
+      <li>Afirmaciones de pruebas ejecutadas, métricas medidas o revisión realizada cuando solo se hayan propuesto.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="fases">
+    <div class="section-heading"><div><p class="eyebrow">PLAN DE TRABAJO</p><h2 id="fases">Fases y distribución orientativa</h2></div><p class="section-intro">La distribución suma 40 horas, pero todavía no se ha validado mediante un piloto. Registra el tiempo real y las causas de desviación.</p></div>
+    <div class="table-wrapper">
+      <table>
+        <caption>Plan de trabajo propuesto</caption>
+        <thead><tr><th scope="col">Fase</th><th scope="col">Horas</th><th scope="col">Salida verificable</th></tr></thead>
+        <tbody>
+          <tr><td>1. Selección y delimitación</td><td>4</td><td>Repositorio, licencia, problema, permisos y alcance aprobados.</td></tr>
+          <tr><td>2. Especificación y verificación</td><td>5</td><td>Requisitos, exclusiones, criterios de aceptación y plan de pruebas.</td></tr>
+          <tr><td>3. Línea base</td><td>5</td><td>Commit base, entorno, comandos y resultados iniciales conservados.</td></tr>
+          <tr><td>4. Implementación asistida</td><td>10</td><td>Diff acotado, registro de decisiones y cambios trazables.</td></tr>
+          <tr><td>5. Verificación independiente</td><td>7</td><td>Pruebas, casos negativos, revisión de diff y hallazgos documentados.</td></tr>
+          <tr><td>6. Comparación y análisis</td><td>5</td><td>Comparación de calidad, esfuerzo, costes y limitaciones.</td></tr>
+          <tr><td>7. Informe y defensa</td><td>4</td><td>Informe con referencias a evidencia y defensa individual.</td></tr>
+          <tr><th scope="row">Total</th><th>40</th><th>Proyecto completo, sujeto a aprobación docente.</th></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="evidencias">
+    <div class="section-heading"><div><p class="eyebrow">ENTREGABLES</p><h2 id="evidencias">Qué debe conservarse</h2></div></div>
+    <ol>
+      <li><strong>Especificación:</strong> problema, alcance, restricciones, supuestos, criterios de aceptación y condiciones de parada.</li>
+      <li><strong>Línea base:</strong> commit inicial, instrucciones de preparación, versiones y resultados de las pruebas existentes.</li>
+      <li><strong>Registro de ejecución:</strong> herramientas y versiones conocidas, contexto relevante, comandos, salidas originales e intervenciones humanas; sin secretos.</li>
+      <li><strong>Cambio final:</strong> commit final, diff inspeccionable y justificación de decisiones importantes.</li>
+      <li><strong>Verificación:</strong> pruebas positivas, negativas y de regresión; fallos encontrados, correcciones y pruebas no ejecutadas.</li>
+      <li><strong>Revisión independiente:</strong> hallazgos, decisiones tomadas y riesgos residuales aceptados por la persona responsable.</li>
+      <li><strong>Comparación:</strong> calidad, regresiones, tiempo de ciclo, esfuerzo de verificación, intervención humana, costes observables y mantenibilidad.</li>
+      <li><strong>Informe y defensa:</strong> conclusiones proporcionales a la evidencia, límites de la muestra y alternativas consideradas.</li>
+    </ol>
+    <p>Utiliza la <a href="https://github.com/raulferrer-ai/harness-engineering-course/blob/main/docs/lab-evidence-template.md">plantilla de evidencia de los laboratorios</a> como punto de partida. Las fixtures y ejemplos didácticos no sustituyen las evidencias de una ejecución real.</p>
+  </section>
+
+  <section class="section" aria-labelledby="aceptacion">
+    <div class="section-heading"><div><p class="eyebrow">CRITERIOS PROPUESTOS</p><h2 id="aceptacion">Cómo revisar el resultado</h2></div></div>
+    <ul>
+      <li>El cambio responde a la especificación acordada y permanece dentro del alcance autorizado.</li>
+      <li>La línea base y el estado final pueden identificarse y reproducirse.</li>
+      <li>Las afirmaciones principales se vinculan a pruebas o evidencias inspeccionables.</li>
+      <li>Las pruebas negativas y de regresión son apropiadas para los riesgos del cambio.</li>
+      <li>La revisión independiente no se sustituye por la explicación del modelo.</li>
+      <li>Los datos ausentes se declaran como no disponibles; no se inventan métricas ni resultados.</li>
+      <li>Se declaran limitaciones, sesgos y riesgos residuales sin generalizar más allá de lo probado.</li>
+      <li>No se exponen secretos ni se ejecutan acciones no autorizadas sobre sistemas reales.</li>
+    </ul>
+    <p>Estos criterios son una propuesta de revisión. No definen por sí solos la calificación ni reemplazan una rúbrica formalmente aprobada.</p>
+  </section>
+
+  <section class="section" aria-labelledby="decisiones">
+    <div class="section-heading"><div><p class="eyebrow">ANTES DEL PILOTO</p><h2 id="decisiones">Decisiones que debe cerrar el equipo docente</h2></div></div>
+    <ul>
+      <li>Seleccionar el repositorio y comprobar la licencia y la procedencia.</li>
+      <li>Aprobar herramientas, versiones, entorno reproducible y alternativa sin suscripción de pago.</li>
+      <li>Definir si la comparación con trabajo sin IA es obligatoria y cómo se controlará la comparabilidad.</li>
+      <li>Acordar formato, privacidad y conservación de evidencias.</li>
+      <li>Aprobar la rúbrica, el umbral, los fallos críticos y el procedimiento de revisión.</li>
+      <li>Ejecutar un piloto y ajustar la carga horaria según resultados observados.</li>
+    </ul>
+    <a class="text-link" href="/evaluacion/">Consultar la rúbrica y el protocolo de defensa <span aria-hidden="true">→</span></a>
+  </section>
+
+  <section class="closing-band" aria-labelledby="cierre">
+    <p class="eyebrow">PRINCIPIO DE CIERRE</p>
+    <h2 id="cierre">Una entrega solo vale lo que puede demostrar.</h2>
+    <p>La defensa debe poder recorrer el problema, el diff, las pruebas y un fallo o limitación real. El objetivo es demostrar criterio técnico, no memorizar herramientas ni atribuirse resultados que no se observaron.</p>
+    <a class="text-link" href="/#programa">Volver al programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
