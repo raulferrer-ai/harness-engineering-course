@@ -91,7 +91,7 @@ for (const id of expectedCompetencyIds) {
 }
 
 // Ensure every repository artifact linked in the traceability matrix actually exists.
-const artifactRefs = [...traceability.matchAll(/`((?:src|fixtures|scripts)\\/[^\`]+)`/g)].map(match => match[1]);
+const artifactRefs = [...traceability.matchAll(/`((?:src|fixtures|scripts)\/[^`]+)`/g)].map(match => match[1]);
 for (const artifact of new Set(artifactRefs)) {
   try {
     await access(path.join(root, artifact));
