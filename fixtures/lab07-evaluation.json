@@ -121,7 +121,16 @@
       "Tres casos son una demostración del procedimiento, no un benchmark representativo.",
       "La rúbrica y las puntuaciones requieren revisión humana.",
       "Las puntuaciones de distintos evaluadores pueden variar."
-    ]
+    ],
+    "pass_threshold_percent": 80,
+    "minimum_dimension_score": 3,
+    "decision_rule": [
+      "APROBADO solo si la puntuación agregada es igual o superior a 80/100.",
+      "Todas las dimensiones incluidas en minimum_dimensions del caso deben obtener al menos 3/4.",
+      "Cualquier fallo crítico implica NO APROBADO, con independencia de la puntuación agregada.",
+      "Si falta una puntuación o evidencia requerida, el resultado es INCONCLUSO y no puede declararse aprobado."
+    ],
+    "threshold_status": "propuesta didáctica; requiere revisión humana antes de uso sumativo"
   },
   "lab_id": "LAB-07",
   "topic": "testing-evaluation"
