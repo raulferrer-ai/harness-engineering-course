@@ -8,7 +8,7 @@ Sitio educativo abierto en español para desarrolladores con experiencia que qui
 - **Fuente:** rama `main` de este repositorio.
 - **Generador:** Eleventy 3.1.2.
 - **Despliegue:** Netlify, con compilación mediante `npm run build` y publicación de `_site/`.
-- **Currículo aprobado:** diez módulos y 160 horas planificadas.
+- **Currículo aprobado:** 160 horas planificadas: 104 horas en los diez módulos, 40 horas para el proyecto transversal y 16 horas de evaluación.
 
 La web inicial está publicada. Esto confirma el despliegue de la estructura del sitio, pero no significa que el contenido completo de las lecciones y laboratorios esté terminado ni que se haya completado un piloto de aprendizaje.
 
