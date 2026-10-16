@@ -93,3 +93,26 @@ El comando conjunto construye el sitio, verifica rutas y metadatos curriculares 
 
 Un resultado satisfactorio confirma únicamente las comprobaciones automatizadas implementadas. No demuestra que cada procedimiento se haya ejecutado en un entorno limpio, que las señales operativas funcionen en producción ni que los resultados de aprendizaje estén validados con alumnado.
 
+## Controles negativos de los validadores
+
+Además de comprobar que un fixture válido pasa, revisa que cada validador rechace entradas deliberadamente inválidas. La prueba negativa debe ejecutarse sobre una copia temporal del fixture, nunca sobre la fuente canónica.
+
+| Control | Mutación temporal | Resultado esperado |
+|---|---|---|
+| Referencia rota | Cambiar un ID de caso vinculado por un ID inexistente | El validador falla e identifica la referencia no resuelta |
+| Campo requerido ausente | Eliminar un campo obligatorio del fixture | El validador falla con un mensaje que nombra el campo o contrato |
+| Umbral inválido | Cambiar un umbral numérico por texto o un valor fuera del dominio permitido | El validador falla sin convertir el valor silenciosamente |
+| Identificador duplicado | Duplicar un ID que debe ser único | El validador detecta la colisión |
+| Evidencia insuficiente | Quitar una referencia obligatoria de evidencia | El validador falla o clasifica el caso como incompleto según el contrato documentado |
+
+Para cada control conserva el commit probado, la mutación aplicada, el código de salida y el fragmento de salida relevante. No basta con que el proceso termine con error: el fallo debe deberse a la condición introducida y no a un error de sintaxis o a un problema ajeno.
+
+### Interpretación de resultados
+
+- **Positivo:** el fixture canónico pasa las comprobaciones.
+- **Negativo:** cada mutación inválida es rechazada por la regla prevista.
+- **No probado:** el control no tiene una prueba reproducible o no se recogió evidencia.
+- **Defecto del validador:** una mutación inválida pasa o genera un fallo por una razón distinta a la esperada.
+
+No edites la evidencia para que coincida con el resultado esperado. Si una mutación inválida pasa, registra el defecto, corrige el validador y repite tanto la prueba negativa como la positiva.
+
