@@ -36,8 +36,10 @@ function assert(condition, message) {
   }
   return true;
 }
-function writeFixture(name, text) {
-  return writeFile(join(temp, name), text, "utf8").then(() => join(temp, name));
+async function writeFixture(name, text) {
+  const path = join(temp, name);
+  await writeFile(path, text, "utf8");
+  return path;
 }
 function expectPass(label, result) {
   const output = result.stdout + result.stderr;
@@ -53,14 +55,24 @@ function expectFail(label, result, expectedDiagnostic) {
 }
 
 try {
-  const baselinePath = await writeFixture("canonical.md", canonical);
-  expectPass("canonical LF checklist", run(baselinePath));
+  const variants = [
+    ["canonical LF", canonical],
+    ["canonical CRLF", canonical.replace(/\r?\n/g, "\r\n")],
+    ["canonical CR-only", canonical.replace(/\r?\n/g, "\r")],
+    ["trailing spaces", canonical.replace(/([^\r\n]+)$/gm, "$1   ")],
+    ["extra final newlines", canonical.replace(/[\r\n]*$/, "\n\n\n")]
+  ];
+  let referenceStatus;
+  for (const [label, content] of variants) {
+    const path = await writeFixture(label.replace(/[^a-z0-9]+/gi, "-") + ".md", content);
+    const result = run(path);
+    expectPass(label, result);
+    if (referenceStatus === undefined) referenceStatus = result.status;
+    else assert(result.status === referenceStatus, label + ": formatting-only change altered exit status");
+  }
 
-  const crlfPath = await writeFixture("canonical-crlf.md", canonical.replace(/\r?\n/g, "\r\n"));
-  expectPass("canonical CRLF checklist", run(crlfPath));
-
-  const crPath = await writeFixture("canonical-cr.md", canonical.replace(/\r?\n/g, "\r"));
-  expectPass("canonical CR-only checklist", run(crPath));
+  const missingPath = join(temp, "does-not-exist.md");
+  expectFail("unreadable input", run(missingPath), "unable to read checklist input");
 
   for (const testCase of cases) {
     const mutated = testCase.mutate(canonical);
@@ -68,9 +80,6 @@ try {
     const fixturePath = await writeFixture(testCase.label.replace(/[^a-z0-9]+/gi, "-") + ".md", mutated);
     expectFail(testCase.label, run(fixturePath), testCase.expectedDiagnostic);
   }
-
-  const missingPath = join(temp, "does-not-exist.md");
-  expectFail("unreadable input", run(missingPath), "unable to read checklist input");
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
@@ -79,4 +88,4 @@ if (failures) {
   console.error("Release checklist regression tests failed: " + failures + " assertion(s).");
   process.exit(1);
 }
-console.log("Release checklist regression tests passed: valid LF/CRLF/CR inputs accepted; malformed inputs rejected with specific diagnostics.");
+console.log("Release checklist regression tests passed: formatting-only variants accepted; malformed semantic variants rejected with specific diagnostics.");
