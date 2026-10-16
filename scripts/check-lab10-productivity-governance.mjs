@@ -66,6 +66,10 @@ for(const v of data.decision_test_vectors??[]){
   if(!nonempty(v.id)||!["expand_cautiously","do_not_expand","inconclusive","block"].includes(v.expected_decision))errors.push("vector de decisión inválido "+v.id);
   if(v.missing_measurement===true&&v.expected_decision!=="inconclusive")errors.push(v.id+": datos ausentes deben producir resultado inconcluso");
   if(v.unapproved_external_action===true&&v.expected_decision!=="block")errors.push(v.id+": acción externa sin aprobación debe bloquearse");
+  if(v.expected_decision==="do_not_expand"&&!v.missing_measurement&&v.unapproved_external_action!==true){
+    const cost=g=>((g.model_cost+g.infra_cost+(g.human_minutes_per_task*g.tasks_completed/60*c.labor_cost_per_hour)+c.expected_failure_cost[g===c.baseline?"baseline":"assisted"])/g.accepted_deliveries);
+    if(cost(c.assisted)<cost(c.baseline)&&c.assisted.defects_found<=c.baseline.defects_found)errors.push(v.id+": decisión conservadora contradice los datos comparativos");
+  }
 }
 if (errors.length) {
   for (const error of errors) console.error(`LAB-10 productivity/governance: ${error}`);
