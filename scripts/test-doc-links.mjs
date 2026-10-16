@@ -77,7 +77,7 @@ try {
   expectFail("no acepta encabezados dentro de bloques de código", run(codeOnlyAnchor), "ancla no encontrada");
 
   const codeOnlyHtmlId = await fixture("code-only-html-id", {
-    "README.md": "```html\n<section id=\\"solo-ejemplo\\"></section>\n```\n\n[ID falso](#solo-ejemplo)\n"
+    "README.md": '```html\n<section id="solo-ejemplo"></section>\n```\n\n[ID falso](#solo-ejemplo)\n'
   });
   expectFail("no acepta IDs HTML dentro de bloques de código", run(codeOnlyHtmlId), "ancla no encontrada");
 
