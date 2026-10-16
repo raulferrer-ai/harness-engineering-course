@@ -29,3 +29,7 @@ El control verifica la presencia de campos, cuatro criterios con condición/evid
 ## Limitaciones
 
 Los umbrales de rendimiento, el entorno, la fuente de verdad y la ventana temporal siguen sin especificar en el reporte inicial. El ejemplo no fija valores numéricos porque hacerlo sin contexto sería inventar requisitos. Es un fixture didáctico sujeto a revisión humana, no una especificación aprobada para un sistema real.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab02-worked-example.md`](lab02-worked-example.md) para ver una petición ambigua transformada en especificación provisional, criterios verificables, plan de pruebas y una decisión de despliegue condicionada por evidencia y autorización.
