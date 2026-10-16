@@ -90,6 +90,19 @@ for (const id of expectedCompetencyIds) {
   if (!traceability.includes(id)) errors.push(`Traceability matrix does not reference ${id}.`);
 }
 
+const competencyRows = [...traceability.matchAll(/^\\|\\s*(COMP-\\d{2})\\s*—[^|]*\\|/gm)].map(match => match[1]);
+for (const id of competencyRows) {
+  if (!expectedCompetencyIds.includes(id)) errors.push(`Traceability matrix contains unapproved competency ${id}.`);
+}
+for (const id of expectedCompetencyIds) {
+  const count = competencyRows.filter(value => value === id).length;
+  if (count > 1) errors.push(`Traceability matrix defines competency ${id} more than once in its primary mapping.`);
+}
+const moduleRows = [...traceability.matchAll(/^\\|\\s*(?:COMP-\\d{2}|Asignación pendiente de validación curricular)\\s*[^|]*\\|\\s*M(\\d{2})\\s*:/gm)].map(match => `M${match[1]}`);
+for (const id of moduleRows) {
+  if (!expectedModuleIds.includes(id)) errors.push(`Traceability matrix references unapproved module ${id}.`);
+}
+
 // Ensure every repository artifact linked in the traceability matrix actually exists.
 const artifactRefs = [...traceability.matchAll(/`((?:src|fixtures|scripts)\/[^`]+)`/g)].map(match => match[1]);
 for (const artifact of new Set(artifactRefs)) {
