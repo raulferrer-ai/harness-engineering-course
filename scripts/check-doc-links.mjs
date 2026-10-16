@@ -18,15 +18,15 @@ function walk(directory) {
 
 function slugHeading(heading) {
   return heading
-    .replace(/!\\[([^\\]]*)\\]\\([^)]*\\)/g, "$1")
-    .replace(/\\[([^\\]]*)\\]\\[[^\\]]*\\]/g, "$1")
+    .replace(/!\[([^]]*)]([^)]*)/g, "$1")
+    .replace(/[([^]]*)][[^]]*]/g, "$1")
     .replace(/<[^>]*>/g, "")
     .replace(/`([^`]*)`/g, "$1")
     .replace(/[*_~]/g, "")
     .toLowerCase()
-    .replace(/[^\\p{L}\\p{N}\\s-]/gu, "")
+    .replace(/[^p{L}p{N}s-]/gu, "")
     .trim()
-    .replace(/\\s+/g, "-");
+    .replace(/s+/g, "-");
 }
 
 function targetExists(raw, sourceFile) {
