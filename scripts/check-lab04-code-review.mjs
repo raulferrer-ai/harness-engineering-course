@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import process from "node:process";
 
-const data = JSON.parse(await readFile(new URL("../fixtures/lab04-code-review.json", import.meta.url), "utf8"));
+const data = JSON.parse(await readFile(process.env.LAB04_FIXTURE_PATH ?? new URL("../fixtures/lab04-code-review.json", import.meta.url), "utf8"));
 const errors = [];
 const text = (v) => typeof v === "string" && v.trim().length > 0;
 const unique = (items, label) => {
