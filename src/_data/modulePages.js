@@ -1,5 +1,5 @@
 const modules = require("./modules.json");
 
-// M01 has a dedicated, fully developed page in src/modulos/.
-// Keep the scaffold pagination for the remaining modules only.
+// Modules with dedicated learning pages are excluded from generic scaffold pagination.
+// Keep the scaffold for modules whose detailed content is still pending.
 module.exports = modules.filter(({ slug }) => !["modelos-capacidades-limites", "especificacion-y-diseno"].includes(slug));
