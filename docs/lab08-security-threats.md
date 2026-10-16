@@ -29,3 +29,7 @@ npm run check:lab08
 ## Limitaciones
 
 El validador estructural no ejecuta ataques ni demuestra la eficacia de controles reales. La verificación requiere ejecución práctica en un entorno aislado y revisión independiente.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab08-worked-example.md`](lab08-worked-example.md) para un modelo de amenazas con activos, cinco amenazas, pruebas adversariales, verificación de efectos secundarios y evaluación del riesgo residual.
