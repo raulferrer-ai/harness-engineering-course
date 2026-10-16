@@ -211,5 +211,35 @@
     "Datos numéricos sintéticos: sirven para probar el procedimiento, no para afirmar ahorros reales.",
     "El validador comprueba estructura y coherencia básica; no calcula ni certifica un caso de negocio.",
     "La decisión final requiere revisión humana de fuentes, comparabilidad, privacidad, seguridad y contexto organizativo."
+  ],
+  "decision_test_vectors": [
+    {
+      "id": "TV-01",
+      "expected_decision": "do_not_expand",
+      "missing_measurement": false,
+      "unapproved_external_action": false,
+      "reason": "Los datos sintéticos muestran más defectos y un coste por entrega aceptada no menor; no basta la reducción de tiempo."
+    },
+    {
+      "id": "TV-02",
+      "expected_decision": "inconclusive",
+      "missing_measurement": true,
+      "unapproved_external_action": false,
+      "reason": "No se imputa el dato ausente como cero; no se afirma una mejora."
+    },
+    {
+      "id": "TV-03",
+      "expected_decision": "block",
+      "missing_measurement": false,
+      "unapproved_external_action": true,
+      "reason": "Una acción externa sin aprobación explícita se bloquea."
+    },
+    {
+      "id": "TV-04",
+      "expected_decision": "expand_cautiously",
+      "missing_measurement": false,
+      "unapproved_external_action": false,
+      "reason": "Solo en un escenario con tareas comparables, calidad no inferior y menor coste total verificado; requiere revisión humana."
+    }
   ]
 }
