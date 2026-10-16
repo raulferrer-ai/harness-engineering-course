@@ -1,0 +1,109 @@
+---
+layout: layouts/base.njk
+title: CI/CD, observabilidad y mantenimiento
+description: "Módulo M09: automatiza verificaciones, observa sistemas con IA en operación y prepara recuperación, reversión y mantenimiento."
+permalink: modulos/cicd-observabilidad-mantenimiento/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M09 · OPERACIÓN</p>
+    <h1>CI/CD, observabilidad y mantenimiento</h1>
+    <p class="hero-lede">Un sistema no está listo cuando pasa una prueba en local: debe poder desplegarse con controles, observarse en producción y recuperarse de forma segura cuando cambian las condiciones o aparecen fallos.</p>
+    <div class="module-meta"><span>10 horas planificadas</span><span>4 h de fundamentos · 6 h de laboratorio</span><span>LAB-09</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Diseñar un pipeline que bloquee la integración si fallan pruebas, controles de seguridad o verificaciones de rutas.</li>
+      <li>Separar entornos, secretos, permisos y aprobaciones según el riesgo del cambio.</li>
+      <li>Definir señales operativas para calidad, latencia, errores, coste, uso de herramientas y efectos no autorizados.</li>
+      <li>Diseñar registros y trazas útiles sin almacenar innecesariamente datos sensibles.</li>
+      <li>Preparar rollback, apagado seguro y recuperación probada antes de una incidencia.</li>
+      <li>Convertir incidentes y regresiones en acciones de mantenimiento verificables.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="pipeline">
+    <div class="section-heading"><div><p class="eyebrow">ENTREGA CONTINUA</p><h2 id="pipeline">Cada cambio deja evidencia</h2></div></div>
+    <p>Un pipeline útil no es una secuencia de comandos que termina en verde. Debe expresar las condiciones bajo las que un cambio puede avanzar y conservar evidencia suficiente para entender por qué se aceptó.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Verificación automática</h3><p>Instalación reproducible, compilación, pruebas unitarias e integración, evaluación del comportamiento y comprobación de rutas y artefactos.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Separación y autorización</h3><p>Credenciales distintas por entorno, permisos mínimos en CI, protección de ramas y aprobación explícita para operaciones de impacto.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Despliegue reversible</h3><p>Artefactos identificables, comprobaciones posteriores al despliegue, estrategia de reversión y criterios para detener la promoción.</p></div></section>
+    </div>
+    <p>Un resultado correcto en CI no garantiza por sí solo que el comportamiento en producción sea correcto. El pipeline debe complementarse con señales de operación y procedimientos de respuesta.</p>
+  </section>
+
+  <section class="section" aria-labelledby="observabilidad">
+    <div class="section-heading"><div><p class="eyebrow">OBSERVABILIDAD</p><h2 id="observabilidad">Mide el sistema, no solo la respuesta</h2></div></div>
+    <ul>
+      <li><strong>Calidad:</strong> tasa de tareas completadas, resultados rechazados, correcciones humanas y fallos por categoría.</li>
+      <li><strong>Fiabilidad:</strong> errores, timeouts, reintentos, fallos de herramientas y degradaciones respecto a la línea base.</li>
+      <li><strong>Rendimiento y coste:</strong> latencia por etapa, tokens o unidades consumidas, coste por tarea y límites de presupuesto.</li>
+      <li><strong>Seguridad:</strong> denegaciones, intentos de acceso fuera de alcance, fallos de autorización y anomalías de ejecución.</li>
+      <li><strong>Trazabilidad:</strong> identificador de ejecución, versiones, configuración, herramientas invocadas y resultado de cada verificación.</li>
+    </ul>
+    <p>Define umbrales, ventanas temporales y responsables para cada alerta. Evita alertas sin una acción asociada y no uses una métrica agregada que oculte fallos críticos.</p>
+    <aside class="notice"><strong>Privacidad en telemetría</strong><p>Registra lo necesario para diagnosticar y auditar. Redacta secretos, minimiza datos personales, limita el acceso a los logs y establece una política de retención y eliminación.</p></aside>
+  </section>
+
+  <section class="section" aria-labelledby="incidentes">
+    <div class="section-heading"><div><p class="eyebrow">RECUPERACIÓN</p><h2 id="incidentes">Prepara el fallo antes del despliegue</h2></div></div>
+    <ul>
+      <li><strong>Detección:</strong> señales que permiten reconocer degradación, incumplimiento de política o aumento anómalo de coste.</li>
+      <li><strong>Contención:</strong> desactivar herramientas, limitar tráfico, revocar credenciales o pasar a un modo seguro.</li>
+      <li><strong>Reversión:</strong> volver a un artefacto o configuración conocidos y verificar que el estado se recupera.</li>
+      <li><strong>Comunicación:</strong> responsable de incidente, canales, impacto observado y criterios de escalado.</li>
+      <li><strong>Aprendizaje:</strong> análisis causal sin culpabilización, acciones con responsable y fecha, y nuevas pruebas de regresión.</li>
+    </ul>
+    <p>Una reversión de código puede no deshacer una acción externa ya ejecutada. Identifica efectos irreversibles y diseña compensaciones, límites o aprobaciones antes de habilitarlos.</p>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-09 · 6 HORAS</p><h2 id="lab">Construir un pipeline observable y recuperable</h2></div></div>
+    <h3>Objetivo</h3>
+    <p>Crear un pipeline reproducible para una aplicación de práctica, incorporar una comprobación que bloquee un cambio defectuoso, producir telemetría sintética y demostrar un procedimiento de rollback sin afectar a sistemas reales.</p>
+    <h3>Prerrequisitos y límites</h3>
+    <ul>
+      <li>Usa un repositorio de práctica y un entorno local o de vista previa.</li>
+      <li>No publiques credenciales, tokens, datos personales ni registros sensibles en artefactos o logs.</li>
+      <li>Simula tráfico, costes y errores si no hay un servicio desplegado; documenta qué evidencia es simulada.</li>
+    </ul>
+    <h3>Procedimiento</h3>
+    <ol>
+      <li><strong>Mapa del pipeline (45 min):</strong> identifica eventos de activación, dependencias, artefactos, permisos y puertas de aprobación.</li>
+      <li><strong>Checks automáticos (75 min):</strong> ejecuta instalación desde lockfile, build, pruebas y comprobación de rutas; añade un caso deliberadamente fallido.</li>
+      <li><strong>Telemetría (60 min):</strong> define eventos estructurados con identificador de ejecución, versión, duración, resultado y categoría de error, sin contenido sensible.</li>
+      <li><strong>Alertas y umbrales (45 min):</strong> crea al menos tres escenarios de alerta y especifica señal, umbral, ventana, responsable y respuesta.</li>
+      <li><strong>Rollback simulado (60 min):</strong> publica dos artefactos de práctica o estados versionados, provoca una condición de bloqueo y demuestra la vuelta al estado estable.</li>
+      <li><strong>Runbook e informe (75 min):</strong> documenta detección, contención, recuperación, validación posterior y acciones de seguimiento.</li>
+    </ol>
+    <h3>Evidencias requeridas</h3>
+    <ul>
+      <li>Definición versionada del pipeline y salida de una ejecución correcta y otra bloqueada.</li>
+      <li>Ejemplos de eventos estructurados y política de redacción/retención.</li>
+      <li>Tabla de al menos tres alertas con umbrales y acciones.</li>
+      <li>Runbook de incidente y evidencia del rollback simulado.</li>
+      <li>Lista de limitaciones, riesgos residuales y mejoras priorizadas.</li>
+    </ul>
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>Un fallo crítico impide la promoción del artefacto.</li>
+      <li>El artefacto desplegado puede asociarse a una versión y una ejecución del pipeline.</li>
+      <li>Los eventos permiten reconstruir el flujo sin exponer secretos o datos personales.</li>
+      <li>Las alertas tienen un responsable y una respuesta operativa concreta.</li>
+      <li>El rollback se demuestra y se verifica con una comprobación posterior.</li>
+    </ul>
+    <h3>Preguntas de reflexión</h3>
+    <ul>
+      <li>¿Qué fallo podría escapar del pipeline y qué señal lo detectaría en operación?</li>
+      <li>¿Qué datos de una traza son necesarios y cuáles deberían eliminarse?</li>
+      <li>¿Qué efectos no pueden deshacerse con un rollback ordinario?</li>
+      <li>¿Qué evidencia exigirías antes de volver a habilitar el sistema tras un incidente?</li>
+    </ul>
+  </section>
+
+  <nav class="module-next" aria-label="Navegación del curso"><a href="/#programa">← Todos los módulos</a><a href="/modulos/productividad-costes-gobernanza/">Siguiente módulo: M10 →</a></nav>
+</article>
