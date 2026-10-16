@@ -24,7 +24,7 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 - [Índice de ejemplos resueltos de LAB-01 a LAB-10](docs/worked-examples-index.md)
 - [Proyecto transversal: rúbrica y defensa](docs/transversal-project-rubric.md)
 - [Protocolo propuesto de piloto del curso](docs/pilot-protocol.md)
-- [Guía para participantes](https://harnessengineeringcourse.netlify.app/guia/) (cuando el despliegue publique la versión actual)
+- [Guía para participantes](src/guia.njk)
 
 ## Desarrollo y verificación
 
