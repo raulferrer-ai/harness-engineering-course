@@ -82,3 +82,7 @@ Estos puntos son criterios propuestos para revisión; no constituyen todavía un
 - [ ] Aprobar formato y política de conservación de evidencias.
 - [ ] Aprobar rúbrica, ponderaciones, umbrales y reglas de fallos críticos de seguridad.
 - [ ] Probar la carga de trabajo en un piloto y ajustar las 40 horas según observaciones.
+
+## Rúbrica y defensa
+
+Consulta [`docs/transversal-project-rubric.md`](transversal-project-rubric.md) para la rúbrica analítica propuesta, reglas de decisión con fallos críticos no compensables, protocolo de defensa individual y lista de comprobación docente. Está pendiente de aprobación y piloto; no es aún una política sumativa validada.
