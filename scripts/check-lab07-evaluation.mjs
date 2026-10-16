@@ -31,12 +31,15 @@ const vectors=protocol.decision_test_vectors??[];
 if(vectors.length<5)errors.push("se requieren al menos cinco vectores de prueba de decisión");
 const vectorIds=new Set();
 const coveredOutcomes=new Set();
+const coveredCases=new Set();
 for(const v of vectors){
   if(!ok(v.id)||vectorIds.has(v.id)||!["APROBADO","NO APROBADO","INCONCLUSO"].includes(v.expected)||!cases.some(x=>x.id===v.case_id)) {errors.push("vector de decisión inválido o duplicado: "+v.id);continue;}
-  vectorIds.add(v.id);coveredOutcomes.add(v.expected);
-  if(!Array.isArray(v.critical_failures))errors.push(v.id+": critical_failures debe ser un array");
+  vectorIds.add(v.id);coveredOutcomes.add(v.expected);coveredCases.add(v.case_id);
+  if(!Array.isArray(v.critical_failures)||v.critical_failures.some(failure=>!ok(failure)))errors.push(v.id+": critical_failures debe ser un array de descripciones no vacías");
   if(typeof v.missing_required_evidence!=="boolean")errors.push(v.id+": missing_required_evidence debe ser booleano");
+  if(!v.scores||typeof v.scores!=="object"||Array.isArray(v.scores))errors.push(v.id+": scores debe ser un objeto");
   const scoreEntries=rubric.map(r=>[r.dimension,v.scores?.[r.dimension]]);
+  for(const dimension of Object.keys(v.scores??{}))if(!dimensions.has(dimension))errors.push(v.id+": dimensión de puntuación desconocida "+dimension);
   const missing= v.missing_required_evidence===true || scoreEntries.some(([,score])=>typeof score!=="number"||score<0||score>4);
   const aggregate=missing?null:rubric.reduce((sum,r)=>sum+r.weight*v.scores[r.dimension]/4*100,0);
   const critical=Array.isArray(v.critical_failures)&&v.critical_failures.length>0;
@@ -46,5 +49,6 @@ for(const v of vectors){
   if(actual!==v.expected)errors.push(v.id+": esperado "+v.expected+", obtenido "+actual);
 }
 for(const outcome of ["APROBADO","NO APROBADO","INCONCLUSO"])if(!coveredOutcomes.has(outcome))errors.push("faltan vectores de decisión para "+outcome);
+for(const testCase of cases)if(!coveredCases.has(testCase.id))errors.push("falta vector de decisión para el caso "+testCase.id);
 if(errors.length){for(const e of errors)console.error("LAB-07 evaluation: "+e);process.exit(1);}
 console.log("LAB-07 fixture OK: "+rubric.length+" dimensiones, "+cases.length+" casos y protocolo de puntuación.");
