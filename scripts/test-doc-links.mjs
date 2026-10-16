@@ -64,6 +64,11 @@ try {
   });
   expectFail("ancla inexistente", run(missingAnchor), "ancla no encontrada");
 
+  const codeOnlyAnchor = await fixture("code-only-anchor", {
+    "README.md": "```md\\n## Solo en código\\n```\\n\\n[Ancla falsa](#solo-en-codigo)\\n"
+  });
+  expectFail("no acepta encabezados dentro de bloques de código", run(codeOnlyAnchor), "ancla no encontrada");
+
   const missingTargetAnchor = await fixture("missing-target-anchor", {
     "README.md": "[Sección ausente](docs/guia.md#no-existe)\n",
     "docs/guia.md": "# Guía\n"
