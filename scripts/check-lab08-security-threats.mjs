@@ -24,6 +24,13 @@ for(const x of data.threats??[]){
 for(const x of data.test_cases??[]){
  if(!Array.isArray(x.threat_ids)||x.threat_ids.length===0||x.threat_ids.some(id=>!threatIds.has(id)))errors.push(x.id+": threat_ids debe referenciar amenazas existentes");
 }
+const testById=new Map((data.test_cases??[]).map(x=>[x.id,x]));
+for(const t of data.threats??[]){const linked=testById.get(t.test_case_id);if(linked&&!linked.threat_ids?.includes(t.id))errors.push(t.id+": el caso vinculado no referencia de vuelta esta amenaza");}
+for(const tc of data.test_cases??[])for(const threatId of tc.threat_ids??[]){const threat=(data.threats??[]).find(t=>t.id===threatId);if(threat&&threat.test_case_id!==tc.id)errors.push(tc.id+": vínculo contradictorio con "+threatId);}
+const coveredAssets=new Set((data.threats??[]).flatMap(t=>t.asset_ids??[]));
+for(const assetId of assetIds)if(!coveredAssets.has(assetId))errors.push(assetId+": activo sin ninguna amenaza asociada");
+const coveredBoundaries=new Set((data.threats??[]).flatMap(t=>t.trust_boundary_ids??[]));
+for(const boundaryId of boundaryIds)if(!coveredBoundaries.has(boundaryId))errors.push(boundaryId+": límite de confianza sin amenaza asociada");
 for(const x of data.test_cases??[])for(const f of ["input","expected"])if(!ok(x[f]))errors.push(x.id+": falta "+f);
 for(const x of data.acceptance_criteria??[])for(const f of ["condition","evidence","verification"])if(!ok(x[f]))errors.push(x.id+": falta "+f);
 if(errors.length){for(const e of errors)console.error("LAB-08 security: "+e);process.exit(1);}
