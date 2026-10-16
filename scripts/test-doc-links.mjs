@@ -54,9 +54,9 @@ try {
   expectPass("enlaces relativos, directorios y externos", run(valid), "enlaces locales comprobados");
 
   const encodedPath = await fixture("encoded-path", {
-    "README.md": "[Archivo con almohadilla](docs/a%23b.md) [Archivo con interrogación](docs/a%3Fb.md)\\n",
-    "docs/a#b.md": "# Hash\\n",
-    "docs/a?b.md": "# Query\\n"
+    "README.md": "[Archivo con almohadilla](docs/a%23b.md) [Archivo con interrogación](docs/a%3Fb.md)\n",
+    "docs/a#b.md": "# Hash\n",
+    "docs/a?b.md": "# Query\n"
   });
   expectPass("rutas con caracteres reservados codificados", run(encodedPath), "enlaces locales comprobados");
 
@@ -72,7 +72,7 @@ try {
   expectFail("ancla inexistente", run(missingAnchor), "ancla no encontrada");
 
   const codeOnlyAnchor = await fixture("code-only-anchor", {
-    "README.md": "```md\\n## Solo en código\\n```\\n\\n[Ancla falsa](#solo-en-codigo)\\n"
+    "README.md": "```md\n## Solo en código\n```\n\n[Ancla falsa](#solo-en-codigo)\n"
   });
   expectFail("no acepta encabezados dentro de bloques de código", run(codeOnlyAnchor), "ancla no encontrada");
 
