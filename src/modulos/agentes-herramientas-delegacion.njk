@@ -1,0 +1,121 @@
+---
+layout: layouts/base.njk
+title: Agentes, herramientas y delegación
+description: "Módulo M05: diseña agentes con herramientas, permisos mínimos, límites de ejecución y control de efectos."
+permalink: modulos/agentes-herramientas-delegacion/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M05 · AGENTES Y DELEGACIÓN</p>
+    <h1>Agentes, herramientas y delegación</h1>
+    <p class="hero-lede">Un agente puede observar, decidir y utilizar herramientas, pero cada capacidad introduce nuevos efectos y riesgos. Delegar exige definir qué puede hacer, cuándo debe detenerse y qué evidencia permite aceptar su trabajo.</p>
+    <div class="module-meta"><span>12 horas planificadas</span><span>4 h de fundamentos · 8 h de laboratorio</span><span>LAB-05</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Distinguir un flujo determinista, un asistente con herramientas y un agente con capacidad de decidir pasos.</li>
+      <li>Diseñar contratos de herramientas con entradas, salidas, errores y efectos explícitos.</li>
+      <li>Aplicar permisos mínimos, límites de iteraciones, presupuesto y condiciones de parada.</li>
+      <li>Separar operaciones de lectura, cambios reversibles y acciones que requieren aprobación humana.</li>
+      <li>Verificar trazas de ejecución, resultados y recuperación ante fallos sin confiar únicamente en el informe del agente.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="fundamentos">
+    <div class="section-heading"><div><p class="eyebrow">FUNDAMENTOS</p><h2 id="fundamentos">Delegar decisiones no implica delegar la responsabilidad</h2></div></div>
+    <p>Un agente combina un objetivo, un estado de trabajo, un modelo o mecanismo de decisión y herramientas que consultan o modifican un entorno. A diferencia de una respuesta de texto aislada, puede encadenar acciones y amplificar errores. El diseño debe limitar tanto las decisiones posibles como sus consecuencias.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Contrato de herramienta</h3><p>Especifica esquema de entrada y salida, validación, permisos, efectos secundarios, errores previsibles y comportamiento ante reintentos.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Autoridad limitada</h3><p>Concede únicamente los permisos necesarios. Una fuente consultada o una salida de herramienta es información, no autorización para ampliar el objetivo ni ejecutar órdenes nuevas.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Control de ejecución</h3><p>Define presupuestos, número máximo de pasos, tiempo, condiciones de parada y puntos de aprobación para acciones de mayor impacto.</p></div></section>
+    </div>
+    <p>La autonomía útil depende del riesgo: consultar documentación puede requerir controles ligeros; modificar un repositorio, enviar comunicaciones o afectar datos reales exige verificación adicional y, cuando corresponda, aprobación explícita.</p>
+  </section>
+
+  <section class="section" aria-labelledby="arquitectura">
+    <div class="section-heading"><div><p class="eyebrow">DISEÑO OPERATIVO</p><h2 id="arquitectura">De la tarea al ciclo controlado</h2></div></div>
+    <ol>
+      <li><strong>Objetivo y alcance:</strong> formula el resultado esperado, las restricciones y los criterios de aceptación.</li>
+      <li><strong>Inventario de herramientas:</strong> clasifica cada operación como lectura, escritura reversible o efecto externo significativo.</li>
+      <li><strong>Validación:</strong> comprueba argumentos y salidas mediante esquemas o reglas deterministas; rechaza entradas fuera de contrato.</li>
+      <li><strong>Planificación:</strong> permite seleccionar pasos dentro de un conjunto autorizado, sin convertir las sugerencias del modelo en permisos.</li>
+      <li><strong>Ejecución:</strong> registra invocaciones, resultados, errores, coste observable y decisiones de continuar o detenerse.</li>
+      <li><strong>Supervisión:</strong> exige aprobación antes de acciones irreversibles, sensibles o fuera del alcance inicialmente autorizado.</li>
+      <li><strong>Verificación y recuperación:</strong> contrasta el estado final con los criterios, prevé reintentos seguros y evita repetir efectos no idempotentes.</li>
+    </ol>
+    <p>Si un agente no dispone de una herramienta autorizada para completar la tarea, debe declarar la limitación. No debe inventar resultados ni utilizar rutas alternativas para eludir un límite.</p>
+  </section>
+
+  <section class="section" aria-labelledby="fallos">
+    <div class="section-heading"><div><p class="eyebrow">ANÁLISIS DE FALLOS</p><h2 id="fallos">Qué debe resistir el diseño</h2></div></div>
+    <ul>
+      <li><strong>Argumentos inválidos:</strong> entradas que no cumplen el esquema o hacen referencia a recursos inexistentes.</li>
+      <li><strong>Respuesta engañosa:</strong> una herramienta devuelve datos incorrectos, incompletos o instrucciones incrustadas.</li>
+      <li><strong>Bucle o sobreconsumo:</strong> el agente repite pasos sin progreso o supera el presupuesto acordado.</li>
+      <li><strong>Efecto duplicado:</strong> un reintento vuelve a ejecutar una operación que no es idempotente.</li>
+      <li><strong>Ampliación de autoridad:</strong> una petición secundaria intenta acceder a recursos o acciones fuera de alcance.</li>
+      <li><strong>Éxito aparente:</strong> el agente afirma haber completado la tarea sin evidencia verificable del estado final.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-05 · 8 HORAS</p><h2 id="lab">Agente con herramientas y límites explícitos</h2></div><p class="section-intro">Construye un agente pequeño en un entorno ficticio y comprueba que los límites operativos siguen vigentes incluso cuando la tarea o los datos le inducen a incumplirlos.</p></div>
+
+    <h3>Escenario y preparación</h3>
+    <p>Diseña un agente que clasifique incidencias ficticias y proponga una actualización de estado. Utiliza archivos locales o funciones simuladas; no conectes servicios reales ni incluyas credenciales. Puedes implementar el ciclo con un modelo disponible sin suscripción o simular las decisiones para probar de forma determinista los controles.</p>
+    <ol>
+      <li>Define una especificación con entradas, salidas, criterios de aceptación y acciones prohibidas.</li>
+      <li>Implementa al menos tres herramientas simuladas: consultar incidencia, consultar política y proponer actualización. La última no debe modificar el estado real sin aprobación.</li>
+      <li>Documenta esquemas, permisos, errores, efectos e idempotencia de cada herramienta.</li>
+      <li>Establece un máximo de pasos, presupuesto observable cuando exista y una condición de parada ante incertidumbre crítica.</li>
+    </ol>
+
+    <h3>Ejecución controlada</h3>
+    <ol>
+      <li>Ejecuta un caso válido y conserva la traza completa: decisión, herramienta, argumentos, resultado y estado.</li>
+      <li>Prueba argumentos inválidos y verifica que la herramienta los rechaza sin efectos.</li>
+      <li>Introduce una instrucción no autorizada en una incidencia ficticia; comprueba que se trata como dato y no altera permisos ni objetivo.</li>
+      <li>Simula un fallo transitorio y un reintento; verifica que no se duplica una actualización propuesta.</li>
+      <li>Provoca una tarea irresoluble dentro del límite de pasos y comprueba que el agente se detiene y comunica la limitación.</li>
+      <li>Comprueba que la propuesta final requiere una decisión humana antes de cualquier cambio de estado.</li>
+    </ol>
+
+    <h3>Revisión y evidencia</h3>
+    <ul>
+      <li>Especificación y matriz de permisos por herramienta.</li>
+      <li>Contratos de entrada, salida y errores; política de reintentos y de aprobación.</li>
+      <li>Implementación o simulación ejecutable con instrucciones de instalación y uso.</li>
+      <li>Trazas de caso válido, argumentos inválidos, instrucción no confiable, fallo transitorio y agotamiento del límite.</li>
+      <li>Resultados de pruebas y estado final comprobado de forma independiente.</li>
+      <li>Análisis de riesgos residuales y propuesta de mejoras antes de conectar herramientas reales.</li>
+    </ul>
+
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>Las herramientas validan sus argumentos y restringen sus efectos a los contratos definidos.</li>
+      <li>Las acciones de cambio de estado no se ejecutan sin aprobación explícita.</li>
+      <li>Se aplican y registran límites de pasos y condiciones de parada.</li>
+      <li>El contenido no confiable no amplía permisos ni modifica las instrucciones autorizadas.</li>
+      <li>Los reintentos no generan efectos duplicados en el escenario de prueba.</li>
+      <li>La conclusión se apoya en trazas y comprobaciones del estado final, no solo en el relato del agente.</li>
+    </ul>
+
+    <h3>Preguntas de análisis</h3>
+    <ol>
+      <li>¿Qué herramienta introduce el mayor riesgo y qué control reduce mejor su impacto?</li>
+      <li>¿Qué ocurre si el modelo solicita una acción válida con argumentos incorrectos?</li>
+      <li>¿En qué momento debe detenerse el agente y pedir intervención humana?</li>
+      <li>¿Qué cambiaría antes de sustituir las herramientas simuladas por integraciones reales?</li>
+    </ol>
+  </section>
+
+  <section class="closing-band" aria-labelledby="salida">
+    <p class="eyebrow">ENTREGABLE</p>
+    <h2 id="salida">Autonomía acotada, efectos verificables.</h2>
+    <p>Entrega el agente o simulador, los contratos de herramientas, la matriz de permisos, las trazas y las pruebas negativas que demuestran el funcionamiento de sus límites.</p>
+    <a class="text-link" href="/#programa">Volver al programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
