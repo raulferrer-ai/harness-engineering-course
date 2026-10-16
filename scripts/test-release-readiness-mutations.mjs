@@ -19,7 +19,7 @@ const cases = [
   { label: "malformed heading", mutate: text => text.replace("## 2. Cambio y verificación", "# 2. Cambio y verificación"), expectedDiagnostic: "falta sección: ## 2. Cambio y verificación" }
 ];
 
-const temp = await mkdtemp(join(tmpdir(), "release-checklist-mutations-"));
+const temp = await mkdtemp(join(tmpdir(), "release-checklist-tests-"));
 let failures = 0;
 function run(fixturePath) {
   return spawnSync(process.execPath, [validatorPath], {
@@ -36,38 +36,47 @@ function assert(condition, message) {
   }
   return true;
 }
+function writeFixture(name, text) {
+  return writeFile(join(temp, name), text, "utf8").then(() => join(temp, name));
+}
+function expectPass(label, result) {
+  const output = result.stdout + result.stderr;
+  assert(result.status === 0, label + ": expected exit 0, got " + result.status + "\n" + output);
+  assert(output.includes("Release readiness checklist check passed"), label + ": missing success message\n" + output);
+  if (result.status === 0 && output.includes("Release readiness checklist check passed")) console.log("PASS " + label);
+}
+function expectFail(label, result, expectedDiagnostic) {
+  const output = result.stdout + result.stderr;
+  assert(result.status === 1, label + ": expected exit 1, got " + result.status + "\n" + output);
+  assert(output.includes(expectedDiagnostic), label + ": missing expected diagnostic " + JSON.stringify(expectedDiagnostic) + "\n" + output);
+  if (result.status === 1 && output.includes(expectedDiagnostic)) console.log("PASS rejects " + label + " with expected diagnostic");
+}
 
 try {
-  const baselinePath = join(temp, "canonical.md");
-  await writeFile(baselinePath, canonical, "utf8");
-  const baseline = run(baselinePath);
-  assert(baseline.status === 0, "canonical checklist should pass (exit " + baseline.status + "):\n" + baseline.stdout + baseline.stderr);
+  const baselinePath = await writeFixture("canonical.md", canonical);
+  expectPass("canonical LF checklist", run(baselinePath));
+
+  const crlfPath = await writeFixture("canonical-crlf.md", canonical.replace(/\r?\n/g, "\r\n"));
+  expectPass("canonical CRLF checklist", run(crlfPath));
+
+  const crPath = await writeFixture("canonical-cr.md", canonical.replace(/\r?\n/g, "\r"));
+  expectPass("canonical CR-only checklist", run(crPath));
 
   for (const testCase of cases) {
     const mutated = testCase.mutate(canonical);
     if (!assert(mutated !== canonical, testCase.label + ": mutation did not alter the canonical fixture")) continue;
-
-    const fixturePath = join(temp, testCase.label.replace(/[^a-z0-9]+/gi, "-") + ".md");
-    await writeFile(fixturePath, mutated, "utf8");
-    const result = run(fixturePath);
-    const output = result.stdout + result.stderr;
-    assert(result.status === 1, testCase.label + ": expected exit 1, got " + result.status + "\n" + output);
-    assert(output.includes(testCase.expectedDiagnostic), testCase.label + ": missing expected diagnostic " + JSON.stringify(testCase.expectedDiagnostic) + "\n" + output);
-    if (result.status === 1 && output.includes(testCase.expectedDiagnostic)) console.log("PASS rejects " + testCase.label + " with the expected diagnostic");
+    const fixturePath = await writeFixture(testCase.label.replace(/[^a-z0-9]+/gi, "-") + ".md", mutated);
+    expectFail(testCase.label, run(fixturePath), testCase.expectedDiagnostic);
   }
 
   const missingPath = join(temp, "does-not-exist.md");
-  const missing = run(missingPath);
-  const missingOutput = missing.stdout + missing.stderr;
-  assert(missing.status === 1, "missing input path should exit 1, got " + missing.status + "\n" + missingOutput);
-  assert(missingOutput.includes("unable to read checklist input"), "missing input path should report controlled diagnostic\n" + missingOutput);
-  if (missing.status === 1 && missingOutput.includes("unable to read checklist input")) console.log("PASS rejects unreadable input with a controlled diagnostic");
+  expectFail("unreadable input", run(missingPath), "unable to read checklist input");
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
 
 if (failures) {
-  console.error("Release checklist mutation tests failed: " + failures + " assertion(s).");
+  console.error("Release checklist regression tests failed: " + failures + " assertion(s).");
   process.exit(1);
 }
-console.log("Release checklist mutation tests passed: canonical input accepted; " + cases.length + " content mutations and unreadable input rejected with specific diagnostics.");
+console.log("Release checklist regression tests passed: valid LF/CRLF/CR inputs accepted; malformed inputs rejected with specific diagnostics.");
