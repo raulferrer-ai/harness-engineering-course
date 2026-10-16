@@ -22,3 +22,7 @@ npm run check:lab07
 ## Limitaciones
 
 El validador comprueba IDs, dimensiones, suma de pesos, anclajes y campos obligatorios. No puntúa respuestas reales ni sustituye la revisión humana.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab07-worked-example.md`](lab07-worked-example.md) para el cálculo de una puntuación ponderada, la interpretación de los seis vectores de decisión y el tratamiento de fallos críticos, mínimos por dimensión y evidencias ausentes.
