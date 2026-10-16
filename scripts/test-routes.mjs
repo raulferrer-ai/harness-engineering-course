@@ -82,6 +82,12 @@ try {
   });
   expectFail("missing local target", missingFile, "broken local URL");
 
+  const encodedMissingFragment = await fixture("encoded-missing-fragment", {
+    "index.html": '<a href="/guide/#secci%C3%B3n-inexistente">Missing section</a>\n',
+    "guide/index.html": '<section id="sección">Contenido</section>\n'
+  });
+  expectFail("encoded Unicode fragment that does not exist", encodedMissingFragment, 'missing fragment "#sección-inexistente"');
+
   const missingFragment = await fixture("missing-fragment", {
     "index.html": '<a href="/guide/#absent">Missing section</a>\n',
     "guide/index.html": '<h1 id="present">Guide</h1>\n'
