@@ -31,3 +31,7 @@ Los valores esperados son una **rúbrica didáctica inicial**, no verdades unive
 ## Límite de verificación
 
 El chequeo automático solo valida la consistencia estructural de los fixtures. No llama a un modelo, no calcula su calidad, no demuestra la reproducibilidad de las salidas ni sustituye la revisión humana. No marcar LAB-01 como verificado hasta ejecutar el experimento y registrar evidencia real.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab01-worked-example.md`](lab01-worked-example.md) para una caracterización reproducible del modelo, puntuación separada de esquema y semántica, tratamiento de abstenciones y comparación de configuraciones sin inventar resultados.
