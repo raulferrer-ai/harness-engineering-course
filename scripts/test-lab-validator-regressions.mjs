@@ -104,7 +104,9 @@ const labs = [
     cases: [
       ["accepted deliveries exceed completed tasks", d => { d.comparison.baseline.accepted_deliveries = d.comparison.baseline.tasks_completed + 1; }, /entregas aceptadas superan tareas completadas/],
       ["duplicate metric ID", d => { d.metrics[1].id = d.metrics[0].id; }, /ID vacío o duplicado/],
-      ["broken evidence reference", d => { d.acceptance_criteria[0].evidence = "MET-999"; }, /evidencia referencia un elemento inexistente MET-999/]
+      ["broken evidence reference", d => { d.acceptance_criteria[0].evidence = "MET-999"; }, /evidencia referencia un elemento inexistente MET-999/],
+      ["unverified source data claimed as observed expansion evidence", d => { d.decision_test_vectors.find(v => v.id === "TV-04").evidence_basis = "observed_fixture"; }, /no se puede expandir con evidencia observada si los datos de origen no están verificados/],
+      ["expansion without mandatory human review", d => { d.decision_test_vectors.find(v => v.id === "TV-04").expansion_gate.human_review_required = false; }, /expansion_gate.human_review_required debe ser true para permitir expansión/]
     ]
   }
 ];
