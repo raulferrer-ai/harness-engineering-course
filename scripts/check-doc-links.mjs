@@ -3,42 +3,62 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const markdownFiles = ["README.md", ...walk(path.join(root, "docs")).map((file) => path.relative(root, file))]
-  .filter((file) => fs.existsSync(path.join(root, file)) && file.endsWith(".md"));
+const ignoredDirectories = new Set([".git", "node_modules", "_site", "coverage"]);
+const markdownFiles = [];
 
 function walk(directory) {
-  if (!fs.existsSync(directory)) return [];
-  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+  if (!fs.existsSync(directory)) return;
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    if (entry.isDirectory() && ignoredDirectories.has(entry.name)) continue;
     const absolute = path.join(directory, entry.name);
-    return entry.isDirectory() ? walk(absolute) : [absolute];
-  });
+    if (entry.isDirectory()) walk(absolute);
+    else if (entry.isFile() && entry.name.toLowerCase().endsWith(".md")) markdownFiles.push(absolute);
+  }
 }
 
-function targetExists(target) {
-  const cleaned = decodeURIComponent(target.split("#")[0].split("?")[0]);
-  if (!cleaned) return true;
-  const resolved = path.resolve(root, cleaned);
-  return fs.existsSync(resolved) || fs.existsSync(path.join(resolved, "index.md")) || fs.existsSync(path.join(resolved, "index.html"));
+function targetExists(raw, sourceFile) {
+  let decoded;
+  try {
+    decoded = decodeURIComponent(raw);
+  } catch {
+    return { exists: false, reason: "URL local mal codificada" };
+  }
+  const pathname = decoded.split("#")[0].split("?")[0];
+  if (!pathname) return { exists: true };
+  const resolved = pathname.startsWith("/")
+    ? path.resolve(root, "." + pathname)
+    : path.resolve(path.dirname(sourceFile), pathname);
+  if (resolved !== root && !resolved.startsWith(root + path.sep)) {
+    return { exists: false, reason: "el enlace sale del repositorio" };
+  }
+  const candidates = [resolved, path.join(resolved, "index.md"), path.join(resolved, "index.html")];
+  return { exists: candidates.some((candidate) => fs.existsSync(candidate)), resolved };
 }
 
+walk(root);
 const errors = [];
 let linksChecked = 0;
-for (const relativeFile of markdownFiles) {
-  const source = fs.readFileSync(path.join(root, relativeFile), "utf8");
-  const links = source.matchAll(/!?\[[^\]]*\]\(([^)]+)\)/g);
-  for (const match of links) {
-    const raw = match[1].trim().replace(/^<|>$/g, "").split(/\s+["']/)[0];
-    if (/^(?:https?:|mailto:|tel:|#|data:)/i.test(raw)) continue;
-    const target = raw.startsWith("/") ? raw.slice(1) : path.join(path.dirname(relativeFile), raw);
-    linksChecked += 1;
-    if (!targetExists(target)) errors.push(`${relativeFile}: enlace local no encontrado: ${raw}`);
+const linkPattern = /!?\[[^\]]*\]\(\s*(?:<([^>]+)>|([^\s)]+))(?:\s+[^)]*)?\)/g;
+
+for (const file of markdownFiles) {
+  const source = fs.readFileSync(file, "utf8");
+  for (const match of source.matchAll(linkPattern)) {
+    const raw = (match[1] ?? match[2] ?? "").trim();
+    if (!raw || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(raw)) continue;
+    linksChecked++;
+    const result = targetExists(raw, file);
+    if (!result.exists) {
+      const from = path.relative(root, file);
+      const to = result.resolved ? path.relative(root, result.resolved) : raw;
+      errors.push(`${from}: ${result.reason ?? "enlace local no encontrado"} "${raw}" (destino: ${to})`);
+    }
   }
 }
 
 if (errors.length) {
-  console.error("Falló la validación de enlaces de documentación:");
+  console.error(`Falló la validación de enlaces Markdown: ${errors.length} problema(s) en ${markdownFiles.length} archivo(s).`);
   for (const error of errors) console.error(`- ${error}`);
   process.exitCode = 1;
 } else {
-  console.log(`PASS documentación: ${markdownFiles.length} archivos Markdown, ${linksChecked} enlaces locales comprobados.`);
+  console.log(`PASS documentación: ${markdownFiles.length} archivos Markdown y ${linksChecked} enlaces locales comprobados.`);
 }
