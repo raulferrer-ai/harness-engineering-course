@@ -64,9 +64,9 @@ const evidenceIds = new Set([
   ...(data.decision_test_vectors ?? []).map(x => x.id)
 ]);
 for (const a of criteria) {
-  const refs = [...(a.evidence ?? "").matchAll(/\\b(?:MET|GOV|DEC|VAL-T|TV)-\\d+\\b/g)].map(m => m[0]);
+  const refs = [...(a.evidence ?? "").matchAll(/\b(?:MET|GOV|DEC|VAL-T|TV)-\d+\b/g)].map(m => m[0]);
   for (const ref of refs) if (!evidenceIds.has(ref)) errors.push(`${a.id}: evidencia referencia un elemento inexistente ${ref}`);
-  if (/\\b(?:MET|GOV|DEC|VAL-T|TV)-/i.test(a.evidence ?? "") && refs.length === 0) errors.push(`${a.id}: la evidencia contiene referencias que no se pudieron interpretar`);
+  if (/\b(?:MET|GOV|DEC|VAL-T|TV)-/i.test(a.evidence ?? "") && refs.length === 0) errors.push(`${a.id}: la evidencia contiene referencias que no se pudieron interpretar`);
 }
 if (data.policy?.missing_measurement !== "mark_unknown_not_zero" || data.policy?.unapproved_external_action !== "block" || data.policy?.high_risk_requires_human_approval !== true) errors.push("faltan salvaguardas de medición o aprobación");
 if (!Array.isArray(data.limitations) || data.limitations.length < 2) errors.push("faltan limitaciones explícitas");
