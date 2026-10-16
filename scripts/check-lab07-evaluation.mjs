@@ -26,5 +26,19 @@ if(typeof data.scoring_protocol?.pass_threshold_percent!=="number"||data.scoring
 if(typeof data.scoring_protocol?.minimum_dimension_score!=="number"||data.scoring_protocol.minimum_dimension_score<0||data.scoring_protocol.minimum_dimension_score>4)errors.push("mínimo por dimensión debe estar entre 0 y 4");
 if(!Array.isArray(data.scoring_protocol?.decision_rule)||data.scoring_protocol.decision_rule.length<3)errors.push("falta regla de decisión completa");
 if(!/revisión humana/i.test(data.scoring_protocol?.threshold_status??""))errors.push("el estado del umbral debe indicar revisión humana");
+const protocol=data.scoring_protocol??{};
+const vectors=protocol.decision_test_vectors??[];
+if(vectors.length<5)errors.push("se requieren al menos cinco vectores de prueba de decisión");
+for(const v of vectors){
+  if(!ok(v.id)||!["APROBADO","NO APROBADO","INCONCLUSO"].includes(v.expected)) {errors.push("vector de decisión inválido: "+v.id);continue;}
+  const scoreEntries=rubric.map(r=>[r.dimension,v.scores?.[r.dimension]]);
+  const missing= v.missing_required_evidence===true || scoreEntries.some(([,score])=>typeof score!=="number"||score<0||score>4);
+  const aggregate=missing?null:rubric.reduce((sum,r)=>sum+r.weight*v.scores[r.dimension]/4*100,0);
+  const critical=Array.isArray(v.critical_failures)&&v.critical_failures.length>0;
+  let actual="APROBADO";
+  if(missing) actual="INCONCLUSO";
+  else if(critical||aggregate<protocol.pass_threshold_percent||cases.some(testCase=>testCase.minimum_dimensions.some(d=>v.scores[d]<protocol.minimum_dimension_score))) actual="NO APROBADO";
+  if(actual!==v.expected)errors.push(v.id+": esperado "+v.expected+", obtenido "+actual);
+}
 if(errors.length){for(const e of errors)console.error("LAB-07 evaluation: "+e);process.exit(1);}
 console.log("LAB-07 fixture OK: "+rubric.length+" dimensiones, "+cases.length+" casos y protocolo de puntuación.");
