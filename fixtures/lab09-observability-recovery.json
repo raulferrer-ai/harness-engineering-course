@@ -85,7 +85,8 @@
         "latency_ms",
         "input_units",
         "output_units",
-        "status"
+        "status",
+        "timestamp"
       ]
     },
     {
@@ -96,7 +97,8 @@
         "tool_name",
         "decision",
         "duration_ms",
-        "result_status"
+        "result_status",
+        "timestamp"
       ]
     },
     {
@@ -107,7 +109,8 @@
         "eval_suite_version",
         "score",
         "failed_cases",
-        "decision"
+        "decision",
+        "timestamp"
       ]
     },
     {
