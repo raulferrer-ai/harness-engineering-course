@@ -36,7 +36,14 @@
       "Valores sintéticos para practicar el cálculo; no representan resultados observados.",
       "Los dos grupos deben compararse por dificultad, criterios de aceptación y periodo de observación.",
       "Las entregas aceptadas, defectos, tiempo humano y costes deben verificarse con datos de origen."
-    ]
+    ],
+    "comparability": {
+      "task_definition_match": true,
+      "acceptance_criteria_version_match": true,
+      "observation_window_days_match": true,
+      "source_data_verified": false,
+      "note": "Las coincidencias se declaran solo para el ejercicio sintético; antes de una decisión real deben verificarse con datos de origen."
+    }
   },
   "metrics": [
     {
@@ -220,24 +227,27 @@
       "unapproved_external_action": false,
       "reason": "Los datos sintéticos muestran más defectos y un coste por entrega aceptada no menor; no basta la reducción de tiempo.",
       "comparison_result": {
-        "cost_per_delivery": "higher",
+        "cost_per_delivery": "lower",
         "defect_rate": "higher",
         "tasks_comparable": true
-      }
+      },
+      "evidence_basis": "observed_fixture"
     },
     {
       "id": "TV-02",
       "expected_decision": "inconclusive",
       "missing_measurement": true,
       "unapproved_external_action": false,
-      "reason": "No se imputa el dato ausente como cero; no se afirma una mejora."
+      "reason": "No se imputa el dato ausente como cero; no se afirma una mejora.",
+      "evidence_basis": "observed_fixture"
     },
     {
       "id": "TV-03",
       "expected_decision": "block",
       "missing_measurement": false,
       "unapproved_external_action": true,
-      "reason": "Una acción externa sin aprobación explícita se bloquea."
+      "reason": "Una acción externa sin aprobación explícita se bloquea.",
+      "evidence_basis": "observed_fixture"
     },
     {
       "id": "TV-04",
@@ -249,7 +259,8 @@
         "cost_per_delivery": "lower",
         "defect_rate": "not_higher",
         "tasks_comparable": true
-      }
+      },
+      "evidence_basis": "hypothetical_gate"
     }
   ]
 }
