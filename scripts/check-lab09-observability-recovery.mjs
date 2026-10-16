@@ -92,7 +92,7 @@ for (const c of criteria) {
   for (const ref of refs) if (!evidenceIds.has(ref)) errors.push(`${c.id}: evidencia referencia un elemento inexistente ${ref}`);
   if (/\b(?:SIG|EVT|REC|OPS-T)-/i.test(c.evidence ?? "") && refs.length === 0) errors.push(`${c.id}: la evidencia contiene referencias que no se pudieron interpretar`);
 }
-if (!Array.isArray(data.audit_fields) || !["incident_id","source_revision","decision","timestamp"].every(x => data.audit_fields.includes(x))) errors.push("registro de auditoría insuficiente");
+if (!Array.isArray(data.audit_fields) || !["incident_id","source_revision","decision","timestamp","artifact_digest"].every(x => data.audit_fields.includes(x)) || new Set(data.audit_fields).size !== data.audit_fields.length) errors.push("registro de auditoría insuficiente");
 if (data.policy?.promotion_on_critical_security_signal !== "block" || data.policy?.redact_secrets !== true) errors.push("faltan salvaguardas críticas");
 if (data.policy?.unknown_signal !== "do_not_assume_healthy") errors.push("una señal ausente no debe interpretarse como estado saludable");
 if (data.policy?.rollback_target !== "immutable_revision_and_artifact") errors.push("el rollback debe identificar revisión y artefacto inmutables");
