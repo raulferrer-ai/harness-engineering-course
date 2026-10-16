@@ -48,8 +48,10 @@ const signalIds = new Set(signals.map(x => x.id));
 const signalById = new Map(signals.map(x => [x.id, x]));
 const recoveryTriggers=new Set(steps.map(r=>r.trigger));
 for (const signal of signals) {
-  const critical = signal.name === "unauthorized_action_count" || /bloqueo|inmediata/i.test(signal.action ?? "");
-  if (critical && !recoveryTriggers.has(signal.id)) errors.push(`${signal.id}: señal crítica requiere paso de recuperación`);
+  if (typeof signal.recovery_required !== "boolean") errors.push(`${signal.id}: recovery_required debe ser booleano`);
+  if (signal.recovery_required === true && !recoveryTriggers.has(signal.id)) errors.push(`${signal.id}: requiere un paso de recuperación por política`);
+  if (signal.recovery_required === false && recoveryTriggers.has(signal.id)) errors.push(`${signal.id}: no debe tener paso de recuperación si recovery_required=false`);
+  if (signal.name === "unauthorized_action_count" && signal.recovery_required !== true) errors.push(`${signal.id}: las señales de seguridad críticas deben requerir recuperación`);
 }
 for (const r of steps) {
   if (!signalIds.has(r.trigger)) errors.push(`${r.id}: trigger desconocido ${r.trigger}`);
