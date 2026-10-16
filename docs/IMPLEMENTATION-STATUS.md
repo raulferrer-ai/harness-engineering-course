@@ -1,27 +1,33 @@
-# Initial website implementation status
+# Implementation status
 
 Date: 2026-10-16
 
-## Scope of this increment
+## Current delivery
 
-The initial Eleventy static-site skeleton is on the dedicated feature branch `feat/initial-eleventy-site`. It includes the course landing page, module landing-page template, principles page, curriculum metadata, responsive CSS, a committed npm lockfile, and a GitHub Actions workflow that installs from the lockfile, builds the site, and checks generated local routes.
+The Eleventy static course website is published at https://harnessengineeringcourse.netlify.app/. The repository's `main` branch is the source of truth. The published site is a structural and content baseline, not a completed, piloted course.
 
-## Verification record
+The site contains the approved ten modules M01–M10, module pages, course principles, and curriculum metadata. Module pages include draft learning outcomes, foundations, and lab instructions to varying degrees. Their presence does not imply that every lab has been independently executed or that the learning design has been validated with learners.
 
-- Initial scaffold commit: `2ae5cb8380888c9073aa3e2186a6ba3859080bf2`; its GitHub Actions build passed: [workflow run 38862664781](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38862664781).
-- The route-check increment was verified successfully in CI: [workflow run 38864875493](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38864875493). The check runs the Eleventy build followed by local `href`/`src` and fragment checks against generated HTML.
-- The lockfile was generated on a GitHub-hosted runner and verified with `npm ci` and `npm run check`: [workflow run 38868954308](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38868954308).
-- `package-lock.json` is committed on this feature branch. It uses lockfile format v3 and records 134 package entries, including Eleventy `3.1.2`.
-- The finalized workflow uses read-only repository permissions, `npm ci`, and `npm run check`; it does not regenerate or commit the lockfile during CI. This workflow passed on the previous workflow/documentation commit: [workflow run 38869072862](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/38869072862). A new run is required to verify the latest curriculum metadata change.
-- Module metadata now records the approved split of 40 hours of fundamentals and 64 hours of labs across the ten modules (104 hours total); the module page displays this breakdown. The transversal project (40 h) and evaluation (16 h) remain additional.
+## Automated checks
 
-## Curriculum integrity
+- `npm run check` runs the Eleventy build, generated local-route checks, and curriculum metadata/traceability checks.
+- The curriculum check validates the approved module/lab scope, identifier uniqueness, workload arithmetic, references to all nine competency IDs and ten lab IDs, and the presence of dedicated module pages.
+- GitHub Actions run 38902168065 passed for the curriculum-check update merged in IMP-02 follow-up.
+- These checks do not verify pedagogical quality, every matrix relationship, lab reproducibility, accessibility conformance, security effectiveness, or observed learner outcomes.
 
-Module IDs, titles, descriptions, total hours, fundamentals hours, lab hours, and lab IDs follow `docs/curriculum.md`. Detailed lab content remains scaffolding and is not represented as authored or verified.
+## Approved workload
 
-## Explicitly not complete
+The ten modules total 104 hours: 40 hours of fundamentals and 64 hours of labs. The transversal project adds 40 hours and evaluation adds 16 hours, for 160 hours overall. The project repository/license, tool/runtime matrix, operational evaluation thresholds, and treatment of critical security failures remain pending approval.
 
-- Detailed lesson content and fully specified lab instructions.
-- Accessibility automation and manual keyboard, screen-reader, contrast, and responsive review.
-- Learner pilot and observed-duration validation.
-- Netlify configuration, deploy preview, or production deployment.
+## Work in progress
+
+- Formalize and validate the project brief, repository, license, runtime/tooling and reproducible environment.
+- Approve the assessment rubric, scoring rules, critical-security-failure policy, review and recovery process.
+- Complete and independently execute all lab instructions, recording environment and evidence.
+- Validate competency-to-outcome-to-activity-to-evidence traceability.
+- Conduct accessibility reviews, including keyboard, screen reader, contrast, responsive behavior and reduced motion.
+- Pilot the course and validate actual duration, clarity and learner outcomes.
+
+## Release discipline
+
+Use reviewable branches and pull requests. Do not claim tests passed without an actual CI result. A successful build proves neither that educational content is complete nor that the entire user experience conforms to accessibility requirements. Keep unresolved curriculum decisions explicit until approved.
