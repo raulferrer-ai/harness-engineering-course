@@ -26,12 +26,19 @@ const events = data.events ?? [];
 unique(events, "eventos");
 if (events.length < 4) errors.push("se requieren al menos cuatro tipos de evento");
 for (const e of events) if (!Array.isArray(e.required_fields) || !e.required_fields.includes("timestamp")) errors.push(`${e.id}: faltan campos obligatorios o timestamp`);
+for (const e of events) {
+  if (!Array.isArray(e.required_fields) || e.required_fields.length===0) continue;
+  if (new Set(e.required_fields).size!==e.required_fields.length) errors.push(`${e.id}: campos requeridos duplicados`);
+  for (const field of e.required_fields) if (!nonempty(field)) errors.push(`${e.id}: campo requerido vacío`);
+}
 const steps = data.recovery_steps ?? [];
 unique(steps, "pasos de recuperación");
 if (steps.length < 3) errors.push("se requieren al menos tres pasos de recuperación");
 for (const r of steps) for (const field of ["trigger","action","verification","rollback"]) if (!nonempty(r[field])) errors.push(`${r.id}: falta ${field}`);
 const signalIds = new Set(signals.map(x => x.id));
 const signalById = new Map(signals.map(x => [x.id, x]));
+const recoveryTriggers=new Set(steps.map(r=>r.trigger));
+for(const signal of signals)if(signal.name==="unauthorized_action_count"&&!recoveryTriggers.has(signal.id))errors.push(`${signal.id}: una señal de acción no autorizada requiere paso de recuperación`);
 for (const r of steps) {
   if (!signalIds.has(r.trigger)) errors.push(`${r.id}: trigger desconocido ${r.trigger}`);
   const signal = signalById.get(r.trigger);
