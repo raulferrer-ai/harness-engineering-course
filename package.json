@@ -17,7 +17,8 @@
     "check:lab08": "node scripts/check-lab08-security-threats.mjs",
     "check:lab07": "node scripts/check-lab07-evaluation.mjs",
     "check:lab09": "node scripts/check-lab09-observability-recovery.mjs",
-    "check:lab10": "node scripts/check-lab10-productivity-governance.mjs"
+    "check:lab10": "node scripts/check-lab10-productivity-governance.mjs",
+    "check:validator-regressions": "node scripts/test-lab-validator-regressions.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.2"
