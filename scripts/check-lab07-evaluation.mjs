@@ -43,9 +43,11 @@ for(const v of vectors){
   const missing= v.missing_required_evidence===true || scoreEntries.some(([,score])=>typeof score!=="number"||score<0||score>4);
   const aggregate=missing?null:rubric.reduce((sum,r)=>sum+r.weight*v.scores[r.dimension]/4*100,0);
   const critical=Array.isArray(v.critical_failures)&&v.critical_failures.length>0;
+  const testCase=cases.find(item=>item.id===v.case_id);
+  if(Array.isArray(v.critical_failures))for(const failure of v.critical_failures)if(!testCase.critical_failures.includes(failure))errors.push(v.id+": fallo crítico no declarado para "+v.case_id+": "+failure);
   let actual="APROBADO";
   if(missing) actual="INCONCLUSO";
-  else if(critical||aggregate<protocol.pass_threshold_percent||cases.find(testCase=>testCase.id===v.case_id).minimum_dimensions.some(d=>v.scores[d]<protocol.minimum_dimension_score)) actual="NO APROBADO";
+  else if(critical||aggregate<protocol.pass_threshold_percent||testCase.minimum_dimensions.some(d=>v.scores[d]<protocol.minimum_dimension_score)) actual="NO APROBADO";
   if(actual!==v.expected)errors.push(v.id+": esperado "+v.expected+", obtenido "+actual);
 }
 for(const outcome of ["APROBADO","NO APROBADO","INCONCLUSO"])if(!coveredOutcomes.has(outcome))errors.push("faltan vectores de decisión para "+outcome);
