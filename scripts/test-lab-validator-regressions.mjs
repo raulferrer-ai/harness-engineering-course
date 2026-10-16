@@ -84,6 +84,7 @@ const labs = [
       ["invalid signal threshold", d => { d.signals[0].threshold.value = "unknown"; }, /umbral inválido/],
       ["rate outside valid range", d => { const signal = d.signals.find(s => /rate$/.test(s.name)); signal.threshold.value = 1.5; }, /una tasa debe expresarse entre 0 y 1/],
       ["rate uses wrong unit", d => { const signal = d.signals.find(s => /rate$/.test(s.name)); signal.unit = "percent"; }, /las tasas deben usar unit=ratio/],
+      ["invalid currency code", d => { d.signals.find(s => s.name === "cost_per_accepted_task").currency = "EURO"; }, /debe declarar unidad monetaria por tarea y código de moneda ISO 4217/],
       ["duplicate signal ID", d => { d.signals[1].id = d.signals[0].id; }, /ID vacío o duplicado/],
       ["unknown recovery trigger", d => { d.recovery_steps[0].trigger = "SIG-999"; }, /trigger desconocido/],
       ["recovery marked complete despite failed regression", d => { const scenario = d.scenarios.find(s => /regresi[oó]n/i.test(s.input)); scenario.expected = "se declara recuperación completa aunque la suite de regresión falla"; }, /debe existir un escenario que impida declarar recuperación completa si falla la regresión/]
