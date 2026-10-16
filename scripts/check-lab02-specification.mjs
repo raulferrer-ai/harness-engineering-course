@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import process from "node:process";
 
-const path = new URL("../fixtures/lab02-specification.json", import.meta.url);
+const path = process.env.LAB02_FIXTURE_PATH ?? new URL("../fixtures/lab02-specification.json", import.meta.url);
 const data = JSON.parse(await readFile(path, "utf8"));
 const errors = [];
 const requiredText = (value) => typeof value === "string" && value.trim().length > 0;
