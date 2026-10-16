@@ -62,6 +62,18 @@ AI-01 muestra más defectos por entrega aceptada. Por tanto, el menor coste unit
 
 El tiempo de ciclo declarado baja de 90 a 75 minutos por tarea; los minutos de trabajo humano bajan de 65 a 52. Son medidas diferentes: el tiempo de ciclo puede incluir esperas y retrabajo, mientras que el trabajo humano mide esfuerzo. No deben intercambiarse ni agregarse sin una definición explícita.
 
+## Métricas definidas en el fixture
+
+| ID | Métrica | Unidad | Interpretación |
+|---|---|---|---|
+| MET-01 | `accepted_delivery_rate` | Ratio | Entregas aceptadas / tareas completadas; más alto es mejor |
+| MET-02 | `cycle_time_minutes` | Minutos por tarea | Tiempo desde tarea lista hasta entrega aceptada, incluyendo espera y retrabajo; más bajo es mejor |
+| MET-03 | `cost_per_accepted_delivery` | EUR por entrega | Coste completo dividido entre entregas aceptadas; más bajo es mejor |
+| MET-04 | `defect_rate` | Defectos por entrega aceptada | Defectos encontrados / entregas aceptadas; más bajo es mejor |
+| MET-05 | `human_review_minutes` | Minutos por tarea | Preparación, revisión, corrección y validación humana; más bajo es mejor |
+
+Las métricas no son intercambiables. En particular, la tasa de aceptación no sustituye la tasa de defectos y el tiempo de ciclo no equivale a los minutos de trabajo humano.
+
 ## 3. Decisión sobre los vectores de prueba
 
 | Vector | Condición | Decisión esperada |
@@ -80,6 +92,23 @@ TV-04 es una puerta hipotética, no una conclusión derivada de los datos actual
 - **Bloquear** cualquier acción externa no aprobada y escalar al rol responsable.
 - **Reclasificar el riesgo** si un caso de uso empieza a tratar datos confidenciales o personales.
 - **Ampliar gradualmente** solo cuando las tareas sean comparables, la calidad cumpla el mínimo acordado, el coste total sea inferior y esté verificado, y una persona responsable apruebe la decisión.
+
+## Reglas y escenarios de decisión del fixture
+
+| ID | Condición | Resultado esperado |
+|---|---|---|
+| DEC-01 | Baja el coste por entrega aceptada y la calidad no empeora | Considerar expansión gradual con seguimiento |
+| DEC-02 | Baja el tiempo, pero aumentan los defectos o el retrabajo | No declarar mejora neta; corregir y volver a medir |
+| DEC-03 | Faltan datos fiables o los grupos no son comparables | Resultado inconcluso; recopilar evidencia |
+| DEC-04 | Se exceden permisos, reglas de datos o riesgo aprobado | Detener el uso y escalar al responsable |
+
+| Escenario | Entrada | Resultado esperado |
+|---|---|---|
+| VAL-T01 | Más tareas completadas, pero más defectos y mayor coste unitario | No afirmar aumento de productividad neta; explicar el trade-off |
+| VAL-T02 | Falta el tiempo humano de uno de los grupos | Marcar cálculo incompleto; no imputar cero |
+| VAL-T03 | Se propone una acción externa sin aprobación | Bloquear y solicitar aprobación al rol responsable |
+| VAL-T04 | Un caso de bajo riesgo empieza a tratar datos confidenciales | Reclasificar riesgo y aplicar controles antes de continuar |
+| VAL-T05 | El grupo asistido contiene tareas más sencillas | Declarar sesgo y repetir con tareas equivalentes |
 
 ## 5. Matriz de gobernanza del fixture
 
