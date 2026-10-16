@@ -48,6 +48,28 @@ permalink: modulos/modelos-capacidades-limites/index.html
     <p>Estas categorías sirven para registrar observaciones; no presuponen que todos los modelos fallen de la misma forma ni con la misma frecuencia.</p>
   </section>
 
+  <section class="section" aria-labelledby="ejemplo-guiado">
+    <div class="section-heading"><div><p class="eyebrow">EJEMPLO GUIADO</p><h2 id="ejemplo-guiado">Cómo convertir una respuesta convincente en evidencia verificable</h2></div></div>
+    <p>Imagina una tarea de extracción a partir de este registro ficticio: «Pedido 1842: llegaron 3 unidades; una está dañada. La clienta solicita reemplazo. No consta dirección de entrega». La salida esperada debe separar hechos explícitos de datos ausentes.</p>
+    <p><strong>Contrato de salida:</strong> devolver JSON con <code>pedido_id</code>, <code>unidades_recibidas</code>, <code>unidades_dañadas</code>, <code>solicitud</code> y <code>direccion_entrega</code>. Los campos numéricos deben ser números; si falta un dato, usar <code>null</code>, no inventarlo.</p>
+    <div class="table-wrapper">
+      <table>
+        <caption>Referencia para evaluar el caso</caption>
+        <thead><tr><th scope="col">Campo</th><th scope="col">Valor esperado</th><th scope="col">Comprobación</th></tr></thead>
+        <tbody>
+          <tr><td><code>pedido_id</code></td><td><code>"1842"</code></td><td>Coincide con el identificador de la entrada.</td></tr>
+          <tr><td><code>unidades_recibidas</code></td><td><code>3</code></td><td>Es un número y no una cadena.</td></tr>
+          <tr><td><code>unidades_dañadas</code></td><td><code>1</code></td><td>No confunde unidades recibidas con dañadas.</td></tr>
+          <tr><td><code>solicitud</code></td><td><code>"reemplazo"</code></td><td>Normaliza la petición sin afirmar que ya se aprobó.</td></tr>
+          <tr><td><code>direccion_entrega</code></td><td><code>null</code></td><td>No inventa una dirección ausente.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Una salida puede ser JSON válido y seguir siendo incorrecta: por ejemplo, asignar una dirección plausible incumple el contrato semántico aunque el formato pase. Por eso registra al menos dos resultados distintos: <strong>validez estructural</strong> y <strong>exactitud semántica</strong>.</p>
+    <h3>Decisión de control</h3>
+    <p>Si el sistema solo prepara un borrador, un validador de esquema y una revisión de campos críticos pueden ser suficientes para el experimento. Si la salida desencadena un envío o una modificación de datos, exige una comprobación independiente de los campos necesarios y bloquea la acción cuando falte la dirección. El modelo no debe poder convertir un dato ausente en una autorización implícita.</p>
+  </section>
+
   <section class="section" aria-labelledby="lab">
     <div class="section-heading"><div><p class="eyebrow">LAB-01 · 4 HORAS</p><h2 id="lab">Caracterización de un modelo</h2></div><p class="section-intro">Diseña una evaluación pequeña y reproducible antes de incorporar un modelo a un flujo de trabajo.</p></div>
 
