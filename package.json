@@ -5,7 +5,7 @@
   "description": "Curso abierto en español sobre ingeniería de software asistida por IA y agentes.",
   "scripts": {
     "build": "eleventy",
-    "check:routes": "node scripts/check-routes.mjs",
+    "check:routes": "node scripts/check-routes.mjs && npm run test:routes",
     "check:docs": "node scripts/check-doc-links.mjs",
     "check:release-readiness": "node scripts/check-release-readiness-checklist.mjs",
     "check:curriculum": "node scripts/check-curriculum.mjs",
@@ -23,7 +23,8 @@
     "check:validator-regressions": "node scripts/test-lab-validator-regressions.mjs",
     "test:release-readiness-mutations": "node scripts/test-release-readiness-mutations.mjs",
     "test:doc-links": "node scripts/test-doc-links.mjs",
-    "test:curriculum-traceability": "node scripts/test-curriculum-traceability.mjs"
+    "test:curriculum-traceability": "node scripts/test-curriculum-traceability.mjs",
+    "test:routes": "node scripts/test-routes.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.2"
