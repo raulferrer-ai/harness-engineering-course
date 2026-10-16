@@ -27,3 +27,7 @@ npm run check:lab04
 ## Puerta de integración
 
 El fixture deja la decisión por defecto en `blocked`. Solo puede recomendarse integración cuando la línea base está documentada, cada criterio tiene evidencia y no hay regresiones nuevas sin explicar. El validador automático no inspecciona código de aplicación, no ejecuta pruebas del proyecto elegido y no aprueba el cambio.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab04-worked-example.md`](lab04-worked-example.md) para una implementación de práctica con casos de aceptación, checklist de revisión independiente y una decisión de integración explícitamente bloqueada hasta aportar evidencia real.
