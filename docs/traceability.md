@@ -8,19 +8,22 @@ Esta matriz conecta las competencias y los laboratorios que ya constan en `docs/
 - **Propuesta por validar**: asociación razonable por tema, pendiente de validación curricular.
 - **Pendiente de especificación**: no se afirma que existan lecciones, evidencias o criterios completos.
 
-## Competencias y cobertura propuesta
+## Competencias, resultados observables y evidencia disponible
 
-| Competencia aprobada | Módulo propuesto | Laboratorio aprobado | Resultado observable por definir | Evidencia y criterio de aceptación |
-|---|---|---|---|---|
-| COMP-01 — Model capabilities and limits (N3) | M01 | LAB-01 — Model characterization (4 h) | Pendiente de especificar y validar | Pendiente de diseñar |
-| COMP-02 — Delegable task specification (N4) | M02 | LAB-02 — Ambiguous incident to specification (6 h) | Pendiente de especificar y validar | Pendiente de diseñar |
-| COMP-03 — Context engineering (N3) | M03 | LAB-03 — Context-engineering experiment (6 h) | Pendiente de especificar y validar | Pendiente de diseñar |
-| COMP-04 — AI-assisted development and code review (N4) | M04 | LAB-04 — Code change with independent review (8 h) | Pendiente de especificar y validar | Pendiente de diseñar |
-| COMP-05 — Agents and delegation (N3) | M05 | LAB-05 — Agent with tools and limits (8 h) | Pendiente de especificar y validar | Pendiente de diseñar |
-| COMP-06 — Harness and execution control (N4) | M06 | LAB-06 — Harness with executable policies (8 h) | Pendiente de especificar y validar | Pendiente de diseñar |
-| COMP-07 — Testing, evals, and verification (N4) | M07 | LAB-07 — Testing and evals (8 h) | Pendiente de especificar y validar | Pendiente de diseñar |
-| COMP-08 — Operation and maintenance (N3) | M09 | LAB-09 — CI/CD, observability, and recovery (6 h) | Pendiente de especificar y validar | Pendiente de diseñar |
-| COMP-09 — Cost, governance, and responsibility (N4) | M10 | LAB-10 — Productivity, cost, and governance (4 h) | Pendiente de especificar y validar | Pendiente de diseñar |
+Las páginas de los diez módulos ya contienen una sección «Resultados de aprendizaje». La matriz siguiente resume su resultado principal y enlaza con el artefacto del laboratorio. La presencia de un resultado o de un fixture no equivale a validación pedagógica ni a ejecución práctica satisfactoria.
+
+| Competencia aprobada | Módulo y resultado observable resumido | Laboratorio y evidencia versionada | Estado de evidencia |
+|---|---|---|---|
+| COMP-01 — Model capabilities and limits (N3) | M01: comparar el comportamiento del modelo bajo condiciones controladas, identificar fallos y registrar resultados reproducibles. | LAB-01: `src/modulos/modelos-capacidades-limites.njk`; `fixtures/lab01-cases.json`; `scripts/check-lab01-fixtures.mjs`. | Fixture y validador presentes; la ejecución con modelos reales no queda demostrada por CI. |
+| COMP-02 — Delegable task specification (N4) | M02: transformar una petición ambigua en alcance, preguntas bloqueantes, criterios verificables y condiciones de parada. | LAB-02: `src/modulos/especificacion-y-diseno.njk`; `fixtures/lab02-specification.json`; `scripts/check-lab02-specification.mjs`. | Criterios, evidencia y verificación declarados en la fixture; falta evidencia de ejecución del ejercicio. |
+| COMP-03 — Context engineering (N3) | M03: comparar estrategias de contexto usando casos de referencia, fuentes y variables controladas. | LAB-03: `src/modulos/ingenieria-de-contexto.njk`; `fixtures/lab03-context-experiment.json`; `scripts/check-lab03-context-fixture.mjs`. | Fixture y política de medición presentes; no constituye un benchmark ejecutado. |
+| COMP-04 — AI-assisted development and code review (N4) | M04: delimitar un cambio, verificar pruebas positivas, negativas y de regresión y revisar el diff de forma independiente. | LAB-04: `src/modulos/desarrollo-asistido-y-revision.njk`; `fixtures/lab04-code-review.json`; `scripts/check-lab04-code-review.mjs`. | Criterios y matriz de pruebas definidos; la fixture exige completar una línea base observada antes de aceptar. |
+| COMP-05 — Agents and delegation (N3) | M05: definir contratos de herramientas, permisos mínimos, límites de ejecución y condiciones de aprobación/parada. | LAB-05: `src/modulos/agentes-herramientas-delegacion.njk`; `fixtures/lab05-tool-permissions.json`; `scripts/check-lab05-tool-permissions.mjs`. | Validador estructural en CI; los permisos reales requieren controles externos al modelo. |
+| COMP-06 — Harness and execution control (N4) | M06: aplicar autorización determinista, gates y evidencias antes de permitir que una ejecución avance. | LAB-06: `src/modulos/harness-y-control-de-ejecucion.njk`; `fixtures/lab06-release-gates.json`; `scripts/check-lab06-release-gates.mjs`. | Validador estructural en CI; no configura ni ejecuta despliegues. |
+| COMP-07 — Testing, evals, and verification (N4) | M07: construir una rúbrica versionada, puntuar casos con evidencia y registrar fallos críticos e incertidumbre. | LAB-07: `src/modulos/testing-evals-verificacion.njk`; `fixtures/lab07-evaluation.json`; `scripts/check-lab07-evaluation.mjs`. | Rúbrica y protocolo estructurados; la calidad de las evaluaciones exige revisión humana y muestras adecuadas. |
+| COMP-07 — Testing, evals, and verification (N4), aplicación transversal | M08: modelar amenazas y comprobar rechazos y ausencia de efectos no autorizados. | LAB-08: `src/modulos/seguridad-y-riesgos.njk`; `fixtures/lab08-security-threats.json`; `scripts/check-lab08-security-threats.mjs`. | Modelo y casos adversariales definidos; el validador no ejecuta ataques reales. La asociación transversal COMP-07 debe confirmarse. |
+| COMP-08 — Operation and maintenance (N3) | M09: observar ejecuciones, diagnosticar incidentes y verificar rollback y recuperación. | LAB-09: `src/modulos/cicd-observabilidad-mantenimiento.njk`; `fixtures/lab09-observability-recovery.json`; `scripts/check-lab09-observability-recovery.mjs`. | Criterios y casos estructurados; la recuperación real debe probarse en un entorno controlado. |
+| COMP-09 — Cost, governance, and responsibility (N4) | M10: comparar productividad y coste total, asignar responsabilidades y recomendar condiciones de adopción o retirada. | LAB-10: `src/modulos/productividad-costes-gobernanza.njk`; `fixtures/lab10-productivity-governance.json`; `scripts/check-lab10-productivity-governance.mjs`. | Métricas y criterios definidos con datos sintéticos; no son resultados de una evaluación empírica del curso. |
 
 ## Relaciones transversales que requieren validación
 
