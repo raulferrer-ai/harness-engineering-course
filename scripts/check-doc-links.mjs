@@ -79,7 +79,7 @@ for (const file of markdownFiles) {
       errors.push(`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${label}]".`);
       continue;
     }
-    if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(raw)) continue;
+    if (/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(raw)) continue;
     linksChecked++;
     const result = targetExists(raw, file);
     if (!result.exists) {
@@ -90,7 +90,7 @@ for (const file of markdownFiles) {
   }
   for (const match of withoutCode.matchAll(linkPattern)) {
     const raw = (match[1] ?? match[2] ?? "").trim();
-    if (!raw || /^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(raw)) continue;
+    if (!raw || /^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(raw)) continue;
     linksChecked++;
     const result = targetExists(raw, file);
     if (!result.exists) {
