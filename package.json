@@ -8,7 +8,7 @@
     "check:routes": "node scripts/check-routes.mjs",
     "check:release-readiness": "node scripts/check-release-readiness-checklist.mjs",
     "check:curriculum": "node scripts/check-curriculum.mjs",
-    "check": "npm run build && npm run check:routes && npm run check:release-readiness && npm run check:curriculum && npm run check:lab01 && npm run check:lab02 && npm run check:lab03 && npm run check:lab04 && npm run check:lab05 && npm run check:lab06 && npm run check:lab07 && npm run check:lab08 && npm run check:lab09 && npm run check:lab10 && npm run check:validator-regressions && npm run test:release-readiness-mutations",
+    "check": "npm run build && npm run check:routes && npm run check:docs && npm run check:release-readiness && npm run check:curriculum && npm run check:lab01 && npm run check:lab02 && npm run check:lab03 && npm run check:lab04 && npm run check:lab05 && npm run check:lab06 && npm run check:lab07 && npm run check:lab08 && npm run check:lab09 && npm run check:lab10 && npm run check:validator-regressions && npm run test:release-readiness-mutations",
     "check:lab01": "node scripts/check-lab01-fixtures.mjs",
     "check:lab02": "node scripts/check-lab02-specification.mjs",
     "check:lab03": "node scripts/check-lab03-context-fixture.mjs",
@@ -20,7 +20,8 @@
     "check:lab09": "node scripts/check-lab09-observability-recovery.mjs",
     "check:lab10": "node scripts/check-lab10-productivity-governance.mjs",
     "check:validator-regressions": "node scripts/test-lab-validator-regressions.mjs",
-    "test:release-readiness-mutations": "node scripts/test-release-readiness-mutations.mjs"
+    "test:release-readiness-mutations": "node scripts/test-release-readiness-mutations.mjs",
+    "check:docs": "node scripts/check-doc-links.mjs"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.2"
