@@ -54,10 +54,17 @@ function targetExists(raw, sourceFile) {
   if (!fragment) return { exists: true, resolved };
   const content = fs.readFileSync(target, "utf8")
     .replace(/\x60\x60\x60[\s\S]*?\x60\x60\x60|~~~[\s\S]*?~~~/g, "")
-    .replace(/(^|[^\x60])\x60+[^\x60\n]*\x60+(?!\x60)/g, "$1");
+    .replace(/(^|[^\x60])\x60+[^\x60\n]*\x60+(?!\x60)/g, "$1")
+    .replace(/<!--[\s\S]*?-->/g, "");
   const ids = new Set();
-  for (const match of content.matchAll(/^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$/gm)) {
-    const heading = match[1].replace(/\s+#+\s*$/, "");
+  const lines = content.split(/\r?\n/);
+  for (let index = 0; index < lines.length; index++) {
+    const atx = lines[index].match(/^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$/);
+    const setext = index + 1 < lines.length && /^ {0,3}(?:=+|-+)\s*$/.test(lines[index + 1])
+      ? lines[index].match(/^ {0,3}(.+?)\s*$/)
+      : null;
+    const heading = atx ? atx[1].replace(/\s+#+\s*$/, "") : setext?.[1];
+    if (!heading) continue;
     const base = slugHeading(heading);
     let slug = base, suffix = 1;
     while (ids.has(slug)) slug = base + "-" + suffix++;
