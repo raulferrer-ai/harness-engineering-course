@@ -30,3 +30,7 @@ npm run check:lab10
 ## Limitaciones
 
 Los números de la fixture son sintéticos. El validador comprueba estructura y coherencia básica, pero no calcula ni certifica el caso de negocio ni sustituye la revisión humana.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab10-worked-example.md`](lab10-worked-example.md) para un cálculo reproducible del coste por entrega aceptada, métricas de calidad, análisis de incertidumbre y recomendación de adopción gradual con condiciones de parada.
