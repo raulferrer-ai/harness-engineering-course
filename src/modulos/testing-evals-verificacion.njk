@@ -1,0 +1,106 @@
+---
+layout: layouts/base.njk
+title: Testing, evals y verificación
+description: "Módulo M07: diseña pruebas deterministas y evaluaciones de comportamiento para detectar regresiones y fallos en sistemas con IA."
+permalink: modulos/testing-evals-verificacion/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M07 · VERIFICACIÓN</p>
+    <h1>Testing, evals y verificación</h1>
+    <p class="hero-lede">Un resultado convincente no equivale a un resultado correcto. Los sistemas con IA necesitan pruebas del software, evaluaciones del comportamiento del modelo y verificaciones independientes de los efectos producidos.</p>
+    <div class="module-meta"><span>12 horas planificadas</span><span>4 h de fundamentos · 8 h de laboratorio</span><span>LAB-07</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Distinguir pruebas unitarias, integración, extremo a extremo y evaluaciones específicas de comportamiento del modelo.</li>
+      <li>Convertir requisitos en criterios medibles con casos positivos, negativos y límites.</li>
+      <li>Construir un conjunto de evaluación versionado y representativo, sin confundirlo con una prueba exhaustiva.</li>
+      <li>Medir calidad, tasa de fallo, falsos positivos y falsos negativos con umbrales explícitos.</li>
+      <li>Detectar regresiones y documentar incertidumbre antes de desplegar un cambio.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="fundamentos">
+    <div class="section-heading"><div><p class="eyebrow">FUNDAMENTOS</p><h2 id="fundamentos">Tres capas que se complementan</h2></div></div>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Pruebas deterministas</h3><p>Validan contratos, esquemas, permisos, transformaciones y efectos. Con la misma entrada y entorno controlado, el resultado esperado debe ser reproducible.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Evaluaciones de comportamiento</h3><p>Comparan salidas del sistema con rúbricas, etiquetas o criterios definidos. Pueden requerir tolerancias y revisión humana porque la respuesta generativa no siempre es idéntica.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Verificación de efectos</h3><p>Comprueba el estado real tras la ejecución: archivos cambiados, acciones realizadas, datos conservados y ausencia de efectos no autorizados.</p></div></section>
+    </div>
+    <p>No uses una puntuación agregada para ocultar fallos críticos. Un promedio alto puede coexistir con una vulnerabilidad grave o con fallos concentrados en un grupo de casos.</p>
+  </section>
+
+  <section class="section" aria-labelledby="diseno">
+    <div class="section-heading"><div><p class="eyebrow">DISEÑO DE PRUEBAS</p><h2 id="diseno">Un conjunto que detecta fallos reales</h2></div></div>
+    <ul>
+      <li><strong>Casos normales:</strong> cubren el flujo principal y las entradas habituales.</li>
+      <li><strong>Casos límite:</strong> entradas vacías, largas, ambiguas, fuera de rango o con formatos inesperados.</li>
+      <li><strong>Casos adversariales:</strong> instrucciones conflictivas, intentos de eludir políticas y datos que parecen instrucciones pero son contenido no confiable.</li>
+      <li><strong>Casos de regresión:</strong> incidentes anteriores convertidos en pruebas permanentes.</li>
+      <li><strong>Pruebas de efectos:</strong> confirman que no se escriben archivos, se llama a herramientas o se exfiltran datos cuando no está permitido.</li>
+    </ul>
+    <p>Versiona los datos de evaluación, las instrucciones, la configuración, la versión del modelo cuando esté disponible y la rúbrica. Sin ese contexto, comparar dos ejecuciones puede producir conclusiones engañosas.</p>
+  </section>
+
+  <section class="section" aria-labelledby="metricas">
+    <div class="section-heading"><div><p class="eyebrow">MÉTRICAS Y DECISIONES</p><h2 id="metricas">Define los umbrales antes de ver los resultados</h2></div></div>
+    <p>Elige métricas vinculadas al riesgo y al requisito. Por ejemplo, exactitud estructural, tasa de tareas completadas, cumplimiento de políticas, tasa de acciones no autorizadas y coste o latencia por tarea. Explicita denominadores y condiciones de exclusión.</p>
+    <ul>
+      <li>Establece una línea base y compara cambios con el mismo conjunto y protocolo.</li>
+      <li>Separa fallos bloqueantes de degradaciones aceptables y define quién puede aprobar una excepción.</li>
+      <li>Investiga fallos por categoría; no te limites a informar una media.</li>
+      <li>Si cambia el modelo, el prompt, las herramientas o el conjunto de datos, registra el cambio y repite las pruebas relevantes.</li>
+    </ul>
+    <aside class="notice"><strong>Regla de decisión</strong><p>Un fallo de seguridad, privacidad o acción no autorizada bloquea la entrega aunque la puntuación global sea alta. Los umbrales deben ser explícitos y acordes con el impacto.</p></aside>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-07 · 8 HORAS</p><h2 id="lab">Construir una evaluación reproducible</h2></div></div>
+    <h3>Objetivo</h3>
+    <p>Crear un pequeño banco de pruebas para una tarea asistida por IA, ejecutarlo contra una versión base y una versión modificada, y emitir una decisión de aceptación respaldada por evidencia.</p>
+    <h3>Prerrequisitos y límites</h3>
+    <ul>
+      <li>Usa un repositorio de práctica y datos sintéticos o autorizados.</li>
+      <li>No introduzcas secretos, datos personales reales ni credenciales en prompts, fixtures o registros.</li>
+      <li>Si no dispones de un modelo, simula las respuestas mediante fixtures; el objetivo es validar el protocolo y la medición.</li>
+    </ul>
+    <h3>Procedimiento</h3>
+    <ol>
+      <li><strong>Especificar (1 h):</strong> elige una tarea concreta y define comportamiento esperado, límites y fallos bloqueantes.</li>
+      <li><strong>Crear el dataset (2 h):</strong> prepara al menos 12 casos sintéticos: cuatro normales, tres de límite, tres adversariales y dos de regresión. Etiqueta cada caso y explica qué verifica.</li>
+      <li><strong>Implementar verificaciones (2 h):</strong> añade comprobaciones deterministas de formato y efectos; define una rúbrica para los aspectos que no admiten una aserción exacta.</li>
+      <li><strong>Ejecutar comparativa (1 h):</strong> registra versión, configuración, resultado por caso, errores y duración para la línea base y el cambio.</li>
+      <li><strong>Analizar y decidir (1 h):</strong> calcula las métricas, inspecciona cada fallo y aplica los umbrales establecidos antes de la ejecución.</li>
+      <li><strong>Documentar (1 h):</strong> entrega el informe, limita las conclusiones a la cobertura real y propone los siguientes casos que conviene añadir.</li>
+    </ol>
+    <h3>Evidencias requeridas</h3>
+    <ul>
+      <li>Especificación de la tarea y criterios de aceptación.</li>
+      <li>Dataset versionado con al menos 12 casos y su justificación.</li>
+      <li>Comando o procedimiento repetible para ejecutar la suite.</li>
+      <li>Resultados por caso y resumen de métricas de ambas versiones.</li>
+      <li>Registro de fallos, decisión final y limitaciones conocidas.</li>
+    </ul>
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>La suite se puede repetir siguiendo instrucciones documentadas.</li>
+      <li>Los casos cubren escenarios normales, límites, adversariales y regresiones.</li>
+      <li>Las métricas incluyen denominadores y se pueden reconstruir a partir de resultados por caso.</li>
+      <li>Los fallos críticos bloquean la aceptación independientemente de la media.</li>
+      <li>Las evidencias no exponen secretos ni datos sensibles.</li>
+    </ul>
+    <h3>Preguntas de reflexión</h3>
+    <ul>
+      <li>¿Qué fallos importantes siguen sin estar cubiertos por tus casos?</li>
+      <li>¿Qué partes se verifican de forma determinista y cuáles requieren juicio humano?</li>
+      <li>¿Cómo detectarías que el conjunto de evaluación ya no representa el uso real?</li>
+      <li>¿Qué evidencia necesitarías para revertir el cambio después de desplegarlo?</li>
+    </ul>
+  </section>
+
+  <nav class="module-next" aria-label="Navegación del curso"><a href="/#programa">← Todos los módulos</a><a href="/modulos/seguridad-y-riesgos/">Siguiente módulo: M08 →</a></nav>
+</article>
