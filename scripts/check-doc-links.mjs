@@ -56,7 +56,7 @@ for (const file of markdownFiles) {
     const label = (match[2] || match[1]).trim().toLowerCase();
     const raw = referenceDefinitions.get(label);
     if (!raw) {
-      errors.push(\`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${label}]".\`);
+      errors.push(`${path.relative(root, file)}: definición de enlace Markdown no encontrada "[${label}]".`);
       continue;
     }
     if (/^(?:[a-z][a-z\d+.-]*:|\/\/|#)/i.test(raw)) continue;
@@ -65,7 +65,7 @@ for (const file of markdownFiles) {
     if (!result.exists) {
       const from = path.relative(root, file);
       const to = result.resolved ? path.relative(root, result.resolved) : raw;
-      errors.push(\`${from}: enlace local no encontrado "${raw}" (destino: ${to})\`);
+      errors.push(`${from}: enlace local no encontrado "${raw}" (destino: ${to})`);
     }
   }
   for (const match of source.matchAll(linkPattern)) {
