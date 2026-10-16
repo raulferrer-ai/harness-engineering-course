@@ -67,11 +67,8 @@ for (const [index, module] of modules.entries()) {
   }
 
   if (module?.id && [module?.fundamentalsHours, module?.labHours, module?.hours].every(Number.isFinite)) {
-    const escapedId = module.id.replace(/[.*+?^${}()|[\]\\]/g, "\\  if (module?.labId && !curriculum.includes(module.labId)) {
-    errors.push(`${where}: lab ID is missing from docs/curriculum.md.`);
-  }
-");
-    const row = new RegExp(`^\\|\\s*${escapedId}\\s*\\|[^\\n]*?\\|\\s*(\\d+)\\s*h\\s*\\|\\s*(\\d+)\\s*h\\s*\\|\\s*(\\d+)\\s*h\\s*\\|`, "m").exec(curriculum);
+    const rowPattern = "^\\|\\s*" + module.id + "\\s*\\|[^\\n]*?\\|\\s*(\\d+)\\s*h\\s*\\|\\s*(\\d+)\\s*h\\s*\\|\\s*(\\d+)\\s*h\\s*\\|";
+    const row = new RegExp(rowPattern, "m").exec(curriculum);
     if (!row) {
       errors.push(`${where}: no matching hours row found in docs/curriculum.md.`);
     } else if (Number(row[1]) !== module.fundamentalsHours || Number(row[2]) !== module.labHours || Number(row[3]) !== module.hours) {
