@@ -28,3 +28,7 @@ npm run check:lab03
 ## Limitaciones y estado
 
 Los manifiestos nombran rutas de un repositorio didáctico propuesto; no deben confundirse con archivos que ya existan en este sitio. El chequeo automático solo valida el formato de los datos. La calidad de las respuestas, la estabilidad de las mediciones y la reproducibilidad siguen pendientes de una ejecución real con un modelo y de revisión humana.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab03-worked-example.md`](lab03-worked-example.md) para un diseño de comparación A/B de contexto, rúbrica por caso, hoja de registro y ejemplo de datos simulados claramente separado de resultados observados.
