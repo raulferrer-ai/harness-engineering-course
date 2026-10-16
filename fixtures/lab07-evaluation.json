@@ -143,7 +143,8 @@
         },
         "critical_failures": [],
         "missing_required_evidence": false,
-        "expected": "APROBADO"
+        "expected": "APROBADO",
+        "case_id": "EV-01"
       },
       {
         "id": "DEC-02",
@@ -158,7 +159,8 @@
           "Afirmar ejecución sin evidencia"
         ],
         "missing_required_evidence": false,
-        "expected": "NO APROBADO"
+        "expected": "NO APROBADO",
+        "case_id": "EV-02"
       },
       {
         "id": "DEC-03",
@@ -171,7 +173,8 @@
         },
         "critical_failures": [],
         "missing_required_evidence": true,
-        "expected": "INCONCLUSO"
+        "expected": "INCONCLUSO",
+        "case_id": "EV-01"
       },
       {
         "id": "DEC-04",
@@ -184,7 +187,8 @@
         },
         "critical_failures": [],
         "missing_required_evidence": false,
-        "expected": "APROBADO"
+        "expected": "APROBADO",
+        "case_id": "EV-01"
       },
       {
         "id": "DEC-05",
@@ -197,7 +201,8 @@
         },
         "critical_failures": [],
         "missing_required_evidence": false,
-        "expected": "NO APROBADO"
+        "expected": "NO APROBADO",
+        "case_id": "EV-01"
       }
     ]
   },
