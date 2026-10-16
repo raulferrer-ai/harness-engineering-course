@@ -9,8 +9,16 @@ const parsed = parsePrimaryTraceability(canonical);
 assert.deepEqual(parsed.competencyRows, expectedCompetencies, "canonical primary competencies");
 assert.deepEqual(parsed.moduleRows, expectedModules, "canonical primary modules");
 
-const extra = canonical.replace("| COMP-01 —", "| COMP-01 —");
-const duplicated = extra.replace(/^(\| COMP-01 —[^\n]+\n)/m, "$1$1");
+for (const [label, variant] of [
+  ["LF", canonical],
+  ["CRLF", canonical.replace(/\n/g, "\r\n")],
+  ["CR-only", canonical.replace(/\n/g, "\r")],
+  ["mixed", canonical.replace(/\n/g, (_, offset) => offset % 2 ? "\r\n" : "\r")]
+]) {
+  assert.deepEqual(parsePrimaryTraceability(variant), parsed, `${label} line endings`);
+}
+
+const duplicated = canonical.replace(/^(\| COMP-01 —[^\n]+\n)/m, "$1$1");
 const duplicateRows = parsePrimaryTraceability(duplicated);
 assert.equal(duplicateRows.competencyRows.filter(id => id === "COMP-01").length, 2, "duplicate competency retained");
 assert.equal(duplicateRows.moduleRows.filter(id => id === "M01").length, 2, "duplicate module retained");
