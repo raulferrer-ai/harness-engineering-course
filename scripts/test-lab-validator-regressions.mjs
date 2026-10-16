@@ -7,6 +7,62 @@ import process from "node:process";
 const root = resolve(new URL("..", import.meta.url).pathname);
 const labs = [
   {
+    id: "LAB-01", env: "LAB01_FIXTURE_PATH", fixture: "fixtures/lab01-cases.json", validator: "scripts/check-lab01-fixtures.mjs",
+    cases: [
+      ["missing rationale", d => { delete d.cases[0].rationale; }, /falta justificación/],
+      ["duplicate case ID", d => { d.cases[1].id = d.cases[0].id; }, /ID vacío o duplicado/],
+      ["invalid priority", d => { d.cases[0].expected.priority = "urgent"; }, /prioridad no permitida/]
+    ]
+  },
+  {
+    id: "LAB-02", env: "LAB02_FIXTURE_PATH", fixture: "fixtures/lab02-specification.json", validator: "scripts/check-lab02-specification.mjs",
+    cases: [
+      ["missing source request", d => { delete d.source_request; }, /falta source_request/],
+      ["duplicate acceptance criterion ID", d => { d.acceptance_criteria[1].id = d.acceptance_criteria[0].id; }, /ID de criterio vacío o duplicado/],
+      ["missing verification evidence", d => { delete d.acceptance_criteria[0].verification; }, /falta verification/]
+    ]
+  },
+  {
+    id: "LAB-03", env: "LAB03_FIXTURE_PATH", fixture: "fixtures/lab03-context-experiment.json", validator: "scripts/check-lab03-context-fixture.mjs",
+    cases: [
+      ["duplicate context variant ID", d => { d.context_variants[1].id = d.context_variants[0].id; }, /ID de variante vacío o duplicado/],
+      ["duplicate path in variant", d => { d.context_variants[0].files.push({ ...d.context_variants[0].files[0] }); }, /ruta duplicada/],
+      ["missing required source", d => { d.reference_cases[0].required_sources = []; }, /faltan fuentes requeridas/]
+    ]
+  },
+  {
+    id: "LAB-04", env: "LAB04_FIXTURE_PATH", fixture: "fixtures/lab04-code-review.json", validator: "scripts/check-lab04-code-review.mjs",
+    cases: [
+      ["unknown acceptance criterion reference", d => { d.test_matrix[0].criterion = "AC-999"; }, /expectativa vacía o criterio desconocido/],
+      ["duplicate test ID", d => { d.test_matrix[1].id = d.test_matrix[0].id; }, /tests: ID vacío o duplicado/],
+      ["invalid decision gate", d => { d.decision_gate.default = "ship_it"; }, /decisión inicial no válida/]
+    ]
+  },
+  {
+    id: "LAB-05", env: "LAB05_FIXTURE_PATH", fixture: "fixtures/lab05-tool-permissions.json", validator: "scripts/check-lab05-tool-permissions.mjs",
+    cases: [
+      ["allow by default", d => { d.decision_policy.default = "allow"; }, /la política debe denegar por defecto/],
+      ["duplicate tool name", d => { d.tools[1].name = d.tools[0].name; }, /herramientas: valor vacío o duplicado/],
+      ["invalid tool risk", d => { d.tools[0].risk = "extreme"; }, /riesgo no válido/]
+    ]
+  },
+  {
+    id: "LAB-06", env: "LAB06_FIXTURE_PATH", fixture: "fixtures/lab06-release-gates.json", validator: "scripts/check-lab06-release-gates.mjs",
+    cases: [
+      ["unknown required evidence", d => { d.gates[0].required = ["EV-999"]; }, /evidencia desconocida EV-999/],
+      ["duplicate gate ID", d => { d.gates[1].id = d.gates[0].id; }, /gates: ID vacío o duplicado/],
+      ["failed gate does not block", d => { d.gates[0].failure = "warn"; }, /el fallo debe bloquear/]
+    ]
+  },
+  {
+    id: "LAB-07", env: "LAB07_FIXTURE_PATH", fixture: "fixtures/lab07-evaluation.json", validator: "scripts/check-lab07-evaluation.mjs",
+    cases: [
+      ["duplicate rubric ID", d => { d.rubric[1].id = d.rubric[0].id; }, /rúbrica: ID vacío o duplicado/],
+      ["invalid score threshold", d => { d.scoring_protocol.pass_threshold_percent = 150; }, /umbral de aprobación debe estar entre 0 y 100/],
+      ["unknown minimum dimension", d => { d.cases[0].minimum_dimensions = ["invented_dimension"]; }, /dimensión mínima desconocida/]
+    ]
+  },
+  {
     id: "LAB-08",
     env: "LAB08_FIXTURE_PATH",
     fixture: "fixtures/lab08-security-threats.json",
@@ -85,4 +141,4 @@ if (failures) {
   console.error(`Validator regression suite failed: ${failures} failure(s).`);
   process.exit(1);
 }
-console.log("Validator regression suite OK: 3 canonical fixtures accepted; 9 invalid mutations rejected for the expected reason.");
+console.log("Validator regression suite OK: 10 canonical fixtures accepted; 21 invalid mutations rejected for the expected reason.");
