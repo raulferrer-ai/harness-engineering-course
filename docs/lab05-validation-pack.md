@@ -23,3 +23,7 @@ npm run check:lab05
 ## Limitaciones
 
 El validador comprueba la estructura de la fixture. No crea un sandbox ni demuestra que los controles de una implementación real sean efectivos.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab05-worked-example.md`](lab05-worked-example.md) para una matriz de permisos mínimos, pruebas negativas de escalada e inyección, controles externos al modelo y criterios de evidencia verificable.
