@@ -128,3 +128,11 @@ La suite comprueba primero que los tres fixtures canónicos siguen siendo acepta
 
 Esta suite no reemplaza `npm run check` ni cubre automáticamente todos los posibles contratos de los diez laboratorios; su alcance actual son tres validadores y nueve mutaciones negativas concretas.
 
+### Cobertura de regresión negativa por laboratorio
+
+La suite `npm run check:validator-regressions` cubre actualmente los diez validadores de fixtures (LAB-01 a LAB-10). Para cada fixture canónico, comprueba la aceptación positiva y aplica tres mutaciones negativas aisladas, con código de salida y mensaje esperado.
+
+Las mutaciones cubren, según el contrato de cada laboratorio, campos obligatorios ausentes, identificadores duplicados, referencias inexistentes, valores fuera del dominio permitido y políticas de seguridad o publicación debilitadas. La cobertura exacta está definida en `scripts/test-lab-validator-regressions.mjs`; cualquier cambio en los mensajes de error debe actualizar la aserción correspondiente de forma intencional.
+
+Esta cobertura es un conjunto dirigido de regresiones, no una prueba exhaustiva de todos los campos ni una garantía de corrección semántica. Los casos no incluidos deben considerarse no probados, no aprobados por inferencia.
+
