@@ -124,9 +124,9 @@ Con dependencias instaladas, ejecuta:
 npm run check:validator-regressions
 ```
 
-La suite comprueba primero que los tres fixtures canónicos siguen siendo aceptados y después aplica nueve mutaciones temporales a copias aisladas de los fixtures de LAB-08, LAB-09 y LAB-10. Cada mutación solo cuenta como prueba superada si el validador termina con código de error y el mensaje corresponde a la regla esperada. Los archivos temporales se eliminan al terminar.
+La suite comprueba primero que los diez fixtures canónicos siguen siendo aceptados y después aplica tres mutaciones temporales por laboratorio (30 en total) a copias aisladas. Cada mutación solo cuenta como prueba superada si el validador termina con código de error y el mensaje corresponde a la regla esperada. Los archivos temporales se eliminan al terminar.
 
-Esta suite no reemplaza `npm run check` ni cubre automáticamente todos los posibles contratos de los diez laboratorios; su alcance actual son tres validadores y nueve mutaciones negativas concretas.
+Esta suite no reemplaza `npm run check` ni cubre todos los contratos posibles; es un conjunto dirigido de regresiones negativas cuya cobertura exacta está definida en `scripts/test-lab-validator-regressions.mjs`.
 
 ### Cobertura de regresión negativa por laboratorio
 
