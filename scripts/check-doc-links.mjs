@@ -22,17 +22,22 @@ function slugHeading(heading) {
 }
 
 function targetExists(raw, sourceFile) {
-  let decoded;
-  try { decoded = decodeURIComponent(raw); }
-  catch { return { exists: false, reason: "URL local mal codificada" }; }
-  const hashIndex = decoded.indexOf("#");
-  const beforeHash = hashIndex < 0 ? decoded : decoded.slice(0, hashIndex);
-  const pathname = beforeHash.split("?")[0];
-  const fragment = hashIndex < 0 ? "" : decoded.slice(hashIndex + 1);
+  const hashIndex = raw.indexOf("#");
+  const beforeHash = hashIndex < 0 ? raw : raw.slice(0, hashIndex);
+  const queryIndex = beforeHash.indexOf("?");
+  const rawPath = queryIndex < 0 ? beforeHash : beforeHash.slice(0, queryIndex);
+  const rawFragment = hashIndex < 0 ? "" : raw.slice(hashIndex + 1);
+  let pathname, fragment;
+  try {
+    pathname = decodeURIComponent(rawPath);
+    fragment = decodeURIComponent(rawFragment);
+  } catch {
+    return { exists: false, reason: "URL local mal codificada" };
+  }
   const resolved = pathname ? (pathname.startsWith("/")
     ? path.resolve(root, "." + pathname)
     : path.resolve(path.dirname(sourceFile), pathname)) : sourceFile;
-  if (resolved !== root && !resolved.startsWith(root + path.sep))
+  if (resolved !== root && !resolved.startsWith(root + path.sep)
     return { exists: false, reason: "el enlace sale del repositorio" };
   const candidates = pathname ? [resolved, path.join(resolved, "index.md"), path.join(resolved, "index.html")] : [sourceFile];
   const target = candidates.find((candidate) => fs.existsSync(candidate) && fs.statSync(candidate).isFile());
