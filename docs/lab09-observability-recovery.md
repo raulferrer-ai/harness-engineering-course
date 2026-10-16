@@ -28,3 +28,7 @@ npm run check:lab09
 ## Limitaciones
 
 El validador automático solo comprueba la estructura y las referencias internas de la fixture. No instala alertas, accede a telemetría real, ejecuta rollback ni prueba un entorno de producción.
+
+## Ejemplo resuelto
+
+Consulta [`docs/lab09-worked-example.md`](lab09-worked-example.md) para un runbook con señales, timeline simulado, rollback, verificación de integridad y pruebas de fallo.
