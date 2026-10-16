@@ -218,7 +218,12 @@
       "expected_decision": "do_not_expand",
       "missing_measurement": false,
       "unapproved_external_action": false,
-      "reason": "Los datos sintéticos muestran más defectos y un coste por entrega aceptada no menor; no basta la reducción de tiempo."
+      "reason": "Los datos sintéticos muestran más defectos y un coste por entrega aceptada no menor; no basta la reducción de tiempo.",
+      "comparison_result": {
+        "cost_per_delivery": "higher",
+        "defect_rate": "higher",
+        "tasks_comparable": true
+      }
     },
     {
       "id": "TV-02",
@@ -239,7 +244,12 @@
       "expected_decision": "expand_cautiously",
       "missing_measurement": false,
       "unapproved_external_action": false,
-      "reason": "Solo en un escenario con tareas comparables, calidad no inferior y menor coste total verificado; requiere revisión humana."
+      "reason": "Solo en un escenario con tareas comparables, calidad no inferior y menor coste total verificado; requiere revisión humana.",
+      "comparison_result": {
+        "cost_per_delivery": "lower",
+        "defect_rate": "not_higher",
+        "tasks_comparable": true
+      }
     }
   ]
 }
