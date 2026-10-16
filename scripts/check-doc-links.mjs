@@ -19,6 +19,7 @@ function walk(directory) {
 function slugHeading(heading) {
   return heading
     .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1")
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/\[([^\]]*)\]\[[^\]]*\]/g, "$1")
     .replace(/<[^>]*>/g, "")
     .replace(/\x60([^\x60]*)\x60/g, "$1")
