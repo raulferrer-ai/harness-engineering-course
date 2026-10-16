@@ -54,7 +54,7 @@ try {
   expectPass("enlaces relativos, directorios y externos", run(valid), "enlaces locales comprobados");
 
   const validAnchors = await fixture("valid-anchors", {
-    "README.md": "# Inicio\n\n## Segunda sección\n\n[Segunda sección](#segunda-seccion) [ID HTML](docs/guia.md#detalle) [Referencia local][inicio]\n\n[inicio]: #inicio\n",
+    "README.md": "# Inicio\n\n## Segunda seccion\n\n[Segunda sección](#segunda-seccion) [ID HTML](docs/guia.md#detalle) [Referencia local][inicio]\n\n[inicio]: #inicio\n",
     "docs/guia.md": "# Guía\n\n<section id=\"detalle\">Contenido</section>\n"
   });
   expectPass("anclas Markdown, IDs HTML y referencias locales", run(validAnchors), "enlaces locales comprobados");
