@@ -1,7 +1,14 @@
 import { readFile } from "node:fs/promises";
 
 const checklistPath = process.env.RELEASE_CHECKLIST_PATH || new URL("../docs/release-readiness-checklist.md", import.meta.url);
-const markdown = await readFile(checklistPath, "utf8");
+let markdown;
+try {
+  markdown = await readFile(checklistPath, "utf8");
+} catch (error) {
+  console.error("Release readiness checklist check failed: unable to read checklist input.");
+  process.exit(1);
+}
+
 const failures = [];
 const requireText = (text, message = "falta texto obligatorio: " + text) => {
   if (!markdown.includes(text)) failures.push(message);
@@ -36,8 +43,9 @@ const decisionRows = [
   "Decisión"
 ];
 for (const row of decisionRows) {
-  const exists = markdown.split(/\r?\n/).some(line => line.startsWith("| " + row + " |"));
-  if (!exists) failures.push("falta campo en el registro de decisión: " + row);
+  const matchingRows = markdown.split(/\r?\n/).filter(line => line.startsWith("| " + row + " |"));
+  if (matchingRows.length === 0) failures.push("falta campo en el registro de decisión: " + row);
+  if (matchingRows.length > 1) failures.push("campo duplicado en el registro de decisión: " + row);
 }
 
 if (failures.length) {
@@ -45,4 +53,4 @@ if (failures.length) {
   for (const failure of failures) console.error("- " + failure);
   process.exit(1);
 }
-console.log("Release readiness checklist check passed: required sections, decision fields, and evidence safeguards are present.");
+console.log("Release readiness checklist check passed: required sections, unique decision fields, and evidence safeguards are present.");

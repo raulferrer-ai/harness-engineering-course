@@ -13,7 +13,10 @@ const cases = [
   { label: "missing evidence safeguard", mutate: text => text.replace("no inferir éxito", "asumir éxito"), expectedDiagnostic: "falta regla o salvaguarda: no inferir éxito" },
   { label: "missing decision owner", mutate: text => text.replace("| Responsable de la decisión |", "| Dueño de la decisión |"), expectedDiagnostic: "falta campo en el registro de decisión: Responsable de la decisión" },
   { label: "missing critical failure policy", mutate: text => text.replace("fallo crítico", "incidencia"), expectedDiagnostic: "falta regla o salvaguarda: fallo crítico" },
-  { label: "missing release outcome choices", mutate: text => text.replace("BLOQUEAR / APROBAR CON CONDICIONES / APROBAR", "PUBLICAR"), expectedDiagnostic: "falta regla o salvaguarda: BLOQUEAR / APROBAR CON CONDICIONES / APROBAR" }
+  { label: "missing release outcome choices", mutate: text => text.replace("BLOQUEAR / APROBAR CON CONDICIONES / APROBAR", "PUBLICAR"), expectedDiagnostic: "falta regla o salvaguarda: BLOQUEAR / APROBAR CON CONDICIONES / APROBAR" },
+  { label: "empty document", mutate: () => "", expectedDiagnostic: "falta el título canónico" },
+  { label: "duplicate decision field", mutate: text => text.replace("| Responsable de la decisión | |", "| Responsable de la decisión | |\n| Responsable de la decisión | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Responsable de la decisión" },
+  { label: "malformed heading", mutate: text => text.replace("## 2. Cambio y verificación", "# 2. Cambio y verificación"), expectedDiagnostic: "falta sección: ## 2. Cambio y verificación" }
 ];
 
 const temp = await mkdtemp(join(tmpdir(), "release-checklist-mutations-"));
@@ -52,6 +55,13 @@ try {
     assert(output.includes(testCase.expectedDiagnostic), testCase.label + ": missing expected diagnostic " + JSON.stringify(testCase.expectedDiagnostic) + "\n" + output);
     if (result.status === 1 && output.includes(testCase.expectedDiagnostic)) console.log("PASS rejects " + testCase.label + " with the expected diagnostic");
   }
+
+  const missingPath = join(temp, "does-not-exist.md");
+  const missing = run(missingPath);
+  const missingOutput = missing.stdout + missing.stderr;
+  assert(missing.status === 1, "missing input path should exit 1, got " + missing.status + "\n" + missingOutput);
+  assert(missingOutput.includes("unable to read checklist input"), "missing input path should report controlled diagnostic\n" + missingOutput);
+  if (missing.status === 1 && missingOutput.includes("unable to read checklist input")) console.log("PASS rejects unreadable input with a controlled diagnostic");
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
@@ -60,4 +70,4 @@ if (failures) {
   console.error("Release checklist mutation tests failed: " + failures + " assertion(s).");
   process.exit(1);
 }
-console.log("Release checklist mutation tests passed: canonical input accepted and all " + cases.length + " mutations rejected with specific diagnostics.");
+console.log("Release checklist mutation tests passed: canonical input accepted; " + cases.length + " content mutations and unreadable input rejected with specific diagnostics.");
