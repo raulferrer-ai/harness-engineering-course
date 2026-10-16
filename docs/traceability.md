@@ -54,3 +54,17 @@ Estas relaciones deben convertirse en filas explícitas con resultados y evidenc
 - Especificar el proyecto transversal, el entorno/herramientas y la licencia del repositorio.
 - Aprobar reglas operativas de evaluación y fallos críticos de seguridad antes de automatizar puntuaciones.
 - Ejecutar y documentar los laboratorios antes de marcarlos como verificados.
+
+## Implementación de artefactos de LAB-05 a LAB-08
+
+La revisión detectó que algunos fixtures y scripts estaban numerados según el orden en que se añadieron, no según el laboratorio aprobado. La correspondencia canónica queda fijada así:
+
+| Laboratorio curricular | Fixture canónico | Validador canónico | Alcance de la comprobación |
+|---|---|---|---|
+| LAB-05 — Agentes, herramientas y límites | `fixtures/lab05-tool-permissions.json` | `scripts/check-lab05-tool-permissions.mjs` | Estructura de la política, riesgos, amenazas y criterios; no impone permisos reales |
+| LAB-06 — Harness y políticas ejecutables | `fixtures/lab06-release-gates.json` | `scripts/check-lab06-release-gates.mjs` | Estructura de gates y evidencias; no ejecuta un despliegue ni verifica referencias remotas |
+| LAB-07 — Testing y evals | `fixtures/lab07-evaluation.json` | `scripts/check-lab07-evaluation.mjs` | Estructura de rúbrica, pesos y casos; no evalúa salidas reales |
+| LAB-08 — Seguridad y pruebas adversariales | `fixtures/lab08-security-threats.json` | `scripts/check-lab08-security-threats.mjs` | Estructura del modelo de amenazas y los casos; no ejecuta ataques reales |
+
+Los validadores anteriores comprueban contratos de datos y campos obligatorios. Su éxito no demuestra por sí solo que un sistema de IA real sea seguro, que una evaluación sea representativa ni que un pipeline aplique las políticas. Esas afirmaciones requieren pruebas de integración y evidencia de ejecución independiente.
+
