@@ -91,6 +91,8 @@ const labs = [
       ["duplicate event required field", d => { d.events[0].required_fields.push(d.events[0].required_fields[0]); }, /required_fields debe ser una lista sin duplicados/],
       ["duplicate signal ID", d => { d.signals[1].id = d.signals[0].id; }, /ID vacío o duplicado/],
       ["unknown recovery trigger", d => { d.recovery_steps[0].trigger = "SIG-999"; }, /trigger desconocido/],
+      ["missing required recovery step", d => { d.recovery_steps = d.recovery_steps.filter(step => step.trigger !== "SIG-03"); }, /SIG-03: requiere un paso de recuperación por política/],
+      ["critical security signal does not require recovery", d => { d.signals.find(signal => signal.name === "unauthorized_action_count").recovery_required = false; }, /SIG-04: las señales de seguridad críticas deben requerir recuperación/],
       ["recovery marked complete despite failed regression", d => { const scenario = d.scenarios.find(s => /regresi[oó]n/i.test(s.input)); scenario.expected = "se declara recuperación completa aunque la suite de regresión falla"; }, /debe existir un escenario que impida declarar recuperación completa si falla la regresión/]
     ]
   },
