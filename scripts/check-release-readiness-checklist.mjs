@@ -1,14 +1,12 @@
 import { readFile } from "node:fs/promises";
-import process from "node:process";
 
-const path = new URL("../docs/release-readiness-checklist.md", import.meta.url);
-const markdown = await readFile(path, "utf8");
+const markdown = await readFile(new URL("../docs/release-readiness-checklist.md", import.meta.url), "utf8");
 const failures = [];
-const requireText = (pattern, message) => {
-  if (!pattern.test(markdown)) failures.push(message);
+const requireText = (text, message = "falta texto obligatorio: " + text) => {
+  if (!markdown.includes(text)) failures.push(message);
 };
 
-requireText(/^# Lista de comprobación de preparación para publicar$/m, "falta el título canónico");
+requireText("# Lista de comprobación de preparación para publicar");
 for (const heading of [
   "## 1. Alcance y procedencia",
   "## 2. Cambio y verificación",
@@ -16,7 +14,7 @@ for (const heading of [
   "## 4. Operación y recuperación",
   "## 5. Decisión",
   "## Límites"
-]) requireText(new RegExp(heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "m"), "falta sección: " + heading);
+]) requireText(heading, "falta sección: " + heading);
 
 for (const phrase of [
   "no inferir éxito",
@@ -25,11 +23,21 @@ for (const phrase of [
   "no se ejecutó",
   "BLOQUEAR / APROBAR CON CONDICIONES / APROBAR",
   "responsable",
-  "no equivale a validación pedagógica"
-]) requireText(new RegExp(phrase, "i"), "falta regla o salvaguarda: " + phrase);
+  "no demuestra por sí sola la seguridad"
+]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
-const decisionRows = ["Revisión exacta", "Responsable de la decisión", "Resultado de build y checks", "Evidencia de pruebas", "Fallos críticos abiertos", "Decisión"];
-for (const row of decisionRows) requireText(new RegExp("^\\|\\s*" + row.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "\\s*\\|", "m"), "falta campo en el registro de decisión: " + row);
+const decisionRows = [
+  "Revisión exacta",
+  "Responsable de la decisión",
+  "Resultado de build y checks",
+  "Evidencia de pruebas",
+  "Fallos críticos abiertos",
+  "Decisión"
+];
+for (const row of decisionRows) {
+  const exists = markdown.split(/\r?\n/).some(line => line.startsWith("| " + row + " |"));
+  if (!exists) failures.push("falta campo en el registro de decisión: " + row);
+}
 
 if (failures.length) {
   console.error("Release readiness checklist check failed:");
