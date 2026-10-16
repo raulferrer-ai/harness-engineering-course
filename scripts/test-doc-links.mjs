@@ -81,6 +81,11 @@ try {
   });
   expectPass("anclas de encabezados Setext", run(setextAnchors), "enlaces locales comprobados");
 
+  const mixedHeadingDuplicates = await fixture("mixed-heading-duplicates", {
+    "README.md": "Repetida\n========\n\n# Repetida\n\n[Primera](#repetida) [Segunda](#repetida-1)\n"
+  });
+  expectPass("IDs duplicados entre encabezados Setext y ATX según orden del documento", run(mixedHeadingDuplicates), "enlaces locales comprobados");
+
   const commentOnlyAnchor = await fixture("comment-only-anchor", {
     "README.md": '<!-- <section id="solo-comentario"></section> -->\n\n[Ancla falsa](#solo-comentario)\n'
   });
