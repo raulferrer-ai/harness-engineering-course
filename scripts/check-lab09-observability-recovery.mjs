@@ -50,7 +50,7 @@ for (const s of signals) {
   if (s.name === "unauthorized_action_count" && (s.threshold?.operator !== "gt" || s.threshold.value !== 0)) errors.push("las acciones no autorizadas deben disparar con conteo > 0");
   if (/rate$/.test(s.name) && (s.threshold?.value < 0 || s.threshold?.value > 1)) errors.push(`${s.id}: una tasa debe expresarse entre 0 y 1`);
   if (s.name === "p95_latency_ms" && s.unit !== "milliseconds") errors.push(`${s.id}: p95_latency_ms debe usar milliseconds`);
-  if (s.name === "cost_per_accepted_task" && !/currency/i.test(s.unit)) errors.push(`${s.id}: cost_per_accepted_task debe declarar unidad monetaria por tarea`);
+  if (s.name === "cost_per_accepted_task" && (!/currency/i.test(s.unit) || !/^[A-Z]{3}$/.test(s.currency ?? ""))) errors.push(`${s.id}: cost_per_accepted_task debe declarar unidad monetaria por tarea y código de moneda ISO 4217`);
   if (s.name === "unauthorized_action_count" && s.unit !== "count") errors.push(`${s.id}: unauthorized_action_count debe usar count`);
 }
 const requiredPolicy = {
