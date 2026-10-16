@@ -33,5 +33,11 @@ const coveredBoundaries=new Set((data.threats??[]).flatMap(t=>t.trust_boundary_i
 for(const boundaryId of boundaryIds)if(!coveredBoundaries.has(boundaryId))errors.push(boundaryId+": límite de confianza sin amenaza asociada");
 for(const x of data.test_cases??[])for(const f of ["input","expected"])if(!ok(x[f]))errors.push(x.id+": falta "+f);
 for(const x of data.acceptance_criteria??[])for(const f of ["condition","evidence","verification"])if(!ok(x[f]))errors.push(x.id+": falta "+f);
+const knownTestIds=new Set((data.test_cases??[]).map(x=>x.id));
+for(const x of data.acceptance_criteria??[]){
+ const refs=[...(x.evidence??"").matchAll(/SEC-T\\d+/g)].map(m=>m[0]);
+ for(const ref of refs)if(!knownTestIds.has(ref))errors.push(x.id+": evidencia referencia una prueba inexistente "+ref);
+ if(/resultados?\\b/i.test(x.evidence??"")&&refs.length===0)errors.push(x.id+": evidencia basada en resultados debe citar al menos un caso SEC-Txx");
+}
 if(errors.length){for(const e of errors)console.error("LAB-08 security: "+e);process.exit(1);}
 console.log("LAB-08 security fixture OK: "+data.assets.length+" activos, "+data.threats.length+" amenazas, "+data.test_cases.length+" pruebas.");
