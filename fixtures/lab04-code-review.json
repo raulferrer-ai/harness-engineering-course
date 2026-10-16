@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "didactic-example-pending-execution",
+  "change_request": {
+    "id": "REV-01",
+    "title": "Validación de un identificador de proyecto",
+    "request": "Rechazar identificadores vacíos o compuestos solo por espacios, sin cambiar el comportamiento de identificadores válidos.",
+    "scope_allowed": ["Añadir validación en la función de entrada indicada por el ejercicio", "Añadir pruebas unitarias focalizadas"],
+    "scope_forbidden": ["Cambiar el formato de identificadores válidos", "Añadir dependencias", "Cambiar contratos públicos no relacionados", "Modificar datos persistidos"],
+    "acceptance_criteria": [
+      {"id":"AC-01","condition":"Un identificador válido existente sigue aceptándose sin alteraciones.","evidence":"Prueba positiva que compara el valor aceptado con el valor original.","verification":"Ejecutar la prueba antes y después del cambio."},
+      {"id":"AC-02","condition":"Una cadena vacía se rechaza de forma explícita y consistente.","evidence":"Prueba negativa con cadena vacía.","verification":"Ejecutar el caso y observar el resultado esperado."},
+      {"id":"AC-03","condition":"Una cadena compuesta solo por espacios se rechaza.","evidence":"Prueba negativa con espacios y aserción del error esperado.","verification":"Ejecutar el caso y confirmar que no se acepta."},
+      {"id":"AC-04","condition":"El comportamiento de identificadores válidos no relacionados permanece intacto.","evidence":"Prueba de regresión sobre un caso válido representativo.","verification":"Comparar la línea base y el resultado posterior."},
+      {"id":"AC-05","condition":"El diff no añade dependencias ni modifica archivos fuera del alcance acordado.","evidence":"Diff y lista de archivos revisados.","verification":"Revisión independiente frente a scope_allowed y scope_forbidden."}
+    ]
+  },
+  "baseline_record": {
+    "required": ["base_commit", "runtime_version", "install_command", "test_command", "test_output_before", "known_failures"],
+    "rule": "Completar con datos observados. No inventar commit, comandos ni resultados; marcar como bloqueado si no pueden obtenerse."
+  },
+  "test_matrix": [
+    {"id":"T-01","kind":"positive","input":"PROJ-42","expected":"aceptado sin modificación","criterion":"AC-01"},
+    {"id":"T-02","kind":"negative","input":"","expected":"rechazado","criterion":"AC-02"},
+    {"id":"T-03","kind":"negative","input":"   ","expected":"rechazado","criterion":"AC-03"},
+    {"id":"T-04","kind":"regression","input":"proj_alpha-7","expected":"mismo comportamiento previo","criterion":"AC-04"}
+  ],
+  "review_checklist": [
+    "El diff contiene solo cambios justificados por la especificación.",
+    "Cada criterio de aceptación enlaza a una prueba o evidencia concreta.",
+    "Las pruebas fallidas de la línea base se distinguen de las regresiones nuevas.",
+    "Se inspeccionan manejo de errores, casos límite y compatibilidad.",
+    "La revisión no se basa únicamente en la explicación del asistente que generó el cambio.",
+    "Los riesgos no resueltos se registran antes de recomendar integración."
+  ],
+  "decision_gate": {
+    "allowed_values": ["accept", "request_changes", "reject", "blocked"],
+    "default": "blocked",
+    "rule": "No recomendar accept mientras falte la línea base, haya criterios sin evidencia o existan fallos nuevos sin explicación."
+  }
+}
