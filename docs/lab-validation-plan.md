@@ -62,3 +62,34 @@ Si alguno de estos elementos impide una ejecución fiel, registrar el laboratori
 - **Bloqueado:** falta una decisión, recurso o dependencia necesaria para una ejecución válida.
 
 No cambiar el estado a «Verificado» solo porque compile el sitio o pase CI.
+
+## Mapa de ejemplos y validación estructural
+
+Usa esta tabla para localizar el ejemplo complementario y ejecutar el chequeo estructural correspondiente. Los comandos validan contratos y referencias definidos en el repositorio; no sustituyen la ejecución del laboratorio ni la revisión independiente descrita arriba.
+
+| Laboratorio | Ejemplo resuelto | Comando estructural |
+|---|---|---|
+| LAB-01 | [Caracterización de modelo](lab01-worked-example.md) | `npm run check:lab01` |
+| LAB-02 | [Especificación verificable](lab02-worked-example.md) | `npm run check:lab02` |
+| LAB-03 | [Experimento de contexto A/B](lab03-worked-example.md) | `npm run check:lab03` |
+| LAB-04 | [Revisión de código](lab04-worked-example.md) | `npm run check:lab04` |
+| LAB-05 | [Herramientas y permisos](lab05-worked-example.md) | `npm run check:lab05` |
+| LAB-06 | [Gate de publicación](lab06-worked-example.md) | `npm run check:lab06` |
+| LAB-07 | [Puntuación y fallos críticos](lab07-worked-example.md) | `npm run check:lab07` |
+| LAB-08 | [Modelado de amenazas](lab08-worked-example.md) | `npm run check:lab08` |
+| LAB-09 | [Observabilidad y recuperación](lab09-worked-example.md) | `npm run check:lab09` |
+| LAB-10 | [Productividad y gobernanza](lab10-worked-example.md) | `npm run check:lab10` |
+
+### Ejecución conjunta
+
+Desde la raíz del repositorio, con Node.js 20 o posterior y dependencias instaladas:
+
+```bash
+npm ci
+npm run check
+```
+
+El comando conjunto construye el sitio, verifica rutas y metadatos curriculares y ejecuta los diez validadores de laboratorio. Si falla, registra el comando exacto, salida, commit y entorno; no conviertas un fallo en un resultado aprobado mediante cambios manuales en la evidencia.
+
+Un resultado satisfactorio confirma únicamente las comprobaciones automatizadas implementadas. No demuestra que cada procedimiento se haya ejecutado en un entorno limpio, que las señales operativas funcionen en producción ni que los resultados de aprendizaje estén validados con alumnado.
+
