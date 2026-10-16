@@ -60,11 +60,7 @@ function targetExists(raw, sourceFile) {
   const lines = content.split(/\r?\n/);
   for (let index = 0; index < lines.length; index++) {
     const atx = lines[index].match(/^ {0,3}#{1,6}\s+(.+?)\s*#*\s*$/);
-    const underline = lines[index + 1]?.trim();
-    const setext = underline && /^(?:=+|-+)$/.test(underline)
-      ? lines[index].match(/^ {0,3}(.+?)\s*$/)
-      : null;
-    const heading = atx ? atx[1].replace(/\s+#+\s*$/, "") : setext?.[1];
+    const heading = atx ? atx[1].replace(/\s+#+\s*$/, "") : null;
     if (!heading) continue;
     const base = slugHeading(heading);
     let slug = base, suffix = 1;
