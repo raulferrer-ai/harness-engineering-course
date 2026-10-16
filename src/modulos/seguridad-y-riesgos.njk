@@ -1,0 +1,122 @@
+---
+layout: layouts/base.njk
+title: Seguridad y gestión de riesgos
+description: "Módulo M08: identifica amenazas en sistemas con IA y valida controles proporcionales mediante pruebas adversariales y evidencia."
+permalink: modulos/seguridad-y-riesgos/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M08 · SEGURIDAD</p>
+    <h1>Seguridad y gestión de riesgos</h1>
+    <p class="hero-lede">La seguridad no se demuestra con una lista de buenas intenciones. Se concreta en límites de confianza, permisos mínimos, controles comprobables y una respuesta definida cuando algo falla.</p>
+    <div class="module-meta"><span>10 horas planificadas</span><span>4 h de fundamentos · 6 h de laboratorio</span><span>LAB-08</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Delimitar activos, actores, límites de confianza y superficies de ataque de una aplicación con IA.</li>
+      <li>Priorizar amenazas según probabilidad, impacto, exposición y capacidad de recuperación.</li>
+      <li>Distinguir instrucciones confiables de contenido no confiable, incluidos documentos y resultados de herramientas.</li>
+      <li>Aplicar permisos mínimos, validación de entradas y salidas, aislamiento y aprobación humana para acciones de riesgo.</li>
+      <li>Diseñar pruebas adversariales que verifiquen tanto el rechazo esperado como la ausencia de efectos no autorizados.</li>
+      <li>Documentar riesgo residual, responsables, señales de incidente y procedimiento de contención.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="amenazas">
+    <div class="section-heading"><div><p class="eyebrow">MODELO DE AMENAZAS</p><h2 id="amenazas">Empieza por activos y límites de confianza</h2></div></div>
+    <p>Antes de elegir controles, identifica qué se quiere proteger, quién puede influir en el sistema y qué decisiones o acciones puede ejecutar. Incluye componentes externos y rutas indirectas: el modelo puede recibir datos de fuentes que no controla el operador.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Activos y consecuencias</h3><p>Credenciales, datos, código, disponibilidad, integridad de resultados, reputación y acciones externas. Describe el daño plausible, no solo el recurso técnico.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Superficies y fronteras</h3><p>Prompts, archivos, recuperación documental, herramientas, APIs, logs, dependencias y permisos del entorno. Marca dónde cambia el nivel de confianza.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Controles y evidencia</h3><p>Vincula cada amenaza prioritaria con un control, una prueba reproducible, una persona responsable y una condición explícita de aceptación.</p></div></section>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="amenazas-comunes">
+    <div class="section-heading"><div><p class="eyebrow">ESCENARIOS</p><h2 id="amenazas-comunes">Amenazas que conviene probar</h2></div></div>
+    <ul>
+      <li><strong>Inyección de instrucciones:</strong> texto en un documento, página o salida de herramienta intenta cambiar las reglas de ejecución.</li>
+      <li><strong>Exposición de datos:</strong> el sistema revela secretos del entorno, información de otro usuario o contenido fuera del ámbito autorizado.</li>
+      <li><strong>Uso indebido de herramientas:</strong> una petición induce escrituras, llamadas externas o cambios de estado no aprobados.</li>
+      <li><strong>Validación insuficiente:</strong> una salida del modelo se interpreta como comando, ruta, consulta o estructura confiable sin validación.</li>
+      <li><strong>Confusión de identidad y permisos:</strong> una acción se ejecuta con privilegios más amplios que los necesarios o sin comprobar quién la solicitó.</li>
+      <li><strong>Agotamiento de recursos:</strong> entradas o ciclos de agente consumen tiempo, tokens, presupuesto o capacidad sin límite efectivo.</li>
+    </ul>
+    <p>Una instrucción adversarial no siempre puede impedirse a nivel del modelo. El diseño debe asumir que puede producirse una salida insegura y evitar que esa salida se convierta en un efecto privilegiado.</p>
+  </section>
+
+  <section class="section" aria-labelledby="controles">
+    <div class="section-heading"><div><p class="eyebrow">DEFENSA EN PROFUNDIDAD</p><h2 id="controles">Haz cumplir las políticas fuera del modelo</h2></div></div>
+    <ul>
+      <li><strong>Permisos mínimos:</strong> herramientas específicas, credenciales acotadas y acceso solo a los recursos imprescindibles.</li>
+      <li><strong>Separación de datos e instrucciones:</strong> delimita contenido no confiable; no otorgues autoridad a texto recuperado o generado por terceros.</li>
+      <li><strong>Validación estructural:</strong> valida esquemas, rutas, rangos, destinatarios y argumentos en código determinista.</li>
+      <li><strong>Control de efectos:</strong> aplica listas de permitidos, aislamiento, límites de tiempo y presupuesto, y operaciones idempotentes cuando sea posible.</li>
+      <li><strong>Aprobación humana:</strong> exige confirmación para acciones irreversibles, externas o de alto impacto, mostrando una vista previa comprensible.</li>
+      <li><strong>Auditoría con minimización:</strong> registra eventos útiles para investigar, sin guardar secretos o datos personales innecesarios.</li>
+    </ul>
+    <aside class="notice"><strong>Principio operativo</strong><p>El modelo puede proponer una acción; el sistema de control decide si está autorizada. La autorización debe verificarse en el punto de ejecución, no confiarse a una promesa incluida en el prompt.</p></aside>
+  </section>
+
+  <section class="section" aria-labelledby="riesgo">
+    <div class="section-heading"><div><p class="eyebrow">EVALUACIÓN</p><h2 id="riesgo">Prioriza y acepta el riesgo de forma explícita</h2></div></div>
+    <p>Para cada escenario, documenta el activo, el vector, el impacto, la probabilidad estimada, los controles existentes, la evidencia de prueba y el riesgo residual. Una matriz cualitativa puede ordenar el trabajo, pero no sustituye el razonamiento ni las obligaciones aplicables.</p>
+    <ul>
+      <li>Define qué fallos son bloqueantes antes de ejecutar las pruebas.</li>
+      <li>Asigna un responsable a cada riesgo que requiera tratamiento o aceptación.</li>
+      <li>Establece condiciones para detener, limitar o revertir la ejecución.</li>
+      <li>Reevalúa el modelo de amenazas cuando cambien datos, herramientas, permisos, usuarios o integraciones.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-08 · 6 HORAS</p><h2 id="lab">Probar las defensas de un agente acotado</h2></div></div>
+    <h3>Objetivo</h3>
+    <p>Construir un modelo de amenazas mínimo y demostrar, mediante pruebas seguras y reproducibles, que las acciones no autorizadas se bloquean en la capa de control, incluso cuando la salida del modelo o un documento de entrada es adversarial.</p>
+    <h3>Entorno seguro</h3>
+    <ul>
+      <li>Trabaja en un repositorio aislado con datos sintéticos y herramientas simuladas.</li>
+      <li>No pruebes contra sistemas ajenos, cuentas reales, infraestructura pública ni datos de terceros.</li>
+      <li>No incluyas credenciales reales en fixtures o logs. Usa valores ficticios que puedan detectarse con facilidad.</li>
+      <li>Si no hay modelo disponible, simula salidas adversariales con fixtures; se evalúa el control de ejecución, no la capacidad de un proveedor.</li>
+    </ul>
+    <h3>Procedimiento</h3>
+    <ol>
+      <li><strong>Alcance (45 min):</strong> elige un agente ficticio con una herramienta de lectura y otra de escritura simulada. Define activos, usuarios y acciones permitidas.</li>
+      <li><strong>Modelo de amenazas (60 min):</strong> documenta al menos cinco escenarios, sus consecuencias, probabilidad cualitativa y controles propuestos.</li>
+      <li><strong>Implementación (90 min):</strong> añade validación de argumentos, permisos mínimos, límites y una puerta de aprobación para la acción de mayor impacto.</li>
+      <li><strong>Pruebas adversariales (75 min):</strong> prueba al menos seis casos: solicitud válida, permiso denegado, instrucción maliciosa en documento, argumento inválido, intento de revelar un secreto ficticio y exceso de presupuesto.</li>
+      <li><strong>Verificación de efectos (45 min):</strong> inspecciona el estado antes y después; demuestra que los casos bloqueados no alteran el estado ni invocan la herramienta privilegiada.</li>
+      <li><strong>Informe (45 min):</strong> registra resultados, riesgo residual, limitaciones y decisión de aceptación o bloqueo.</li>
+    </ol>
+    <h3>Evidencias requeridas</h3>
+    <ul>
+      <li>Diagrama o descripción de activos, actores y límites de confianza.</li>
+      <li>Registro de al menos cinco amenazas priorizadas y su tratamiento.</li>
+      <li>Configuración de permisos y validaciones, sin secretos reales.</li>
+      <li>Suite de pruebas con resultados esperados y observados.</li>
+      <li>Evidencia del estado antes/después para demostrar ausencia de efectos no autorizados.</li>
+      <li>Informe de riesgo residual, responsable y condiciones de recuperación.</li>
+    </ul>
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>Las acciones fuera de política se rechazan en la capa de control, independientemente de la respuesta del modelo.</li>
+      <li>Los casos denegados no producen efectos laterales en el entorno de prueba.</li>
+      <li>La aprobación humana muestra acción y parámetros antes de ejecutarse.</li>
+      <li>Los límites de tiempo y presupuesto se aplican y se pueden verificar.</li>
+      <li>Los resultados son repetibles y no exponen secretos ni datos personales reales.</li>
+    </ul>
+    <h3>Preguntas de reflexión</h3>
+    <ul>
+      <li>¿Qué control seguiría funcionando si el modelo ignorase por completo las instrucciones?</li>
+      <li>¿Qué permisos podrían eliminarse sin perder la función esencial?</li>
+      <li>¿Qué evidencia permitiría distinguir un rechazo correcto de un bloqueo accidental?</li>
+      <li>¿Quién debe aceptar el riesgo residual y qué señales obligan a detener el sistema?</li>
+    </ul>
+  </section>
+
+  <nav class="module-next" aria-label="Navegación del curso"><a href="/#programa">← Todos los módulos</a><a href="/modulos/cicd-observabilidad-mantenimiento/">Siguiente módulo: M09 →</a></nav>
+</article>
