@@ -88,9 +88,9 @@ const evidenceIds = new Set([
   ...scenarios.map(x => x.id)
 ]);
 for (const c of criteria) {
-  const refs = [...(c.evidence ?? "").matchAll(/\\b(?:SIG|EVT|REC|OPS-T)-\\d+\\b/g)].map(m => m[0]);
+  const refs = [...(c.evidence ?? "").matchAll(/\b(?:SIG|EVT|REC|OPS-T)-\d+\b/g)].map(m => m[0]);
   for (const ref of refs) if (!evidenceIds.has(ref)) errors.push(`${c.id}: evidencia referencia un elemento inexistente ${ref}`);
-  if (/\\b(?:SIG|EVT|REC|OPS-T)-/i.test(c.evidence ?? "") && refs.length === 0) errors.push(`${c.id}: la evidencia contiene referencias que no se pudieron interpretar`);
+  if (/\b(?:SIG|EVT|REC|OPS-T)-/i.test(c.evidence ?? "") && refs.length === 0) errors.push(`${c.id}: la evidencia contiene referencias que no se pudieron interpretar`);
 }
 if (!Array.isArray(data.audit_fields) || !["incident_id","source_revision","decision","timestamp"].every(x => data.audit_fields.includes(x))) errors.push("registro de auditoría insuficiente");
 if (data.policy?.promotion_on_critical_security_signal !== "block" || data.policy?.redact_secrets !== true) errors.push("faltan salvaguardas críticas");
