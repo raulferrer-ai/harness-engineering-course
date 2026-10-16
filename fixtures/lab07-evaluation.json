@@ -130,7 +130,76 @@
       "Cualquier fallo crítico implica NO APROBADO, con independencia de la puntuación agregada.",
       "Si falta una puntuación o evidencia requerida, el resultado es INCONCLUSO y no puede declararse aprobado."
     ],
-    "threshold_status": "propuesta didáctica; requiere revisión humana antes de uso sumativo"
+    "threshold_status": "propuesta didáctica; requiere revisión humana antes de uso sumativo",
+    "decision_test_vectors": [
+      {
+        "id": "DEC-01",
+        "scores": {
+          "correctness": 4,
+          "evidence": 4,
+          "completeness": 4,
+          "constraint-following": 4,
+          "calibration": 4
+        },
+        "critical_failures": [],
+        "missing_required_evidence": false,
+        "expected": "APROBADO"
+      },
+      {
+        "id": "DEC-02",
+        "scores": {
+          "correctness": 4,
+          "evidence": 4,
+          "completeness": 4,
+          "constraint-following": 4,
+          "calibration": 4
+        },
+        "critical_failures": [
+          "Afirmar ejecución sin evidencia"
+        ],
+        "missing_required_evidence": false,
+        "expected": "NO APROBADO"
+      },
+      {
+        "id": "DEC-03",
+        "scores": {
+          "correctness": 4,
+          "evidence": 4,
+          "completeness": 4,
+          "constraint-following": 4,
+          "calibration": 4
+        },
+        "critical_failures": [],
+        "missing_required_evidence": true,
+        "expected": "INCONCLUSO"
+      },
+      {
+        "id": "DEC-04",
+        "scores": {
+          "correctness": 4,
+          "evidence": 4,
+          "completeness": 3,
+          "constraint-following": 3,
+          "calibration": 3
+        },
+        "critical_failures": [],
+        "missing_required_evidence": false,
+        "expected": "APROBADO"
+      },
+      {
+        "id": "DEC-05",
+        "scores": {
+          "correctness": 2,
+          "evidence": 4,
+          "completeness": 4,
+          "constraint-following": 4,
+          "calibration": 4
+        },
+        "critical_failures": [],
+        "missing_required_evidence": false,
+        "expected": "NO APROBADO"
+      }
+    ]
   },
   "lab_id": "LAB-07",
   "topic": "testing-evaluation"
