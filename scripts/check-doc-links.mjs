@@ -25,10 +25,10 @@ function targetExists(raw, sourceFile) {
   let decoded;
   try { decoded = decodeURIComponent(raw); }
   catch { return { exists: false, reason: "URL local mal codificada" }; }
-  const beforeQuery = decoded.split("?")[0];
-  const hashIndex = beforeQuery.indexOf("#");
-  const pathname = hashIndex < 0 ? beforeQuery : beforeQuery.slice(0, hashIndex);
-  const fragment = hashIndex < 0 ? "" : beforeQuery.slice(hashIndex + 1);
+  const hashIndex = decoded.indexOf("#");
+  const beforeHash = hashIndex < 0 ? decoded : decoded.slice(0, hashIndex);
+  const pathname = beforeHash.split("?")[0];
+  const fragment = hashIndex < 0 ? "" : decoded.slice(hashIndex + 1);
   const resolved = pathname ? (pathname.startsWith("/")
     ? path.resolve(root, "." + pathname)
     : path.resolve(path.dirname(sourceFile), pathname)) : sourceFile;
