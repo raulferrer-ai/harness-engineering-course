@@ -1,0 +1,109 @@
+---
+layout: layouts/base.njk
+title: Modelos, capacidades y límites
+description: "Módulo M01: caracteriza modelos de IA mediante experimentos reproducibles y verifica sus límites antes de delegar trabajo."
+permalink: modulos/modelos-capacidades-limites/index.html
+---
+
+<article class="module-page">
+  <header class="page-intro">
+    <p class="eyebrow">M01 · FUNDAMENTOS Y LABORATORIO</p>
+    <h1>Modelos, capacidades y límites</h1>
+    <p class="hero-lede">Antes de confiar una tarea a un modelo, caracteriza qué hace bien, dónde falla y qué controles necesita el sistema que lo utiliza.</p>
+    <div class="module-meta"><span>8 horas planificadas</span><span>4 h de fundamentos · 4 h de laboratorio</span><span>LAB-01</span></div>
+  </header>
+
+  <section class="section" aria-labelledby="resultados">
+    <div class="section-heading"><div><p class="eyebrow">AL TERMINAR</p><h2 id="resultados">Resultados de aprendizaje</h2></div></div>
+    <ul>
+      <li>Distinguir la capacidad aparente de un modelo de la fiabilidad demostrada en una tarea concreta.</li>
+      <li>Diseñar un pequeño experimento que compare resultados bajo condiciones controladas.</li>
+      <li>Identificar fallos de seguimiento de instrucciones, omisiones, invenciones, sensibilidad al contexto y variabilidad.</li>
+      <li>Proponer controles proporcionados al impacto del error: pruebas, límites de herramientas, revisión humana o abstención.</li>
+      <li>Registrar evidencia suficiente para que otra persona pueda repetir la evaluación.</li>
+    </ul>
+  </section>
+
+  <section class="section" aria-labelledby="modelo-mental">
+    <div class="section-heading"><div><p class="eyebrow">FUNDAMENTOS</p><h2 id="modelo-mental">Un modelo no es una garantía</h2></div></div>
+    <p>Un modelo genera una salida a partir de una entrada y de su contexto operativo. Que una respuesta sea fluida, específica o convincente no demuestra que sea correcta. La fiabilidad debe evaluarse respecto a una tarea, un entorno y unos criterios definidos.</p>
+    <div class="principle-list">
+      <section><span class="principle-number">01</span><div><h3>Capacidad</h3><p>Qué tipos de tareas puede resolver bajo unas condiciones dadas: por ejemplo, resumir texto, proponer código, clasificar incidencias o transformar datos.</p></div></section>
+      <section><span class="principle-number">02</span><div><h3>Límite</h3><p>En qué condiciones se degrada: contexto incompleto, instrucciones contradictorias, entradas fuera de distribución, ambigüedad, herramientas inaccesibles o requisitos que exigen datos no proporcionados.</p></div></section>
+      <section><span class="principle-number">03</span><div><h3>Control</h3><p>Qué mecanismo detecta o contiene el fallo: esquema de salida, validación determinista, pruebas, consulta de fuentes, permisos mínimos, límites de ejecución o aprobación humana.</p></div></section>
+    </div>
+    <p>La unidad de evaluación no es «el modelo en general», sino <strong>modelo + versión + instrucciones + contexto + herramientas + tarea + criterio de aceptación</strong>. Si cambia una de esas variables, el resultado anterior puede dejar de ser válido.</p>
+  </section>
+
+  <section class="section" aria-labelledby="familias-fallo">
+    <div class="section-heading"><div><p class="eyebrow">ANÁLISIS DE FALLOS</p><h2 id="familias-fallo">Qué observar en una evaluación</h2></div></div>
+    <ul>
+      <li><strong>Exactitud:</strong> la respuesta contradice los datos o el resultado esperado.</li>
+      <li><strong>Completitud:</strong> omite una condición, un paso o un caso relevante.</li>
+      <li><strong>Fundamentación:</strong> afirma detalles que no se desprenden de la información disponible.</li>
+      <li><strong>Seguimiento de restricciones:</strong> incumple formato, alcance, límites o instrucciones negativas.</li>
+      <li><strong>Robustez:</strong> cambia de forma relevante ante variaciones menores de la entrada.</li>
+      <li><strong>Calibración operativa:</strong> no señala incertidumbre o no solicita aclaración cuando faltan datos necesarios.</li>
+    </ul>
+    <p>Estas categorías sirven para registrar observaciones; no presuponen que todos los modelos fallen de la misma forma ni con la misma frecuencia.</p>
+  </section>
+
+  <section class="section" aria-labelledby="lab">
+    <div class="section-heading"><div><p class="eyebrow">LAB-01 · 4 HORAS</p><h2 id="lab">Caracterización de un modelo</h2></div><p class="section-intro">Diseña una evaluación pequeña y reproducible antes de incorporar un modelo a un flujo de trabajo.</p></div>
+
+    <h3>Objetivo</h3>
+    <p>Comparar el comportamiento del modelo en una tarea de extracción estructurada, detectar fallos y recomendar controles. Puedes utilizar un modelo disponible en tu entorno; registra su nombre y versión si esa información está disponible.</p>
+
+    <h3>Preparación</h3>
+    <ol>
+      <li>Elige una tarea acotada con resultado verificable, por ejemplo extraer campos de cinco incidencias ficticias.</li>
+      <li>Define un esquema de salida, los valores esperados y qué se considera error.</li>
+      <li>Prepara al menos cinco casos: uno habitual, uno incompleto, uno ambiguo, uno con instrucciones contradictorias y uno con datos irrelevantes.</li>
+      <li>Fija la misma instrucción, el mismo contexto y los mismos criterios para todas las ejecuciones comparables.</li>
+    </ol>
+
+    <h3>Ejecución</h3>
+    <ol>
+      <li>Ejecuta el conjunto de casos con una instrucción base y guarda las salidas sin corregirlas.</li>
+      <li>Valida cada salida contra el esquema y la respuesta esperada. Separa errores de formato de errores semánticos.</li>
+      <li>Repite al menos los casos ambiguos o propensos a fallos para observar variabilidad, si el entorno lo permite.</li>
+      <li>Introduce una sola modificación controlada —por ejemplo, añadir un ejemplo o una regla explícita de abstención— y repite la prueba.</li>
+      <li>Compara los resultados. No atribuyas la mejora a una variable si cambiaste varias a la vez.</li>
+    </ol>
+
+    <h3>Registro de evidencia</h3>
+    <p>Entrega una tabla o archivo con estos campos:</p>
+    <ul>
+      <li>ID del caso y entrada exacta.</li>
+      <li>Versión del modelo, fecha, instrucción y contexto utilizados.</li>
+      <li>Salida original y salida esperada.</li>
+      <li>Resultado de cada criterio: pasa, falla o no evaluable.</li>
+      <li>Tipo y gravedad del fallo; evidencia que justifica la clasificación.</li>
+      <li>Control propuesto y resultado de la repetición.</li>
+    </ul>
+
+    <h3>Criterios de aceptación</h3>
+    <ul>
+      <li>Todos los casos tienen un resultado esperado definido antes de evaluar las salidas.</li>
+      <li>Las ejecuciones y las instrucciones son reproducibles a partir del registro entregado.</li>
+      <li>Los errores de formato y de contenido se contabilizan por separado.</li>
+      <li>La conclusión se apoya en los resultados observados y declara las limitaciones de la muestra.</li>
+      <li>Se propone al menos un control verificable para un fallo relevante, incluyendo una prueba negativa cuando corresponda.</li>
+    </ul>
+
+    <h3>Preguntas de análisis</h3>
+    <ol>
+      <li>¿Qué fallo tuvo mayor impacto y cómo lo detectaste?</li>
+      <li>¿La modificación controlada mejoró el resultado en todos los casos o introdujo una regresión?</li>
+      <li>¿Qué parte puede comprobarse con reglas deterministas y qué parte requiere juicio humano?</li>
+      <li>¿Qué evidencia adicional necesitarías antes de usar este modelo en un entorno de producción?</li>
+    </ol>
+  </section>
+
+  <section class="closing-band" aria-labelledby="salida">
+    <p class="eyebrow">ENTREGABLE</p>
+    <h2 id="salida">Una decisión basada en evidencia, no en impresión.</h2>
+    <p>Entrega el conjunto de casos, las salidas originales, los resultados de validación, el análisis de fallos y una recomendación de uso con límites explícitos.</p>
+    <a class="text-link" href="/#programa">Volver al programa <span aria-hidden="true">→</span></a>
+  </section>
+</article>
