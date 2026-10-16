@@ -28,6 +28,10 @@ for (const key of ["baseline","assisted"]) {
   if (Number.isFinite(group?.cycle_time_minutes) && group.cycle_time_minutes <= 0) errors.push(key+": cycle_time_minutes debe ser mayor que cero");
 }
 if (!c.expected_failure_cost || !["baseline","assisted"].every(k => Number.isFinite(c.expected_failure_cost[k]) && c.expected_failure_cost[k] >= 0)) errors.push("faltan costes esperados de fallos por grupo");
+if (!/^[A-Z]{3}$/.test(c.currency ?? "")) errors.push("comparison.currency debe declarar un código de moneda de tres letras");
+const cmp = c.comparability ?? {};
+for (const field of ["task_definition_match", "acceptance_criteria_version_match", "observation_window_days_match", "source_data_verified"]) if (typeof cmp[field] !== "boolean") errors.push(`comparability.${field} debe ser booleano`);
+if (!nonempty(cmp.note)) errors.push("comparability.note debe explicar el estado de la evidencia");
 if (!Array.isArray(c.measurement_notes) || c.measurement_notes.length < 2) errors.push("faltan notas sobre calidad de medición");
 const metrics = data.metrics ?? [];
 unique(metrics,"métricas");
@@ -89,12 +93,22 @@ for(const v of data.decision_test_vectors??[]){
   if(!nonempty(v.id)||vectorIds.has(v.id)||!["expand_cautiously","do_not_expand","inconclusive","block"].includes(v.expected_decision))errors.push("vector de decisión inválido o duplicado "+v.id);
   vectorIds.add(v.id);vectorDecisions.add(v.expected_decision);
   if(!nonempty(v.reason))errors.push(v.id+": falta justificación de la decisión");
+  if(!["observed_fixture","hypothetical_gate"].includes(v.evidence_basis))errors.push(v.id+": evidence_basis debe ser observed_fixture o hypothetical_gate");
   if(typeof v.missing_measurement!=="boolean"||typeof v.unapproved_external_action!=="boolean")errors.push(v.id+": faltan flags booleanos de medición o autorización");
   if(v.missing_measurement===true&&v.expected_decision!=="inconclusive")errors.push(v.id+": datos ausentes deben producir resultado inconcluso");
   if(v.unapproved_external_action===true&&v.expected_decision!=="block")errors.push(v.id+": acción externa sin aprobación debe bloquearse");
   if(v.expected_decision==="expand_cautiously"&&!/comparable/i.test(v.reason))errors.push(v.id+": la expansión debe exigir tareas comparables");
   if(v.expected_decision==="expand_cautiously"&&!/quality|calidad/i.test(v.reason))errors.push(v.id+": la expansión debe mencionar calidad");
   if(v.expected_decision==="expand_cautiously"&&!/coste|cost/i.test(v.reason))errors.push(v.id+": la expansión debe mencionar coste total");
+  if(v.evidence_basis==="observed_fixture" && v.comparison_result && ["expand_cautiously","do_not_expand"].includes(v.expected_decision)){
+    const totalCost=g=>((g.model_cost+g.infra_cost+(g.human_minutes_per_task*g.tasks_completed/60*c.labor_cost_per_hour)+(c.expected_failure_cost?.[g===c.baseline?"baseline":"assisted"]??0))/g.accepted_deliveries);
+    const baselineCost=totalCost(c.baseline), assistedCost=totalCost(c.assisted);
+    const baselineDefectRate=c.baseline.defects_found/c.baseline.accepted_deliveries, assistedDefectRate=c.assisted.defects_found/c.assisted.accepted_deliveries;
+    const costDirection=assistedCost<baselineCost?"lower":assistedCost>baselineCost?"higher":"equal";
+    const defectDirection=assistedDefectRate<c.baseline.defects_found/c.baseline.accepted_deliveries?"lower":assistedDefectRate>baselineDefectRate?"higher":"not_higher";
+    if(v.comparison_result.cost_per_delivery!==costDirection)errors.push(v.id+": dirección de coste no coincide con el cálculo del fixture");
+    if(v.comparison_result.defect_rate!==defectDirection)errors.push(v.id+": dirección de defectos por entrega aceptada no coincide con el cálculo del fixture");
+  }
   if(["expand_cautiously","do_not_expand"].includes(v.expected_decision)){
     const result=v.comparison_result;
     if(!result||!["lower","equal","higher","unknown"].includes(result.cost_per_delivery)||!["lower","not_higher","higher","unknown"].includes(result.defect_rate)||typeof result.tasks_comparable!=="boolean")errors.push(v.id+": falta comparación explícita de coste, defectos y comparabilidad");
