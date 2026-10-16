@@ -60,6 +60,7 @@ try {
     ["canonical LF", canonical],
     ["canonical CRLF", canonical.replace(/\r?\n/g, "\r\n")],
     ["canonical CR-only", canonical.replace(/\r?\n/g, "\r")],
+    ["canonical mixed line endings", canonical.replace(/\r?\n/g, "\r\n").replace("## 1. Alcance y procedencia\r\n", "## 1. Alcance y procedencia\r")],
     ["trailing spaces", canonical.replace(/([^\r\n]+)$/gm, "$1   ")],
     ["extra final newlines", canonical.replace(/[\r\n]*$/, "\n\n\n")]
   ];
