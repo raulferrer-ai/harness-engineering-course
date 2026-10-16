@@ -27,7 +27,7 @@ Las páginas de los diez módulos ya contienen una sección «Resultados de apre
 
 ## Relaciones transversales que requieren validación
 
-Los siguientes cruces son plausibles por tema, pero **no se consideran cobertura aprobada** hasta que se revisen los resultados de aprendizaje y sus evidencias:
+Los siguientes cruces son plausibles por tema, pero **no se consideran cobertura aprobada** hasta que se valide formalmente la relación entre competencia, resultados ya publicados en los módulos y evidencias:
 
 - COMP-05 con M06/LAB-06: límites operativos y políticas ejecutables para agentes.
 - COMP-06 con M07/LAB-07 y M09/LAB-09: controles, verificación y operación.
@@ -37,15 +37,15 @@ Los siguientes cruces son plausibles por tema, pero **no se consideran cobertura
 
 Estas relaciones deben convertirse en filas explícitas con resultados y evidencia solo después de validación; no deben interpretarse como una decisión cerrada.
 
-## Cadena que debe completarse por cada resultado
+## Cadena de trazabilidad que debe validarse por cada resultado
 
 | Campo | Requisito |
 |---|---|
 | Competencia | ID existente COMP-01–COMP-09; propuesta nueva solo tras aprobación |
-| Resultado de aprendizaje | Verbo observable, producto/actuación y condición de ejecución |
-| Lección/actividad | Referencia estable y oportunidad real de practicar el resultado |
-| Evidencia | Artefacto o registro inspeccionable generado por el alumno |
-| Criterio de aceptación | Condición objetiva que permite decidir si la evidencia cumple |
+| Resultado de aprendizaje | Resultado observable publicado en el módulo; comprobar verbo, producto/actuación y condición de ejecución |
+| Lección/actividad | Referencia estable y oportunidad real de practicar el resultado; completar o enlazar si falta |
+| Evidencia | Artefacto o registro inspeccionable generado por el alumno; distinguir fixture de ejemplo y entrega real |
+| Criterio de aceptación | Condición objetiva vinculada a la evidencia y al resultado; comprobar cobertura y verificabilidad |
 | Laboratorio | ID LAB-01–LAB-10 cuando corresponda |
 | Verificación | Método, entorno, versión/contexto y resultado registrado |
 | Estado | No especificado, Borrador, Verificado o Bloqueado |
@@ -53,7 +53,7 @@ Estas relaciones deben convertirse en filas explícitas con resultados y evidenc
 ## Decisiones abiertas
 
 - Validar las asociaciones competencia–módulo propuestas y los cruces transversales.
-- Definir resultados observables, actividades, evidencias y criterios de aceptación.
+- Normalizar los resultados de aprendizaje ya publicados y enlazarlos con actividades, evidencias y criterios verificables; no todos los fixtures tienen el mismo nivel de detalle.
 - Especificar el proyecto transversal, el entorno/herramientas y la licencia del repositorio.
 - Aprobar reglas operativas de evaluación y fallos críticos de seguridad antes de automatizar puntuaciones.
 - Ejecutar y documentar los laboratorios antes de marcarlos como verificados.
