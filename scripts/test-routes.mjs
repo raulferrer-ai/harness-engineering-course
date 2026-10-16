@@ -77,6 +77,11 @@ try {
   });
   expectFail("unquoted href to missing local target", unquotedMissingTarget, "broken local URL");
 
+  const encodedMissingPath = await fixture("encoded-missing-path", {
+    "index.html": '<a href="/gu%C3%ADa-inexistente/">Missing page</a>\n'
+  });
+  expectFail("percent-encoded Unicode path to missing file", encodedMissingPath, "broken local URL");
+
   const missingFile = await fixture("missing-file", {
     "index.html": '<a href="/missing/">Missing</a>\n'
   });
