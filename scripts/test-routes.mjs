@@ -59,6 +59,12 @@ try {
   });
   expectPass("local files, directory indexes, quoted and unquoted fragment IDs", valid);
 
+  const encodedUnicodePathAndFragment = await fixture("encoded-unicode-path-and-fragment", {
+    "index.html": '<a href="/gu%C3%ADa/?vista=compacte#secci%C3%B3n">Ir a la sección</a>\n',
+    "guía/index.html": '<section id="sección">Contenido</section>\n'
+  });
+  expectPass("encoded Unicode paths and fragments with query strings", encodedUnicodePathAndFragment);
+
   const unquotedLocalAttributes = await fixture("unquoted-local-attributes", {
     "index.html": '<a href=/guide/>Guide</a><img src=/assets/site.css alt="">\n',
     "guide/index.html": '<h1 id="top">Guide</h1>\n',
