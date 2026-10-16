@@ -16,23 +16,39 @@ function walk(directory) {
   }
 }
 
+function slugHeading(heading) {
+  return heading.toLowerCase().replace(/<[^>]*>/g, "").replace(/`([^`]*)`/g, "$1")
+    .replace(/[^\\p{L}\\p{N}\\s-]/gu, "").trim().replace(/\\s+/g, "-");
+}
+
 function targetExists(raw, sourceFile) {
   let decoded;
-  try {
-    decoded = decodeURIComponent(raw);
-  } catch {
-    return { exists: false, reason: "URL local mal codificada" };
-  }
-  const pathname = decoded.split("#")[0].split("?")[0];
-  if (!pathname) return { exists: true };
-  const resolved = pathname.startsWith("/")
+  try { decoded = decodeURIComponent(raw); }
+  catch { return { exists: false, reason: "URL local mal codificada" }; }
+  const beforeQuery = decoded.split("?")[0];
+  const hashIndex = beforeQuery.indexOf("#");
+  const pathname = hashIndex < 0 ? beforeQuery : beforeQuery.slice(0, hashIndex);
+  const fragment = hashIndex < 0 ? "" : beforeQuery.slice(hashIndex + 1);
+  const resolved = pathname ? (pathname.startsWith("/")
     ? path.resolve(root, "." + pathname)
-    : path.resolve(path.dirname(sourceFile), pathname);
-  if (resolved !== root && !resolved.startsWith(root + path.sep)) {
+    : path.resolve(path.dirname(sourceFile), pathname)) : sourceFile;
+  if (resolved !== root && !resolved.startsWith(root + path.sep))
     return { exists: false, reason: "el enlace sale del repositorio" };
+  const candidates = pathname ? [resolved, path.join(resolved, "index.md"), path.join(resolved, "index.html")] : [sourceFile];
+  const target = candidates.find((candidate) => fs.existsSync(candidate) && fs.statSync(candidate).isFile());
+  if (!target) return { exists: false, resolved };
+  if (!fragment) return { exists: true, resolved };
+  const content = fs.readFileSync(target, "utf8");
+  const ids = new Set();
+  for (const match of content.matchAll(/^ {0,3}#{1,6}\\s+(.+?)\\s*#*\\s*$/gm)) {
+    const heading = match[1].replace(/\\s+#+\\s*$/, "");
+    const base = slugHeading(heading);
+    let slug = base, suffix = 1;
+    while (ids.has(slug)) slug = base + "-" + suffix++;
+    ids.add(slug);
   }
-  const candidates = [resolved, path.join(resolved, "index.md"), path.join(resolved, "index.html")];
-  return { exists: candidates.some((candidate) => fs.existsSync(candidate)), resolved };
+  for (const match of content.matchAll(/\\b(?:id|name)\\s*=\\s*[\"']([^\"']+)[\"']/gi)) ids.add(match[1]);
+  return ids.has(fragment) ? { exists: true, resolved } : { exists: false, reason: "ancla no encontrada", resolved, fragment };
 }
 
 walk(root);
@@ -69,7 +85,7 @@ for (const file of markdownFiles) {
     if (!result.exists) {
       const from = path.relative(root, file);
       const to = result.resolved ? path.relative(root, result.resolved) : raw;
-      errors.push(`${from}: enlace local no encontrado "${raw}" (destino: ${to})`);
+      errors.push(`${from}: ${result.reason ?? "enlace local no encontrado"} "${raw}"${result.fragment ? ` (ancla: #${result.fragment})` : ""} (destino: ${to})`);
     }
   }
   for (const match of withoutCode.matchAll(linkPattern)) {
