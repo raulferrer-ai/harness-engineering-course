@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "status": "didactic-example-pending-human-review",
+  "source_request": "El panel de incidencias va lento y a veces muestra datos incorrectos. Arréglalo antes de la demo; aprovecha para ordenar el código.",
+  "blocking_questions": [
+    "¿Qué acción concreta del panel es lenta y cuál es el tiempo de referencia y objetivo?",
+    "¿Qué campos o registros son incorrectos y cuál es la fuente de verdad?",
+    "¿Qué entorno y conjunto de datos reproducen el problema?",
+    "¿Cuál es la fecha y hora exacta de la demo y qué alcance cabe antes de ella?"
+  ],
+  "assumptions": [
+    "No se autoriza una refactorización amplia ni cambios de esquema.",
+    "La corrección debe preservar contratos públicos y comportamiento no relacionado.",
+    "No se modifican datos reales para fabricar un resultado correcto."
+  ],
+  "scope": {
+    "allowed": [
+      "Inspeccionar el código y las consultas del panel.",
+      "Añadir o ajustar pruebas de regresión para el defecto confirmado.",
+      "Aplicar el cambio mínimo necesario después de reproducir el problema."
+    ],
+    "forbidden": [
+      "Refactorizar módulos no relacionados.",
+      "Cambiar el esquema de persistencia o contratos públicos sin aprobación.",
+      "Editar manualmente datos de producción.",
+      "Desplegar a producción sin autorización explícita."
+    ]
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "condition": "El defecto de datos identificado se reproduce con un caso de prueba y la corrección hace que el resultado coincida con la fuente de verdad.",
+      "evidence": "Prueba de regresión y comparación documentada con la fuente de verdad.",
+      "verification": "Ejecutar la prueba antes y después del cambio en el entorno acordado."
+    },
+    {
+      "id": "AC-02",
+      "condition": "Las pruebas existentes y las nuevas pruebas pertinentes terminan correctamente.",
+      "evidence": "Salida íntegra de los comandos de prueba y versión del entorno.",
+      "verification": "Ejecutar los comandos documentados desde un checkout limpio."
+    },
+    {
+      "id": "AC-03",
+      "condition": "El rendimiento se mide con el mismo conjunto de datos, entorno y operación antes y después; el resultado se compara con un objetivo acordado antes de implementar.",
+      "evidence": "Mediciones repetibles, método y objetivo aprobado.",
+      "verification": "Repetir la medición en condiciones equivalentes y registrar variación."
+    },
+    {
+      "id": "AC-04",
+      "condition": "El diff queda limitado al problema confirmado y no altera contratos o áreas excluidas.",
+      "evidence": "Diff revisado y lista de archivos cambiados.",
+      "verification": "Revisión independiente del diff frente a los límites de alcance."
+    }
+  ],
+  "stop_conditions": [
+    "No se puede identificar la fuente de verdad para los datos incorrectos.",
+    "La solución requiere cambiar esquema, contrato público, permisos o datos reales.",
+    "No existe una medición de rendimiento comparable o el objetivo sigue sin acordarse.",
+    "La corrección exige ampliar el alcance o comprometer la demo sin autorización."
+  ],
+  "decision": {
+    "status": "blocked-pending-clarification",
+    "reason": "La petición original no identifica el defecto, la métrica de lentitud ni el alcance de la demo; los criterios de rendimiento no pueden cerrarse sin respuesta."
+  }
+}
