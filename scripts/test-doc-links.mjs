@@ -59,6 +59,12 @@ try {
   });
   expectPass("enlaces Markdown de referencia", run(references), "enlaces locales comprobados");
 
+  const collapsedReferences = await fixture("collapsed-references", {
+    "README.md": "[Guía]\n\n[Guía]: docs/guia.md\n\nTexto [entre corchetes] y casilla [] sin enlace.\n\n```md\n[Ejemplo][missing]\n```\n",
+    "docs/guia.md": "# Guía\n"
+  });
+  expectPass("referencias abreviadas, corchetes de texto y ejemplos en código", run(collapsedReferences), "enlaces locales comprobados");
+
   const brokenReference = await fixture("broken-reference", {
     "README.md": "[Guía][missing]\n"
   });
