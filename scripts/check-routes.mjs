@@ -66,10 +66,19 @@ for (const file of htmlFiles) {
   const sourcePath = browserPath(file);
   const { duplicates } = await htmlAnchorsIn(file);
   for (const id of duplicates) failures.push(sourcePath + ': duplicate HTML id "' + id + '"');
-  const attributes = [...html.matchAll(/\b(?:href|src)\s*=\s*["']([^"']*)["']/gi)];
 
-  for (const match of attributes) {
-    const value = match[1].trim();
+  const markup = html
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, "");
+  const attributes = [];
+  for (const tag of markup.matchAll(/<[a-z][^>]*>/gi)) {
+    for (const attribute of tag[0].matchAll(/\b(href|src)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<> \x60]+))/gi)) {
+      attributes.push({ name: attribute[1].toLowerCase(), value: attribute[2] ?? attribute[3] ?? attribute[4] });
+    }
+  }
+
+  for (const attribute of attributes) {
+    const value = attribute.value.trim();
     if (!value || /^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(value)) continue;
 
     let resolved;
