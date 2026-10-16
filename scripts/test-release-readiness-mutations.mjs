@@ -9,11 +9,11 @@ const checklistPath = join(root, "docs/release-readiness-checklist.md");
 const validatorPath = join(root, "scripts/check-release-readiness-checklist.mjs");
 const canonical = await readFile(checklistPath, "utf8");
 const cases = [
-  ["missing decision section", text => text.replace("## 5. Decisión", "## 5. Resultado"), /falta sección: ## 5\. Decisión/],
-  ["missing evidence safeguard", text => text.replace("no inferir éxito", "asumir éxito"), /falta regla o salvaguarda: no inferir éxito/],
-  ["missing decision owner", text => text.replace("| Responsable de la decisión |", "| Dueño de la decisión |"), /falta campo en el registro de decisión: Responsable de la decisión/],
-  ["missing critical failure policy", text => text.replace("fallo crítico", "incidencia"), /falta regla o salvaguarda: fallo crítico/],
-  ["missing release outcome choices", text => text.replace("BLOQUEAR / APROBAR CON CONDICIONES / APROBAR", "PUBLICAR"), /falta regla o salvaguarda: BLOQUEAR \/ APROBAR CON CONDICIONES \/ APROBAR/]
+  { label: "missing decision section", mutate: text => text.replace("## 5. Decisión", "## 5. Resultado"), expectedDiagnostic: "falta sección: ## 5. Decisión" },
+  { label: "missing evidence safeguard", mutate: text => text.replace("no inferir éxito", "asumir éxito"), expectedDiagnostic: "falta regla o salvaguarda: no inferir éxito" },
+  { label: "missing decision owner", mutate: text => text.replace("| Responsable de la decisión |", "| Dueño de la decisión |"), expectedDiagnostic: "falta campo en el registro de decisión: Responsable de la decisión" },
+  { label: "missing critical failure policy", mutate: text => text.replace("fallo crítico", "incidencia"), expectedDiagnostic: "falta regla o salvaguarda: fallo crítico" },
+  { label: "missing release outcome choices", mutate: text => text.replace("BLOQUEAR / APROBAR CON CONDICIONES / APROBAR", "PUBLICAR"), expectedDiagnostic: "falta regla o salvaguarda: BLOQUEAR / APROBAR CON CONDICIONES / APROBAR" }
 ];
 
 const temp = await mkdtemp(join(tmpdir(), "release-checklist-mutations-"));
@@ -25,34 +25,39 @@ function run(fixturePath) {
     env: { ...process.env, RELEASE_CHECKLIST_PATH: fixturePath }
   });
 }
+function assert(condition, message) {
+  if (!condition) {
+    failures++;
+    console.error("FAIL " + message);
+    return false;
+  }
+  return true;
+}
+
 try {
   const baselinePath = join(temp, "canonical.md");
   await writeFile(baselinePath, canonical, "utf8");
   const baseline = run(baselinePath);
-  if (baseline.status !== 0) {
-    failures++;
-    console.error("FAIL canonical checklist should pass\n" + baseline.stdout + baseline.stderr);
-  } else {
-    console.log("PASS canonical checklist");
-  }
+  assert(baseline.status === 0, "canonical checklist should pass (exit " + baseline.status + "):\n" + baseline.stdout + baseline.stderr);
 
-  for (const [label, mutate, expected] of cases) {
-    const fixturePath = join(temp, label.replace(/[^a-z0-9]+/gi, "-") + ".md");
-    await writeFile(fixturePath, mutate(canonical), "utf8");
+  for (const testCase of cases) {
+    const mutated = testCase.mutate(canonical);
+    if (!assert(mutated !== canonical, testCase.label + ": mutation did not alter the canonical fixture")) continue;
+
+    const fixturePath = join(temp, testCase.label.replace(/[^a-z0-9]+/gi, "-") + ".md");
+    await writeFile(fixturePath, mutated, "utf8");
     const result = run(fixturePath);
     const output = result.stdout + result.stderr;
-    if (result.status !== 1 || !expected.test(output)) {
-      failures++;
-      console.error("FAIL " + label + ": expected exit 1 and diagnostic /" + expected.source + "/\nexit=" + result.status + "\n" + output);
-    } else {
-      console.log("PASS rejects " + label);
-    }
+    assert(result.status === 1, testCase.label + ": expected exit 1, got " + result.status + "\n" + output);
+    assert(output.includes(testCase.expectedDiagnostic), testCase.label + ": missing expected diagnostic " + JSON.stringify(testCase.expectedDiagnostic) + "\n" + output);
+    if (result.status === 1 && output.includes(testCase.expectedDiagnostic)) console.log("PASS rejects " + testCase.label + " with the expected diagnostic");
   }
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
+
 if (failures) {
-  console.error("Release checklist mutation tests failed: " + failures + " failure(s).");
+  console.error("Release checklist mutation tests failed: " + failures + " assertion(s).");
   process.exit(1);
 }
-console.log("Release checklist mutation tests passed: canonical input accepted and " + cases.length + " mutations rejected.");
+console.log("Release checklist mutation tests passed: canonical input accepted and all " + cases.length + " mutations rejected with specific diagnostics.");
