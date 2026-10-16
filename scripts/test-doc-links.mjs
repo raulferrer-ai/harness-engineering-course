@@ -61,7 +61,7 @@ try {
   expectPass("rutas con caracteres reservados codificados", run(encodedPath), "enlaces locales comprobados");
 
   const validAnchors = await fixture("valid-anchors", {
-    "README.md": "# Inicio\n\n## Segunda sección\n\n## Repetida\n\n## Repetida\n\n[Segunda sección](#segunda-sección) [Repetición](#repetida-1) [ID HTML](docs/guia.md?view=compact#detalle) [Referencia local][inicio]\n\n[inicio]: #inicio\n",
+    "README.md": "# Inicio\n\n## Segunda sección\n\n## Repetida\n\n## Repetida\n\n[Segunda sección](#segunda-sección) [Ancla codificada](#segunda-secci%C3%B3n) [Repetición](#repetida-1) [ID HTML](docs/guia.md?view=compact#detalle) [Referencia local][inicio]\n\n[inicio]: #inicio\n",
     "docs/guia.md": "# Guía\n\n<section id=\"detalle\">Contenido</section>\n"
   });
   expectPass("anclas Markdown, IDs HTML y referencias locales", run(validAnchors), "enlaces locales comprobados");
@@ -75,6 +75,11 @@ try {
     "README.md": "```md\n## Solo en código\n```\n\n[Ancla falsa](#solo-en-codigo)\n"
   });
   expectFail("no acepta encabezados dentro de bloques de código", run(codeOnlyAnchor), "ancla no encontrada");
+
+  const codeOnlyHtmlId = await fixture("code-only-html-id", {
+    "README.md": "```html\n<section id=\\"solo-ejemplo\\"></section>\n```\n\n[ID falso](#solo-ejemplo)\n"
+  });
+  expectFail("no acepta IDs HTML dentro de bloques de código", run(codeOnlyHtmlId), "ancla no encontrada");
 
   const missingTargetAnchor = await fixture("missing-target-anchor", {
     "README.md": "[Sección ausente](docs/guia.md#no-existe)\n",
