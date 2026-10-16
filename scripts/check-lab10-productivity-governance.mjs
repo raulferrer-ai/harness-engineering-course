@@ -100,6 +100,8 @@ for(const v of data.decision_test_vectors??[]){
   if(v.expected_decision==="expand_cautiously"&&!/comparable/i.test(v.reason))errors.push(v.id+": la expansión debe exigir tareas comparables");
   if(v.expected_decision==="expand_cautiously"&&!/quality|calidad/i.test(v.reason))errors.push(v.id+": la expansión debe mencionar calidad");
   if(v.expected_decision==="expand_cautiously"&&!/coste|cost/i.test(v.reason))errors.push(v.id+": la expansión debe mencionar coste total");
+  if(v.expected_decision==="expand_cautiously" && v.evidence_basis==="observed_fixture" && c.comparability?.source_data_verified!==true)errors.push(v.id+": no se puede expandir con evidencia observada si los datos de origen no están verificados");
+  if(v.expected_decision==="expand_cautiously" && v.evidence_basis==="observed_fixture" && ["task_definition_match","acceptance_criteria_version_match","observation_window_days_match"].some(field=>c.comparability?.[field]!==true))errors.push(v.id+": la expansión exige definiciones, criterios y ventanas de observación comparables");
   if(v.evidence_basis==="observed_fixture" && v.comparison_result && ["expand_cautiously","do_not_expand"].includes(v.expected_decision)){
     const totalCost=g=>((g.model_cost+g.infra_cost+(g.human_minutes_per_task*g.tasks_completed/60*c.labor_cost_per_hour)+(c.expected_failure_cost?.[g===c.baseline?"baseline":"assisted"]??0))/g.accepted_deliveries);
     const baselineCost=totalCost(c.baseline), assistedCost=totalCost(c.assisted);
