@@ -120,6 +120,11 @@ try {
   });
   expectPass("ignore local links inside style content", ignoredStyleLink);
 
+  const duplicateUnquotedIds = await fixture("duplicate-unquoted-ids", {
+    "index.html": '<h2 id=same>First</h2><p id="same">Second</p>\n'
+  });
+  expectFail("duplicate IDs across quoted and unquoted attributes", duplicateUnquotedIds, 'duplicate HTML id "same"');
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
