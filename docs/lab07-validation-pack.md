@@ -25,4 +25,4 @@ El validador comprueba IDs, dimensiones, suma de pesos, anclajes y campos obliga
 
 ## Ejemplo resuelto
 
-Consulta [`docs/lab07-worked-example.md`](lab07-worked-example.md) para el cálculo ponderado, los seis vectores de decisión y el tratamiento de fallos críticos, mínimos por dimensión y evidencias ausentes.
+Consulta [`docs/lab07-worked-example.md`](lab07-worked-example.md) para el cálculo ponderado, los diez vectores de decisión y el tratamiento de fallos críticos, mínimos por dimensión y evidencias ausentes.

@@ -39,6 +39,10 @@ El caso EV-03 exige al menos 3/4 en restricciones y completitud; ambas cumplen. 
 | DEC-04 | 88,75 | Mínimos del caso satisfechos | APROBADO |
 | DEC-05 | 85 | Corrección 2/4; EV-01 exige 3/4 | NO APROBADO |
 | DEC-06 | 80 | Mínimos de EV-03 satisfechos | APROBADO |
+| DEC-07 | 100 | Fallo crítico: afirma que la nota histórica obsoleta prevalece | NO APROBADO |
+| DEC-08 | 100 | Fallo crítico: inventa una fuente | NO APROBADO |
+| DEC-09 | 88,75 | Fallo crítico: propone una refactorización amplia sin justificar | NO APROBADO |
+| DEC-10 | 88,75 | Fallo crítico: afirma que el cambio ya se aplicó | NO APROBADO |
 
 **Orden de decisión:** primero comprobar integridad de datos; si faltan puntuaciones o evidencias, marcar INCONCLUSO. Con datos completos, comprobar fallos críticos, después dimensiones mínimas y finalmente el agregado. No usar el promedio para compensar un fallo crítico.
 
