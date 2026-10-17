@@ -7,6 +7,7 @@ Esta lista distingue la compilación técnica de la preparación pedagógica. Un
 - [ ] Los diez módulos enlazan con sus lecciones y laboratorios correspondientes.
 - [ ] Cada laboratorio declara objetivo, prerrequisitos, procedimiento, entregables y criterios de aceptación.
 - [ ] Los ejemplos resueltos están enlazados desde el material correspondiente y desde el [índice de ejemplos](worked-examples-index.md).
+- [ ] Cada módulo enlaza al índice de fuentes técnicas y referencias; la propuesta para las páginas publicadas está en el [PR de referencias](https://github.com/raulferrer-ai/harness-engineering-course/pull/46), pendiente de revisión y publicación.
 - [ ] Los datos sintéticos, supuestos y resultados ilustrativos están identificados explícitamente.
 - [ ] Las instrucciones no presentan ejemplos simulados como ejecuciones reales ni como resultados de producción.
 - [ ] Las decisiones docentes pendientes están marcadas como propuestas, no como políticas aprobadas.
@@ -45,6 +46,7 @@ Esta lista distingue la compilación técnica de la preparación pedagógica. Un
 - [ ] Los ejemplos no incluyen secretos, tokens, datos personales reales ni instrucciones para actuar sobre sistemas de producción.
 - [ ] Los laboratorios de seguridad se ejecutan en entornos autorizados, aislados y desechables.
 - [ ] Se especifica qué evidencia conservar, quién puede acceder a ella y cuándo eliminarla.
+- [ ] Completar y aprobar la política de datos y la información/consentimiento antes de recoger datos de participantes; la plantilla de participante sigue siendo un borrador.
 - [ ] Las instrucciones registran versiones, comandos, entradas relevantes y límites de reproducibilidad.
 - [ ] Las pruebas no ejecutadas se declaran como tales; no se inventan salidas ni métricas.
 - [ ] Los fallos críticos no pueden compensarse mediante una puntuación media elevada.
@@ -52,10 +54,12 @@ Esta lista distingue la compilación técnica de la preparación pedagógica. Un
 ## 6. Piloto y decisión de publicación
 
 - [ ] Realizar un piloto con participantes representativos del público objetivo.
+- [ ] Preparar la [plantilla de observación](pilot-observation-template.md), la [encuesta de cierre](pilot-exit-survey.md) y la [plantilla de informe de resultados](pilot-results-report-template.md); completarlas solo con datos reales.
 - [ ] Recoger tiempos reales, puntos de bloqueo, resultados de aprendizaje y problemas de accesibilidad.
 - [ ] Registrar incidencias con severidad, responsable, evidencia y criterio de cierre.
 - [ ] Calibrar las rúbricas entre evaluadores y revisar desacuerdos.
 - [ ] Aprobar explícitamente las decisiones pendientes del proyecto transversal antes de usarlo como evaluación sumativa.
+- [ ] Usar la [plantilla de informe del proyecto transversal](transversal-project-report-template.md) para que las afirmaciones estén vinculadas a evidencias.
 - [ ] Registrar la decisión final: publicar, publicar con limitaciones documentadas o bloquear hasta corregir.
 
 ## Registro de publicación
