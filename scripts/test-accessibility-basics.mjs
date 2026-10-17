@@ -21,6 +21,7 @@ const cases = [
   ["accepts icon link with aria-label", good.replace("</main>", '<a href="#x" aria-label="Abrir detalles"><img src="icon.svg" alt=""></a></main>'), 0, /PASS accessibility structure/],
   ["rejects dangling aria-labelledby", good.replace("</main>", '<a href="#x" aria-labelledby="missing-label"><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],
   ["accepts valid aria-labelledby", good.replace("</main>", '<span id="link-label">Abrir detalles</span><a href="#x" aria-labelledby="link-label"><img src="icon.svg" alt=""></a></main>'), 0, /PASS accessibility structure/],
+  ["rejects aria-labelledby pointing to empty element", good.replace("</main>", '<span id="empty-label">   </span><a href="#x" aria-labelledby="empty-label"><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],
   ["rejects duplicate IDs", good.replace("</main>", '<span id="reused">Uno</span><span id="reused">Dos</span></main>'), 1, /duplicate id attribute value/],
   ["rejects duplicate IDs with unquoted attributes", good.replace("</main>", '<span id=reused>Uno</span><span id=reused>Dos</span></main>'), 1, /duplicate id attribute value/],
   ["accepts aria-labelledby with multiple existing IDs", good.replace("</main>", '<span id="first">Primero</span><span id="second">Segundo</span><a href="#x" aria-labelledby="first second"></a></main>'), 0, /PASS accessibility structure/],

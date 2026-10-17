@@ -47,6 +47,16 @@ for (const file of htmlFiles) {
     if (!id.trim() || /[\t\n\f\r ]/.test(id)) errors.push(`${relative}: id attribute value must be non-empty and contain no whitespace`);
   }
   const availableIds = new Set(idValues);
+  const idHasLabelContent = new Map();
+  for (const element of html.matchAll(/<([a-z][\\w:-]*)\\b([^>]*)>([\\s\\S]*?)<\\/\\1\\s*>/gi)) {
+    const id = attr(element[2], "id");
+    if (id === null) continue;
+    const inner = element[3];
+    const textContent = inner.replace(/<script\\b[^>]*>[\\s\\S]*?<\\/script\\s*>/gi, "").replace(/<style\\b[^>]*>[\\s\\S]*?<\\/style\\s*>/gi, "").replace(/<[^>]*>/g, "").replace(/&nbsp;|&#160;|&#x0*a0;/gi, " ").trim();
+    const hasImageName = [...inner.matchAll(/<img\\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim()));
+    const hasAriaName = Boolean(attr(element[2], "aria-label")?.trim());
+    idHasLabelContent.set(id, Boolean(textContent || hasImageName || hasAriaName));
+  }
   const seenIds = new Set();
   for (const id of idValues) {
     if (seenIds.has(id)) errors.push(relative + ': duplicate id attribute value "' + id + '"');
@@ -63,7 +73,7 @@ for (const file of htmlFiles) {
     const inner = anchor[2];
     const textContent = inner.replace(/<[^>]*>/g, "").replace(/&nbsp;|&#160;/gi, " ").trim();
     const labelledBy = (attr(attributes, "aria-labelledby") ?? "").trim().split(/\s+/).filter(Boolean);
-    const validLabelledBy = labelledBy.length > 0 && labelledBy.every(id => availableIds.has(id));
+    const validLabelledBy = labelledBy.length > 0 && labelledBy.every(id => availableIds.has(id) && idHasLabelContent.get(id) === true);
     const hasAccessibleName = Boolean(attr(attributes, "aria-label")?.trim() || validLabelledBy || textContent || [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim())));
     if (!hasAccessibleName) errors.push(`${relative}: link has no detectable accessible name`);
   }
