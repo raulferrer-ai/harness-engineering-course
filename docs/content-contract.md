@@ -62,4 +62,13 @@ Before a module is represented as complete, reviewers should confirm:
 
 ## Automated checks and their limits
 
-`npm run check` builds the site and checks generated local routes. The curriculum metadata check validates basic structural invariants: unique module IDs/slugs/lab IDs, positive workload values, hour arithmetic, and the presence of each dedicated module page. These checks are necessary but do not establish pedagogical quality, competency coverage, lab reproducibility, accessibility conformance, or learner outcomes.
+`npm run check` builds the site and runs these automated gates:
+
+- generated-route and local-link validation, including regression tests for malformed URLs, missing targets and anchors;
+- Markdown link and anchor validation with negative regression cases;
+- release-readiness checklist validation and mutation tests;
+- curriculum scope, IDs, hours, competency mappings, artifact references, required module sections, lab IDs/hours and links to worked examples/evidence/traceability;
+- structural accessibility checks on generated HTML (document language, one main landmark, one h1, image alt attributes) plus regression tests;
+- canonical fixture validation for LAB-01 through LAB-10 and negative mutation tests that check validators reject invalid data with expected diagnostics.
+
+These checks prove only the invariants they execute. They do not establish pedagogical quality, formal approval of all competency mappings, actual model/learner execution, sandbox or production security effectiveness, full WCAG conformance, clean-install reproducibility for every candidate repository, or learner outcomes.
