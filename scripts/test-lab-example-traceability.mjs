@@ -58,6 +58,16 @@ try {
     console.error("FAIL rejects fixture ID followed by a Unicode letter: " + unicodeCollision.stdout + unicodeCollision.stderr);
   } else console.log("PASS rejects fixture ID followed by a Unicode letter");
 
+  const duplicateIdRoot = path.join(temp, "duplicate-id");
+  await makeRoot(duplicateIdRoot);
+  await writeFile(path.join(duplicateIdRoot, "fixtures", "lab02-specification.json"), JSON.stringify({ acceptance_criteria: [{ id: "AC-01" }, { id: "AC-01" }] }), "utf8");
+  await writeFile(path.join(duplicateIdRoot, "docs", "lab02-worked-example.md"), "AC-01", "utf8");
+  const duplicateId = spawnSync(process.execPath, [checker], { cwd: root, encoding: "utf8", env: { ...process.env, LAB_EXAMPLE_TRACEABILITY_ROOT: duplicateIdRoot } });
+  if (duplicateId.status !== 1 || !(duplicateId.stdout + duplicateId.stderr).includes("LAB-02: fixture contains duplicate identifier AC-01")) {
+    failures++;
+    console.error("FAIL rejects duplicate fixture identifiers: " + duplicateId.stdout + duplicateId.stderr);
+  } else console.log("PASS rejects duplicate fixture identifiers");
+
   const badRoot = path.join(temp, "bad");
   await makeRoot(badRoot, "DEC-01");
   const bad = spawnSync(process.execPath, [checker], { cwd: root, encoding: "utf8", env: { ...process.env, LAB_EXAMPLE_TRACEABILITY_ROOT: badRoot } });
@@ -69,4 +79,4 @@ try {
   await rm(temp, { recursive: true, force: true });
 }
 if (failures) process.exit(1);
-console.log("Lab/example traceability regression tests passed: 5 scenarios.");
+console.log("Lab/example traceability regression tests passed: 6 scenarios.");

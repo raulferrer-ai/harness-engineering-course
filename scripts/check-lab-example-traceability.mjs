@@ -55,6 +55,11 @@ for (const contract of contracts) {
     errors.push(`${contract.lab}: fixture contract has no valid identifiers`);
     continue;
   }
+  const seenIds = new Set();
+  for (const id of ids) {
+    if (seenIds.has(id)) errors.push(`${contract.lab}: fixture contains duplicate identifier ${id}`);
+    seenIds.add(id);
+  }
   for (const id of ids) {
     let exactMatch = false;
     let offset = example.indexOf(id);
