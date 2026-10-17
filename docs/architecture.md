@@ -53,14 +53,14 @@ Target WCAG 2.2 AA. Include keyboard operation, visible focus, semantic structur
 
 ## Quality checks
 
-The repository provides `npm run check`, which runs the Eleventy build and the local generated-route/link checker. This is a baseline, not a complete quality gate. Further checks and review should cover:
-- Curriculum and lab traceability.
-- Semantic HTML and accessibility checks.
-- Keyboard and responsive manual review.
-- Reproducibility of lab instructions.
-- Dependency and licensing review.
-- No required paid subscription.
-- No secrets or private learner data in the repository.
+The repository provides `npm run check`, which runs the Eleventy build; structural accessibility checks and regression tests; generated-route and Markdown-link checks; release-readiness checks and mutation tests; curriculum and module-page contract checks; all ten lab fixture validators; and negative mutation tests for validator regressions. This is a broader automated quality gate, but it is not a complete release qualification. Remaining review should cover:
+- Formal approval of competency-to-outcome-to-activity-to-evidence mappings.
+- Keyboard, screen-reader, contrast, zoom and responsive manual review.
+- Actual reproducibility of lab instructions and clean setup in selected candidate repositories.
+- Security controls in a real sandbox, not only fixture policy.
+- Dependency and license review for the selected transversal project repository.
+- Learner pilot, observed workload, assessment calibration and documented outcomes.
+- Privacy and retention review for any evidence collected from learners.
 
 Do not claim a check passed unless it has actually been run and its result recorded.
 
