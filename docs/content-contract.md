@@ -43,7 +43,7 @@ A page existing in the repository, a successful website build, or a passing rout
 
 ## Assessment and project constraints
 
-The transversal project remains planned for 40 hours and evaluation for 16 hours. The concrete project repository/license, tool/runtime matrix, operational scoring rules, and non-compensable critical-security-failure rules remain unresolved in the approved baseline. Do not automate grading or assert a pass threshold until those decisions are approved.
+The transversal project remains planned for 40 hours and evaluation for 16 hours. Working defaults are documented in `docs/transversal-project.md`, and provisional scoring and critical-failure rules are documented in `docs/transversal-project-rubric.md`. These are operational defaults for preparation and pilot calibration; they do not override the approved curriculum or constitute validated summative policy. Do not automate grading or claim the threshold is validated until calibration and the required human approval are recorded.
 
 ## Review and release checklist
 
