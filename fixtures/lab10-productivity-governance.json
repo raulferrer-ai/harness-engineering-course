@@ -173,19 +173,19 @@
     {
       "id": "AC-01",
       "condition": "El coste por entrega aceptada incluye modelos, infraestructura, trabajo humano y coste esperado de fallos.",
-      "evidence": "comparison y MET-03",
+      "evidence": "comparison y MET-01, MET-02, MET-03, MET-04 y MET-05",
       "verification": "recalcular desde datos de origen y comprobar unidades."
     },
     {
       "id": "AC-02",
       "condition": "La recomendación separa métricas observadas, estimaciones e incertidumbre.",
-      "evidence": "measurement_notes y escenarios VAL-T01/VAL-T02",
+      "evidence": "measurement_notes y escenarios VAL-T01, VAL-T02, VAL-T03, VAL-T04 y VAL-T05",
       "verification": "auditar cada cifra y etiquetar valores no observados."
     },
     {
       "id": "AC-03",
       "condition": "Cada caso de uso tiene riesgo, responsable, control y condición de parada.",
-      "evidence": "GOV-01 a GOV-04",
+      "evidence": "GOV-01, GOV-02, GOV-03 y GOV-04",
       "verification": "comprobar campos y cobertura de niveles de riesgo."
     },
     {
@@ -197,13 +197,13 @@
     {
       "id": "AC-05",
       "condition": "Una mejora de velocidad no compensa automáticamente el deterioro de calidad o coste.",
-      "evidence": "DEC-01 a DEC-03 y VAL-T01",
+      "evidence": "DEC-01, DEC-02, DEC-03 y VAL-T01",
       "verification": "revisar la decisión frente a todas las métricas."
     },
     {
       "id": "AC-06",
       "condition": "La recomendación incluye condiciones para ampliar, mantener, corregir o retirar el uso.",
-      "evidence": "decision_rules",
+      "evidence": "DEC-01, DEC-02, DEC-03, DEC-04 y TV-01, TV-02, TV-03 y TV-04",
       "verification": "documentar una decisión reproducible con responsable y fecha de revisión."
     }
   ],
