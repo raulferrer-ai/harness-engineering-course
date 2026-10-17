@@ -4,7 +4,7 @@
 
 ## Reglas comunes
 
-- **Entorno del sitio y validadores:** Node.js 20 o superior, npm y dependencias fijadas por `package-lock.json`. Usar `npm ci` y después `npm run check` para validar el repositorio del curso. Esto valida el sitio y los contratos de datos, no los experimentos con modelos ni el trabajo de los alumnos.
+- **Entorno del sitio y validadores:** Node.js 22 o superior (coherente con `engines` en `package.json` y CI en Node.js 22/24), npm y dependencias fijadas por `package-lock.json`. Usar `npm ci` y después `npm run check` para validar el repositorio del curso. Esto valida el sitio y los contratos de datos, no los experimentos con modelos ni el trabajo de los alumnos. Los entornos didácticos de cada laboratorio pueden tener requisitos propios, que deben indicarse por separado.
 - **Entorno del alumno:** el runtime del repositorio candidato, fijado por ese proyecto. No cambiar versiones ni actualizar dependencias solo para hacer pasar el ejercicio; registrar incompatibilidades como bloqueos.
 - **Herramienta de IA:** opcional salvo que el objetivo del caso requiera observar una salida de modelo. No exigir una suscripción de pago. Registrar proveedor, modelo, versión y parámetros cuando se conozcan; anotar «no disponible» cuando no se expongan.
 - **Aislamiento:** usar repositorios de práctica, directorios temporales, datos sintéticos y credenciales ficticias. No conectar a producción, no subir secretos y no permitir acciones externas por defecto.
