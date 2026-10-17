@@ -118,3 +118,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - LAB-04 now requires each acceptance criterion whose verification calls for a test/execution to be mapped to a test case, while leaving the explicitly manual independent-diff review as a review control rather than misclassifying it as an automated test. CI passed for commit `32247f8` (run 39020782005).
 
 - Added an offline LAB-01 output evaluator that compares saved model responses against the versioned fixture, separates schema validity from semantic matching, and reports missing/duplicate/unknown cases without copying raw responses into the report. Added eight regression scenarios and integrated them into `npm run check`; CI passed for commit `a0ddc18` (run 39020913714). This enables reproducible evaluation of supplied outputs but does not invoke a model or claim model quality without actual runs.
+
+- Aligned LAB-02's canonical specification fixture with its worked example by adding an explicit acceptance criterion for release authorization and mandatory gates. CI passed for commit `a6d08d0` (run 39021199459).
