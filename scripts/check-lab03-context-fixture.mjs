@@ -21,6 +21,11 @@ for (const variant of variants) {
   }
 }
 if (variants.length !== 3) errors.push("se requieren exactamente tres variantes comparables");
+const availableSourcePaths = new Set(
+  variants.flatMap(variant => (variant.files ?? [])
+    .filter(file => nonempty(file.path))
+    .map(file => file.path.split("#", 1)[0]))
+);
 const cases = data.reference_cases ?? [];
 const caseIds = new Set();
 for (const item of cases) {
@@ -33,6 +38,11 @@ for (const item of cases) {
   else {
     if (item.required_sources.some(source => !nonempty(source))) errors.push(`${item.id}: las fuentes requeridas deben ser texto no vacío`);
     if (new Set(item.required_sources).size !== item.required_sources.length) errors.push(`${item.id}: las fuentes requeridas no pueden estar duplicadas`);
+    for (const source of item.required_sources) {
+      if (nonempty(source) && !availableSourcePaths.has(source)) {
+        errors.push(`${item.id}: fuente requerida no presente en ninguna variante ${source}`);
+      }
+    }
   }
 }
 if (cases.length < 5) errors.push("se requieren al menos cinco casos de referencia");

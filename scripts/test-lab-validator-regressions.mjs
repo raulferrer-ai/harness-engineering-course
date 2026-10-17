@@ -38,6 +38,7 @@ const labs = [
       ["missing required source", d => { d.reference_cases[0].required_sources = []; }, /faltan fuentes requeridas/],
       ["empty expected fact", d => { d.reference_cases[0].expected_facts[0] = " "; }, /los hechos de referencia deben ser texto no vacío/],
       ["duplicate required source", d => { d.reference_cases[0].required_sources.push(d.reference_cases[0].required_sources[0]); }, /las fuentes requeridas no pueden estar duplicadas/],
+      ["required source absent from all variants", d => { d.reference_cases[0].required_sources = ["docs/not-in-context.md"]; }, /fuente requerida no presente en ninguna variante docs\/not-in-context\.md/],
       ["empty measurement rule", d => { d.measurement_policy.rules[0] = ""; }, /measurement_policy.rules contiene elementos vacíos/]
     ]
   },
