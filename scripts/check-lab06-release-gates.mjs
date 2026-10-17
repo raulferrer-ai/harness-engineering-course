@@ -12,6 +12,8 @@ const criteria=data.acceptance_criteria??[];unique(criteria,"criterios");if(crit
 if(data.policy?.default!=="block"||data.policy?.missing_evidence!=="block"||data.policy?.commit_mismatch!=="block")errors.push("la política debe bloquear por defecto y ante evidencia ausente o inconsistente");
 if(data.policy?.approval_cannot_override_failed_tests!==true||data.policy?.deployment_is_separate_from_eligibility!==true)errors.push("faltan salvaguardas de aprobación/despliegue");
 if(!Array.isArray(data.audit_record_fields)||!["release_id","source_revision","artifact_digest","decision"].every(x=>data.audit_record_fields.includes(x)))errors.push("registro de auditoría insuficiente");
+if(Array.isArray(data.audit_record_fields)&&new Set(data.audit_record_fields).size!==data.audit_record_fields.length)errors.push("campos del registro de auditoría duplicados");
+if(Array.isArray(data.audit_record_fields)&&data.audit_record_fields.some(field=>!nonempty(field)))errors.push("campos del registro de auditoría vacíos");
 if(!Array.isArray(data.limitations)||data.limitations.length<2)errors.push("faltan limitaciones");
 else if(data.limitations.some(item=>!nonempty(item)))errors.push("limitaciones contiene elementos vacíos");
 if(errors.length){for(const e of errors)console.error(`LAB-06 release gates: ${e}`);process.exit(1);}
