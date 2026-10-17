@@ -93,6 +93,10 @@ Estos puntos son criterios propuestos para revisión; no constituyen todavía un
 - [ ] El protocolo de privacidad, conservación y eliminación de evidencias se confirma antes de recoger datos de participantes.
 - [ ] El piloto registra tiempos y bloqueos reales; ajustar las 40 horas solo con evidencia y explicar la decisión.
 
+## Plantilla de informe y evidencias
+
+Usa [`docs/transversal-project-report-template.md`](transversal-project-report-template.md) como estructura de entrega. La plantilla exige distinguir resultados observados, estimaciones y datos no disponibles; no sustituye la rúbrica ni la defensa individual.
+
 ## Rúbrica y defensa
 
 Consulta [`docs/transversal-project-rubric.md`](transversal-project-rubric.md) para la rúbrica analítica propuesta, reglas de decisión con fallos críticos no compensables, protocolo de defensa individual y lista de comprobación docente. Está pendiente de aprobación y piloto; no es aún una política sumativa validada.

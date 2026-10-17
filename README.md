@@ -27,6 +27,7 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 - [Plan de validación reproducible de los laboratorios](docs/lab-validation-plan.md)
 - [Plantilla de evidencia para cada ejecución](docs/lab-evidence-template.md)
 - [Proyecto transversal: rúbrica y defensa](docs/transversal-project-rubric.md)
+- [Plantilla de informe del proyecto transversal](docs/transversal-project-report-template.md)
 - [Protocolo de calibración de la rúbrica](docs/rubric-calibration-protocol.md)
 - [Protocolo propuesto de piloto del curso](docs/pilot-protocol.md)
 - [Información y consentimiento de participantes — borrador](docs/pilot-participant-information.md)
