@@ -146,3 +146,6 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 
 - Release-readiness checklist regression coverage: `scripts/test-release-readiness-mutations.mjs` now tests 13 semantic mutations (including duplicate accessibility and privacy decision fields), accepts LF/CRLF/CR-only and mixed line endings, and rejects unreadable input with a controlled diagnostic. Latest completed CI runs remain green for commits `5d59a8e` and `865f8c4`; these runs predate any subsequent changes and do not substitute for manual release approval.
+
+
+- Release checklist regression suite confirmed on commit `a0bfdbc`: CI run [39035012787](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035012787) succeeded on Node.js 22 and Node.js 24. The suite verifies formatting-only line-ending variants, controlled failure for unreadable input, and specific diagnostics for semantic mutations.
