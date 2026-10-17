@@ -13,7 +13,9 @@ const labs = [
       ["missing rationale", d => { delete d.cases[0].rationale; }, /falta justificación/],
       ["duplicate case ID", d => { d.cases[1].id = d.cases[0].id; }, /ID vacío o duplicado/],
       ["invalid priority", d => { d.cases[0].expected.priority = "urgent"; }, /prioridad no permitida/],
-      ["expected ticket ID absent from input", d => { d.cases[0].expected.id = "T-999"; }, /expected.id T-999 no aparece en la entrada/],
+      ["expected ticket ID mismatches parsed ticket", d => { d.cases[0].expected.id = "T-999"; }, /expected.id T-999 no coincide con el ticket de la entrada T-104/],
+      ["ticket ID hidden elsewhere does not mask mismatch", d => { d.cases[0].input += " Nota relacionada con T-104."; d.cases[0].expected.id = "T-104"; d.cases[0].input = d.cases[0].input.replace("Ticket T-104", "Ticket T-999"); }, /expected.id T-104 no coincide con el ticket de la entrada T-999/],
+      ["missing ticket identifier", d => { d.cases[0].input = "La incidencia afecta a varios usuarios."; }, /la entrada no contiene un identificador de ticket reconocible/],
       ["duplicate expected ticket ID", d => { d.cases[1].expected.id = d.cases[0].expected.id; }, /expected.id duplicado/]
     ]
   },

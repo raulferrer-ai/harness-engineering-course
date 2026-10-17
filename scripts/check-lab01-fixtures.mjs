@@ -28,8 +28,13 @@ for (const item of data.cases ?? []) {
   } else {
     if (expectedIds.has(expected.id)) fail(`${item.id}: expected.id duplicado ${expected.id}`);
     expectedIds.add(expected.id);
-    if (typeof item.input === "string" && !item.input.includes(expected.id)) {
-      fail(`${item.id}: expected.id ${expected.id} no aparece en la entrada`);
+    if (typeof item.input === "string") {
+      const ticketMatch = item.input.match(/\\bTicket\\s+([A-Z]-\\d+)\\b/i);
+      if (!ticketMatch) {
+        fail(`${item.id}: la entrada no contiene un identificador de ticket reconocible`);
+      } else if (ticketMatch[1] !== expected.id) {
+        fail(`${item.id}: expected.id ${expected.id} no coincide con el ticket de la entrada ${ticketMatch[1]}`);
+      }
     }
   }
   if (!allowed.category.has(expected?.category)) fail(`${item.id}: categoría no permitida`);
