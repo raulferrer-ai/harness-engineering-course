@@ -21,7 +21,14 @@ const cases = [
   { label: "duplicate decision field with CR-only endings", mutate: text => text.replace("| Responsable de la decisión | |", "| Responsable de la decisión | |\r| Responsable de la decisión | |").replace(/\r?\n/g, "\r"), expectedDiagnostic: "campo duplicado en el registro de decisión: Responsable de la decisión" },
   { label: "malformed heading", mutate: text => text.replace("## 2. Cambio y verificación", "# 2. Cambio y verificación"), expectedDiagnostic: "falta sección: ## 2. Cambio y verificación" },
   { label: "duplicate manual accessibility field", mutate: text => text.replace("| Accesibilidad manual | |", "| Accesibilidad manual | |\n| Accesibilidad manual | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Accesibilidad manual" },
-  { label: "duplicate privacy field", mutate: text => text.replace("| Privacidad/consentimiento | |", "| Privacidad/consentimiento | |\n| Privacidad/consentimiento | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Privacidad/consentimiento" }
+  { label: "duplicate privacy field", mutate: text => text.replace("| Privacidad/consentimiento | |", "| Privacidad/consentimiento | |\n| Privacidad/consentimiento | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Privacidad/consentimiento" },
+  { label: "missing exact revision safeguard", mutate: text => text.replace("Revisión exacta", "Revisión general"), expectedDiagnostic: "falta campo en el registro de decisión: Revisión exacta" },
+  { label: "missing build evidence field", mutate: text => text.replace("| Resultado de build y checks | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Resultado de build y checks" },
+  { label: "missing test evidence field", mutate: text => text.replace("| Evidencia de pruebas | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Evidencia de pruebas" },
+  { label: "missing critical-failure field", mutate: text => text.replace("| Fallos críticos abiertos | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Fallos críticos abiertos" },
+  { label: "missing decision field", mutate: text => text.replace("| Decisión | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Decisión" },
+  { label: "duplicate final decision field", mutate: text => text.replace("| Decisión | |", "| Decisión | |\n| Decisión | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Decisión" },
+  { label: "missing independent diff review safeguard", mutate: text => text.replace("revisión independiente del diff", "revisión del cambio"), expectedDiagnostic: "falta regla o salvaguarda: revisión independiente del diff" }
 ];
 
 const temp = await mkdtemp(join(tmpdir(), "release-checklist-tests-"));
