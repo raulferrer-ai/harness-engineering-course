@@ -124,3 +124,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Updated the LAB-07 worked example and validation pack to enumerate all ten decision vectors, including the four newly added critical-failure cases. CI passed for commit `86cf30b` (run 39021294964).
 
 - Added a cross-document traceability check for LAB-02 acceptance criteria, LAB-07 decision vectors, LAB-09 operational evidence IDs, and LAB-10 metrics/governance/scenario IDs, plus three regression scenarios. This prevents a fixture and its worked example from silently drifting apart. CI passed for commit `d8e2975` (run 39021532068).
+
+- Added `docs/accessibility-review-checklist.md` for manual WCAG 2.2 AA review and explicit TG-07/TG-08 gates for accessibility and privacy/consent. These are actionable checklists, not completed audits; both remain pending human execution/review. CI passed for commit `d8a7a3c` (run 39021897657) and for the subsequent gate update `53a2cbc` (run 39021933575).
