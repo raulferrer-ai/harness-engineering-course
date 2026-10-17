@@ -130,6 +130,12 @@ try {
   });
   expectPass("ignore commented IDs when checking duplicates", commentIdIsNotDuplicate);
 
+  const duplicateIdsAcrossFilesAllowed = await fixture("duplicate-ids-across-files", {
+    "index.html": '<h1 id="intro">Home</h1><a href="/guide/#intro">Guide</a>\n',
+    "guide/index.html": '<h1 id="intro">Guide</h1>\n'
+  });
+  expectPass("same ID is allowed on separate HTML pages", duplicateIdsAcrossFilesAllowed);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
