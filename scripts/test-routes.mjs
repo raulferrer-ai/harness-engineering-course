@@ -136,6 +136,12 @@ try {
   });
   expectPass("same ID is allowed on separate HTML pages", duplicateIdsAcrossFilesAllowed);
 
+  const emptyFragment = await fixture("empty-fragment", {
+    "index.html": '<a href="/guide/#">Guide top</a>\n',
+    "guide/index.html": '<h1 id="top">Guide</h1>\n'
+  });
+  expectPass("empty fragment points to document top without lookup", emptyFragment);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
