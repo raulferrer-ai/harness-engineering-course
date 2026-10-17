@@ -23,7 +23,7 @@ const criteria = data.acceptance_criteria ?? []; unique(criteria,"criterios"); i
 const threatIds = new Set(cases.map(item => item.id));
 const coveredThreats = new Set();
 for (const criterion of criteria) {
-  const refs = [...(criterion.evidence ?? "").matchAll(/\\bTP-\\d+\\b/g)].map(match => match[0]);
+  const refs = [...(criterion.evidence ?? "").matchAll(/\bTP-\d+\b/g)].map(match => match[0]);
   for (const ref of refs) {
     if (!threatIds.has(ref)) errors.push(`${criterion.id}: evidencia referencia una amenaza inexistente ${ref}`);
     else coveredThreats.add(ref);
