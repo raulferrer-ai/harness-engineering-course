@@ -47,9 +47,9 @@ Este orden es una propuesta operativa, no una modificación del currículo ni de
 
 ## Bloqueos que no deben resolverse por suposición
 
-- La matriz concreta de herramientas y versiones.
-- El repositorio y la licencia para los ejercicios de desarrollo y el proyecto transversal.
-- Los umbrales de evaluación, las ponderaciones y las reglas definitivas para fallos críticos de seguridad.
+- La matriz concreta de herramientas y versiones debe fijarse por laboratorio y por repositorio candidato; no se debe imponer un runtime universal cuando los ejercicios tengan requisitos distintos.
+- El repositorio y la licencia de cada ejercicio de desarrollo y proyecto deben pasar el contrato de admisión de `docs/transversal-project.md` antes de ejecutarse.
+- La rúbrica dispone de umbral y reglas provisionales; su calibración y aprobación sumativa siguen pendientes. No automatizar una nota final basándose solo en el umbral provisional.
 - Los datos o métricas no disponibles en el entorno de ejecución.
 
 Si alguno de estos elementos impide una ejecución fiel, registrar el laboratorio como bloqueado en vez de sustituirlo silenciosamente por otra configuración.
