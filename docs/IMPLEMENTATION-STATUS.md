@@ -42,3 +42,6 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Added `docs/rubric-calibration-protocol.md` to make independent scoring, discrepancy resolution, evidence recording, and the pilot-readiness decision reproducible. This is a procedure, not a claim that calibration has occurred.
 - Linked the calibration procedure from the rubric so future reviewers can follow a single workflow.
+
+- Added a rubric calibration procedure and linked it from the rubric. It defines independent scoring and discrepancy resolution; no real calibration has been performed yet.
+- Updated the traceability and lab-validation backlogs to distinguish operational defaults from still-unverified execution and curricular approval.
