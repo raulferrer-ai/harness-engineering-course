@@ -198,13 +198,13 @@
     {
       "id": "AC-01",
       "condition": "Cada señal tiene unidad, ventana, umbral y acción operativa.",
-      "evidence": "SIG-01 a SIG-05",
+      "evidence": "SIG-01, SIG-02, SIG-03, SIG-04 y SIG-05; escenarios OPS-T01 y OPS-T05",
       "verification": "validar campos y operadores permitidos."
     },
     {
       "id": "AC-02",
       "condition": "Los eventos permiten correlacionar ejecución, versión, herramienta y resultado.",
-      "evidence": "EVT-01 a EVT-05",
+      "evidence": "EVT-01, EVT-02, EVT-03, EVT-04 y EVT-05",
       "verification": "comprobar campos obligatorios por tipo de evento."
     },
     {
@@ -228,7 +228,7 @@
     {
       "id": "AC-06",
       "condition": "La recuperación no se declara hasta superar comprobaciones posteriores.",
-      "evidence": "REC-01 a REC-04 y OPS-T06",
+      "evidence": "REC-01, REC-02, REC-03, REC-04 y OPS-T06",
       "verification": "revisar métricas y suite de regresión después de la acción."
     }
   ],
