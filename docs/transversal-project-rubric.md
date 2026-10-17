@@ -84,6 +84,10 @@ No presentar la concordancia como validada hasta recopilar resultados del piloto
 - [ ] Piloto realizado y carga real comparada con las 40 horas previstas.
 - [ ] Proceso de revisión y adaptaciones razonables documentados.
 
+## Calibración antes del piloto
+
+Seguir el procedimiento reproducible de [`docs/rubric-calibration-protocol.md`](rubric-calibration-protocol.md). Registrar puntuaciones independientes, discrepancias, evidencia y decisión de salida. No declarar completada la calibración hasta que existan muestras reales o, si solo se ensaya el proceso con viñetas sintéticas, etiquetar el resultado como ensayo del procedimiento y no como evidencia de calibración.
+
 ## Relación con el proyecto transversal
 
 Este documento complementa `docs/transversal-project.md`. La rúbrica es una propuesta de trabajo y no debe convertirse en criterio de evaluación sumativa hasta completar las decisiones de aprobación pendientes y un piloto con estudiantes.
