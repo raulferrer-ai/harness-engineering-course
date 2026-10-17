@@ -99,7 +99,9 @@ const labs = [
       ["duplicate asset ID", d => { d.assets[1].id = d.assets[0].id; }, /ID vacío o duplicado/],
       ["duplicate asset reference", d => { d.threats[0].asset_ids.push(d.threats[0].asset_ids[0]); }, /asset_ids contiene referencias duplicadas/],
       ["duplicate threat reference", d => { d.test_cases[0].threat_ids.push(d.test_cases[0].threat_ids[0]); }, /threat_ids contiene referencias duplicadas/],
-      ["empty security limitation", d => { d.limitations[0] = " "; }, /limitations contiene elementos vacíos/]
+      ["empty security limitation", d => { d.limitations[0] = " "; }, /limitations contiene elementos vacíos/],
+      ["unknown security test evidence", d => { d.acceptance_criteria[1].evidence = "resultado SEC-T99"; }, /evidencia referencia una prueba inexistente SEC-T99/],
+      ["security test not covered by acceptance criteria", d => { d.acceptance_criteria = d.acceptance_criteria.map(criterion => ({ ...criterion, evidence: criterion.evidence.replace(/SEC-T02|SEC-T03|SEC-T04|SEC-T05/g, "") })); }, /SEC-T02: prueba sin referencia en la evidencia de ningún criterio/]
     ]
   },
   {

@@ -43,5 +43,11 @@ for(const x of data.acceptance_criteria??[]){
  for(const ref of refs)if(!knownTestIds.has(ref))errors.push(x.id+": evidencia referencia una prueba inexistente "+ref);
  if(/resultados?\b/i.test(x.evidence??"")&&refs.length===0)errors.push(x.id+": evidencia basada en resultados debe citar al menos un caso SEC-Txx");
 }
+const coveredTests = new Set();
+for (const criterion of data.acceptance_criteria ?? []) {
+  const refs = [...(criterion.evidence ?? "").matchAll(/SEC-T\d+/g)].map(match => match[0]);
+  for (const ref of refs) if (knownTestIds.has(ref)) coveredTests.add(ref);
+}
+for (const testId of knownTestIds) if (!coveredTests.has(testId)) errors.push(testId + ": prueba sin referencia en la evidencia de ningún criterio");
 if(errors.length){for(const e of errors)console.error("LAB-08 security: "+e);process.exit(1);}
 console.log("LAB-08 security fixture OK: "+data.assets.length+" activos, "+data.threats.length+" amenazas, "+data.test_cases.length+" pruebas.");
