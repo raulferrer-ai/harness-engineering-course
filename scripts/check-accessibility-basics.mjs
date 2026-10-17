@@ -98,4 +98,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`PASS accessibility structure: ${htmlFiles.length} HTML pages declare language, one main landmark, one h1, and alt attributes on images.`);
+console.log(`PASS accessibility structure: ${htmlFiles.length} HTML pages checked for document language, main/h1 landmarks, image alt text, unique valid IDs, aria-labelledby references, and detectable link names.`);
