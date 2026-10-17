@@ -116,3 +116,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - LAB-02 now rejects duplicate blocking questions, duplicate scope/stop-condition entries, and exact scope items listed as both allowed and forbidden. Added negative mutation coverage. CI passed for commit `8b8b7a6` (run 39020643882).
 
 - LAB-04 now requires each acceptance criterion whose verification calls for a test/execution to be mapped to a test case, while leaving the explicitly manual independent-diff review as a review control rather than misclassifying it as an automated test. CI passed for commit `32247f8` (run 39020782005).
+
+- Added an offline LAB-01 output evaluator that compares saved model responses against the versioned fixture, separates schema validity from semantic matching, and reports missing/duplicate/unknown cases without copying raw responses into the report. Added eight regression scenarios and integrated them into `npm run check`; CI passed for commit `a0ddc18` (run 39020913714). This enables reproducible evaluation of supplied outputs but does not invoke a model or claim model quality without actual runs.
