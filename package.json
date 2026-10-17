@@ -27,7 +27,7 @@
     "test:routes": "node scripts/test-routes.mjs",
     "check:a11y:structure": "node scripts/check-accessibility-basics.mjs",
     "test:a11y:structure": "node scripts/test-accessibility-basics.mjs",
-    "check:transversal-starter": "npm --prefix examples/transversal-project-starter ci && npm --prefix examples/transversal-project-starter test"
+    "check:transversal-starter": "node scripts/check-transversal-starter.mjs && npm --prefix examples/transversal-project-starter ci && npm --prefix examples/transversal-project-starter test"
   },
   "devDependencies": {
     "@11ty/eleventy": "3.1.2"
