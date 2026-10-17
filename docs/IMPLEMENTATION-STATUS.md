@@ -102,3 +102,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - These checks validate repository contracts and generated HTML heuristics only. They do not replace manual screen-reader/keyboard review or real lab execution.
 
 - LAB-05 now validates traceability from each declared threat case to acceptance-criteria evidence, rejects unknown threat references, and flags threat cases not covered by any criterion. CI passed for commit `834b334` (run 39019967246), including the full repository check and mutation suite.
+
+- LAB-08 now requires every security test case to be referenced by acceptance-criteria evidence and rejects unknown test references. The fixture now enumerates `SEC-T02`, `SEC-T03`, `SEC-T04`, and `SEC-T05` explicitly instead of using a compact range that the validator could not trace reliably. CI passed for commit `9d50592` (run 39020089545).
