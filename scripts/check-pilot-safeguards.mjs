@@ -33,11 +33,14 @@ for (const file of files) {
     failures.push("No se pudo leer un documento de salvaguardas del piloto.");
     continue;
   }
+  const normalizedContent = content.normalize("NFC").toLocaleLowerCase("es").replace(/\s+/gu, " ");
   for (const phrase of file.required) {
-    if (!content.includes(phrase)) failures.push(`${file.path.pathname.split("/").pop()}: falta salvaguarda requerida: ${phrase}`);
+    const normalizedPhrase = phrase.normalize("NFC").toLocaleLowerCase("es").replace(/\s+/gu, " ");
+    if (!normalizedContent.includes(normalizedPhrase)) failures.push(`${file.path.pathname.split("/").pop()}: falta salvaguarda requerida: ${phrase}`);
   }
   for (const phrase of file.forbidden) {
-    if (content.includes(phrase)) failures.push(`${file.path.pathname.split("/").pop()}: afirmación de aprobación no permitida en una plantilla: ${phrase}`);
+    const normalizedPhrase = phrase.normalize("NFC").toLocaleLowerCase("es").replace(/\s+/gu, " ");
+    if (normalizedContent.includes(normalizedPhrase)) failures.push(`${file.path.pathname.split("/").pop()}: afirmación de aprobación no permitida en una plantilla: ${phrase}`);
   }
 }
 

@@ -37,8 +37,8 @@ const mutations = [
   },
   {
     file: "docs/pilot-participant-information.md",
-    label: "forbidden approved-consent claim",
-    mutate: text => text + "\nConsentimiento aprobado\n",
+    label: "forbidden approved-consent claim with altered case and whitespace",
+    mutate: text => text + "\nCONSENTIMIENTO   APROBADO\n",
     expected: "afirmación de aprobación no permitida"
   }
 ];
@@ -82,6 +82,11 @@ function expectFail(label, result, expected) {
 try {
   const canonical = await setup("canonical");
   expectPass("pilot safeguards canonical templates", run(canonical));
+  const normalizedRequired = await setup("normalized-required");
+  const normalizedPath = join(normalizedRequired, "docs/pilot-protocol.md");
+  const normalizedOriginal = await readFile(normalizedPath, "utf8");
+  await writeFile(normalizedPath, normalizedOriginal.replace("antes de recoger datos", "ANTES\\n  DE   RECOGER\\tDATOS"), "utf8");
+  expectPass("accepts required safeguard with irregular whitespace and case", run(normalizedRequired));
   for (const [index, testCase] of mutations.entries()) {
     const project = await setup("mutation-" + index);
     const path = join(project, testCase.file);
