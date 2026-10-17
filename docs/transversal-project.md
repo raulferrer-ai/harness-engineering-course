@@ -46,6 +46,10 @@ Para no bloquear el curso esperando un repositorio único, cada participante sel
 
 El repositorio debe: (1) tener licencia explícita compatible con el uso y las modificaciones previstos; se prefieren MIT, BSD-2/3-Clause o Apache-2.0; (2) poder clonarse y probarse sin credenciales personales ni acceso a producción; (3) incluir una forma documentada de ejecutar pruebas, lint o validaciones; (4) permitir delimitar un cambio de bajo o moderado riesgo; (5) no requerir datos personales ni secretos reales; y (6) permitir conservar la evidencia de forma segura. No admitir repositorios sin licencia clara, código propietario sin autorización, servicios críticos ni tareas destructivas.
 
+### Repositorio de reserva para el piloto
+
+Se incluye [`examples/transversal-project-starter/`](../examples/transversal-project-starter/README.md), un proyecto pequeño con licencia MIT, runtime Node.js 20+ y pruebas sin dependencias externas. Puede usarse como opción de reserva para ensayar instalación, línea base, cambio acotado, verificación y defensa. No sustituye la revisión de admisión y licencia de otros repositorios ni demuestra por sí solo que el diseño del proyecto de 40 horas esté validado.
+
 ### Entorno y herramientas
 
 - Registrar sistema operativo, commit base, runtime, dependencias y comandos exactos.

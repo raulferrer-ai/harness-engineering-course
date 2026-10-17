@@ -26,6 +26,7 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 - [Matriz de herramientas y entornos de LAB-01 a LAB-10](docs/lab-runtime-matrix.md)
 - [Plan de validación reproducible de los laboratorios](docs/lab-validation-plan.md)
 - [Plantilla de evidencia para cada ejecución](docs/lab-evidence-template.md)
+- [Repositorio de reserva del proyecto transversal (MIT)](examples/transversal-project-starter/README.md)
 - [Proyecto transversal: rúbrica y defensa](docs/transversal-project-rubric.md)
 - [Plantilla de informe del proyecto transversal](docs/transversal-project-report-template.md)
 - [Protocolo de calibración de la rúbrica](docs/rubric-calibration-protocol.md)
