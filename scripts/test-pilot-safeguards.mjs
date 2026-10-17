@@ -91,6 +91,15 @@ try {
     await writeFile(path, mutated, "utf8");
     expectFail(testCase.label, run(project), testCase.expected);
   }
+
+  const missingDocumentProject = await setup("missing-document");
+  await rm(join(missingDocumentProject, "docs/pilot-participant-information.md"));
+  const missingDocumentResult = run(missingDocumentProject);
+  expectFail(
+    "missing participant-information document",
+    missingDocumentResult,
+    "No se pudo leer un documento de salvaguardas del piloto"
+  );
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
