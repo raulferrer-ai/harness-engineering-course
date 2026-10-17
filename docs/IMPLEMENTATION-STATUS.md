@@ -136,3 +136,6 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 
 - Expanded `scripts/test-lab-validator-regressions.mjs` with 20 additional negative cases: malformed JSON and non-object JSON roots for each of the ten lab validators. The full `npm run check` workflow passed on Node.js 22 and Node.js 24 for commit `5a42b61` (run 39028319488). The regression suite now exercises 86 semantic mutations plus these 20 malformed-input cases, alongside acceptance of all ten canonical fixtures. This is evidence for validator behavior only; it is not evidence that the practical labs have been executed by learners.
+
+
+- Accessibility structure checker: added detection of whitespace-only image alt text while preserving the valid `alt=""` pattern for decorative images. Regression tests cover both cases. Full CI passed on Node.js 22 and Node.js 24 for commit `0553aa7` (run 39034698434).
