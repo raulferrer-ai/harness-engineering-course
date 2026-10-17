@@ -25,6 +25,10 @@ const cases = [
   ["rejects duplicate IDs with unquoted attributes", good.replace("</main>", '<span id=reused>Uno</span><span id=reused>Dos</span></main>'), 1, /duplicate id attribute value/],
   ["accepts aria-labelledby with multiple existing IDs", good.replace("</main>", '<span id="first">Primero</span><span id="second">Segundo</span><a href="#x" aria-labelledby="first second"></a></main>'), 0, /PASS accessibility structure/],
   ["rejects duplicate IDs with single-quoted attributes", good.replace("</main>", "<span id='reused'>Uno</span><span id='reused'>Dos</span></main>"), 1, /duplicate id attribute value/],
+  ["accepts case-sensitive distinct IDs", good.replace("</main>", '<span id="Item">Uno</span><span id="item">Dos</span></main>'), 0, /PASS accessibility structure/],
+  ["rejects link with whitespace-only text", good.replace("</main>", '<a href="#x">   </a></main>'), 1, /link has no detectable accessible name/],
+  ["rejects whitespace-only aria-label on icon link", good.replace("</main>", '<a href="#x" aria-label="   "><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],
+  ["accepts single-quoted empty alt for decorative image", good.replace('alt="Descripción"', "alt=''"), 0, /PASS accessibility structure/],
   ["rejects aria-labelledby when one of multiple IDs is missing", good.replace("</main>", '<span id="label">Detalles</span><a href="#x" aria-labelledby="label missing-label"><img src="icon.svg" alt=""></a></main>'), 1, /aria-labelledby references missing id/],
   ["rejects dangling aria-labelledby on non-link elements", good.replace("</main>", '<section aria-labelledby="missing-heading"></section></main>'), 1, /aria-labelledby references missing id/],
   ["rejects empty generated site", null, 1, /no generated HTML pages/]
