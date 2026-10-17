@@ -42,6 +42,12 @@ for (const phrase of [
   "no demuestra por sí sola la seguridad"
 ]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
+const decisionStart = markdown.indexOf("## 5. Decisión");
+const limitsStart = markdown.indexOf("## Límites");
+const decisionSection = decisionStart >= 0 && limitsStart > decisionStart
+  ? markdown.slice(decisionStart, limitsStart)
+  : "";
+
 const decisionRows = [
   "Revisión exacta",
   "Responsable de la decisión",
