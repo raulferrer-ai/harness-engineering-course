@@ -92,6 +92,11 @@ try {
   });
   expectFail("report malformed percent encoding without crashing", malformedPercentEncoding, "URI malformed");
 
+  const malformedPercentEncoding = await fixture("malformed-percent-encoding", {
+    "index.html": '<a href="/bad%ZZ/">Malformed URL</a>\n'
+  });
+  expectFail("report malformed percent encoding without crashing", malformedPercentEncoding, "URI malformed");
+
   const missingFile = await fixture("missing-file", {
     "index.html": '<a href="/missing/">Missing</a>\n'
   });
