@@ -88,3 +88,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Added pilot participant-information/consent, observation, exit-survey and results-report templates; linked them from the pilot protocol and README. The participant information is explicitly a draft with required privacy/retention fields still needing responsible review. CI passed for commit `4a58465` (run 39018406636).
 
 - Added an MIT-licensed, dependency-free Node.js fallback starter for the transversal project, with a deliberately scoped validation task and four baseline tests. The top-level `npm run check` now checks the starter's license/metadata contract, runs `npm ci` in its directory and executes its tests. CI passed for commit `9fe9aeb` (run 39018598606).
+
+- Expanded the release-readiness checklist to include the reference-index site PR, clean-install validation of the MIT fallback project, approved participant information/consent, pilot observation/survey/results templates, and the transversal-project report template. CI passed for commit `dec6dd6` (run 39018701984).
