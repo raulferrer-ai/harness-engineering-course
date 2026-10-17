@@ -217,7 +217,7 @@ try {
       { label: "malformed JSON", content: "{", expected: /no se pudo leer o interpretar JSON/ },
       { label: "array root", content: "[]", expected: /la raíz debe ser un objeto JSON/ }
     ]) {
-      const fixturePath = join(temp, `${lab.id.toLowerCase()}-invalid-${testCase.label.replaceAll(" ", "-")} .json`.replace(" .json", ".json"));
+      const fixturePath = join(temp, `${lab.id.toLowerCase()}-invalid-${testCase.label.replaceAll(" ", "-")}.json`);
       await writeFile(fixturePath, testCase.content, "utf8");
       const result = runValidator(lab, fixturePath);
       const output = result.stdout + result.stderr;
@@ -239,4 +239,4 @@ if (failures) {
   process.exit(1);
 }
 const mutationCount = labs.reduce((total, lab) => total + lab.cases.length, 0);
-console.log(`Validator regression suite OK: 10 canonical fixtures accepted; ${mutationCount} invalid mutations rejected for the expected reason.`);
+const malformedInputCount = labs.length * 2;\nconsole.log(`Validator regression suite OK: 10 canonical fixtures accepted; ${mutationCount} semantic mutations and ${malformedInputCount} malformed-input cases rejected for the expected reason.`);
