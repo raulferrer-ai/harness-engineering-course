@@ -5,7 +5,7 @@ Este proyecto mínimo sirve como opción de reserva para practicar el flujo de e
 ## Contrato del proyecto
 
 - **Licencia:** MIT (ver `LICENSE`).
-- **Runtime:** Node.js 20 o posterior.
+- **Runtime:** Node.js 22 o posterior; se recomienda Node.js 24 LTS para nuevas instalaciones.
 - **Dependencias externas:** ninguna.
 - **Instalación reproducible:** `npm ci`.
 - **Línea base:** `npm test`.
