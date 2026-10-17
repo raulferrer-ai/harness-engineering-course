@@ -16,6 +16,7 @@ for (const t of tools) {
     else if (t[f].some(item => !nonempty(item))) errors.push(`${t.name}: ${f} contiene permisos vacíos`);
   }
   if (!nonempty(t.approval)) errors.push(`${t.name}: falta aprobación`);
+  if (Array.isArray(t.allowed) && Array.isArray(t.denied) && t.allowed.some(permission => t.denied.includes(permission))) errors.push(`${t.name}: un permiso no puede estar simultáneamente permitido y denegado`);
 }
 const cases = data.threat_cases ?? []; unique(cases,"amenazas"); if (cases.length < 5) errors.push("se requieren cinco amenazas"); for (const c of cases) if (!nonempty(c.input)||!nonempty(c.expected)) errors.push(`${c.id}: falta entrada o resultado`);
 const criteria = data.acceptance_criteria ?? []; unique(criteria,"criterios"); if (criteria.length < 5) errors.push("se requieren cinco criterios"); for (const c of criteria) for (const f of ["condition","evidence","verification"]) if (!nonempty(c[f])) errors.push(`${c.id}: falta ${f}`);

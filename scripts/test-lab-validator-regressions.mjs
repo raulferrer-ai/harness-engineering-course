@@ -58,6 +58,7 @@ const labs = [
       ["duplicate tool name", d => { d.tools[1].name = d.tools[0].name; }, /herramientas: valor vacío o duplicado/],
       ["invalid tool risk", d => { d.tools[0].risk = "extreme"; }, /riesgo no válido/],
       ["empty allowed permission", d => { d.tools[0].allowed[0] = " "; }, /allowed contiene permisos vacíos/],
+      ["permission both allowed and denied", d => { d.tools[0].denied.push(d.tools[0].allowed[0]); }, /un permiso no puede estar simultáneamente permitido y denegado/],
       ["duplicate audit field", d => { d.audit_fields.push(d.audit_fields[0]); }, /campos de auditoría duplicados/]
     ]
   },
