@@ -16,14 +16,22 @@ const requireText = (text, message = "falta texto obligatorio: " + text) => {
 };
 
 const linesOutsideFences = markdown.split("\n");
-let insideFence = false;
-const structuralLines = linesOutsideFences.filter(line => {
-  if (/^\s*(```|~~~)/.test(line)) {
-    insideFence = !insideFence;
-    return false;
+let fenceMarker = null;
+const structuralMarkdown = linesOutsideFences.map(line => {
+  const fence = line.match(/^ {0,3}(`{3,}|~{3,})/);
+  if (fence) {
+    const marker = fence[1][0];
+    if (fenceMarker === null) {
+      fenceMarker = marker;
+    } else if (marker === fenceMarker && fence[1].length >= 3) {
+      fenceMarker = null;
+    }
+    return "";
   }
-  return !insideFence && !/^( {4,}|\t)/.test(line);
-});
+  if (fenceMarker !== null || /^( {4,}|\t)/.test(line)) return "";
+  return line;
+}).join("\n");
+const structuralLines = structuralMarkdown.split("\n");
 const title = "# Lista de comprobación de preparación para publicar";
 const titleCount = structuralLines.filter(line => line.trim() === title).length;
 if (titleCount === 0) failures.push("falta título exacto: " + title);
@@ -51,10 +59,10 @@ for (const phrase of [
   "no demuestra por sí sola la seguridad"
 ]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
-const decisionStart = markdown.indexOf("## 5. Decisión");
-const limitsStart = markdown.indexOf("## Límites");
+const decisionStart = structuralMarkdown.indexOf("## 5. Decisión");
+const limitsStart = structuralMarkdown.indexOf("## Límites");
 const decisionSection = decisionStart >= 0 && limitsStart > decisionStart
-  ? markdown.slice(decisionStart, limitsStart)
+  ? structuralMarkdown.slice(decisionStart, limitsStart)
   : "";
 
 const decisionRows = [
