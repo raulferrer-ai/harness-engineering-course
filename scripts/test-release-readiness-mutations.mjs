@@ -25,7 +25,6 @@ const cases = [
   { label: "duplicate title", mutate: text => text.replace("# Lista de comprobación de preparación para publicar", "# Lista de comprobación de preparación para publicar\n\n# Lista de comprobación de preparación para publicar"), expectedDiagnostic: "título duplicado: # Lista de comprobación de preparación para publicar" },
   { label: "empty document", mutate: () => "", expectedDiagnostic: "falta título exacto: # Lista de comprobación de preparación para publicar" },
   { label: "duplicate decision field", mutate: text => text.replace("| Responsable de la decisión | |", "| Responsable de la decisión | |\n| Responsable de la decisión | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Responsable de la decisión" },
-  { label: "decision field duplicated outside decision section", mutate: text => text.replace("## 5. Decisión", "| Responsable de la decisión | valor de ejemplo |\n\n## 5. Decisión"), expectedDiagnostic: null },
   { label: "duplicate indented decision field", mutate: text => text.replace("| Responsable de la decisión | |", "| Responsable de la decisión | |\n  | Responsable de la decisión | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Responsable de la decisión" },
   { label: "duplicate decision field with flexible cell spacing", mutate: text => text.replace("| Responsable de la decisión | |", "| Responsable de la decisión | |\n|   Responsable de la decisión   | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Responsable de la decisión" },
   { label: "duplicate decision field with CR-only endings", mutate: text => text.replace("| Responsable de la decisión | |", "| Responsable de la decisión | |\r| Responsable de la decisión | |").replace(/\r?\n/g, "\r"), expectedDiagnostic: "campo duplicado en el registro de decisión: Responsable de la decisión" },
@@ -102,7 +101,8 @@ try {
     ["canonical CR-only", canonical.replace(/\r?\n/g, "\r")],
     ["canonical mixed line endings", canonical.replace(/\r?\n/g, "\r\n").replace("## 1. Alcance y procedencia\r\n", "## 1. Alcance y procedencia\r")],
     ["trailing spaces", canonical.replace(/([^\r\n]+)$/gm, "$1   ")],
-    ["extra final newlines", canonical.replace(/[\r\n]*$/, "\n\n\n")]
+    ["extra final newlines", canonical.replace(/[\r\n]*$/, "\n\n\n")],
+    ["decision-like row outside decision section", canonical.replace("## 5. Decisión", "| Responsable de la decisión | valor de ejemplo |\n\n## 5. Decisión")]
   ];
   let referenceStatus;
   for (const [label, content] of variants) {
