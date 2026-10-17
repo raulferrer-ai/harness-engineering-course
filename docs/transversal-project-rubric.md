@@ -1,6 +1,6 @@
 # Proyecto transversal — Rúbrica propuesta y protocolo de defensa
 
-**Estado: propuesta para revisión docente.** Esta rúbrica operacionaliza el diseño de `docs/transversal-project.md`; no debe presentarse como política aprobada hasta que el equipo responsable valide pesos, umbrales y condiciones de accesibilidad.
+**Versión operativa v1.0 para preparación y piloto.** Esta rúbrica proporciona criterios aplicables desde el inicio para reducir ambigüedad. Los pesos y umbrales son decisiones de diseño provisionales: deben calibrarse en el piloto antes de usarse como política sumativa definitiva.
 
 ## 1. Rúbrica analítica
 
@@ -34,7 +34,7 @@ No usar la media para compensar un fallo crítico. Antes de calcular el resultad
 3. Revisar fallos de integridad, pruebas falsamente declaradas como ejecutadas y cambios fuera del alcance autorizado.
 4. Si hay un fallo crítico confirmado, clasificar como **NO APROBADO PENDIENTE DE CORRECCIÓN**, independientemente del total.
 5. Si falta evidencia esencial, clasificar como **INCONCLUSO**, no como aprobado ni suspenso definitivo.
-6. Si la evidencia está completa y no hay fallos críticos, aplicar el umbral que el equipo docente apruebe formalmente. Como punto de partida para discusión, podría evaluarse un 70/100 con un mínimo de 2/4 en cada dimensión, pero ese umbral no está validado.
+6. Si la evidencia está completa y no hay fallos críticos, aplicar el umbral operativo provisional: **70/100 y al menos 2/4 en cada dimensión**. Una dimensión por debajo de 2 requiere corrección y reevaluación aunque el total supere 70. El umbral es un punto de partida para el piloto, no una medida de fiabilidad o validez psicométrica; debe revisarse con las evidencias de calibración.
 
 ## 3. Protocolo de defensa individual (15–20 minutos propuestos)
 
