@@ -110,3 +110,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - LAB-05 now also enforces deny-and-escalate behavior for policy conflicts and requires an explicit logging rule that excludes secrets. Negative mutation cases cover both controls. CI passed for commit `82c8385` (run 39020240781).
 
 - LAB-10 now maps every declared metric, governance case, decision rule, scenario, and decision test vector to acceptance-criteria evidence. Identifier parsing now matches the actual `VAL-T01` format, and abbreviated ranges were replaced with explicit IDs. Added mutations for unknown and unreferenced decision vectors. CI passed for commit `d134015` (run 39020396669).
+
+- LAB-07 now requires a decision vector for every declared critical-failure condition, not just for each case and outcome. Added four vectors to exercise critical failures that had previously been declared but not individually covered, plus a negative regression for missing coverage. CI passed for commit `54b3603` (run 39020552900).
