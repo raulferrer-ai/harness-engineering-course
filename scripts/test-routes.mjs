@@ -157,6 +157,16 @@ try {
   });
   expectPass("protocol-relative external URLs are not checked as local files", protocolRelativeUrl);
 
+  const quotedGreaterThanMissingLink = await fixture("quoted-greater-than-missing-link", {
+    "index.html": '<a title="1 > 0" href="/missing/">Missing page</a>\\n'
+  });
+  expectFail("detect href after a greater-than sign inside a quoted attribute", quotedGreaterThanMissingLink, "broken local URL");
+
+  const quotedGreaterThanDuplicateIds = await fixture("quoted-greater-than-duplicate-ids", {
+    "index.html": '<h2 title="1 > 0" id="same">First</h2><p id="same">Second</p>\\n'
+  });
+  expectFail("detect duplicate IDs after a greater-than sign inside a quoted attribute", quotedGreaterThanDuplicateIds, 'duplicate HTML id "same"');
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
