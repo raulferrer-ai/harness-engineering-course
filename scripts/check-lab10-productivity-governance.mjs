@@ -39,7 +39,12 @@ if (!Array.isArray(c.measurement_notes) || c.measurement_notes.length < 2) error
 const metrics = data.metrics ?? [];
 unique(metrics,"métricas");
 if (metrics.length < 4) errors.push("se requieren al menos cuatro métricas");
-for (const m of metrics) if (!nonempty(m.name) || !nonempty(m.unit) || !nonempty(m.definition) || !["higher_is_better","lower_is_better"].includes(m.direction)) errors.push(`${m.id}: definición de métrica inválida`);
+const metricNames = new Set();
+for (const m of metrics) {
+  if (!nonempty(m.name) || !nonempty(m.unit) || !nonempty(m.definition) || !["higher_is_better","lower_is_better"].includes(m.direction)) errors.push(`${m.id}: definición de métrica inválida`);
+  if (nonempty(m.name) && metricNames.has(m.name)) errors.push("nombre de métrica duplicado: "+m.name);
+  if (nonempty(m.name)) metricNames.add(m.name);
+}
 const gov = data.governance_matrix ?? [];
 unique(gov,"gobernanza");
 if (gov.length < 3) errors.push("se requieren al menos tres casos de gobernanza");
