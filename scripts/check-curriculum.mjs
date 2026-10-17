@@ -81,6 +81,17 @@ for (const [index, module] of modules.entries()) {
     const pagePath = path.join(root, "src/modulos", `${module.slug}.njk`);
     try {
       await access(pagePath);
+      const pageContent = await readFile(pagePath, "utf8");
+      const exampleName = `${String(module.labId ?? "").toLowerCase().replace("-", "")}-worked-example.md`;
+      for (const [resource, label] of [
+        [`docs/${exampleName}`, "worked example for its own lab"],
+        ["docs/lab-evidence-template.md", "lab evidence template"],
+        ["docs/traceability.md", "curriculum traceability matrix"]
+      ]) {
+        if (!pageContent.includes(resource)) {
+          errors.push(`${where}: module page must link to the ${label} (${resource}).`);
+        }
+      }
     } catch {
       errors.push(`${where}: missing dedicated page src/modulos/${module.slug}.njk.`);
     }
