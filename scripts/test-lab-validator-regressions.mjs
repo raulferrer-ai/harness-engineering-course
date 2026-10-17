@@ -12,7 +12,9 @@ const labs = [
     cases: [
       ["missing rationale", d => { delete d.cases[0].rationale; }, /falta justificación/],
       ["duplicate case ID", d => { d.cases[1].id = d.cases[0].id; }, /ID vacío o duplicado/],
-      ["invalid priority", d => { d.cases[0].expected.priority = "urgent"; }, /prioridad no permitida/]
+      ["invalid priority", d => { d.cases[0].expected.priority = "urgent"; }, /prioridad no permitida/],
+      ["expected ticket ID absent from input", d => { d.cases[0].expected.id = "T-999"; }, /expected.id T-999 no aparece en la entrada/],
+      ["duplicate expected ticket ID", d => { d.cases[1].expected.id = d.cases[0].expected.id; }, /expected.id duplicado/]
     ]
   },
   {

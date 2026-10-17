@@ -15,6 +15,7 @@ const allowed = {
 if (data.schema_version !== 1) fail("schema_version debe ser 1");
 if (!Array.isArray(data.cases) || data.cases.length < 5) fail("se requieren al menos cinco casos");
 const ids = new Set();
+const expectedIds = new Set();
 const kinds = new Set();
 for (const item of data.cases ?? []) {
   if (!item.id || ids.has(item.id)) fail(`ID vacío o duplicado: ${item.id}`);
@@ -22,7 +23,15 @@ for (const item of data.cases ?? []) {
   if (typeof item.input !== "string" || !item.input.trim()) fail(`${item.id}: entrada vacía`);
   if (typeof item.rationale !== "string" || !item.rationale.trim()) fail(`${item.id}: falta justificación`);
   const expected = item.expected;
-  if (!expected || typeof expected.id !== "string" || !expected.id) fail(`${item.id}: falta expected.id`);
+  if (!expected || typeof expected.id !== "string" || !expected.id.trim()) {
+    fail(`${item.id}: falta expected.id`);
+  } else {
+    if (expectedIds.has(expected.id)) fail(`${item.id}: expected.id duplicado ${expected.id}`);
+    expectedIds.add(expected.id);
+    if (typeof item.input === "string" && !item.input.includes(expected.id)) {
+      fail(`${item.id}: expected.id ${expected.id} no aparece en la entrada`);
+    }
+  }
   if (!allowed.category.has(expected?.category)) fail(`${item.id}: categoría no permitida`);
   if (!allowed.priority.has(expected?.priority)) fail(`${item.id}: prioridad no permitida`);
   if (typeof expected?.requires_human_review !== "boolean") fail(`${item.id}: requires_human_review debe ser booleano`);
