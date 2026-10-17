@@ -29,7 +29,7 @@ for (const item of data.cases ?? []) {
     if (expectedIds.has(expected.id)) fail(`${item.id}: expected.id duplicado ${expected.id}`);
     expectedIds.add(expected.id);
     if (typeof item.input === "string") {
-      const ticketMatch = item.input.match(/\\bTicket\\s+([A-Z]-\\d+)\\b/i);
+      const ticketMatch = item.input.match(/\bTicket\s+([A-Z]-\d+)\b/i);
       if (!ticketMatch) {
         fail(`${item.id}: la entrada no contiene un identificador de ticket reconocible`);
       } else if (ticketMatch[1] !== expected.id) {
