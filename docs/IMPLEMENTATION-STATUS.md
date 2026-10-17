@@ -195,3 +195,9 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Latest observed CI run: [39036687351](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39036687351), commit `6c7467339df0da0a759f21ba159e473814a19a68`. Both required jobs succeeded (Node.js 22 and Node.js 24).
 - The current `npm run check` pipeline includes build, accessibility structure and regression tests, routes and links, curriculum/traceability checks, validators for labs 1–10, release checklist mutation tests, and pilot safeguards.
 - Remaining release decision: do not publish as fully validated until a reviewer records clean-environment execution evidence for each lab, completes the manual accessibility checklist, approves participant/privacy materials before any pilot data collection, and reviews the results of a real formative pilot. These are not evidenced by green CI.
+
+
+## Verification refresh — 2026-10-17 15:29 CEST
+
+- Latest workflow observed: [run 39036772279](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39036772279), commit `ed807151496d765695c52b339cf4c2d2b092bb86`. Node.js 24 passed; Node.js 22 was still running at the time of this check, so this revision is not yet recorded as fully green.
+- Reviewed the manual accessibility checklist and release checklist: both correctly treat untested items as unverified and require explicit human evidence for accessibility, privacy, and release approval.
