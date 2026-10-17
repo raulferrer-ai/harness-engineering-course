@@ -50,6 +50,12 @@
       "condition": "El diff queda limitado al problema confirmado y no altera contratos o áreas excluidas.",
       "evidence": "Diff revisado y lista de archivos cambiados.",
       "verification": "Revisión independiente del diff frente a los límites de alcance."
+    },
+    {
+      "id": "AC-05",
+      "condition": "No se publica ni se modifica producción sin autorización explícita y gates obligatorios aprobados.",
+      "evidence": "Registro de autorización, revisión del diff y resultado de CI.",
+      "verification": "Comprobar la autorización explícita y la evidencia de los gates obligatorios antes de cualquier publicación."
     }
   ],
   "stop_conditions": [
