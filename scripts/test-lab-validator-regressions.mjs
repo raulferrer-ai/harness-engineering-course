@@ -72,7 +72,8 @@ const labs = [
       ["duplicate audit field", d => { d.audit_record_fields.push(d.audit_record_fields[0]); }, /campos del registro de auditoría duplicados/],
       ["failed gate does not block", d => { d.gates[0].failure = "warn"; }, /el fallo debe bloquear/],
       ["duplicate required evidence", d => { d.gates[0].required.push(d.gates[0].required[0]); }, /referencias de evidencia duplicadas/],
-      ["empty limitation", d => { d.limitations[0] = ""; }, /limitaciones contiene elementos vacíos/]
+      ["empty limitation", d => { d.limitations[0] = ""; }, /limitaciones contiene elementos vacíos/],
+      ["required evidence is not covered by a gate", d => { d.gates = d.gates.filter(gate => !gate.required.includes("EV-06")); }, /EV-06: evidencia no está exigida por ningún gate/]
     ]
   },
   {
