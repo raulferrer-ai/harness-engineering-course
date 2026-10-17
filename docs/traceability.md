@@ -52,13 +52,13 @@ Estas relaciones deben convertirse en filas explícitas con resultados y evidenc
 
 ## Decisiones abiertas
 
-- Validar las asociaciones competencia–módulo propuestas y los cruces transversales.
-- Normalizar los resultados de aprendizaje y completar la cadena resultado–actividad–evidencia–criterio por cada lección.
-- Revisar el mapeo preliminar LAB-08/COMP-07 y cualquier cruce transversal con una persona responsable del currículo; no dar por aprobada una relación por afinidad temática.
-tados de aprendizaje ya publicados y enlazarlos con actividades, evidencias y criterios verificables; no todos los fixtures tienen el mismo nivel de detalle.
-- El proyecto transversal y la rúbrica ya tienen defaults operativos documentados; queda verificar el contrato con un repositorio candidato y calibrar la rúbrica antes de uso sumativo.
-- Validar formalmente las asociaciones competencia–módulo y completar la cadena resultado–actividad–evidencia–criterio de aceptación sin atribuir relaciones no aprobadas.
-- Ejecutar y documentar los laboratorios antes de marcarlos como verificados.
+- Validar formalmente las asociaciones primarias competencia–módulo y los cruces transversales; en particular, resolver la relación propuesta de LAB-08 con una competencia existente sin asumirla por afinidad temática.
+- Completar y revisar la cadena resultado de aprendizaje–actividad–evidencia del alumno–criterio de aceptación para cada módulo.
+- Ejecutar y documentar los diez laboratorios en los entornos registrados en `docs/lab-runtime-matrix.md`; no marcar como verificada una prueba que solo haya sido inspeccionada documentalmente.
+- Revisar el contrato de admisión y la licencia del repositorio que se elija para el proyecto transversal.
+- Calibrar la rúbrica con evaluadores y muestras reales antes de convertir los umbrales provisionales en política sumativa.
+- Completar la revisión manual de accesibilidad, privacidad y reproducibilidad desde una instalación limpia.
+- Realizar un piloto con participantes, registrar tiempos e incidencias observados y documentar la decisión de publicación. No inventar datos ni presentar el protocolo como un piloto ejecutado.
 
 ## Implementación de artefactos de LAB-05 a LAB-08
 
