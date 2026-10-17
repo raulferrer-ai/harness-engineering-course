@@ -14,6 +14,8 @@ Los resultados siguientes son **vectores didácticos**, no salidas observadas de
 
 Cada dimensión se puntúa de 0 a 4 con los anclajes del fixture. Fórmula: `sum(weight * score / 4) * 100`. No se deben imputar puntuaciones ausentes.
 
+> **No confundir con la evaluación del proyecto transversal.** Este laboratorio evalúa salidas de un asistente con cinco dimensiones propias, umbral didáctico del 80 % y mínimos por caso de 3/4 según `fixtures/lab07-evaluation.json`. La rúbrica del proyecto transversal es otro instrumento: seis dimensiones, umbral provisional de 70/100 y mínimo de 2/4 por dimensión en `docs/transversal-project-rubric.md`. Ninguno de los dos umbrales está validado para uso sumativo; no se deben intercambiar ni presentar como una política común.
+
 ## Cálculo resuelto: DEC-04
 
 Puntuaciones: corrección 4, evidencia 4, completitud 3, restricciones 3 y calibración 3.
