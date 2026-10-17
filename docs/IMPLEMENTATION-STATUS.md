@@ -221,3 +221,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Added two regression cases to `scripts/test-accessibility-basics.mjs`: duplicate IDs expressed with single-quoted HTML attributes, and `aria-labelledby` containing multiple IDs when one referenced ID is missing. These target parser edge cases that can otherwise escape checks written only for common double-quoted markup.
 - Commit: `83a226912d7dab8bc60e2a0d1b189a2a0fd0be8e`. CI run [39037437809](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39037437809) was queued when recorded; verification is pending and must not be described as passed until both Node.js jobs finish successfully.
+
+
+## Verificación de accesibilidad — 2026-10-17 15:50 CEST
+
+- El commit `f4e5be49394502c5f56adbd32b3942f36d061420` pasó la ejecución de CI [39038152879](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038152879) en Node.js 22 y Node.js 24. La suite de accesibilidad pasó con 26 regresiones, incluidas referencias `aria-labelledby` válidas, vacías, múltiples y rotas.
+- Se corrigió en el README la instrucción de entorno local: el mínimo declarado por el proyecto es Node.js 22, no Node.js 20.
+- Esto actualiza el estado de verificación automatizada; siguen pendientes las validaciones manuales y pedagógicas ya registradas.

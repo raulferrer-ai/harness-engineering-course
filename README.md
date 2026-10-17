@@ -63,4 +63,4 @@ El proyecto mantiene el flujo de trabajo basado en ramas revisables, controles a
 
 ## Verificación local antes de publicar
 
-Ejecuta `npm ci` y después `npm run check` con Node.js 20 o posterior. El control integral construye el sitio, comprueba las rutas generadas, valida enlaces Markdown locales y ejecuta los controles del currículo, los diez laboratorios y las regresiones. Un resultado satisfactorio debe asociarse al commit exacto revisado; no sustituye una revisión humana ni la validación pedagógica con participantes.
+Ejecuta `npm ci` y después `npm run check` con Node.js 22 o 24, las versiones verificadas en CI y coherentes con `engines` en `package.json`. El control integral construye el sitio, comprueba las rutas generadas, valida enlaces Markdown locales y ejecuta los controles del currículo, los diez laboratorios y las regresiones. Un resultado satisfactorio debe asociarse al commit exacto revisado; no sustituye una revisión humana ni la validación pedagógica con participantes.
