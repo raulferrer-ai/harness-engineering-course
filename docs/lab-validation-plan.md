@@ -4,6 +4,8 @@ Estado: plan de trabajo; ningún laboratorio se declara verificado por esta revi
 
 ## Alcance y método
 
+La matriz operativa de herramientas y entornos por laboratorio está documentada en [`docs/lab-runtime-matrix.md`](lab-runtime-matrix.md). Sus valores son defaults de preparación: cada ejecución debe registrar las versiones y herramientas realmente utilizadas.
+
 Esta revisión inspecciona las diez páginas de módulo en `src/modulos/` y el baseline de `docs/curriculum.md`. Confirma que cada laboratorio incluye una actividad central, instrucciones de ejecución o fases, entregables/evidencias y criterios de aceptación. **No** demuestra que los ejercicios funcionen en un entorno limpio, que los tiempos sean realistas ni que los criterios sean suficientemente discriminantes. Eso requiere ejecución independiente y registro de resultados.
 
 ## Inventario inicial
