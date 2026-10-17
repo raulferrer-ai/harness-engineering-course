@@ -15,6 +15,7 @@ const cases = [
   ["rejects missing h1", good.replace("<h1>Título</h1>", "<h2>Título</h2>"), 1, /exactly one h1/],
   ["rejects image without alt attribute", good.replace(' alt="Descripción"', ""), 1, /missing its alt attribute/],
   ["rejects whitespace-only image alt text", good.replace('alt="Descripción"', 'alt="   "'), 1, /alt text must not contain whitespace only/],
+  ["rejects entity-encoded whitespace-only image alt text", good.replace('alt="Descripción"', 'alt="&#32;&#x09;&Tab;"'), 1, /alt text must not contain whitespace only/],
   ["accepts empty alt for decorative image", good.replace('alt="Descripción"', 'alt=""'), 0, /PASS accessibility structure/],
   ["rejects multiple main landmarks", good.replace("</main>", "</main><main><h1>Otro</h1></main>"), 1, /main landmark/],
   ["rejects link without accessible name", good.replace("</main>", '<a href="#x"><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],

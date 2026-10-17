@@ -17,6 +17,16 @@ async function walk(directory) {
     else if (entry.isFile() && entry.name.toLowerCase().endsWith(".html")) htmlFiles.push(absolute);
   }
 }
+const normalizeHtmlText = value => value
+  .replace(/&(?:nbsp|Tab|NewLine);/gi, " ")
+  .replace(/&#(?:9|10|12|13|32);/g, " ")
+  .replace(/&#x(?:0*9|0*a|0*c|0*d|0*20);/gi, " ")
+  .replace(/&amp;/gi, "&")
+  .replace(/&lt;/gi, "<")
+  .replace(/&gt;/gi, ">")
+  .replace(/&quot;/gi, '"')
+  .replace(/&#39;|&apos;/gi, "'");
+
 const attr = (tag, name) => {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const match = tag.match(new RegExp("(?:^|\\s)" + escaped + "\\s*=\\s*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>]+))", "i"));
@@ -40,7 +50,7 @@ for (const file of htmlFiles) {
   for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
     const alt = attr(image[0], "alt");
     if (alt === null) errors.push(`${relative}: img element is missing its alt attribute`);
-    else if (alt.trim() === "" && !/(?:^|\s)alt\s*=\s*(?:""|'')/i.test(image[0])) errors.push(`${relative}: img alt text must not contain whitespace only; use alt="" for decorative images`);
+    else if (normalizeHtmlText(alt).trim() === "" && !/(?:^|\s)alt\s*=\s*(?:""|'')/i.test(image[0])) errors.push(`${relative}: img alt text must not contain whitespace only; use alt="" for decorative images`);
   }
   const idValues = [...html.matchAll(/\bid\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>]+))/gi)].map(match => match[1] ?? match[2] ?? match[3]);
   for (const id of idValues) {
