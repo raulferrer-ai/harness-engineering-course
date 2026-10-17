@@ -19,7 +19,9 @@ const cases = [
   { label: "empty document", mutate: () => "", expectedDiagnostic: "falta texto obligatorio: # Lista de comprobación de preparación para publicar" },
   { label: "duplicate decision field", mutate: text => text.replace("| Responsable de la decisión | |", "| Responsable de la decisión | |\n| Responsable de la decisión | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Responsable de la decisión" },
   { label: "duplicate decision field with CR-only endings", mutate: text => text.replace("| Responsable de la decisión | |", "| Responsable de la decisión | |\r| Responsable de la decisión | |").replace(/\r?\n/g, "\r"), expectedDiagnostic: "campo duplicado en el registro de decisión: Responsable de la decisión" },
-  { label: "malformed heading", mutate: text => text.replace("## 2. Cambio y verificación", "# 2. Cambio y verificación"), expectedDiagnostic: "falta sección: ## 2. Cambio y verificación" }
+  { label: "malformed heading", mutate: text => text.replace("## 2. Cambio y verificación", "# 2. Cambio y verificación"), expectedDiagnostic: "falta sección: ## 2. Cambio y verificación" },
+  { label: "duplicate manual accessibility field", mutate: text => text.replace("| Accesibilidad manual | |", "| Accesibilidad manual | |\n| Accesibilidad manual | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Accesibilidad manual" },
+  { label: "duplicate privacy field", mutate: text => text.replace("| Privacidad/consentimiento | |", "| Privacidad/consentimiento | |\n| Privacidad/consentimiento | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Privacidad/consentimiento" }
 ];
 
 const temp = await mkdtemp(join(tmpdir(), "release-checklist-tests-"));
