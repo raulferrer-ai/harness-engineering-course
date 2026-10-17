@@ -108,3 +108,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - LAB-09 now parses the scenario identifier format actually used by its fixture, requires explicit traceability for every signal, event, recovery step and operational scenario, and rejects unknown or unreferenced evidence. The fixture's abbreviated ranges were expanded into explicit IDs. CI passed for commit `c680b24` (run 39020169381).
 
 - LAB-05 now also enforces deny-and-escalate behavior for policy conflicts and requires an explicit logging rule that excludes secrets. Negative mutation cases cover both controls. CI passed for commit `82c8385` (run 39020240781).
+
+- LAB-10 now maps every declared metric, governance case, decision rule, scenario, and decision test vector to acceptance-criteria evidence. Identifier parsing now matches the actual `VAL-T01` format, and abbreviated ranges were replaced with explicit IDs. Added mutations for unknown and unreferenced decision vectors. CI passed for commit `d134015` (run 39020396669).
