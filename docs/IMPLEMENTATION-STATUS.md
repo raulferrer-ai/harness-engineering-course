@@ -153,3 +153,9 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Latest CI check: commit `c121be238258b6e66710f9a65c44373d5c2d87a0` passed both required jobs, Node.js 22 and Node.js 24, in [run 39035092853](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035092853).
 - Release checklist review reconfirmed the remaining non-automated blockers: ten-module content and navigation review, manual keyboard/screen-reader/contrast/mobile accessibility checks, approval of privacy and participant information, independent learner execution of all labs, and a real pilot with calibrated rubric scoring. The release record must remain undecided until these checks are completed and a responsible reviewer records the decision.
+
+
+## Verification update — 2026-10-17
+
+- Latest observed CI run: [39035160411](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035160411), commit `e0776b28ab61995466ff7ce3868c5cc595d9d4af`. Both required jobs, Node.js 22 and Node.js 24, completed successfully.
+- This confirms the automated checks for that exact revision only. It does not close the outstanding release gates above: independent execution of all ten labs, rubric calibration, manual accessibility review, privacy/participant review, and a real learner pilot.
