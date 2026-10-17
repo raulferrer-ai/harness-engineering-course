@@ -10,10 +10,11 @@ The site contains the approved ten modules M01–M10, module pages, course princ
 
 ## Automated checks
 
-- `npm run check` runs the Eleventy build, generated local-route checks, and curriculum metadata/traceability checks.
-- The curriculum check validates the approved module/lab scope, identifier uniqueness, workload arithmetic, references to all nine competency IDs and ten lab IDs, and the presence of dedicated module pages.
-- GitHub Actions run 38902168065 passed for the curriculum-check update merged in IMP-02 follow-up.
-- These checks do not verify pedagogical quality, every matrix relationship, lab reproducibility, accessibility conformance, security effectiveness, or observed learner outcomes.
+- `npm run check` runs the Eleventy build, automated accessibility structure checks and their regression tests, generated route checks, Markdown link checks and regressions, release-readiness checks and mutations, curriculum checks, all ten lab fixture validators, and negative mutation tests across the lab validators.
+- The curriculum check validates approved module/lab scope, identifier uniqueness, workload arithmetic, competency IDs and primary mappings, artifact references, dedicated module pages, expected lab IDs and hours, core learning/evidence sections, and links to each module's worked example, evidence template, and traceability matrix.
+- The accessibility structure gate checks document language, one main landmark, one h1, and image alt attributes; it is a limited automated check, not a WCAG audit.
+- GitHub Actions run 39017490380 passed for commit `dffc181`.
+- These checks do not verify pedagogical quality, all curricular relationships, actual model or learner execution, real sandbox/security enforcement, manual accessibility conformance, or observed learner outcomes.
 
 ## Approved workload
 
