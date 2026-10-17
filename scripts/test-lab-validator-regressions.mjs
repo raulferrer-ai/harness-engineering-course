@@ -35,7 +35,10 @@ const labs = [
     cases: [
       ["duplicate context variant ID", d => { d.context_variants[1].id = d.context_variants[0].id; }, /ID de variante vacío o duplicado/],
       ["duplicate path in variant", d => { d.context_variants[0].files.push({ ...d.context_variants[0].files[0] }); }, /ruta duplicada/],
-      ["missing required source", d => { d.reference_cases[0].required_sources = []; }, /faltan fuentes requeridas/]
+      ["missing required source", d => { d.reference_cases[0].required_sources = []; }, /faltan fuentes requeridas/],
+      ["empty expected fact", d => { d.reference_cases[0].expected_facts[0] = " "; }, /los hechos de referencia deben ser texto no vacío/],
+      ["duplicate required source", d => { d.reference_cases[0].required_sources.push(d.reference_cases[0].required_sources[0]); }, /las fuentes requeridas no pueden estar duplicadas/],
+      ["empty measurement rule", d => { d.measurement_policy.rules[0] = ""; }, /measurement_policy.rules contiene elementos vacíos/]
     ]
   },
   {

@@ -28,11 +28,17 @@ for (const item of cases) {
   caseIds.add(item.id);
   if (!nonempty(item.question)) errors.push(`${item.id}: falta pregunta`);
   if (!Array.isArray(item.expected_facts) || item.expected_facts.length === 0) errors.push(`${item.id}: faltan hechos de referencia`);
+  else if (item.expected_facts.some(fact => !nonempty(fact))) errors.push(`${item.id}: los hechos de referencia deben ser texto no vacío`);
   if (!Array.isArray(item.required_sources) || item.required_sources.length === 0) errors.push(`${item.id}: faltan fuentes requeridas`);
+  else {
+    if (item.required_sources.some(source => !nonempty(source))) errors.push(`${item.id}: las fuentes requeridas deben ser texto no vacío`);
+    if (new Set(item.required_sources).size !== item.required_sources.length) errors.push(`${item.id}: las fuentes requeridas no pueden estar duplicadas`);
+  }
 }
 if (cases.length < 5) errors.push("se requieren al menos cinco casos de referencia");
 for (const field of ["fixed_variables", "per_run_record", "rules"]) {
   if (!Array.isArray(data.measurement_policy?.[field]) || data.measurement_policy[field].length === 0) errors.push(`falta measurement_policy.${field}`);
+  else if (data.measurement_policy[field].some(item => !nonempty(item))) errors.push(`measurement_policy.${field} contiene elementos vacíos`);
 }
 if (errors.length) {
   for (const error of errors) console.error(`LAB-03 context fixture: ${error}`);
