@@ -53,7 +53,9 @@ Estas relaciones deben convertirse en filas explícitas con resultados y evidenc
 ## Decisiones abiertas
 
 - Validar las asociaciones competencia–módulo propuestas y los cruces transversales.
-- Normalizar los resultados de aprendizaje ya publicados y enlazarlos con actividades, evidencias y criterios verificables; no todos los fixtures tienen el mismo nivel de detalle.
+- Normalizar los resultados de aprendizaje y completar la cadena resultado–actividad–evidencia–criterio por cada lección.
+- Revisar el mapeo preliminar LAB-08/COMP-07 y cualquier cruce transversal con una persona responsable del currículo; no dar por aprobada una relación por afinidad temática.
+tados de aprendizaje ya publicados y enlazarlos con actividades, evidencias y criterios verificables; no todos los fixtures tienen el mismo nivel de detalle.
 - El proyecto transversal y la rúbrica ya tienen defaults operativos documentados; queda verificar el contrato con un repositorio candidato y calibrar la rúbrica antes de uso sumativo.
 - Validar formalmente las asociaciones competencia–módulo y completar la cadena resultado–actividad–evidencia–criterio de aceptación sin atribuir relaciones no aprobadas.
 - Ejecutar y documentar los laboratorios antes de marcarlos como verificados.
