@@ -32,7 +32,7 @@ const mutations = [
   {
     file: "docs/pilot-participant-information.md",
     label: "missing voluntary participation safeguard",
-    mutate: text => text.replaceAll("Participar es voluntario", "Participar es obligatorio"),
+    mutate: text => text.replace("Participar es voluntario.", "Participar es obligatorio."),
     expected: "falta salvaguarda requerida"
   },
   {
