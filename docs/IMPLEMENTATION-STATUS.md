@@ -33,21 +33,15 @@ The ten modules total 104 hours: 40 hours of fundamentals and 64 hours of labs. 
 Use reviewable branches and pull requests. Do not claim tests passed without an actual CI result. A successful build proves neither that educational content is complete nor that the entire user experience conforms to accessibility requirements. Keep unresolved curriculum decisions explicit until approved.
 
 
-## Progress log — 2026-10-17 (continued)
+## Progress log — module resources and assessment protocol
 
-- Linked the matching worked example, learner evidence template, and traceability matrix from all ten module pages in commits `e81997b` and `525763b`.
-- CI passed for `e81997b` (run 39014432250). The follow-up commit `525763b` has been pushed; its own workflow result must be checked separately before claiming the full set of module links is validated.
-- The project brief and rubric now contain operational defaults, but real learner pilot, manual accessibility review, and independently executed lab evidence remain outstanding.
-
-
-- Added `docs/rubric-calibration-protocol.md` to make independent scoring, discrepancy resolution, evidence recording, and the pilot-readiness decision reproducible. This is a procedure, not a claim that calibration has occurred.
-- Linked the calibration procedure from the rubric so future reviewers can follow a single workflow.
-
-- Added a rubric calibration procedure and linked it from the rubric. It defines independent scoring and discrepancy resolution; no real calibration has been performed yet.
+- Linked the matching worked example, learner evidence template, and traceability matrix from all ten module pages.
+- Added `docs/rubric-calibration-protocol.md` and linked it from the rubric. The procedure defines independent scoring, discrepancy resolution, evidence recording, and a pilot-readiness decision; no real calibration is claimed.
+- The project brief and rubric contain operational defaults, but real learner pilot, manual accessibility review, and independently executed lab evidence remain outstanding.
 - Updated the traceability and lab-validation backlogs to distinguish operational defaults from still-unverified execution and curricular approval.
 
 
-## Progress log — 2026-10-17 (continued)
+## Progress log — lab runtime and traceability
 
 - Added `docs/lab-runtime-matrix.md` with per-lab default environments, evidence expectations, and explicit stop conditions. It distinguishes automated repository checks from actual model experiments, sandbox enforcement, recovery exercises, and empirical measurements.
 - Updated `docs/curriculum.md` to reflect operational defaults for the project and rubric while keeping clean-install, practical lab execution, traceability review, accessibility, calibration, privacy, and learner pilot as open gates.
@@ -72,3 +66,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Aligned the LAB-04 fixture with its worked example: the same `normalizeTags` task, scope restrictions, acceptance criteria, and positive/negative/regression cases are now represented consistently. CI passed for commit `d9c9b20` (run 39016760285).
 
 - Removed repeated `Ejemplo resuelto` sections from the LAB-01, LAB-02, LAB-04, LAB-05 and LAB-07 validation packs; the documentation link check and full CI passed for commit `828afb2` (run 39016860116).
+
+- The curriculum checker now verifies that every module page contains observable learning outcomes, acceptance criteria, analysis/reflection questions, learner evidence/deliverables, its own worked example, the evidence template, and the traceability matrix. CI passed for commit `ad81111` (run 39017001312).
