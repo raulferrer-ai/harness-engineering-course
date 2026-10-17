@@ -40,7 +40,19 @@ for (const file of htmlFiles) {
   for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
     if (attr(image[0], "alt") === null) errors.push(`${relative}: img element is missing its alt attribute`);
   }
-  const availableIds = new Set([...html.matchAll(/\bid\s*=\s*(?:"([^"]+)"|'([^']+)')/gi)].map(match => match[1] ?? match[2]));
+  const idValues = [...html.matchAll(/\bid\s*=\s*(?:"([^"]+)"|'([^']+)')/gi)].map(match => match[1] ?? match[2]);
+  const availableIds = new Set(idValues);
+  const seenIds = new Set();
+  for (const id of idValues) {
+    if (seenIds.has(id)) errors.push(relative + ': duplicate id attribute value "' + id + '"');
+    seenIds.add(id);
+  }
+  for (const tag of html.matchAll(/<[a-z][\w:-]*\b([^>]*)>/gi)) {
+    const labelledBy = (attr(tag[1], "aria-labelledby") ?? "").trim().split(/\s+/).filter(Boolean);
+    for (const id of labelledBy) {
+      if (!availableIds.has(id)) errors.push(relative + ': aria-labelledby references missing id "' + id + '"');
+    }
+  }
   for (const anchor of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
     const attributes = anchor[1];
     const inner = anchor[2];

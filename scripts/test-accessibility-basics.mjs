@@ -19,6 +19,8 @@ const cases = [
   ["accepts icon link with aria-label", good.replace("</main>", '<a href="#x" aria-label="Abrir detalles"><img src="icon.svg" alt=""></a></main>'), 0, /PASS accessibility structure/],
   ["rejects dangling aria-labelledby", good.replace("</main>", '<a href="#x" aria-labelledby="missing-label"><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],
   ["accepts valid aria-labelledby", good.replace("</main>", '<span id="link-label">Abrir detalles</span><a href="#x" aria-labelledby="link-label"><img src="icon.svg" alt=""></a></main>'), 0, /PASS accessibility structure/],
+  ["rejects duplicate IDs", good.replace("</main>", '<span id="reused">Uno</span><span id="reused">Dos</span></main>'), 1, /duplicate id attribute value/],
+  ["rejects dangling aria-labelledby on non-link elements", good.replace("</main>", '<section aria-labelledby="missing-heading"></section></main>'), 1, /aria-labelledby references missing id/],
   ["rejects empty generated site", null, 1, /no generated HTML pages/]
 ];
 let failures = 0;
