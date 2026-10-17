@@ -16,6 +16,9 @@ Esta lista distingue la compilación técnica de la preparación pedagógica. Un
 
 - [ ] Ejecutar `npm ci` desde un entorno limpio.
 - [ ] Ejecutar `npm run check` y conservar el enlace a la ejecución de CI correspondiente al commit que se va a publicar.
+- [ ] Verificar que la ejecución de CI corresponde exactamente al SHA candidato; un resultado verde de un commit anterior no valida cambios posteriores.
+- [ ] Confirmar que ambos trabajos requeridos (Node.js 22 y 24) terminaron con `success`; si falta un trabajo, está en curso o falló, marcar el control como no verificado o bloqueado.
+- [ ] Registrar los fallos de CI recientes y confirmar que las correcciones posteriores tienen una ejecución verde propia antes de promover la revisión.
 - [ ] Confirmar que el build termina correctamente y que las rutas generadas esperadas existen.
 - [ ] Revisar enlaces internos, navegación principal, páginas de error y recursos estáticos.
 - [ ] Verificar que los comandos documentados coinciden con los scripts reales del repositorio.
