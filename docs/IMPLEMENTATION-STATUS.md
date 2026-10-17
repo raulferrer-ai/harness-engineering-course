@@ -177,3 +177,7 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Newest observed CI at 15:12 CEST: [run 39035570909](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035570909), commit `a73a09a60124a12242fafc1570ff79630424ec53`, completed successfully. This confirms automated checks for that revision only.
 - Rechecked the release protocol: the pilot is explicitly a draft and prohibits collecting participant data before approval of privacy/consent, materials, environment, and rubric. Therefore no pilot is claimed as completed and public release remains gated on recorded human evidence.
+
+
+- Verification update (2026-10-17 15:13 CEST): latest observed CI [run 39035638269](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035638269), commit `9cea1153890de9185b1775e6308ba4426ee2468b`, passed the Node.js 22 and Node.js 24 jobs.
+- Release remains blocked pending accountable human evidence. The release checklist itself requires a named reviewer, exact commit, test evidence, manual accessibility result, privacy/consent approval, risk acceptance and explicit decision. The pilot protocol states that no pilot has been conducted until real participant data and a reviewed report exist. No such completion is inferred here.
