@@ -139,3 +139,7 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 
 - Accessibility structure checker: added detection of whitespace-only image alt text while preserving the valid `alt=""` pattern for decorative images. Regression tests cover both cases. Full CI passed on Node.js 22 and Node.js 24 for commit `0553aa7` (run 39034698434).
+
+
+- Latest verification: commit `8ffb9b4f02fcd776acded1a681a4a265f785035f` passed both CI jobs (Node.js 22 and Node.js 24), run [39034781119](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39034781119).
+- Release decision remains **not yet approved**: the real learner pilot, independent execution of all ten labs, manual WCAG/accessibility review, and approval of privacy/participant information are still outstanding. These require human review or participant activity and must not be represented as completed by CI.
