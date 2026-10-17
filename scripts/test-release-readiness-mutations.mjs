@@ -14,6 +14,7 @@ const cases = [
   { label: "duplicate decision section", mutate: text => text.replace("## 5. Decisión", "## 5. Decisión\n\n## 5. Decisión"), expectedDiagnostic: "sección duplicada: ## 5. Decisión" },
   { label: "duplicate limits section", mutate: text => text.replace("## Límites", "## Límites\n\n## Límites"), expectedDiagnostic: "sección duplicada: ## Límites" },
   { label: "duplicate security section", mutate: text => text.replace("## 3. Herramientas, permisos y seguridad", "## 3. Herramientas, permisos y seguridad\n\n## 3. Herramientas, permisos y seguridad"), expectedDiagnostic: "sección duplicada: ## 3. Herramientas, permisos y seguridad" },
+  { label: "safeguard only inside tab-indented code", mutate: text => text.replace("no inferir éxito", "\tno inferir éxito"), expectedDiagnostic: "falta regla o salvaguarda: no inferir éxito" },
   { label: "safeguard only inside indented code", mutate: text => text.replace("no inferir éxito", "    no inferir éxito"), expectedDiagnostic: "falta regla o salvaguarda: no inferir éxito" },
   { label: "safeguard only inside fenced code", mutate: text => text.replaceAll("no inferir éxito", "no asegurar éxito").replace("no asegurar éxito", "```text\nno inferir éxito\n```"), expectedDiagnostic: "falta regla o salvaguarda: no inferir éxito" },
   { label: "missing evidence safeguard", mutate: text => text.replace("no inferir éxito", "asumir éxito"), expectedDiagnostic: "falta regla o salvaguarda: no inferir éxito" },
