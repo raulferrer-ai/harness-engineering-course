@@ -33,6 +33,7 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 - [Información y consentimiento de participantes — borrador](docs/pilot-participant-information.md)
 - [Plantilla de observación del piloto](docs/pilot-observation-template.md)
 - [Encuesta de cierre del piloto](docs/pilot-exit-survey.md)
+- [Plantilla de informe de resultados del piloto](docs/pilot-results-report-template.md)
 - [Referencias técnicas y fuentes primarias por módulo](docs/references.md)
 - [Guía para participantes](src/guia.njk)
 

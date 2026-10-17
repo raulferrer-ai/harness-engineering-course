@@ -104,6 +104,8 @@ Estos estados son etiquetas de gestión propuestas, no certificaciones externas.
 
 ## 7. Informe de resultados
 
+Usa [`docs/pilot-results-report-template.md`](pilot-results-report-template.md) para registrar resultados agregados, denominadores, tiempos observados, defectos, barreras de accesibilidad y decisión de salida. Déjalo sin completar hasta disponer de datos reales.
+
 El informe final debe incluir:
 
 1. Versión del protocolo, fechas y perfil agregado de participantes.
