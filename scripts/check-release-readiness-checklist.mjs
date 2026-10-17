@@ -36,7 +36,7 @@ const structuralMarkdown = linesOutsideFences.map(line => {
 }).join("\n");
 const commentFreeMarkdown = structuralMarkdown.replace(/<!--[\s\S]*?-->/g, "");
 const structuralLines = commentFreeMarkdown.split("\n");
-const safeguardMarkdown = structuralLines.filter(line => !/^\t/.test(line)).join("\n");
+const safeguardMarkdown = structuralLines.filter(line => !/^(\t| {4,})/.test(line)).join("\n");
 const title = "# Lista de comprobación de preparación para publicar";
 const titleCount = structuralLines.filter(line => !/^\t/.test(line) && line.trim() === title).length;
 if (titleCount === 0) failures.push("falta título exacto: " + title);
