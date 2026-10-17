@@ -44,7 +44,7 @@ try {
   await makeRoot(prefixCollisionRoot);
   await writeFile(path.join(prefixCollisionRoot, "docs", "lab02-worked-example.md"), "AC-010", "utf8");
   const prefixCollision = spawnSync(process.execPath, [checker], { cwd: root, encoding: "utf8", env: { ...process.env, LAB_EXAMPLE_TRACEABILITY_ROOT: prefixCollisionRoot } });
-  if (prefixCollision.status !== 1 || !/LAB-02: docs\\/lab02-worked-example\\.md does not reference fixture ID AC-01/.test(prefixCollision.stdout + prefixCollision.stderr)) {
+  if (prefixCollision.status !== 1 || !(prefixCollision.stdout + prefixCollision.stderr).includes("LAB-02: docs/lab02-worked-example.md does not reference fixture ID AC-01")) {
     failures++;
     console.error("FAIL rejects fixture ID matched only as a longer identifier: " + prefixCollision.stdout + prefixCollision.stderr);
   } else console.log("PASS rejects fixture ID matched only as a longer identifier");
