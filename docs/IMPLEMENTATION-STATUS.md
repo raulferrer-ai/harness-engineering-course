@@ -112,3 +112,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - LAB-10 now maps every declared metric, governance case, decision rule, scenario, and decision test vector to acceptance-criteria evidence. Identifier parsing now matches the actual `VAL-T01` format, and abbreviated ranges were replaced with explicit IDs. Added mutations for unknown and unreferenced decision vectors. CI passed for commit `d134015` (run 39020396669).
 
 - LAB-07 now requires a decision vector for every declared critical-failure condition, not just for each case and outcome. Added four vectors to exercise critical failures that had previously been declared but not individually covered, plus a negative regression for missing coverage. CI passed for commit `54b3603` (run 39020552900).
+
+- LAB-02 now rejects duplicate blocking questions, duplicate scope/stop-condition entries, and exact scope items listed as both allowed and forbidden. Added negative mutation coverage. CI passed for commit `8b8b7a6` (run 39020643882).
