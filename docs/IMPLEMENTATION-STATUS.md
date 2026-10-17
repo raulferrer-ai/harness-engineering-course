@@ -173,3 +173,7 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - The latest observed workflow is [run 39035452974](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035452974), commit `ec4f741dbbc3ac4fb77b5635892c06e6a5618a36`. Both CI jobs passed: Node.js 22 and Node.js 24.
 - This supersedes earlier entries in this log as the newest observed CI run; older run references above are historical evidence for their respective revisions.
 - Public release is still **not approved**. CI does not complete the outstanding human gates: clean-environment execution and evidence capture for all ten labs, manual accessibility review, approval of privacy and participant materials, and completion/review of a formative learner pilot. The release decision must be recorded by a responsible reviewer after those gates have evidence.
+
+
+- Newest observed CI at 15:12 CEST: [run 39035570909](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035570909), commit `a73a09a60124a12242fafc1570ff79630424ec53`, completed successfully. This confirms automated checks for that revision only.
+- Rechecked the release protocol: the pilot is explicitly a draft and prohibits collecting participant data before approval of privacy/consent, materials, environment, and rubric. Therefore no pilot is claimed as completed and public release remains gated on recorded human evidence.
