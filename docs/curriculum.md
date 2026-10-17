@@ -59,10 +59,10 @@ Each lab should document preparation, specification, execution, verification, ev
 
 ## Transversal project and evaluation
 
-The project is planned for 40 hours and should use an existing repository, compare an appropriate baseline with AI-assisted work where feasible, and record quality, regressions, verification effort, human intervention, costs, maintainability, and security. The concrete repository and license remain to be selected.
+The project is planned for 40 hours and should use an existing repository, compare an appropriate baseline with AI-assisted work where feasible, and record quality, regressions, verification effort, human intervention, costs, maintainability, and security. The operational default is that each learner selects a repository meeting the admission contract in `docs/transversal-project.md`; a single shared repository is not required. License and admission must be checked for each selected repository before work begins.
 
-The 16-hour evaluation design includes conceptual assessment, individual practical work, failure diagnosis, and defense. The proposed thresholds and non-compensable critical-security-failure rules are not yet fully operationalized. Do not implement scoring automation until those rules are resolved.
+The 16-hour evaluation design includes conceptual assessment, individual practical work, failure diagnosis, and defense. A provisional rubric and decision threshold are documented in `docs/transversal-project-rubric.md`, with a calibration procedure in `docs/rubric-calibration-protocol.md`. These are working defaults for preparation and pilot calibration, not a validated summative policy. Do not automate a final grade or claim the threshold is validated before human calibration and approval.
 
 ## Known implementation gates
 
-Still to be decided or validated: concrete tool/runtime matrix, project repository and license, operational scoring rules and critical failures, clean-install reproducibility, accessibility validation, and learner pilot with observed durations.
+Still to be validated: lab-specific tool/runtime matrix; license/admission checks for selected repositories; clean-install reproducibility; independent execution of all ten labs; formal review of competency-to-outcome-to-activity-to-evidence traceability; accessibility validation; rubric calibration; privacy review; and a learner pilot with observed durations and outcomes. A successful build or fixture validator does not close these gates.
