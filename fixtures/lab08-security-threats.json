@@ -190,7 +190,7 @@
     {
       "id": "AC-03",
       "condition": "Las acciones fuera de política se bloquean antes de producir efectos.",
-      "evidence": "resultados SEC-T02–SEC-T05",
+      "evidence": "resultados SEC-T02, SEC-T03, SEC-T04 y SEC-T05",
       "verification": "comprobar logs y estado del entorno aislado"
     },
     {
