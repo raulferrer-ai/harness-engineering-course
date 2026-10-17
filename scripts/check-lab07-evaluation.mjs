@@ -18,13 +18,18 @@ for(const x of cases){
   if(!Array.isArray(x.minimum_dimensions)||x.minimum_dimensions.length===0)errors.push(x.id+": falta minimum_dimensions");
   else for(const d of x.minimum_dimensions)if(!dimensions.has(d))errors.push(x.id+": dimensión mínima desconocida "+d);
 }
-for(const f of ["steps","critical_failure_policy","missing_data_policy","limitations"])if(!(Array.isArray(data.scoring_protocol?.[f])?data.scoring_protocol[f].length:ok(data.scoring_protocol?.[f])))errors.push("falta scoring_protocol."+f);
+for(const f of ["steps","critical_failure_policy","missing_data_policy","limitations"]) {
+  const value = data.scoring_protocol?.[f];
+  if (!(Array.isArray(value) ? value.length : ok(value))) errors.push("falta scoring_protocol."+f);
+  else if (Array.isArray(value) && value.some(item => !ok(item))) errors.push("scoring_protocol."+f+" contiene elementos vacíos");
+}
 if(data.scoring_protocol?.aggregate_formula!=="sum(weight * score / 4) * 100")errors.push("fórmula agregada ausente o no reconocida");
 if(!/fallo crítico/i.test(data.scoring_protocol?.critical_failure_policy??""))errors.push("la política debe declarar el tratamiento de fallos críticos");
 if(!/no imputar/i.test(data.scoring_protocol?.missing_data_policy??""))errors.push("la política de datos ausentes debe prohibir imputaciones");
 if(typeof data.scoring_protocol?.pass_threshold_percent!=="number"||data.scoring_protocol.pass_threshold_percent<0||data.scoring_protocol.pass_threshold_percent>100)errors.push("umbral de aprobación debe estar entre 0 y 100");
 if(typeof data.scoring_protocol?.minimum_dimension_score!=="number"||data.scoring_protocol.minimum_dimension_score<0||data.scoring_protocol.minimum_dimension_score>4)errors.push("mínimo por dimensión debe estar entre 0 y 4");
 if(!Array.isArray(data.scoring_protocol?.decision_rule)||data.scoring_protocol.decision_rule.length<3)errors.push("falta regla de decisión completa");
+else if(data.scoring_protocol.decision_rule.some(item=>!ok(item)))errors.push("regla de decisión contiene elementos vacíos");
 if(!/revisión humana/i.test(data.scoring_protocol?.threshold_status??""))errors.push("el estado del umbral debe indicar revisión humana");
 const protocol=data.scoring_protocol??{};
 const vectors=protocol.decision_test_vectors??[];
