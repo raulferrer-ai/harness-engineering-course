@@ -142,6 +142,11 @@ try {
   });
   expectPass("empty fragment points to document top without lookup", emptyFragment);
 
+  const samePageQueryAndFragment = await fixture("same-page-query-and-fragment", {
+    "index.html": '<a href="?view=compact#details">Details</a><section id="details">Details</section>\n'
+  });
+  expectPass("same-page query and fragment links", samePageQueryAndFragment);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
