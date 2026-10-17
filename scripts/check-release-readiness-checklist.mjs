@@ -15,7 +15,7 @@ const requireText = (text, message = "falta texto obligatorio: " + text) => {
   if (!markdown.includes(text)) failures.push(message);
 };
 
-requireText("# Lista de comprobación de preparación para publicar");
+if (!markdown.split("\n").some(line => line.trim() === "# Lista de comprobación de preparación para publicar")) failures.push("falta título exacto: # Lista de comprobación de preparación para publicar");
 for (const heading of [
   "## 1. Alcance y procedencia",
   "## 2. Cambio y verificación",
