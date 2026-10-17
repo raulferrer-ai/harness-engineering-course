@@ -26,6 +26,8 @@ const cases = [
   ["accepts aria-labelledby with multiple existing IDs", good.replace("</main>", '<span id="first">Primero</span><span id="second">Segundo</span><a href="#x" aria-labelledby="first second"></a></main>'), 0, /PASS accessibility structure/],
   ["rejects duplicate IDs with single-quoted attributes", good.replace("</main>", "<span id='reused'>Uno</span><span id='reused'>Dos</span></main>"), 1, /duplicate id attribute value/],
   ["accepts case-sensitive distinct IDs", good.replace("</main>", '<span id="Item">Uno</span><span id="item">Dos</span></main>'), 0, /PASS accessibility structure/],
+  ["rejects empty ID attribute", good.replace("</main>", '<span id="">Sin ID</span></main>'), 1, /id attribute value must be non-empty/],
+  ["rejects ID containing whitespace", good.replace("</main>", '<span id="two words">ID inválido</span></main>'), 1, /id attribute value must be non-empty and contain no whitespace/],
   ["rejects link with whitespace-only text", good.replace("</main>", '<a href="#x">   </a></main>'), 1, /link has no detectable accessible name/],
   ["rejects whitespace-only aria-label on icon link", good.replace("</main>", '<a href="#x" aria-label="   "><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],
   ["accepts single-quoted empty alt for decorative image", good.replace('alt="Descripción"', "alt=''"), 0, /PASS accessibility structure/],
