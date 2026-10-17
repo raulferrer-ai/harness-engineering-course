@@ -106,3 +106,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - LAB-08 now requires every security test case to be referenced by acceptance-criteria evidence and rejects unknown test references. The fixture now enumerates `SEC-T02`, `SEC-T03`, `SEC-T04`, and `SEC-T05` explicitly instead of using a compact range that the validator could not trace reliably. CI passed for commit `9d50592` (run 39020089545).
 
 - LAB-09 now parses the scenario identifier format actually used by its fixture, requires explicit traceability for every signal, event, recovery step and operational scenario, and rejects unknown or unreferenced evidence. The fixture's abbreviated ranges were expanded into explicit IDs. CI passed for commit `c680b24` (run 39020169381).
+
+- LAB-05 now also enforces deny-and-escalate behavior for policy conflicts and requires an explicit logging rule that excludes secrets. Negative mutation cases cover both controls. CI passed for commit `82c8385` (run 39020240781).
