@@ -12,6 +12,7 @@ const cases = [
   { label: "missing decision section", mutate: text => text.replace("## 5. Decisión", "## 5. Resultado"), expectedDiagnostic: "falta sección: ## 5. Decisión" },
   { label: "heading text only inside a sentence", mutate: text => text.replace("## 5. Decisión", "Texto de ejemplo: ## 5. Decisión"), expectedDiagnostic: "falta sección: ## 5. Decisión" },
   { label: "duplicate decision section", mutate: text => text.replace("## 5. Decisión", "## 5. Decisión\n\n## 5. Decisión"), expectedDiagnostic: "sección duplicada: ## 5. Decisión" },
+  { label: "duplicate limits section", mutate: text => text.replace("## Límites", "## Límites\n\n## Límites"), expectedDiagnostic: "sección duplicada: ## Límites" },
   { label: "missing evidence safeguard", mutate: text => text.replace("no inferir éxito", "asumir éxito"), expectedDiagnostic: "falta regla o salvaguarda: no inferir éxito" },
   { label: "missing decision owner", mutate: text => text.replace("| Responsable de la decisión |", "| Dueño de la decisión |"), expectedDiagnostic: "falta campo en el registro de decisión: Responsable de la decisión" },
   { label: "missing manual accessibility status", mutate: text => text.replace("| Accesibilidad manual | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Accesibilidad manual" },
