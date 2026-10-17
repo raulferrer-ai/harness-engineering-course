@@ -43,12 +43,19 @@ function extractStartTags(markup) {
 function resolveLocalUrl(value, sourcePath) {
   const parsed = new URL(value, `https://route-check.invalid${sourcePath}`);
   if (parsed.origin !== "https://route-check.invalid") return null;
-  const pathname = decodeURIComponent(parsed.pathname);
+  let pathname;
+  let fragment;
+  try {
+    pathname = decodeURIComponent(parsed.pathname);
+    fragment = decodeURIComponent(parsed.hash.slice(1));
+  } catch {
+    throw new Error(`Malformed percent-encoding in local URL: "${value}"`);
+  }
   const target = path.resolve(outputDir, `.${pathname}`);
   if (target !== outputDir && !target.startsWith(outputDir + path.sep)) {
     throw new Error(`Path escapes generated site: ${value}`);
   }
-  return { target, fragment: decodeURIComponent(parsed.hash.slice(1)) };
+  return { target, fragment };
 }
 
 const failures = [];
