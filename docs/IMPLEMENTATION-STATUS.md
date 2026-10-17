@@ -78,3 +78,6 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Repaired the traceability backlog, removing a malformed orphaned line and consolidating remaining gates into explicit actions: formal mapping review, learner evidence chains, real lab execution, repository admission, rubric calibration, manual accessibility/privacy/reproducibility review, and learner pilot. CI passed for commit `cee2dba` (run 39017454345).
 
 - Extended the curriculum gate to require the correct LAB ID/hour allocation on each module page and verify that each module's worked example and mapped lab validation pack actually exist. CI passed for commit `9a9bc96` (run 39017684142).
+
+- Added `docs/references.md`, a curated source index grouped by all ten modules, and linked it from the README and content contract. CI passed for commit `bcccd7a` (run 39017877871).
+- Prepared draft PR [#46](https://github.com/raulferrer-ai/harness-engineering-course/pull/46) to link the reference index from all ten rendered module pages and enforce that link through the curriculum checker. Both branch CI runs passed (39018079003 and 39018071326). The PR remains unmerged because it changes rendered site pages; the documented Deploy Preview, manual accessibility/content review, and explicit production-release authorization remain required.
