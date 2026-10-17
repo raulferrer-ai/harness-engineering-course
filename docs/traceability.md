@@ -54,8 +54,8 @@ Estas relaciones deben convertirse en filas explícitas con resultados y evidenc
 
 - Validar las asociaciones competencia–módulo propuestas y los cruces transversales.
 - Normalizar los resultados de aprendizaje ya publicados y enlazarlos con actividades, evidencias y criterios verificables; no todos los fixtures tienen el mismo nivel de detalle.
-- Especificar el proyecto transversal, el entorno/herramientas y la licencia del repositorio.
-- Aprobar reglas operativas de evaluación y fallos críticos de seguridad antes de automatizar puntuaciones.
+- El proyecto transversal y la rúbrica ya tienen defaults operativos documentados; queda verificar el contrato con un repositorio candidato y calibrar la rúbrica antes de uso sumativo.
+- Validar formalmente las asociaciones competencia–módulo y completar la cadena resultado–actividad–evidencia–criterio de aceptación sin atribuir relaciones no aprobadas.
 - Ejecutar y documentar los laboratorios antes de marcarlos como verificados.
 
 ## Implementación de artefactos de LAB-05 a LAB-08
