@@ -248,3 +248,11 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Commit `242c9e77009abe0fb5097515a69a785a94080740` passed [CI run 39038744275](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038744275) on Node.js 22 and Node.js 24; follow-up commit `840d921e3063e87b4961adfda9f4c407abea24e8` passed [CI run 39038781743](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038781743).
 - Added mutation tests for the pilot safeguards checker and included them in `npm run check`. The tests verify that the gate rejects missing draft-status language, missing pre-collection approval, missing retention or voluntariness safeguards, unsupported claims that consent is approved, and a missing participant-information document.
 - PR [#46](https://github.com/raulferrer-ai/harness-engineering-course/pull/46) is marked ready for review after branch CI passed; it remains unmerged pending the required human accessibility/content review stated in the PR.
+
+
+## Regression inventory accuracy — 2026-10-17
+
+- Corrected `docs/lab-validation-plan.md` to match the current regression suite: 86 semantic mutations across LAB-01–LAB-10 (7, 8, 7, 7, 10, 7, 7, 7, 17, 9 respectively), plus 20 malformed-input checks (malformed JSON and non-object roots for each validator).
+- Updated the documented runtime requirement from Node.js 20+ to Node.js 22+, consistent with `package.json` and the CI matrix (Node.js 22 and 24).
+- CI for commit `af1ba1ee85a791f83d3eaed65179f757ab1e5299` passed on both Node.js 22 and 24: [run 39039042071](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39039042071).
+- This is documentation alignment and automated regression verification only. It does not establish independent execution of all ten labs, a learner pilot, human rubric calibration, or completion of manual accessibility/privacy review; those remain release gates.
