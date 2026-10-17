@@ -166,3 +166,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Latest CI refresh (2026-10-17): commit `a7cd33268d831e75f05776d53d0e9ecbc4f84364` passed the required workflow in [run 39035353004](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035353004). This is automated repository validation, not a release approval.
 - Release blockers remain unchanged until evidence is supplied: (1) execute each of the ten labs from a clean environment and retain logs, (2) have a qualified reviewer complete the manual accessibility checklist, (3) approve privacy/data-retention and participant information before any pilot data collection, and (4) run the formative learner pilot and record findings/actions. Do not mark these complete based on source inspection or CI alone.
+
+
+## Latest verification — 2026-10-17 15:11 CEST
+
+- The latest observed workflow is [run 39035452974](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035452974), commit `ec4f741dbbc3ac4fb77b5635892c06e6a5618a36`. Both CI jobs passed: Node.js 22 and Node.js 24.
+- This supersedes earlier entries in this log as the newest observed CI run; older run references above are historical evidence for their respective revisions.
+- Public release is still **not approved**. CI does not complete the outstanding human gates: clean-environment execution and evidence capture for all ten labs, manual accessibility review, approval of privacy and participant materials, and completion/review of a formative learner pilot. The release decision must be recorded by a responsible reviewer after those gates have evidence.
