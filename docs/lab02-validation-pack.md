@@ -32,12 +32,4 @@ Los umbrales de rendimiento, el entorno, la fuente de verdad y la ventana tempor
 
 ## Ejemplo resuelto
 
-Consulta [`docs/lab02-worked-example.md`](lab02-worked-example.md) para ver una petición ambigua transformada en especificación provisional, criterios verificables, plan de pruebas y una decisión de despliegue condicionada por evidencia y autorización.
-
-## Ejemplo resuelto
-
-Consulta [`docs/lab02-worked-example.md`](lab02-worked-example.md) para transformar una petición ambigua en requisitos verificables, preguntas bloqueantes, pruebas y una decisión de ejecución condicionada por evidencia.
-
-## Ejemplo resuelto
-
-Consulta [`docs/lab02-worked-example.md`](lab02-worked-example.md) para convertir una petición ambigua en requisitos verificables, fijar criterios de aceptación y distinguir resultados ejecutados de comprobaciones pendientes.
+Consulta [`docs/lab02-worked-example.md`](lab02-worked-example.md) para convertir una petición ambigua en una especificación provisional, formular preguntas bloqueantes, definir criterios verificables y distinguir las comprobaciones pendientes de los resultados realmente ejecutados.

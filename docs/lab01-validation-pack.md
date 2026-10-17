@@ -34,8 +34,4 @@ El chequeo automático solo valida la consistencia estructural de los fixtures. 
 
 ## Ejemplo resuelto
 
-Consulta [`docs/lab01-worked-example.md`](lab01-worked-example.md) para una caracterización reproducible del modelo, puntuación separada de esquema y semántica, tratamiento de abstenciones y comparación de configuraciones sin inventar resultados.
-
-## Ejemplo resuelto
-
-Consulta [`docs/lab01-worked-example.md`](lab01-worked-example.md) para una caracterización reproducible, puntuación separada de esquema y semántica y comparación de configuraciones sin inventar resultados.
+Consulta [`docs/lab01-worked-example.md`](lab01-worked-example.md) para una caracterización del modelo, puntuación separada de esquema y semántica, tratamiento de abstenciones y comparación de configuraciones sin inventar resultados.
