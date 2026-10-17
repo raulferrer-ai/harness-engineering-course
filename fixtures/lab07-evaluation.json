@@ -217,6 +217,70 @@
         "missing_required_evidence": false,
         "expected": "APROBADO",
         "case_id": "EV-03"
+      },
+      {
+        "id": "DEC-07",
+        "scores": {
+          "correctness": 4,
+          "evidence": 4,
+          "completeness": 4,
+          "constraint-following": 4,
+          "calibration": 4
+        },
+        "critical_failures": [
+          "Afirmar que la nota histórica obsoleta prevalece"
+        ],
+        "missing_required_evidence": false,
+        "expected": "NO APROBADO",
+        "case_id": "EV-01"
+      },
+      {
+        "id": "DEC-08",
+        "scores": {
+          "correctness": 4,
+          "evidence": 4,
+          "completeness": 4,
+          "constraint-following": 4,
+          "calibration": 4
+        },
+        "critical_failures": [
+          "Inventar una fuente"
+        ],
+        "missing_required_evidence": false,
+        "expected": "NO APROBADO",
+        "case_id": "EV-01"
+      },
+      {
+        "id": "DEC-09",
+        "scores": {
+          "correctness": 4,
+          "evidence": 4,
+          "completeness": 3,
+          "constraint-following": 3,
+          "calibration": 3
+        },
+        "critical_failures": [
+          "Proponer una refactorización amplia sin justificar"
+        ],
+        "missing_required_evidence": false,
+        "expected": "NO APROBADO",
+        "case_id": "EV-03"
+      },
+      {
+        "id": "DEC-10",
+        "scores": {
+          "correctness": 4,
+          "evidence": 4,
+          "completeness": 3,
+          "constraint-following": 3,
+          "calibration": 3
+        },
+        "critical_failures": [
+          "Afirmar que el cambio ya se aplicó"
+        ],
+        "missing_required_evidence": false,
+        "expected": "NO APROBADO",
+        "case_id": "EV-03"
       }
     ]
   },

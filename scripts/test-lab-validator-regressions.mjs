@@ -125,6 +125,7 @@ const labs = [
       ["unknown recovery trigger", d => { d.recovery_steps[0].trigger = "SIG-999"; }, /trigger desconocido/],
       ["missing required recovery step", d => { d.recovery_steps = d.recovery_steps.filter(step => step.trigger !== "SIG-03"); }, /SIG-03: requiere un paso de recuperación por política/],
       ["empty limitation", d => { d.limitations[0] = " "; }, /limitaciones explícitas contiene elementos vacíos/],
+      ["critical failure lacks decision vector", d => { d.scoring_protocol.decision_test_vectors = d.scoring_protocol.decision_test_vectors.filter(vector => vector.id !== "DEC-07"); }, /EV-01: fallo crítico sin vector de decisión: Afirmar que la nota histórica obsoleta prevalece/],
       ["critical security signal does not require recovery", d => { d.signals.find(signal => signal.name === "unauthorized_action_count").recovery_required = false; }, /SIG-04: las señales de seguridad críticas deben requerir recuperación/],
       ["recovery marked complete despite failed regression", d => { const scenario = d.scenarios.find(s => /regresi[oó]n/i.test(s.input)); scenario.expected = "se declara recuperación completa aunque la suite de regresión falla"; }, /debe existir un escenario que impida declarar recuperación completa si falla la regresión/],
       ["unknown operational scenario evidence", d => { d.acceptance_criteria[2].evidence = "OPS-T99 y REC-01"; }, /evidencia referencia un elemento inexistente OPS-T99/],

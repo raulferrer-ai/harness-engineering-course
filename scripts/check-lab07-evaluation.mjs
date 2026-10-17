@@ -63,5 +63,15 @@ for(const v of vectors){
 }
 for(const outcome of ["APROBADO","NO APROBADO","INCONCLUSO"])if(!coveredOutcomes.has(outcome))errors.push("faltan vectores de decisión para "+outcome);
 for(const testCase of cases)if(!coveredCases.has(testCase.id))errors.push("falta vector de decisión para el caso "+testCase.id);
+const coveredCriticalFailures = new Set();
+for (const vector of vectors) {
+  if (!Array.isArray(vector.critical_failures)) continue;
+  for (const failure of vector.critical_failures) coveredCriticalFailures.add(`${vector.case_id}::${failure}`);
+}
+for (const testCase of cases) {
+  for (const failure of testCase.critical_failures ?? []) {
+    if (!coveredCriticalFailures.has(`${testCase.id}::${failure}`)) errors.push(testCase.id + ": fallo crítico sin vector de decisión: " + failure);
+  }
+}
 if(errors.length){for(const e of errors)console.error("LAB-07 evaluation: "+e);process.exit(1);}
 console.log("LAB-07 fixture OK: "+rubric.length+" dimensiones, "+cases.length+" casos y protocolo de puntuación.");
