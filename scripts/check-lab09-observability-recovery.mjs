@@ -1,7 +1,17 @@
 import { readFile } from "node:fs/promises";
 import process from "node:process";
 
-const data = JSON.parse(await readFile(process.env.LAB09_FIXTURE_PATH ?? new URL("../fixtures/lab09-observability-recovery.json", import.meta.url), "utf8"));
+let data;
+try {
+  data = JSON.parse(await readFile(process.env.LAB09_FIXTURE_PATH ?? new URL("../fixtures/lab09-observability-recovery.json", import.meta.url), "utf8"));
+} catch (error) {
+  console.error(`check-lab09-observability-recovery.mjs: no se pudo leer o interpretar JSON: ${error.message}`);
+  process.exit(1);
+}
+if (!data || typeof data !== "object" || Array.isArray(data)) {
+  console.error("check-lab09-observability-recovery.mjs: la raíz debe ser un objeto JSON");
+  process.exit(1);
+}
 const errors = [];
 const nonempty = v => typeof v === "string" && v.trim().length > 0;
 const unique = (items, label) => {
