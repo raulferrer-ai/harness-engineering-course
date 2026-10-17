@@ -22,7 +22,7 @@ const structuralLines = linesOutsideFences.filter(line => {
     insideFence = !insideFence;
     return false;
   }
-  return !insideFence;
+  return !insideFence && !/^( {4,}|\t)/.test(line);
 });
 const title = "# Lista de comprobación de preparación para publicar";
 const titleCount = structuralLines.filter(line => line.trim() === title).length;
