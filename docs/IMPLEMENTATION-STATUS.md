@@ -67,3 +67,6 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - These checks validate fixture contracts and validator behavior; they do not establish that a learner or model has completed the labs, nor that the instructional design has been piloted.
 
 - Added `scripts/check-accessibility-basics.mjs` and regression tests, integrated into `npm run check`. The structural check verifies document language, one main landmark, one h1, and image alt attributes across generated pages. CI passed for `e66c5e2` (run 39016637722). This is not a full WCAG audit; manual accessibility review remains a release gate.
+
+- Added a structural accessibility gate and six regression scenarios, integrated into `npm run check`; its scope is intentionally limited and does not replace manual WCAG review.
+- Aligned the LAB-04 fixture with its worked example: the same `normalizeTags` task, scope restrictions, acceptance criteria, and positive/negative/regression cases are now represented consistently. CI passed for commit `d9c9b20` (run 39016760285).
