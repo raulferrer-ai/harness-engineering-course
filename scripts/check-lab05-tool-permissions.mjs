@@ -33,6 +33,8 @@ for (const item of cases) if (!coveredThreats.has(item.id)) errors.push(`${item.
 if (!Array.isArray(data.audit_fields)||!["run_id","tool_name","decision","policy_rule"].every(x=>data.audit_fields.includes(x))) errors.push("campos de auditoría insuficientes");
 if (Array.isArray(data.audit_fields) && new Set(data.audit_fields).size !== data.audit_fields.length) errors.push("campos de auditoría duplicados");
 if (data.decision_policy?.default!=="deny"||data.decision_policy?.unknown_tool!=="deny"||data.decision_policy?.missing_approval!=="deny") errors.push("la política debe denegar por defecto");
+if (data.decision_policy?.policy_conflict !== "deny_and_escalate") errors.push("los conflictos de política deben denegar y escalar");
+if (!nonempty(data.decision_policy?.logging) || !/no registrar|no almacenar/i.test(data.decision_policy.logging)) errors.push("la política de logging debe definir una regla explícita para no registrar secretos");
 if (!Array.isArray(data.limitations)||data.limitations.length<2) errors.push("faltan limitaciones");
 else if (data.limitations.some(item => !nonempty(item))) errors.push("limitaciones contiene elementos vacíos");
 if(errors.length){for(const e of errors) console.error(`LAB-05 tool permissions: ${e}`);process.exit(1);}

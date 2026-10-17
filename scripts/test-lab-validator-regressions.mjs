@@ -63,7 +63,9 @@ const labs = [
       ["permission both allowed and denied", d => { d.tools[0].denied.push(d.tools[0].allowed[0]); }, /un permiso no puede estar simultáneamente permitido y denegado/],
       ["duplicate audit field", d => { d.audit_fields.push(d.audit_fields[0]); }, /campos de auditoría duplicados/],
       ["unknown threat referenced by criterion", d => { d.acceptance_criteria[0].evidence = "TP-999"; }, /evidencia referencia una amenaza inexistente TP-999/],
-      ["threat not covered by acceptance evidence", d => { for (const criterion of d.acceptance_criteria) criterion.evidence = criterion.evidence.replace(/TP-06/g, ""); }, /TP-06: amenaza sin referencia en la evidencia de ningún criterio/]
+      ["threat not covered by acceptance evidence", d => { for (const criterion of d.acceptance_criteria) criterion.evidence = criterion.evidence.replace(/TP-06/g, ""); }, /TP-06: amenaza sin referencia en la evidencia de ningún criterio/],
+      ["policy conflict not escalated", d => { d.decision_policy.policy_conflict = "allow"; }, /los conflictos de política deben denegar y escalar/],
+      ["logging policy omits secret handling", d => { d.decision_policy.logging = "Guardar todos los datos para depuración."; }, /la política de logging debe definir una regla explícita para no registrar secretos/]
     ]
   },
   {
