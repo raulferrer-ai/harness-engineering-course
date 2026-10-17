@@ -147,6 +147,11 @@ try {
   });
   expectPass("same-page query and fragment links", samePageQueryAndFragment);
 
+  const externalUrlIgnored = await fixture("external-url-ignored", {
+    "index.html": '<a href="https://example.com/missing#fragment">External</a><a href="mailto:help@example.com">Email</a><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="">\n'
+  });
+  expectPass("external, mailto and data URLs are not treated as local files", externalUrlIgnored);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
