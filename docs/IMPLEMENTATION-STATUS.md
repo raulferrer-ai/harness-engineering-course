@@ -181,3 +181,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Verification update (2026-10-17 15:13 CEST): latest observed CI [run 39035638269](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035638269), commit `9cea1153890de9185b1775e6308ba4426ee2468b`, passed the Node.js 22 and Node.js 24 jobs.
 - Release remains blocked pending accountable human evidence. The release checklist itself requires a named reviewer, exact commit, test evidence, manual accessibility result, privacy/consent approval, risk acceptance and explicit decision. The pilot protocol states that no pilot has been conducted until real participant data and a reviewed report exist. No such completion is inferred here.
+
+
+## Verification update — 2026-10-17 15:27 CEST
+
+- Added `scripts/check-pilot-safeguards.mjs` and wired it into `npm run check` as `check:pilot-safeguards`. It checks that pilot and participant-information documents retain draft status, privacy prerequisites, voluntary participation language, and an explicit prohibition on data collection while required fields remain incomplete.
+- CI run [39036628356](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39036628356) passed on commit `24f8b9b80d9b8f9ca46fd075288148ce4f155308` for both Node.js 22 and Node.js 24.
+- This guard prevents accidental weakening of the written safeguards; it is not a legal/privacy approval and does not replace actual lab execution, manual accessibility review, or the learner pilot. Public release is not yet approved.
