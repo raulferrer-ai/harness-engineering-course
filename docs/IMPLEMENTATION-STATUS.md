@@ -26,7 +26,7 @@ The ten modules total 104 hours: 40 hours of fundamentals and 64 hours of labs. 
 - Calibrate the provisional rubric against sample submissions before summative use.
 - Complete and independently execute all lab instructions, recording environment and evidence.
 - Validate competency-to-outcome-to-activity-to-evidence traceability.
-- Conduct accessibility reviews, including keyboard, screen reader, contrast, responsive behavior and reduced motion.
+- Conduct the manual accessibility review using `docs/accessibility-review-checklist.md`, including keyboard, screen reader, contrast, responsive behavior and reduced motion.
 - Pilot the course and validate actual duration, clarity and learner outcomes.
 
 ## Release discipline
