@@ -152,6 +152,11 @@ try {
   });
   expectPass("external, mailto and data URLs are not treated as local files", externalUrlIgnored);
 
+  const protocolRelativeUrl = await fixture("protocol-relative-url", {
+    "index.html": '<a href="//example.com/remote/page#section">External protocol-relative URL</a>\n'
+  });
+  expectPass("protocol-relative external URLs are not checked as local files", protocolRelativeUrl);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
