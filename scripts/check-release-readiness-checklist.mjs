@@ -12,7 +12,7 @@ try {
 
 const failures = [];
 const requireText = (text, message = "falta texto obligatorio: " + text) => {
-  if (!structuralMarkdown.includes(text)) failures.push(message);
+  if (!safeguardMarkdown.includes(text)) failures.push(message);
 };
 
 const linesOutsideFences = markdown.split("\n");
@@ -35,6 +35,7 @@ const structuralMarkdown = linesOutsideFences.map(line => {
   return line;
 }).join("\n");
 const structuralLines = structuralMarkdown.split("\n");
+const safeguardMarkdown = structuralLines.filter(line => !/^\t/.test(line)).join("\n");
 const title = "# Lista de comprobación de preparación para publicar";
 const titleCount = structuralLines.filter(line => !/^\t/.test(line) && line.trim() === title).length;
 if (titleCount === 0) failures.push("falta título exacto: " + title);
