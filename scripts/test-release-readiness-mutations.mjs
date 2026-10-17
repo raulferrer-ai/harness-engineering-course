@@ -28,7 +28,26 @@ const cases = [
   { label: "missing critical-failure field", mutate: text => text.replace("| Fallos críticos abiertos | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Fallos críticos abiertos" },
   { label: "missing decision field", mutate: text => text.replace("| Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Decisión" },
   { label: "duplicate final decision field", mutate: text => text.replace("| Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |", "| Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |\n| Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Decisión" },
-  { label: "missing independent diff review safeguard", mutate: text => text.replace("revisión independiente del diff", "revisión del cambio"), expectedDiagnostic: "falta regla o salvaguarda: revisión independiente del diff" }
+  { label: "missing independent diff review safeguard", mutate: text => text.replace("revisión independiente del diff", "revisión del cambio"), expectedDiagnostic: "falta regla o salvaguarda: revisión independiente del diff" },
+  { label: "missing scope section", mutate: text => text.replace("## 1. Alcance y procedencia", "## 1. Alcance"), expectedDiagnostic: "falta sección: ## 1. Alcance y procedencia" },
+  { label: "missing change verification section", mutate: text => text.replace("## 2. Cambio y verificación", "## 2. Cambio"), expectedDiagnostic: "falta sección: ## 2. Cambio y verificación" },
+  { label: "missing tools and permissions section", mutate: text => text.replace("## 3. Herramientas, permisos y seguridad", "## 3. Herramientas"), expectedDiagnostic: "falta sección: ## 3. Herramientas, permisos y seguridad" },
+  { label: "missing operations and recovery section", mutate: text => text.replace("## 4. Operación y recuperación", "## 4. Operación"), expectedDiagnostic: "falta sección: ## 4. Operación y recuperación" },
+  { label: "missing limits section", mutate: text => text.replace("## Límites", "## Limitaciones"), expectedDiagnostic: "falta sección: ## Límites" },
+  { label: "missing no-execution safeguard", mutate: text => text.replace("no se ejecutó", "no se revisó"), expectedDiagnostic: "falta regla o salvaguarda: no se ejecutó" },
+  { label: "missing decision owner safeguard", mutate: text => text.replace("responsable", "persona encargada"), expectedDiagnostic: "falta regla o salvaguarda: responsable" },
+  { label: "missing security limitation safeguard", mutate: text => text.replace("no demuestra por sí sola la seguridad", "demuestra la seguridad"), expectedDiagnostic: "falta regla o salvaguarda: no demuestra por sí sola la seguridad" },
+  { label: "missing release revision field", mutate: text => text.replace("| Revisión exacta | |", "| Revisión revisada | |"), expectedDiagnostic: "falta campo en el registro de decisión: Revisión exacta" },
+  { label: "missing build checks field", mutate: text => text.replace("| Resultado de build y checks | |", "| Resultado técnico | |"), expectedDiagnostic: "falta campo en el registro de decisión: Resultado de build y checks" },
+  { label: "missing test evidence field", mutate: text => text.replace("| Evidencia de pruebas | |", "| Pruebas | |"), expectedDiagnostic: "falta campo en el registro de decisión: Evidencia de pruebas" },
+  { label: "missing critical failures field", mutate: text => text.replace("| Fallos críticos abiertos | |", "| Fallos | |"), expectedDiagnostic: "falta campo en el registro de decisión: Fallos críticos abiertos" },
+  { label: "missing accessibility field", mutate: text => text.replace("| Accesibilidad manual | |", "| Accesibilidad | |"), expectedDiagnostic: "falta campo en el registro de decisión: Accesibilidad manual" },
+  { label: "missing privacy field", mutate: text => text.replace("| Privacidad/consentimiento | |", "| Privacidad | |"), expectedDiagnostic: "falta campo en el registro de decisión: Privacidad/consentimiento" },
+  { label: "duplicate release revision field", mutate: text => text.replace("| Revisión exacta | |", "| Revisión exacta | |\\n| Revisión exacta | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Revisión exacta" },
+  { label: "duplicate build checks field", mutate: text => text.replace("| Resultado de build y checks | |", "| Resultado de build y checks | |\\n| Resultado de build y checks | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Resultado de build y checks" },
+  { label: "duplicate test evidence field", mutate: text => text.replace("| Evidencia de pruebas | |", "| Evidencia de pruebas | |\\n| Evidencia de pruebas | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Evidencia de pruebas" },
+  { label: "duplicate critical failures field", mutate: text => text.replace("| Fallos críticos abiertos | |", "| Fallos críticos abiertos | |\\n| Fallos críticos abiertos | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Fallos críticos abiertos" },
+  { label: "duplicate privacy field with whitespace", mutate: text => text.replace("| Privacidad/consentimiento | |", "| Privacidad/consentimiento | |\\n| Privacidad/consentimiento | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Privacidad/consentimiento" }
 ];
 
 const temp = await mkdtemp(join(tmpdir(), "release-checklist-tests-"));
