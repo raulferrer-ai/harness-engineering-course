@@ -90,7 +90,7 @@ try {
   const malformedPercentEncoding = await fixture("malformed-percent-encoding", {
     "index.html": '<a href="/bad%ZZ/">Malformed URL</a>\n'
   });
-  expectFail("report malformed percent encoding without crashing", malformedPercentEncoding, "URI malformed");
+  expectFail("report malformed percent encoding without crashing", malformedPercentEncoding, 'Malformed percent-encoding in local URL: "/bad%ZZ/"');
 
   const missingFile = await fixture("missing-file", {
     "index.html": '<a href="/missing/">Missing</a>\n'
