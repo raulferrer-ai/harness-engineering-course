@@ -208,3 +208,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - CI run [39036854022](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39036854022) completed successfully on commit `9ca0a45fea2949534a873fd10c40d6401078dc94`; both Node.js 22 and Node.js 24 jobs passed.
 - Confirmed that `npm run check` invokes `check:pilot-safeguards` and that the script checks the pilot protocol and participant-information draft for required privacy, voluntariness, and no-data-before-approval safeguards.
 - No change to release decision: automated verification is green, but publication as a fully validated course still requires recorded manual lab execution, accessibility review, approval of privacy/participant materials, and a reviewed learner pilot. Do not represent those activities as completed.
+
+
+## Verification update — 2026-10-17 15:37 CEST
+
+- Latest observed workflow: [run 39037235173](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39037235173), commit `f17560f2217cb227e8357b8f0448161eee1e0c30`. Both `Build and verify (Node 24)` and `Build and verify (Node 22)` completed successfully.
+- Rechecked pilot artifacts: the protocol remains a proposal, observation and survey materials instruct minimal/non-identifying data collection, and the results report explicitly says it is an empty template rather than evidence of a completed pilot.
+- Next release work is evidence-driven: run the ten labs from a clean environment and attach logs, perform the manual keyboard/screen-reader/contrast checks, obtain accountable privacy/participant-material approval, then conduct and review a pilot only after approval. No synthetic evidence or fabricated pilot results should be added to close these gates.
