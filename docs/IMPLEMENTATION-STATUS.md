@@ -149,3 +149,7 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 
 - Release checklist regression suite confirmed on commit `a0bfdbc`: CI run [39035012787](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035012787) succeeded on Node.js 22 and Node.js 24. The suite verifies formatting-only line-ending variants, controlled failure for unreadable input, and specific diagnostics for semantic mutations.
+
+
+- Latest CI check: commit `c121be238258b6e66710f9a65c44373d5c2d87a0` passed both required jobs, Node.js 22 and Node.js 24, in [run 39035092853](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035092853).
+- Release checklist review reconfirmed the remaining non-automated blockers: ten-module content and navigation review, manual keyboard/screen-reader/contrast/mobile accessibility checks, approval of privacy and participant information, independent learner execution of all labs, and a real pilot with calibrated rubric scoring. The release record must remain undecided until these checks are completed and a responsible reviewer records the decision.
