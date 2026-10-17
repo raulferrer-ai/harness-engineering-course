@@ -14,6 +14,18 @@ const seen = { id: new Set(), slug: new Set(), labId: new Set() };
 const expectedModuleIds = Array.from({ length: 10 }, (_, i) => `M${String(i + 1).padStart(2, "0")}`);
 const expectedLabIds = Array.from({ length: 10 }, (_, i) => `LAB-${String(i + 1).padStart(2, "0")}`);
 const expectedCompetencyIds = Array.from({ length: 9 }, (_, i) => `COMP-${String(i + 1).padStart(2, "0")}`);
+const labPackById = {
+  "LAB-01": "lab01-validation-pack.md",
+  "LAB-02": "lab02-validation-pack.md",
+  "LAB-03": "lab03-validation-pack.md",
+  "LAB-04": "lab04-validation-pack.md",
+  "LAB-05": "lab05-validation-pack.md",
+  "LAB-06": "lab06-validation-pack.md",
+  "LAB-07": "lab07-validation-pack.md",
+  "LAB-08": "lab08-security-threats.md",
+  "LAB-09": "lab09-observability-recovery.md",
+  "LAB-10": "lab10-productivity-governance.md"
+};
 
 if (!Array.isArray(modules) || modules.length !== expectedModuleIds.length) {
   errors.push(`Expected exactly 10 approved modules (M01–M10); found ${Array.isArray(modules) ? modules.length : "non-array"}.`);
@@ -96,6 +108,17 @@ for (const [index, module] of modules.entries()) {
         if (!pattern.test(pageContent)) errors.push(`${where}: module page is missing ${label}.`);
       }
       const exampleName = `${String(module.labId ?? "").toLowerCase().replace("-", "")}-worked-example.md`;
+      for (const artifact of [exampleName, labPackById[module.labId]]) {
+        if (!artifact) {
+          errors.push(`${where}: no validation-pack mapping exists for ${module.labId}.`);
+          continue;
+        }
+        try {
+          await access(path.join(root, "docs", artifact));
+        } catch {
+          errors.push(`${where}: missing lab learning artifact docs/${artifact}.`);
+        }
+      }
       for (const [resource, label] of [
         [`docs/${exampleName}`, "worked example for its own lab"],
         ["docs/lab-evidence-template.md", "lab evidence template"],
