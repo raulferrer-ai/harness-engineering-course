@@ -22,6 +22,8 @@ const cases = [
   ["rejects dangling aria-labelledby", good.replace("</main>", '<a href="#x" aria-labelledby="missing-label"><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],
   ["accepts valid aria-labelledby", good.replace("</main>", '<span id="link-label">Abrir detalles</span><a href="#x" aria-labelledby="link-label"><img src="icon.svg" alt=""></a></main>'), 0, /PASS accessibility structure/],
   ["rejects duplicate IDs", good.replace("</main>", '<span id="reused">Uno</span><span id="reused">Dos</span></main>'), 1, /duplicate id attribute value/],
+  ["rejects duplicate IDs with unquoted attributes", good.replace("</main>", '<span id=reused>Uno</span><span id=reused>Dos</span></main>'), 1, /duplicate id attribute value/],
+  ["accepts aria-labelledby with multiple existing IDs", good.replace("</main>", '<span id="first">Primero</span><span id="second">Segundo</span><a href="#x" aria-labelledby="first second"></a></main>'), 0, /PASS accessibility structure/],
   ["rejects duplicate IDs with single-quoted attributes", good.replace("</main>", "<span id='reused'>Uno</span><span id='reused'>Dos</span></main>"), 1, /duplicate id attribute value/],
   ["rejects aria-labelledby when one of multiple IDs is missing", good.replace("</main>", '<span id="label">Detalles</span><a href="#x" aria-labelledby="label missing-label"><img src="icon.svg" alt=""></a></main>'), 1, /aria-labelledby references missing id/],
   ["rejects dangling aria-labelledby on non-link elements", good.replace("</main>", '<section aria-labelledby="missing-heading"></section></main>'), 1, /aria-labelledby references missing id/],
