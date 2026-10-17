@@ -126,3 +126,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Added a cross-document traceability check for LAB-02 acceptance criteria, LAB-07 decision vectors, LAB-09 operational evidence IDs, and LAB-10 metrics/governance/scenario IDs, plus three regression scenarios. This prevents a fixture and its worked example from silently drifting apart. CI passed for commit `d8e2975` (run 39021532068).
 
 - Added `docs/accessibility-review-checklist.md` for manual WCAG 2.2 AA review and explicit TG-07/TG-08 gates for accessibility and privacy/consent. These are actionable checklists, not completed audits; both remain pending human execution/review. CI passed for commit `d8a7a3c` (run 39021897657) and for the subsequent gate update `53a2cbc` (run 39021933575).
+
+
+## 2026-10-17 — Robustez de validadores y CI
+
+- Los validadores de LAB-04 a LAB-10 ahora informan explícitamente de errores al leer o interpretar JSON y rechazan raíces que no sean objetos JSON. El mismo patrón ya se había aplicado a LAB-01 a LAB-03.
+- CI pasó para el commit `8b1de9a` en Node.js 22 y Node.js 24 (ejecución 39027628869). Este resultado valida el estado de ese commit; los cambios posteriores requieren su propia ejecución.
+- Se mantiene pendiente la ejecución real e independiente de los diez laboratorios, el piloto con estudiantes, la calibración humana de la rúbrica y la auditoría manual de accesibilidad y privacidad. Los validadores automatizados no sustituyen esas actividades.
