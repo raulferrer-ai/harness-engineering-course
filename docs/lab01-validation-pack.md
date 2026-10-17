@@ -31,7 +31,7 @@ Ejecuta el evaluador con la ruta al archivo:
 npm run evaluate:lab01 -- ./model-outputs.json
 ```
 
-El informe JSON compara esquema y semántica por caso, señala casos ausentes, duplicados o desconocidos y **no copia las salidas originales**. El código de salida es 0 si todos los casos se evalúan y coinciden, 1 si hay fallos de esquema/semántica o datos de entrada inválidos, y 2 si faltan casos y el resultado global es inconcluso. Conserva el archivo original en un lugar seguro y no lo subas si contiene datos sensibles.
+El informe JSON compara esquema y semántica por caso, señala casos ausentes, duplicados o desconocidos y **no copia las salidas originales**. El código de salida es 0 si todos los casos se evalúan y coinciden; 1 si hay fallos de esquema/semántica o registros inválidos; y 2 si falta el argumento, no se puede leer/interpretar el archivo de entrada, su estructura no es una lista o faltan casos y el resultado global es inconcluso. Conserva el archivo original en un lugar seguro y no lo subas si contiene datos sensibles.
 
 Para realizar el experimento completo del módulo:
 
