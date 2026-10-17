@@ -56,7 +56,9 @@ const labs = [
     cases: [
       ["allow by default", d => { d.decision_policy.default = "allow"; }, /la política debe denegar por defecto/],
       ["duplicate tool name", d => { d.tools[1].name = d.tools[0].name; }, /herramientas: valor vacío o duplicado/],
-      ["invalid tool risk", d => { d.tools[0].risk = "extreme"; }, /riesgo no válido/]
+      ["invalid tool risk", d => { d.tools[0].risk = "extreme"; }, /riesgo no válido/],
+      ["empty allowed permission", d => { d.tools[0].allowed[0] = " "; }, /allowed contiene permisos vacíos/],
+      ["duplicate audit field", d => { d.audit_fields.push(d.audit_fields[0]); }, /campos de auditoría duplicados/]
     ]
   },
   {
@@ -64,7 +66,9 @@ const labs = [
     cases: [
       ["unknown required evidence", d => { d.gates[0].required = ["EV-999"]; }, /evidencia desconocida EV-999/],
       ["duplicate gate ID", d => { d.gates[1].id = d.gates[0].id; }, /gates: ID vacío o duplicado/],
-      ["failed gate does not block", d => { d.gates[0].failure = "warn"; }, /el fallo debe bloquear/]
+      ["failed gate does not block", d => { d.gates[0].failure = "warn"; }, /el fallo debe bloquear/],
+      ["duplicate required evidence", d => { d.gates[0].required.push(d.gates[0].required[0]); }, /referencias de evidencia duplicadas/],
+      ["empty limitation", d => { d.limitations[0] = ""; }, /limitaciones contiene elementos vacíos/]
     ]
   },
   {

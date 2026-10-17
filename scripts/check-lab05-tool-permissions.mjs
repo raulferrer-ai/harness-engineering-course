@@ -7,12 +7,22 @@ const unique = (items, label, key = "id") => { const seen = new Set(); for (cons
 if (data.schema_version !== 1 || data.lab_id !== "LAB-05" || data.topic !== "tool-permissions") errors.push("versión, ID o tema incorrecto");
 if (!nonempty(data.exercise_id) || !nonempty(data.scenario)) errors.push("falta identificación o escenario");
 if (!Array.isArray(data.principles) || data.principles.length < 4) errors.push("faltan principios de seguridad");
+else if (data.principles.some(item => !nonempty(item))) errors.push("principios de seguridad contiene elementos vacíos");
 const tools = data.tools ?? []; unique(tools,"herramientas","name");
-for (const t of tools) { if (!["low","medium","high","critical"].includes(t.risk)) errors.push(`${t.name}: riesgo no válido`); for (const f of ["allowed","denied"]) if (!Array.isArray(t[f])) errors.push(`${t.name}: falta ${f}`); if (!nonempty(t.approval)) errors.push(`${t.name}: falta aprobación`); }
+for (const t of tools) {
+  if (!["low","medium","high","critical"].includes(t.risk)) errors.push(`${t.name}: riesgo no válido`);
+  for (const f of ["allowed","denied"]) {
+    if (!Array.isArray(t[f])) errors.push(`${t.name}: falta ${f}`);
+    else if (t[f].some(item => !nonempty(item))) errors.push(`${t.name}: ${f} contiene permisos vacíos`);
+  }
+  if (!nonempty(t.approval)) errors.push(`${t.name}: falta aprobación`);
+}
 const cases = data.threat_cases ?? []; unique(cases,"amenazas"); if (cases.length < 5) errors.push("se requieren cinco amenazas"); for (const c of cases) if (!nonempty(c.input)||!nonempty(c.expected)) errors.push(`${c.id}: falta entrada o resultado`);
 const criteria = data.acceptance_criteria ?? []; unique(criteria,"criterios"); if (criteria.length < 5) errors.push("se requieren cinco criterios"); for (const c of criteria) for (const f of ["condition","evidence","verification"]) if (!nonempty(c[f])) errors.push(`${c.id}: falta ${f}`);
 if (!Array.isArray(data.audit_fields)||!["run_id","tool_name","decision","policy_rule"].every(x=>data.audit_fields.includes(x))) errors.push("campos de auditoría insuficientes");
+if (Array.isArray(data.audit_fields) && new Set(data.audit_fields).size !== data.audit_fields.length) errors.push("campos de auditoría duplicados");
 if (data.decision_policy?.default!=="deny"||data.decision_policy?.unknown_tool!=="deny"||data.decision_policy?.missing_approval!=="deny") errors.push("la política debe denegar por defecto");
 if (!Array.isArray(data.limitations)||data.limitations.length<2) errors.push("faltan limitaciones");
+else if (data.limitations.some(item => !nonempty(item))) errors.push("limitaciones contiene elementos vacíos");
 if(errors.length){for(const e of errors) console.error(`LAB-05 tool permissions: ${e}`);process.exit(1);}
 console.log(`LAB-05 fixture OK: ${tools.length} herramientas, ${cases.length} amenazas, ${criteria.length} criterios.`);
