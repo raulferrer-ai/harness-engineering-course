@@ -1,4 +1,5 @@
 import { readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -11,9 +12,10 @@ if (!outputArg) {
   process.exit(2);
 }
 
-let fixture, records;
+let fixture, fixtureSource, records;
 try {
-  fixture = JSON.parse(await readFile(fixturePath, "utf8"));
+  fixtureSource = await readFile(fixturePath, "utf8");
+  fixture = JSON.parse(fixtureSource);
 } catch {
   console.error("LAB-01 evaluator: unable to read the canonical fixture.");
   process.exit(2);
@@ -127,6 +129,7 @@ const status = failCount > 0 ? "fail" : missingCount > 0 ? "inconclusive" : "pas
 const report = {
   evaluator_version: 1,
   fixture: "fixtures/lab01-cases.json",
+  fixture_sha256: createHash("sha256").update(fixtureSource).digest("hex"),
   summary: {
     status,
     expected_cases: expectedCases.size,

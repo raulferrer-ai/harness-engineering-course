@@ -33,6 +33,7 @@ try {
     assert.equal(report.summary.status, "pass");
     assert.equal(report.summary.expected_cases, 5);
     assert.equal(report.summary.semantic_matches, 5);
+    assert.match(report.fixture_sha256, /^[a-f0-9]{64}$/);
     assert.equal(report.summary.schema_valid_cases, 5);
   });
   await runCase("malformed JSON response", canonical.map((item, i) => i === 0 ? { ...item, output: "not-json" } : item), 1, report => {
