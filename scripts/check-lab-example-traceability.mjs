@@ -61,7 +61,7 @@ for (const contract of contracts) {
     while (offset !== -1) {
       const before = offset === 0 ? "" : example[offset - 1];
       const after = example[offset + id.length] ?? "";
-      if (!/[A-Za-z0-9_-]/.test(before) && !/[A-Za-z0-9_-]/.test(after)) {
+      if (!/[\p{L}\p{N}_-]/u.test(before) && !/[\p{L}\p{N}_-]/u.test(after)) {
         exactMatch = true;
         break;
       }

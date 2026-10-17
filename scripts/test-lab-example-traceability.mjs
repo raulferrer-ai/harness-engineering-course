@@ -49,6 +49,15 @@ try {
     console.error("FAIL rejects fixture ID matched only as a longer identifier: " + prefixCollision.stdout + prefixCollision.stderr);
   } else console.log("PASS rejects fixture ID matched only as a longer identifier");
 
+  const unicodeCollisionRoot = path.join(temp, "unicode-collision");
+  await makeRoot(unicodeCollisionRoot);
+  await writeFile(path.join(unicodeCollisionRoot, "docs", "lab02-worked-example.md"), "AC-01é", "utf8");
+  const unicodeCollision = spawnSync(process.execPath, [checker], { cwd: root, encoding: "utf8", env: { ...process.env, LAB_EXAMPLE_TRACEABILITY_ROOT: unicodeCollisionRoot } });
+  if (unicodeCollision.status !== 1 || !(unicodeCollision.stdout + unicodeCollision.stderr).includes("LAB-02: docs/lab02-worked-example.md does not reference fixture ID AC-01")) {
+    failures++;
+    console.error("FAIL rejects fixture ID followed by a Unicode letter: " + unicodeCollision.stdout + unicodeCollision.stderr);
+  } else console.log("PASS rejects fixture ID followed by a Unicode letter");
+
   const badRoot = path.join(temp, "bad");
   await makeRoot(badRoot, "DEC-01");
   const bad = spawnSync(process.execPath, [checker], { cwd: root, encoding: "utf8", env: { ...process.env, LAB_EXAMPLE_TRACEABILITY_ROOT: badRoot } });
@@ -60,4 +69,4 @@ try {
   await rm(temp, { recursive: true, force: true });
 }
 if (failures) process.exit(1);
-console.log("Lab/example traceability regression tests passed: 4 scenarios.");
+console.log("Lab/example traceability regression tests passed: 5 scenarios.");
