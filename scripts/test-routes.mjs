@@ -125,6 +125,11 @@ try {
   });
   expectFail("duplicate IDs across quoted and unquoted attributes", duplicateUnquotedIds, 'duplicate HTML id "same"');
 
+  const commentIdIsNotDuplicate = await fixture("comment-id-not-duplicate", {
+    "index.html": '<!-- <p id="same">Comment</p> --><h2 id="same">Real heading</h2>\n'
+  });
+  expectPass("ignore commented IDs when checking duplicates", commentIdIsNotDuplicate);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
