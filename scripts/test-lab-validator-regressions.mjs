@@ -111,6 +111,7 @@ const labs = [
       ["duplicate audit field", d => { d.audit_fields.push(d.audit_fields[0]); }, /registro de auditoría insuficiente/],
       ["duplicate event required field", d => { d.events[0].required_fields.push(d.events[0].required_fields[0]); }, /required_fields debe ser una lista sin duplicados/],
       ["duplicate signal ID", d => { d.signals[1].id = d.signals[0].id; }, /ID vacío o duplicado/],
+      ["duplicate signal name", d => { d.signals[1].name = d.signals[0].name; }, /nombre de señal duplicado/],
       ["unknown recovery trigger", d => { d.recovery_steps[0].trigger = "SIG-999"; }, /trigger desconocido/],
       ["missing required recovery step", d => { d.recovery_steps = d.recovery_steps.filter(step => step.trigger !== "SIG-03"); }, /SIG-03: requiere un paso de recuperación por política/],
       ["empty limitation", d => { d.limitations[0] = " "; }, /limitaciones explícitas contiene elementos vacíos/],

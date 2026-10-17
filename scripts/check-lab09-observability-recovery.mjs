@@ -17,8 +17,11 @@ if (!nonempty(data.service?.name) || !nonempty(data.service?.baseline_id)) error
 const signals = data.signals ?? [];
 unique(signals, "señales");
 if (signals.length < 4) errors.push("se requieren al menos cuatro señales");
+const signalNames = new Set();
 for (const s of signals) {
   if (!nonempty(s.name) || !nonempty(s.unit) || !Number.isFinite(s.window_minutes) || s.window_minutes <= 0) errors.push(`${s.id}: definición de señal incompleta`);
+  if (nonempty(s.name) && signalNames.has(s.name)) errors.push("nombre de señal duplicado: "+s.name);
+  if (nonempty(s.name)) signalNames.add(s.name);
   if (!["lt","lte","gt","gte","eq"].includes(s.threshold?.operator) || !Number.isFinite(s.threshold?.value)) errors.push(`${s.id}: umbral inválido`);
   if (!nonempty(s.action)) errors.push(`${s.id}: falta acción operativa`);
 }
