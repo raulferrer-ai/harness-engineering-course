@@ -162,3 +162,7 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 
 - Verification refresh (2026-10-17): CI run [39035265846](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035265846) passed both required jobs (Node.js 22 and Node.js 24) on commit `9300e63da946c1a6a90d3275f925226deba1374f`. The release-readiness checklist validator checks required sections, unique decision fields, and explicit evidence safeguards; its regression suite covers formatting-only line-ending variants and malformed semantic variants.
+
+
+- Latest CI refresh (2026-10-17): commit `a7cd33268d831e75f05776d53d0e9ecbc4f84364` passed the required workflow in [run 39035353004](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39035353004). This is automated repository validation, not a release approval.
+- Release blockers remain unchanged until evidence is supplied: (1) execute each of the ten labs from a clean environment and retain logs, (2) have a qualified reviewer complete the manual accessibility checklist, (3) approve privacy/data-retention and participant information before any pilot data collection, and (4) run the formative learner pilot and record findings/actions. Do not mark these complete based on source inspection or CI alone.
