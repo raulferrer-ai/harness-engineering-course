@@ -82,7 +82,7 @@ for (const [index, module] of modules.entries()) {
     try {
       await access(pagePath);
       const pageContent = await readFile(pagePath, "utf8");
-      const labHeadingPattern = new RegExp(String.raw`${module.labId}\\s*·\\s*${module.labHours}\\s*HORAS`, "i");
+      const labHeadingPattern = new RegExp(String.raw`${module.labId}\s*·\s*${module.labHours}\\s*HORAS`, "i");
       if (!labHeadingPattern.test(pageContent)) {
         errors.push(`${where}: lab section must identify ${module.labId} and its ${module.labHours}-hour allocation.`);
       }
