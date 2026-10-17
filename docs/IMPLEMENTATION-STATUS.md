@@ -17,7 +17,7 @@ The site contains the approved ten modules M01–M10, module pages, course princ
 
 ## Approved workload
 
-The ten modules total 104 hours: 40 hours of fundamentals and 64 hours of labs. The transversal project adds 40 hours and evaluation adds 16 hours, for 160 hours overall. The project repository/license, tool/runtime matrix, operational evaluation thresholds, and treatment of critical security failures remain pending approval.
+The ten modules total 104 hours: 40 hours of fundamentals and 64 hours of labs. The transversal project adds 40 hours and evaluation adds 16 hours, for 160 hours overall. Working defaults for the transversal project and a provisional rubric are now documented. The rubric calibration procedure is documented, but no real calibration has been performed; final summative approval remains pending.
 
 ## Work in progress
 
@@ -38,3 +38,7 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Linked the matching worked example, learner evidence template, and traceability matrix from all ten module pages in commits `e81997b` and `525763b`.
 - CI passed for `e81997b` (run 39014432250). The follow-up commit `525763b` has been pushed; its own workflow result must be checked separately before claiming the full set of module links is validated.
 - The project brief and rubric now contain operational defaults, but real learner pilot, manual accessibility review, and independently executed lab evidence remain outstanding.
+
+
+- Added `docs/rubric-calibration-protocol.md` to make independent scoring, discrepancy resolution, evidence recording, and the pilot-readiness decision reproducible. This is a procedure, not a claim that calibration has occurred.
+- Linked the calibration procedure from the rubric so future reviewers can follow a single workflow.
