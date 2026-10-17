@@ -210,6 +210,27 @@ try {
       }
     }
   }
+
+  // Every validator must fail closed on unreadable JSON and non-object roots.
+  for (const lab of labs) {
+    for (const testCase of [
+      { label: "malformed JSON", content: "{", expected: /no se pudo leer o interpretar JSON/ },
+      { label: "array root", content: "[]", expected: /la raíz debe ser un objeto JSON/ }
+    ]) {
+      const fixturePath = join(temp, `${lab.id.toLowerCase()}-invalid-${testCase.label.replaceAll(" ", "-")} .json`.replace(" .json", ".json"));
+      await writeFile(fixturePath, testCase.content, "utf8");
+      const result = runValidator(lab, fixturePath);
+      const output = result.stdout + result.stderr;
+      const diagnosticLines = output.split(/\\r?\\n/).filter(line => line.trim() && !/^(Validator regression suite|FAIL |PASS )/.test(line));
+      const matchingLines = diagnosticLines.filter(line => testCase.expected.test(line));
+      if (result.status !== 1 || matchingLines.length !== 1 || diagnosticLines.length !== 1) {
+        failures++;
+        console.error(`FAIL ${lab.id} ${testCase.label}: expected exit 1 and exactly one diagnostic matching / ${testCase.expected.source} /\\nexit=${result.status}; diagnostics=${diagnosticLines.length}; matches=${matchingLines.length}\\n${output}`);
+      } else {
+        console.log(`PASS ${lab.id} rejects ${testCase.label} with the expected diagnostic`);
+      }
+    }
+  }
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
