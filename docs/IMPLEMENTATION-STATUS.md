@@ -120,3 +120,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Added an offline LAB-01 output evaluator that compares saved model responses against the versioned fixture, separates schema validity from semantic matching, and reports missing/duplicate/unknown cases without copying raw responses into the report. Added eight regression scenarios and integrated them into `npm run check`; CI passed for commit `a0ddc18` (run 39020913714). This enables reproducible evaluation of supplied outputs but does not invoke a model or claim model quality without actual runs.
 
 - Aligned LAB-02's canonical specification fixture with its worked example by adding an explicit acceptance criterion for release authorization and mandatory gates. CI passed for commit `a6d08d0` (run 39021199459).
+
+- Updated the LAB-07 worked example and validation pack to enumerate all ten decision vectors, including the four newly added critical-failure cases. CI passed for commit `86cf30b` (run 39021294964).
