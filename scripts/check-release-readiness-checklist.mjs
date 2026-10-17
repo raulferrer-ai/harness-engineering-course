@@ -46,7 +46,7 @@ const decisionRows = [
   "Decisión"
 ];
 for (const row of decisionRows) {
-  const matchingRows = markdown.split("\n").filter(line => line.startsWith("| " + row + " |"));
+  const matchingRows = markdown.split("\n").filter(line => line.trimStart().startsWith("| " + row + " |"));
   if (matchingRows.length === 0) failures.push("falta campo en el registro de decisión: " + row);
   if (matchingRows.length > 1) failures.push("campo duplicado en el registro de decisión: " + row);
 }
