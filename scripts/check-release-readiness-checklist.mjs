@@ -15,7 +15,10 @@ const requireText = (text, message = "falta texto obligatorio: " + text) => {
   if (!markdown.includes(text)) failures.push(message);
 };
 
-if (!markdown.split("\n").some(line => line.trim() === "# Lista de comprobación de preparación para publicar")) failures.push("falta título exacto: # Lista de comprobación de preparación para publicar");
+const title = "# Lista de comprobación de preparación para publicar";
+const titleCount = markdown.split("\n").filter(line => line.trim() === title).length;
+if (titleCount === 0) failures.push("falta título exacto: " + title);
+if (titleCount > 1) failures.push("título duplicado: " + title);
 for (const heading of [
   "## 1. Alcance y procedencia",
   "## 2. Cambio y verificación",
