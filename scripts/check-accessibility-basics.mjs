@@ -42,7 +42,7 @@ for (const file of htmlFiles) {
     if (alt === null) errors.push(`${relative}: img element is missing its alt attribute`);
     else if (alt.trim() === "" && !/(?:^|\s)alt\s*=\s*(?:""|'')/i.test(image[0])) errors.push(`${relative}: img alt text must not contain whitespace only; use alt="" for decorative images`);
   }
-  const idValues = [...html.matchAll(/\bid\s*=\s*(?:"([^"]+)"|'([^']+)')/gi)].map(match => match[1] ?? match[2]);
+  const idValues = [...html.matchAll(/\bid\s*=\s*(?:"([^"]+)"|\'([^\']+)\'|([^\\s"\'=<>`]+))/gi)].map(match => match[1] ?? match[2] ?? match[3]);
   const availableIds = new Set(idValues);
   const seenIds = new Set();
   for (const id of idValues) {
