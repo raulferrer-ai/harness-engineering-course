@@ -126,7 +126,7 @@ Con dependencias instaladas, ejecuta:
 npm run check:validator-regressions
 ```
 
-La suite comprueba primero que los diez fixtures canónicos siguen siendo aceptados y después aplica 43 mutaciones temporales a copias aisladas: tres en LAB-01 a LAB-07, cuatro en LAB-08, once en LAB-09 y tres en LAB-10. Cada mutación solo cuenta como prueba superada si el validador termina con código de error y aparece exactamente un diagnóstico que coincide con la regla esperada. Pueden aparecer diagnósticos adicionales derivados de la misma mutación; por eso la prueba verifica el motivo previsto sin exigir que sea el único efecto del cambio. Los archivos temporales se eliminan al terminar.
+La suite comprueba primero que los diez fixtures canónicos siguen siendo aceptados y después aplica 86 mutaciones semánticas temporales a copias aisladas: 7 en LAB-01, 8 en LAB-02, 7 en LAB-03, 7 en LAB-04, 10 en LAB-05, 7 en LAB-06, 7 en LAB-07, 7 en LAB-08, 17 en LAB-09 y 9 en LAB-10. Además, cada validador recibe dos entradas inválidas adicionales: JSON malformado y una raíz que no es un objeto, para un total de 20 controles de entrada malformada. Cada mutación semántica solo cuenta como prueba superada si el validador termina con código de error y aparece exactamente un diagnóstico que coincide con la regla esperada. Pueden aparecer diagnósticos adicionales derivados de la misma mutación; por eso la prueba verifica el motivo previsto sin exigir que sea el único efecto del cambio. Los archivos temporales se eliminan al terminar.
 
 Esta suite no reemplaza `npm run check` ni cubre todos los contratos posibles; es un conjunto dirigido de regresiones negativas cuya cobertura exacta está definida en `scripts/test-lab-validator-regressions.mjs`.
 
