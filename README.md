@@ -29,6 +29,9 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 - [Proyecto transversal: rúbrica y defensa](docs/transversal-project-rubric.md)
 - [Protocolo de calibración de la rúbrica](docs/rubric-calibration-protocol.md)
 - [Protocolo propuesto de piloto del curso](docs/pilot-protocol.md)
+- [Información y consentimiento de participantes — borrador](docs/pilot-participant-information.md)
+- [Plantilla de observación del piloto](docs/pilot-observation-template.md)
+- [Encuesta de cierre del piloto](docs/pilot-exit-survey.md)
 - [Referencias técnicas y fuentes primarias por módulo](docs/references.md)
 - [Guía para participantes](src/guia.njk)
 
