@@ -27,7 +27,7 @@ Use stable identifiers for competencies, outcomes, lessons, evidence items, and 
 - Lessons and activities support the stated outcomes.
 - Assessment evidence and acceptance criteria are specified; do not substitute vague labels such as “understands” or “works correctly”.
 - The lab has a defined objective, prerequisites, environment and dependencies, reproducible starting state, task steps, applicable positive and negative checks, evidence, acceptance criteria, reset/recovery, limitations, privacy and cost considerations, and model/provider/version context when remote models are used.
-- References and claims that depend on external sources include source notes.
+- References and claims that depend on external sources include source notes. Use [`docs/references.md`](references.md) as a starting index, but cite the specific source next to the claim it supports; the index alone is not evidence for an individual claim.
 - Any unverified content, assumptions, or decisions awaiting approval are explicitly labelled.
 
 ## Lab completion states
