@@ -49,7 +49,8 @@ const labs = [
       ["duplicate test ID", d => { d.test_matrix[1].id = d.test_matrix[0].id; }, /tests: ID vacío o duplicado/],
       ["invalid decision gate", d => { d.decision_gate.default = "ship_it"; }, /decisión inicial no válida/],
       ["empty review checklist item", d => { d.review_checklist[0] = " "; }, /checklist de revisión contiene controles vacíos/],
-      ["duplicate required baseline field", d => { d.baseline_record.required.push(d.baseline_record.required[0]); }, /campos requeridos duplicados/]
+      ["duplicate required baseline field", d => { d.baseline_record.required.push(d.baseline_record.required[0]); }, /campos requeridos duplicados/],
+      ["missing regression test category", d => { d.test_matrix = d.test_matrix.filter(test => test.kind !== "regression"); }, /falta al menos un caso de prueba de tipo regression/]
     ]
   },
   {

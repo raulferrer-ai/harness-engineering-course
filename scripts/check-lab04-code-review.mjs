@@ -29,6 +29,9 @@ for (const test of matrix) {
   if (!["positive", "negative", "regression"].includes(test.kind)) errors.push(`${test.id}: tipo de prueba no válido`);
   if (!text(test.expected) || !criteria.some(c => c.id === test.criterion)) errors.push(`${test.id}: expectativa vacía o criterio desconocido`);
 }
+for (const kind of ["positive", "negative", "regression"]) {
+  if (!matrix.some(test => test.kind === kind)) errors.push(`falta al menos un caso de prueba de tipo ${kind}`);
+}
 const requiredBaselineFields = data.baseline_record?.required ?? [];
 for (const field of ["base_commit", "runtime_version", "install_command", "test_command", "test_output_before", "known_failures"]) {
   if (!requiredBaselineFields.includes(field)) errors.push(`línea base: falta campo requerido ${field}`);
