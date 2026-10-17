@@ -23,7 +23,11 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 ## Ejemplos prácticos
 
 - [Índice de ejemplos resueltos de LAB-01 a LAB-10](docs/worked-examples-index.md)
+- [Matriz de herramientas y entornos de LAB-01 a LAB-10](docs/lab-runtime-matrix.md)
+- [Plan de validación reproducible de los laboratorios](docs/lab-validation-plan.md)
+- [Plantilla de evidencia para cada ejecución](docs/lab-evidence-template.md)
 - [Proyecto transversal: rúbrica y defensa](docs/transversal-project-rubric.md)
+- [Protocolo de calibración de la rúbrica](docs/rubric-calibration-protocol.md)
 - [Protocolo propuesto de piloto del curso](docs/pilot-protocol.md)
 - [Guía para participantes](src/guia.njk)
 
@@ -42,8 +46,9 @@ El comando `check` compila el sitio, verifica las rutas y los enlaces locales de
 
 1. Revisar navegación, enlaces y presentación en móvil y escritorio.
 2. Desarrollar progresivamente el contenido de los diez módulos y sus laboratorios.
-3. Ampliar la automatización de calidad y documentar resultados de verificación.
-4. Realizar una revisión de accesibilidad y un piloto con estudiantes.
+3. Ejecutar los diez laboratorios en entornos limpios y conservar evidencias reales de cada ejecución.
+4. Completar la revisión formal de trazabilidad curricular y calibrar la rúbrica con evaluadores.
+5. Realizar revisión manual de accesibilidad, reproducibilidad y un piloto con estudiantes.
 
 El proyecto mantiene el flujo de trabajo basado en ramas revisables, controles automatizados y revisión humana antes de integrar cambios.
 
