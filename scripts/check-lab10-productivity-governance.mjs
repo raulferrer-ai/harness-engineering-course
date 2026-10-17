@@ -73,6 +73,7 @@ for (const a of criteria) {
 }
 if (data.policy?.missing_measurement !== "mark_unknown_not_zero" || data.policy?.unapproved_external_action !== "block" || data.policy?.high_risk_requires_human_approval !== true) errors.push("faltan salvaguardas de medición o aprobación");
 if (!Array.isArray(data.limitations) || data.limitations.length < 2) errors.push("faltan limitaciones explícitas");
+else if (data.limitations.some(item => !nonempty(item))) errors.push("limitaciones explícitas contiene elementos vacíos");
 const requiredMetrics=new Map(metrics.map(m=>[m.name,m]));
 for(const name of ["accepted_delivery_rate","cost_per_accepted_delivery","defect_rate"])if(!requiredMetrics.has(name))errors.push("falta métrica clave "+name);
 const acceptanceMetric=requiredMetrics.get("accepted_delivery_rate");

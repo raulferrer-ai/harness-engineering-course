@@ -103,6 +103,7 @@ if (data.policy?.unknown_signal !== "do_not_assume_healthy") errors.push("una se
 if (data.policy?.rollback_target !== "immutable_revision_and_artifact") errors.push("el rollback debe identificar revisión y artefacto inmutables");
 if (data.policy?.recovery_complete_requires !== "service_health_and_regression_checks") errors.push("la recuperación requiere salud del servicio y pruebas de regresión");
 if (!Array.isArray(data.limitations) || data.limitations.length < 2) errors.push("faltan limitaciones explícitas");
+else if (data.limitations.some(item => !nonempty(item))) errors.push("limitaciones explícitas contiene elementos vacíos");
 if (errors.length) {
   for (const error of errors) console.error(`LAB-09 observability/recovery: ${error}`);
   process.exit(1);

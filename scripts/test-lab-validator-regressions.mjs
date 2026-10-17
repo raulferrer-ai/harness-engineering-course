@@ -109,6 +109,7 @@ const labs = [
       ["duplicate signal ID", d => { d.signals[1].id = d.signals[0].id; }, /ID vacío o duplicado/],
       ["unknown recovery trigger", d => { d.recovery_steps[0].trigger = "SIG-999"; }, /trigger desconocido/],
       ["missing required recovery step", d => { d.recovery_steps = d.recovery_steps.filter(step => step.trigger !== "SIG-03"); }, /SIG-03: requiere un paso de recuperación por política/],
+      ["empty limitation", d => { d.limitations[0] = " "; }, /limitaciones explícitas contiene elementos vacíos/],
       ["critical security signal does not require recovery", d => { d.signals.find(signal => signal.name === "unauthorized_action_count").recovery_required = false; }, /SIG-04: las señales de seguridad críticas deben requerir recuperación/],
       ["recovery marked complete despite failed regression", d => { const scenario = d.scenarios.find(s => /regresi[oó]n/i.test(s.input)); scenario.expected = "se declara recuperación completa aunque la suite de regresión falla"; }, /debe existir un escenario que impida declarar recuperación completa si falla la regresión/]
     ]
@@ -123,7 +124,8 @@ const labs = [
       ["duplicate metric ID", d => { d.metrics[1].id = d.metrics[0].id; }, /ID vacío o duplicado/],
       ["broken evidence reference", d => { d.acceptance_criteria[0].evidence = "MET-999"; }, /evidencia referencia un elemento inexistente MET-999/],
       ["unverified source data claimed as observed expansion evidence", d => { d.decision_test_vectors.find(v => v.id === "TV-04").evidence_basis = "observed_fixture"; }, /no se puede expandir con evidencia observada si los datos de origen no están verificados/],
-      ["expansion without mandatory human review", d => { d.decision_test_vectors.find(v => v.id === "TV-04").expansion_gate.human_review_required = false; }, /expansion_gate.human_review_required debe ser true para permitir expansión/]
+      ["expansion without mandatory human review", d => { d.decision_test_vectors.find(v => v.id === "TV-04").expansion_gate.human_review_required = false; }, /expansion_gate.human_review_required debe ser true para permitir expansión/],
+      ["empty limitation", d => { d.limitations[0] = " "; }, /limitaciones explícitas contiene elementos vacíos/]
     ]
   }
 ];
