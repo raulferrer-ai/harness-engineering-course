@@ -23,6 +23,7 @@ const allowed = {
 };
 
 if (data.schema_version !== 1) fail("schema_version debe ser 1");
+if (Object.keys(data).some(key => !["schema_version", "cases"].includes(key))) fail("campos desconocidos en la raíz");
 if (!Array.isArray(data.cases) || data.cases.length < 5) { fail("se requieren al menos cinco casos"); process.exit(1); }
 const ids = new Set();
 const expectedIds = new Set();
@@ -32,11 +33,14 @@ for (const item of data.cases) {
     fail("cada caso debe ser un objeto JSON");
     continue;
   }
+  if (Object.keys(item).some(key => !["id", "input", "rationale", "expected", "kind"].includes(key))) fail(`${item.id ?? "sin ID"}: campos desconocidos en el caso`);
   if (typeof item.id !== "string" || !item.id.trim() || ids.has(item.id)) fail(`ID vacío o duplicado: ${item.id}`);
   ids.add(item.id);
   if (typeof item.input !== "string" || !item.input.trim()) fail(`${item.id}: entrada vacía`);
   if (typeof item.rationale !== "string" || !item.rationale.trim()) fail(`${item.id}: falta justificación`);
   const expected = item.expected;
+  if (expected && (typeof expected !== "object" || Array.isArray(expected))) fail(`${item.id}: expected debe ser un objeto`);
+  if (expected && typeof expected === "object" && !Array.isArray(expected) && Object.keys(expected).some(key => !["id", "category", "priority", "requires_human_review"].includes(key))) fail(`${item.id}: campos desconocidos en expected`);
   if (!expected || typeof expected.id !== "string" || !expected.id.trim()) {
     fail(`${item.id}: falta expected.id`);
   } else {
