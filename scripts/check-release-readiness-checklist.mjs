@@ -24,7 +24,9 @@ for (const heading of [
   "## 5. Decisión",
   "## Límites"
 ]) {
-  if (!markdown.split("\n").some(line => line.trim() === heading)) failures.push("falta sección: " + heading);
+  const matches = markdown.split("\n").filter(line => line.trim() === heading).length;
+  if (matches === 0) failures.push("falta sección: " + heading);
+  if (matches > 1) failures.push("sección duplicada: " + heading);
 }
 
 for (const phrase of [
