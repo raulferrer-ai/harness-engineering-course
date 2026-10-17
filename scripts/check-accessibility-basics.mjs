@@ -48,13 +48,18 @@ for (const file of htmlFiles) {
   }
   const availableIds = new Set(idValues);
   const idHasLabelContent = new Map();
-  for (const element of html.matchAll(/<([a-z][\w:-]*)\b([^>]*)>([\s\S]*?)<\/\1\s*>/gi)) {
-    const id = attr(element[2], "id");
+  for (const openingTag of html.matchAll(/<([a-z][\w:-]*)\b([^>]*)>/gi)) {
+    const tagName = openingTag[1];
+    const attributes = openingTag[2];
+    const id = attr(attributes, "id");
     if (id === null) continue;
-    const inner = element[3];
+    const closingTag = new RegExp("</" + tagName + "\\s*>", "ig");
+    closingTag.lastIndex = openingTag.index + openingTag[0].length;
+    const closingMatch = closingTag.exec(html);
+    const inner = closingMatch ? html.slice(openingTag.index + openingTag[0].length, closingMatch.index) : "";
     const textContent = inner.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, "").replace(/<[^>]*>/g, "").replace(/&nbsp;|&#160;|&#x0*a0;/gi, " ").trim();
     const hasImageName = [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim()));
-    const hasAriaName = Boolean(attr(element[2], "aria-label")?.trim());
+    const hasAriaName = Boolean(attr(attributes, "aria-label")?.trim());
     idHasLabelContent.set(id, Boolean(textContent || hasImageName || hasAriaName));
   }
   const seenIds = new Set();
