@@ -114,3 +114,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - LAB-07 now requires a decision vector for every declared critical-failure condition, not just for each case and outcome. Added four vectors to exercise critical failures that had previously been declared but not individually covered, plus a negative regression for missing coverage. CI passed for commit `54b3603` (run 39020552900).
 
 - LAB-02 now rejects duplicate blocking questions, duplicate scope/stop-condition entries, and exact scope items listed as both allowed and forbidden. Added negative mutation coverage. CI passed for commit `8b8b7a6` (run 39020643882).
+
+- LAB-04 now requires each acceptance criterion whose verification calls for a test/execution to be mapped to a test case, while leaving the explicitly manual independent-diff review as a review control rather than misclassifying it as an automated test. CI passed for commit `32247f8` (run 39020782005).
