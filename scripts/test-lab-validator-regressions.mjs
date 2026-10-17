@@ -61,7 +61,9 @@ const labs = [
       ["invalid tool risk", d => { d.tools[0].risk = "extreme"; }, /riesgo no válido/],
       ["empty allowed permission", d => { d.tools[0].allowed[0] = " "; }, /allowed contiene permisos vacíos/],
       ["permission both allowed and denied", d => { d.tools[0].denied.push(d.tools[0].allowed[0]); }, /un permiso no puede estar simultáneamente permitido y denegado/],
-      ["duplicate audit field", d => { d.audit_fields.push(d.audit_fields[0]); }, /campos de auditoría duplicados/]
+      ["duplicate audit field", d => { d.audit_fields.push(d.audit_fields[0]); }, /campos de auditoría duplicados/],
+      ["unknown threat referenced by criterion", d => { d.acceptance_criteria[0].evidence = "TP-999"; }, /evidencia referencia una amenaza inexistente TP-999/],
+      ["threat not covered by acceptance evidence", d => { for (const criterion of d.acceptance_criteria) criterion.evidence = criterion.evidence.replace(/TP-06/g, ""); }, /TP-06: amenaza sin referencia en la evidencia de ningún criterio/]
     ]
   },
   {

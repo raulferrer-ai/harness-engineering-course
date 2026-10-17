@@ -20,6 +20,16 @@ for (const t of tools) {
 }
 const cases = data.threat_cases ?? []; unique(cases,"amenazas"); if (cases.length < 5) errors.push("se requieren cinco amenazas"); for (const c of cases) if (!nonempty(c.input)||!nonempty(c.expected)) errors.push(`${c.id}: falta entrada o resultado`);
 const criteria = data.acceptance_criteria ?? []; unique(criteria,"criterios"); if (criteria.length < 5) errors.push("se requieren cinco criterios"); for (const c of criteria) for (const f of ["condition","evidence","verification"]) if (!nonempty(c[f])) errors.push(`${c.id}: falta ${f}`);
+const threatIds = new Set(cases.map(item => item.id));
+const coveredThreats = new Set();
+for (const criterion of criteria) {
+  const refs = [...(criterion.evidence ?? "").matchAll(/\\bTP-\\d+\\b/g)].map(match => match[0]);
+  for (const ref of refs) {
+    if (!threatIds.has(ref)) errors.push(`${criterion.id}: evidencia referencia una amenaza inexistente ${ref}`);
+    else coveredThreats.add(ref);
+  }
+}
+for (const item of cases) if (!coveredThreats.has(item.id)) errors.push(`${item.id}: amenaza sin referencia en la evidencia de ningún criterio`);
 if (!Array.isArray(data.audit_fields)||!["run_id","tool_name","decision","policy_rule"].every(x=>data.audit_fields.includes(x))) errors.push("campos de auditoría insuficientes");
 if (Array.isArray(data.audit_fields) && new Set(data.audit_fields).size !== data.audit_fields.length) errors.push("campos de auditoría duplicados");
 if (data.decision_policy?.default!=="deny"||data.decision_policy?.unknown_tool!=="deny"||data.decision_policy?.missing_approval!=="deny") errors.push("la política debe denegar por defecto");
