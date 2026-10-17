@@ -19,7 +19,7 @@ async function walk(directory) {
 }
 const attr = (tag, name) => {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = tag.match(new RegExp(`(?:^|\s)${escaped}\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))`, "i"));
+  const match = tag.match(new RegExp("(^|\\s)" + escaped + "\\s*=\\s*(?:\"([^\"]*)\"|'([^']*)'|([^\\s>]+))", "i"));
   return match ? (match[1] ?? match[2] ?? match[3] ?? "") : null;
 };
 await walk(root);
