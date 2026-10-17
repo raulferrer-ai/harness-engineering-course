@@ -40,6 +40,15 @@ try {
     console.error("FAIL accepts complete ID coverage: " + good.stdout + good.stderr);
   } else console.log("PASS accepts complete fixture/example ID coverage");
 
+  const prefixCollisionRoot = path.join(temp, "prefix-collision");
+  await makeRoot(prefixCollisionRoot);
+  await writeFile(path.join(prefixCollisionRoot, "docs", "lab02-worked-example.md"), "AC-010", "utf8");
+  const prefixCollision = spawnSync(process.execPath, [checker], { cwd: root, encoding: "utf8", env: { ...process.env, LAB_EXAMPLE_TRACEABILITY_ROOT: prefixCollisionRoot } });
+  if (prefixCollision.status !== 1 || !/LAB-02: docs\\/lab02-worked-example\\.md does not reference fixture ID AC-01/.test(prefixCollision.stdout + prefixCollision.stderr)) {
+    failures++;
+    console.error("FAIL rejects fixture ID matched only as a longer identifier: " + prefixCollision.stdout + prefixCollision.stderr);
+  } else console.log("PASS rejects fixture ID matched only as a longer identifier");
+
   const badRoot = path.join(temp, "bad");
   await makeRoot(badRoot, "DEC-01");
   const bad = spawnSync(process.execPath, [checker], { cwd: root, encoding: "utf8", env: { ...process.env, LAB_EXAMPLE_TRACEABILITY_ROOT: badRoot } });
@@ -51,4 +60,4 @@ try {
   await rm(temp, { recursive: true, force: true });
 }
 if (failures) process.exit(1);
-console.log("Lab/example traceability regression tests passed: 3 scenarios.");
+console.log("Lab/example traceability regression tests passed: 4 scenarios.");

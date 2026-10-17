@@ -56,7 +56,11 @@ for (const contract of contracts) {
     continue;
   }
   for (const id of ids) {
+    const escapedId = id.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\  for (const id of ids) {
     if (!example.includes(id)) errors.push(`${contract.lab}: ${contract.example} does not reference fixture ID ${id}`);
+  }");
+    const exactId = new RegExp("(^|[^A-Za-z0-9_-])" + escapedId + "($|[^A-Za-z0-9_-])");
+    if (!exactId.test(example)) errors.push(`${contract.lab}: ${contract.example} does not reference fixture ID ${id}`);
   }
 }
 if (errors.length) {
