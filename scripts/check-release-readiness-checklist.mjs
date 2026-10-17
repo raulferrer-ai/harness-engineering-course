@@ -15,8 +15,17 @@ const requireText = (text, message = "falta texto obligatorio: " + text) => {
   if (!markdown.includes(text)) failures.push(message);
 };
 
+const linesOutsideFences = markdown.split("\n");
+let insideFence = false;
+const structuralLines = linesOutsideFences.filter(line => {
+  if (/^\s*(```|~~~)/.test(line)) {
+    insideFence = !insideFence;
+    return false;
+  }
+  return !insideFence;
+});
 const title = "# Lista de comprobación de preparación para publicar";
-const titleCount = markdown.split("\n").filter(line => line.trim() === title).length;
+const titleCount = structuralLines.filter(line => line.trim() === title).length;
 if (titleCount === 0) failures.push("falta título exacto: " + title);
 if (titleCount > 1) failures.push("título duplicado: " + title);
 for (const heading of [
@@ -27,7 +36,7 @@ for (const heading of [
   "## 5. Decisión",
   "## Límites"
 ]) {
-  const matches = markdown.split("\n").filter(line => line.trim() === heading).length;
+  const matches = structuralLines.filter(line => line.trim() === heading).length;
   if (matches === 0) failures.push("falta sección: " + heading);
   if (matches > 1) failures.push("sección duplicada: " + heading);
 }
