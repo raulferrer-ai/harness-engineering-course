@@ -19,8 +19,8 @@ async function walk(directory) {
 }
 const normalizeHtmlText = value => value
   .replace(/&(?:nbsp|Tab|NewLine);/gi, " ")
-  .replace(/&#(?:9|10|12|13|32);/g, " ")
-  .replace(/&#x(?:0*9|0*a|0*c|0*d|0*20);/gi, " ")
+  .replace(/&#(?:9|10|12|13|32|160);/g, " ")
+  .replace(/&#x(?:0*9|0*a|0*c|0*d|0*20|0*a0);/gi, " ")
   .replace(/&amp;/gi, "&")
   .replace(/&lt;/gi, "<")
   .replace(/&gt;/gi, ">")
@@ -67,9 +67,9 @@ for (const file of htmlFiles) {
     closingTag.lastIndex = openingTag.index + openingTag[0].length;
     const closingMatch = closingTag.exec(html);
     const inner = closingMatch ? html.slice(openingTag.index + openingTag[0].length, closingMatch.index) : "";
-    const textContent = inner.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, "").replace(/<[^>]*>/g, "").replace(/&nbsp;|&#160;|&#x0*a0;/gi, " ").trim();
-    const hasImageName = [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim()));
-    const hasAriaName = Boolean(attr(attributes, "aria-label")?.trim());
+    const textContent = normalizeHtmlText(inner.replace(/<script\b[^>]*>[\s\S]*?<\/script\s*>/gi, "").replace(/<style\b[^>]*>[\s\S]*?<\/style\s*>/gi, "").replace(/<[^>]*>/g, "")).trim();
+    const hasImageName = [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(normalizeHtmlText(attr(image[0], "alt") ?? "").trim()));
+    const hasAriaName = Boolean(normalizeHtmlText(attr(attributes, "aria-label") ?? "").trim());
     idHasLabelContent.set(id, Boolean(textContent || hasImageName || hasAriaName));
   }
   const seenIds = new Set();
@@ -86,10 +86,10 @@ for (const file of htmlFiles) {
   for (const anchor of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
     const attributes = anchor[1];
     const inner = anchor[2];
-    const textContent = inner.replace(/<[^>]*>/g, "").replace(/&nbsp;|&#160;/gi, " ").trim();
+    const textContent = normalizeHtmlText(inner.replace(/<[^>]*>/g, "")).trim();
     const labelledBy = (attr(attributes, "aria-labelledby") ?? "").trim().split(/\s+/).filter(Boolean);
     const validLabelledBy = labelledBy.length > 0 && labelledBy.every(id => availableIds.has(id) && idHasLabelContent.get(id) === true);
-    const hasAccessibleName = Boolean(attr(attributes, "aria-label")?.trim() || validLabelledBy || textContent || [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim())));
+    const hasAccessibleName = Boolean(normalizeHtmlText(attr(attributes, "aria-label") ?? "").trim() || validLabelledBy || textContent || [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(normalizeHtmlText(attr(image[0], "alt") ?? "").trim())));
     if (!hasAccessibleName) errors.push(`${relative}: link has no detectable accessible name`);
   }
 }
