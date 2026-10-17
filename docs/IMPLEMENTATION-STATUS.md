@@ -45,3 +45,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Added a rubric calibration procedure and linked it from the rubric. It defines independent scoring and discrepancy resolution; no real calibration has been performed yet.
 - Updated the traceability and lab-validation backlogs to distinguish operational defaults from still-unverified execution and curricular approval.
+
+
+## Progress log — 2026-10-17 (continued)
+
+- Added `docs/lab-runtime-matrix.md` with per-lab default environments, evidence expectations, and explicit stop conditions. It distinguishes automated repository checks from actual model experiments, sandbox enforcement, recovery exercises, and empirical measurements.
+- Updated `docs/curriculum.md` to reflect operational defaults for the project and rubric while keeping clean-install, practical lab execution, traceability review, accessibility, calibration, privacy, and learner pilot as open gates.
+- Updated `docs/traceability.md` to clarify remaining mapping and evidence-chain decisions. GitHub Actions run 39015239082 passed for commit `ee18406`; later commits need their own workflow result before being called validated.
