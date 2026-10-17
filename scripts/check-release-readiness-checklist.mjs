@@ -31,12 +31,12 @@ const structuralMarkdown = linesOutsideFences.map(line => {
     }
     return "";
   }
-  if (fenceMarker !== null || /^( {4,}|\t)/.test(line)) return "";
+  if (fenceMarker !== null || /^ {4,}/.test(line)) return "";
   return line;
 }).join("\n");
 const structuralLines = structuralMarkdown.split("\n");
 const title = "# Lista de comprobación de preparación para publicar";
-const titleCount = structuralLines.filter(line => line.trim() === title).length;
+const titleCount = structuralLines.filter(line => !/^\t/.test(line) && line.trim() === title).length;
 if (titleCount === 0) failures.push("falta título exacto: " + title);
 if (titleCount > 1) failures.push("título duplicado: " + title);
 for (const heading of [
@@ -47,7 +47,7 @@ for (const heading of [
   "## 5. Decisión",
   "## Límites"
 ]) {
-  const matches = structuralLines.filter(line => line.trim() === heading).length;
+  const matches = structuralLines.filter(line => !/^\t/.test(line) && line.trim() === heading).length;
   if (matches === 0) failures.push("falta sección: " + heading);
   if (matches > 1) failures.push("sección duplicada: " + heading);
 }
