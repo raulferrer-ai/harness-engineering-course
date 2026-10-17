@@ -133,3 +133,6 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Los validadores de LAB-04 a LAB-10 ahora informan explícitamente de errores al leer o interpretar JSON y rechazan raíces que no sean objetos JSON. El mismo patrón ya se había aplicado a LAB-01 a LAB-03.
 - CI pasó para el commit `8b1de9a` en Node.js 22 y Node.js 24 (ejecución 39027628869). Este resultado valida el estado de ese commit; los cambios posteriores requieren su propia ejecución.
 - Se mantiene pendiente la ejecución real e independiente de los diez laboratorios, el piloto con estudiantes, la calibración humana de la rúbrica y la auditoría manual de accesibilidad y privacidad. Los validadores automatizados no sustituyen esas actividades.
+
+
+- Expanded `scripts/test-lab-validator-regressions.mjs` with 20 additional negative cases: malformed JSON and non-object JSON roots for each of the ten lab validators. The full `npm run check` workflow passed on Node.js 22 and Node.js 24 for commit `5a42b61` (run 39028319488). The regression suite now exercises 86 semantic mutations plus these 20 malformed-input cases, alongside acceptance of all ten canonical fixtures. This is evidence for validator behavior only; it is not evidence that the practical labs have been executed by learners.
