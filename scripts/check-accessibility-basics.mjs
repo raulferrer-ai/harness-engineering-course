@@ -23,6 +23,10 @@ const attr = (tag, name) => {
   return match ? (match[1] ?? match[2] ?? match[3] ?? "") : null;
 };
 await walk(root);
+if (htmlFiles.length === 0) {
+  console.error("Accessibility structure check failed: no generated HTML pages found.");
+  process.exit(1);
+}
 const errors = [];
 for (const file of htmlFiles) {
   const relative = path.relative(root, file);

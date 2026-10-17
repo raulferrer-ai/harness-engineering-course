@@ -14,7 +14,8 @@ const cases = [
   ["rejects missing main landmark", good.replace("<main>", "<div>").replace("</main>", "</div>"), 1, /main landmark/],
   ["rejects missing h1", good.replace("<h1>Título</h1>", "<h2>Título</h2>"), 1, /exactly one h1/],
   ["rejects image without alt attribute", good.replace(' alt="Descripción"', ""), 1, /missing its alt attribute/],
-  ["rejects multiple main landmarks", good.replace("</main>", "</main><main><h1>Otro</h1></main>"), 1, /main landmark/]
+  ["rejects multiple main landmarks", good.replace("</main>", "</main><main><h1>Otro</h1></main>"), 1, /main landmark/],
+  ["rejects empty generated site", null, 1, /no generated HTML pages/]
 ];
 let failures = 0;
 try {
@@ -22,7 +23,7 @@ try {
     const [label, html, expectedStatus, expectedOutput] = cases[i];
     const site = path.join(temp, String(i));
     await mkdir(site, { recursive: true });
-    await writeFile(path.join(site, "index.html"), html, "utf8");
+    if (html !== null) await writeFile(path.join(site, "index.html"), html, "utf8");
     const result = spawnSync(process.execPath, [checker], { cwd: root, encoding: "utf8", env: { ...process.env, SITE_DIR: site } });
     const output = result.stdout + result.stderr;
     if (result.status !== expectedStatus || !expectedOutput.test(output)) {
