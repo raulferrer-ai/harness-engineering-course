@@ -1,6 +1,6 @@
 # LAB-04 — Ejemplo resuelto: cambio pequeño y revisión independiente
 
-Ejemplo didáctico. El código y los resultados descritos son ilustrativos, no una ejecución certificada de CI.
+Ejemplo didáctico. El código y los resultados descritos son ilustrativos, no una ejecución certificada de CI. La solicitud, el alcance y la matriz de aceptación correspondientes están alineados con `fixtures/lab04-code-review.json`; ese validador comprueba la estructura de la especificación, no ejecuta la función ni sus pruebas.
 
 ## Petición y contrato
 

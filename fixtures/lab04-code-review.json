@@ -3,27 +3,99 @@
   "status": "didactic-example-pending-execution",
   "change_request": {
     "id": "REV-01",
-    "title": "Validación de un identificador de proyecto",
-    "request": "Rechazar identificadores vacíos o compuestos solo por espacios, sin cambiar el comportamiento de identificadores válidos.",
-    "scope_allowed": ["Añadir validación en la función de entrada indicada por el ejercicio", "Añadir pruebas unitarias focalizadas"],
-    "scope_forbidden": ["Cambiar el formato de identificadores válidos", "Añadir dependencias", "Cambiar contratos públicos no relacionados", "Modificar datos persistidos"],
+    "title": "Normalización de etiquetas separadas por comas",
+    "request": "Implementar normalizeTags(input): recortar espacios exteriores de cada etiqueta, descartar elementos vacíos y conservar el orden y los duplicados. Rechazar entradas que no sean cadenas con TypeError. No añadir dependencias ni modificar otros módulos.",
+    "scope_allowed": [
+      "Modificar la función normalizeTags(input) en el módulo de práctica",
+      "Añadir pruebas unitarias focalizadas para entradas válidas, vacías y de tipo incorrecto"
+    ],
+    "scope_forbidden": [
+      "Eliminar etiquetas duplicadas o reordenarlas",
+      "Convertir automáticamente null u otros tipos a cadenas",
+      "Añadir dependencias",
+      "Cambiar contratos públicos no relacionados",
+      "Modificar datos persistidos o desplegar a producción"
+    ],
     "acceptance_criteria": [
-      {"id":"AC-01","condition":"Un identificador válido existente sigue aceptándose sin alteraciones.","evidence":"Prueba positiva que compara el valor aceptado con el valor original.","verification":"Ejecutar la prueba antes y después del cambio."},
-      {"id":"AC-02","condition":"Una cadena vacía se rechaza de forma explícita y consistente.","evidence":"Prueba negativa con cadena vacía.","verification":"Ejecutar el caso y observar el resultado esperado."},
-      {"id":"AC-03","condition":"Una cadena compuesta solo por espacios se rechaza.","evidence":"Prueba negativa con espacios y aserción del error esperado.","verification":"Ejecutar el caso y confirmar que no se acepta."},
-      {"id":"AC-04","condition":"El comportamiento de identificadores válidos no relacionados permanece intacto.","evidence":"Prueba de regresión sobre un caso válido representativo.","verification":"Comparar la línea base y el resultado posterior."},
-      {"id":"AC-05","condition":"El diff no añade dependencias ni modifica archivos fuera del alcance acordado.","evidence":"Diff y lista de archivos revisados.","verification":"Revisión independiente frente a scope_allowed y scope_forbidden."}
+      {
+        "id": "AC-01",
+        "condition": "La entrada 'alpha, beta,gamma' produce las etiquetas alpha, beta y gamma, en ese orden y sin espacios exteriores.",
+        "evidence": "Prueba positiva que compara exactamente el array resultante.",
+        "verification": "Ejecutar la prueba antes y después y registrar el resultado observado."
+      },
+      {
+        "id": "AC-02",
+        "condition": "Una entrada compuesta solo por comas y espacios produce un array vacío.",
+        "evidence": "Prueba de borde con la entrada ' , , '.",
+        "verification": "Ejecutar el caso y comprobar que el resultado es exactamente un array vacío."
+      },
+      {
+        "id": "AC-03",
+        "condition": "Una entrada que no sea una cadena, como null, se rechaza con TypeError.",
+        "evidence": "Prueba negativa que verifica el tipo de error.",
+        "verification": "Ejecutar el caso y comprobar que no hay conversión silenciosa."
+      },
+      {
+        "id": "AC-04",
+        "condition": "La entrada 'a,a' conserva ambas etiquetas y su orden.",
+        "evidence": "Prueba de regresión que compara el resultado exacto ['a','a'].",
+        "verification": "Ejecutar la prueba y comprobar que no se eliminan duplicados."
+      },
+      {
+        "id": "AC-05",
+        "condition": "El diff no añade dependencias ni modifica archivos fuera del alcance acordado.",
+        "evidence": "Diff y lista de archivos revisados.",
+        "verification": "Revisión independiente frente a scope_allowed y scope_forbidden."
+      }
     ]
   },
   "baseline_record": {
-    "required": ["base_commit", "runtime_version", "install_command", "test_command", "test_output_before", "known_failures"],
+    "required": [
+      "base_commit",
+      "runtime_version",
+      "install_command",
+      "test_command",
+      "test_output_before",
+      "known_failures"
+    ],
     "rule": "Completar con datos observados. No inventar commit, comandos ni resultados; marcar como bloqueado si no pueden obtenerse."
   },
   "test_matrix": [
-    {"id":"T-01","kind":"positive","input":"PROJ-42","expected":"aceptado sin modificación","criterion":"AC-01"},
-    {"id":"T-02","kind":"negative","input":"","expected":"rechazado","criterion":"AC-02"},
-    {"id":"T-03","kind":"negative","input":"   ","expected":"rechazado","criterion":"AC-03"},
-    {"id":"T-04","kind":"regression","input":"proj_alpha-7","expected":"mismo comportamiento previo","criterion":"AC-04"}
+    {
+      "id": "T-01",
+      "kind": "positive",
+      "input": "alpha, beta,gamma",
+      "expected": "[\"alpha\",\"beta\",\"gamma\"]",
+      "criterion": "AC-01"
+    },
+    {
+      "id": "T-02",
+      "kind": "edge",
+      "input": " , , ",
+      "expected": "[]",
+      "criterion": "AC-02"
+    },
+    {
+      "id": "T-03",
+      "kind": "negative",
+      "input": null,
+      "expected": "TypeError",
+      "criterion": "AC-03"
+    },
+    {
+      "id": "T-04",
+      "kind": "regression",
+      "input": "a,a",
+      "expected": "[\"a\",\"a\"]",
+      "criterion": "AC-04"
+    },
+    {
+      "id": "T-05",
+      "kind": "edge",
+      "input": "",
+      "expected": "[]",
+      "criterion": "AC-02"
+    }
   ],
   "review_checklist": [
     "El diff contiene solo cambios justificados por la especificación.",
@@ -34,7 +106,12 @@
     "Los riesgos no resueltos se registran antes de recomendar integración."
   ],
   "decision_gate": {
-    "allowed_values": ["accept", "request_changes", "reject", "blocked"],
+    "allowed_values": [
+      "accept",
+      "request_changes",
+      "reject",
+      "blocked"
+    ],
     "default": "blocked",
     "rule": "No recomendar accept mientras falte la línea base, haya criterios sin evidencia o existan fallos nuevos sin explicación."
   }
