@@ -24,7 +24,10 @@ const labs = [
     cases: [
       ["missing source request", d => { delete d.source_request; }, /falta source_request/],
       ["duplicate acceptance criterion ID", d => { d.acceptance_criteria[1].id = d.acceptance_criteria[0].id; }, /ID de criterio vacío o duplicado/],
-      ["missing verification evidence", d => { delete d.acceptance_criteria[0].verification; }, /falta verification/]
+      ["missing verification evidence", d => { delete d.acceptance_criteria[0].verification; }, /falta verification/],
+      ["empty blocking question", d => { d.blocking_questions[0] = "   "; }, /cada pregunta bloqueante debe ser texto no vacío/],
+      ["empty allowed scope item", d => { d.scope.allowed[0] = ""; }, /scope.allowed no puede contener elementos vacíos/],
+      ["empty stop condition", d => { d.stop_conditions[0] = ""; }, /cada condición de parada debe ser texto no vacío/]
     ]
   },
   {
