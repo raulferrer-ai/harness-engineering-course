@@ -100,3 +100,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Extended the automated accessibility structure check to flag links with no detectable accessible name, while accepting text labels, non-empty image alt text, and explicit `aria-label`/`aria-labelledby`. A regular-expression bug in the checker was caught by CI and corrected; this remains a limited static check, not a WCAG audit.
 - CI passed for commit `4ec734d` (run 39019831695) after correcting the accessibility attribute parser, and for commit `ba19de4` (run 39019874856), which also includes the LAB-06 evidence-coverage invariant.
 - These checks validate repository contracts and generated HTML heuristics only. They do not replace manual screen-reader/keyboard review or real lab execution.
+
+- LAB-05 now validates traceability from each declared threat case to acceptance-criteria evidence, rejects unknown threat references, and flags threat cases not covered by any criterion. CI passed for commit `834b334` (run 39019967246), including the full repository check and mutation suite.
