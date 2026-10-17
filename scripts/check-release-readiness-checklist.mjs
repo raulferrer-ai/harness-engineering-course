@@ -23,7 +23,17 @@ for (const heading of [
   "## 4. Operación y recuperación",
   "## 5. Decisión",
   "## Límites"
-]) requireText(heading, "falta sección: " + heading);
+]) {
+  const exactHeading = new RegExp("^" + heading.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\for (const heading of [
+  "## 1. Alcance y procedencia",
+  "## 2. Cambio y verificación",
+  "## 3. Herramientas, permisos y seguridad",
+  "## 4. Operación y recuperación",
+  "## 5. Decisión",
+  "## Límites"
+]) requireText(heading, "falta sección: " + heading);") + "\\\\s*$", "m");
+  if (!exactHeading.test(markdown)) failures.push("falta sección: " + heading);
+}
 
 for (const phrase of [
   "no inferir éxito",
