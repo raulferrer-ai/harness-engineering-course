@@ -125,12 +125,12 @@ Cada fila también define una regla de datos y una condición de parada en el fi
 
 | Criterio | Evidencia del fixture | Comprobación |
 |---|---|---|
-| AC-01 — Coste completo | `comparison` y MET-03 | Recalcular modelos, infraestructura, trabajo humano y coste esperado de fallos |
-| AC-02 — Calidad de evidencia | `measurement_notes`, VAL-T01 y VAL-T02 | Distinguir datos observados, estimaciones y datos desconocidos |
-| AC-03 — Responsabilidad y controles | GOV-01 a GOV-04 | Confirmar riesgo, propietario, aprobación, regla de datos y parada |
+| AC-01 — Coste completo | `comparison` y MET-01, MET-02, MET-03, MET-04 y MET-05 | Recalcular modelos, infraestructura, trabajo humano y coste esperado de fallos |
+| AC-02 — Calidad de evidencia | `measurement_notes` y VAL-T01, VAL-T02, VAL-T03, VAL-T04 y VAL-T05 | Distinguir datos observados, estimaciones y datos desconocidos |
+| AC-03 — Responsabilidad y controles | GOV-01, GOV-02, GOV-03 y GOV-04 | Confirmar riesgo, propietario, aprobación, regla de datos y parada |
 | AC-04 — Acciones externas | GOV-03 y DEC-04 | Verificar que sin aprobación explícita la acción se bloquea |
-| AC-05 — Mejora neta | DEC-01 a DEC-03 y VAL-T01 | Revisar coste, calidad, retrabajo y comparabilidad |
-| AC-06 — Decisión revisable | `decision_rules` | Registrar decisión, responsable, evidencia y fecha de revisión |
+| AC-05 — Mejora neta | DEC-01, DEC-02, DEC-03 y VAL-T01 | Revisar coste, calidad, retrabajo y comparabilidad |
+| AC-06 — Decisión revisable | DEC-01, DEC-02, DEC-03, DEC-04 y TV-01, TV-02, TV-03 y TV-04 | Registrar decisión, responsable, evidencia y fecha de revisión |
 
 ## 7. Entregable del alumno
 
