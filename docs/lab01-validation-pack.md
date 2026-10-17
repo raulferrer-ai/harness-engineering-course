@@ -15,6 +15,24 @@ Requisitos: Node.js 20 o posterior. No se requiere una API de modelo para valida
 npm run check:lab01
 ```
 
+### Evaluar salidas reales sin guardar su contenido en el informe
+
+Guarda las salidas originales del modelo en un archivo JSON local con una entrada por caso, usando el identificador del fixture y la salida como cadena JSON (incluso si el modelo devolvió texto mal formado):
+
+```json
+[
+  {"case_id":"L01-01","output":"{\"id\":\"T-104\",\"category\":\"bug\",\"priority\":\"high\",\"requires_human_review\":false}"}
+]
+```
+
+Ejecuta el evaluador con la ruta al archivo:
+
+```sh
+npm run evaluate:lab01 -- ./model-outputs.json
+```
+
+El informe JSON compara esquema y semántica por caso, señala casos ausentes, duplicados o desconocidos y **no copia las salidas originales**. El código de salida es 0 si todos los casos se evalúan y coinciden, 1 si hay fallos de esquema/semántica o datos de entrada inválidos, y 2 si faltan casos y el resultado global es inconcluso. Conserva el archivo original en un lugar seguro y no lo subas si contiene datos sensibles.
+
 Para realizar el experimento completo del módulo:
 
 1. Lee el archivo JSON y prepara una instrucción de extracción que respete el esquema descrito.
