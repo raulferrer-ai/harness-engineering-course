@@ -53,7 +53,7 @@ const labs = [
       ["empty review checklist item", d => { d.review_checklist[0] = " "; }, /checklist de revisión contiene controles vacíos/],
       ["duplicate required baseline field", d => { d.baseline_record.required.push(d.baseline_record.required[0]); }, /campos requeridos duplicados/],
       ["missing regression test category", d => { d.test_matrix = d.test_matrix.filter(test => test.kind !== "regression"); }, /falta al menos un caso de prueba de tipo regression/],
-      ["acceptance criterion has no test", d => { d.test_matrix = d.test_matrix.map(test => ({ ...test, criterion: "AC-01" })); }, /AC-02: criterio de aceptación sin prueba asociada/]
+      ["acceptance criterion has no test", d => { d.test_matrix = d.test_matrix.map(test => ({ ...test, criterion: "AC-01" })); }, /AC-02: criterio verificable por prueba sin caso asociado/]
     ]
   },
   {

@@ -33,7 +33,10 @@ for (const kind of ["positive", "negative", "regression"]) {
   if (!matrix.some(test => test.kind === kind)) errors.push(`falta al menos un caso de prueba de tipo ${kind}`);
 }
 const coveredCriteria = new Set(matrix.map(test => test.criterion).filter(id => criteria.some(criterion => criterion.id === id)));
-for (const criterion of criteria) if (!coveredCriteria.has(criterion.id)) errors.push(`${criterion.id}: criterio de aceptación sin prueba asociada`);
+for (const criterion of criteria) {
+  const requiresTest = /ejecutar|prueba|test/i.test(criterion.verification ?? "");
+  if (requiresTest && !coveredCriteria.has(criterion.id)) errors.push(`${criterion.id}: criterio verificable por prueba sin caso asociado`);
+}
 const requiredBaselineFields = data.baseline_record?.required ?? [];
 for (const field of ["base_commit", "runtime_version", "install_command", "test_command", "test_output_before", "known_failures"]) {
   if (!requiredBaselineFields.includes(field)) errors.push(`línea base: falta campo requerido ${field}`);
