@@ -17,6 +17,8 @@ const cases = [
   ["rejects multiple main landmarks", good.replace("</main>", "</main><main><h1>Otro</h1></main>"), 1, /main landmark/],
   ["rejects link without accessible name", good.replace("</main>", '<a href="#x"><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],
   ["accepts icon link with aria-label", good.replace("</main>", '<a href="#x" aria-label="Abrir detalles"><img src="icon.svg" alt=""></a></main>'), 0, /PASS accessibility structure/],
+  ["rejects dangling aria-labelledby", good.replace("</main>", '<a href="#x" aria-labelledby="missing-label"><img src="icon.svg" alt=""></a></main>'), 1, /link has no detectable accessible name/],
+  ["accepts valid aria-labelledby", good.replace("</main>", '<span id="link-label">Abrir detalles</span><a href="#x" aria-labelledby="link-label"><img src="icon.svg" alt=""></a></main>'), 0, /PASS accessibility structure/],
   ["rejects empty generated site", null, 1, /no generated HTML pages/]
 ];
 let failures = 0;

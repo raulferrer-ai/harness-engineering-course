@@ -40,11 +40,14 @@ for (const file of htmlFiles) {
   for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
     if (attr(image[0], "alt") === null) errors.push(`${relative}: img element is missing its alt attribute`);
   }
+  const availableIds = new Set([...html.matchAll(/\bid\s*=\s*(?:"([^"]+)"|'([^']+)')/gi)].map(match => match[1] ?? match[2]));
   for (const anchor of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
     const attributes = anchor[1];
     const inner = anchor[2];
     const textContent = inner.replace(/<[^>]*>/g, "").replace(/&nbsp;|&#160;/gi, " ").trim();
-    const hasAccessibleName = Boolean(attr(attributes, "aria-label")?.trim() || attr(attributes, "aria-labelledby")?.trim() || textContent || [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim())));
+    const labelledBy = (attr(attributes, "aria-labelledby") ?? "").trim().split(/\s+/).filter(Boolean);
+    const validLabelledBy = labelledBy.length > 0 && labelledBy.every(id => availableIds.has(id));
+    const hasAccessibleName = Boolean(attr(attributes, "aria-label")?.trim() || validLabelledBy || textContent || [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim())));
     if (!hasAccessibleName) errors.push(`${relative}: link has no detectable accessible name`);
   }
 }
