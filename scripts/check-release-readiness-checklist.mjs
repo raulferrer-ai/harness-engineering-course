@@ -64,10 +64,26 @@ for (const phrase of [
   "no demuestra por sí sola la seguridad"
 ]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
-const decisionStart = commentFreeMarkdown.indexOf("## 5. Decisión");
-const limitsStart = commentFreeMarkdown.indexOf("## Límites");
+const decisionMarkdown = markdown.replace(/<!--[\\s\\S]*?-->/g, "").split("\\n").map(line => {
+  const fence = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+  if (fence) {
+    const marker = fence[1][0];
+    if (decisionFence.marker === null) {
+      decisionFence.marker = marker;
+      decisionFence.length = fence[1].length;
+    } else if (marker === decisionFence.marker && fence[1].length >= decisionFence.length && /^\\s*$/.test(fence[2])) {
+      decisionFence.marker = null;
+      decisionFence.length = 0;
+    }
+    return "";
+  }
+  return decisionFence.marker === null ? line : "";
+}).join("\\n");
+const decisionFence = { marker: null, length: 0 };
+const decisionStart = decisionMarkdown.indexOf("## 5. Decisión");
+const limitsStart = decisionMarkdown.indexOf("## Límites");
 const decisionSection = decisionStart >= 0 && limitsStart > decisionStart
-  ? commentFreeMarkdown.slice(decisionStart, limitsStart)
+  ? decisionMarkdown.slice(decisionStart, limitsStart)
   : "";
 
 const decisionRows = [
