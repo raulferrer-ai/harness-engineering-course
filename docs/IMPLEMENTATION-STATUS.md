@@ -235,3 +235,9 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Commit `3dfca29261aac58c85c53a6bc2031ee0c090fb7a` passed CI on Node.js 22 and 24: [run 39038481783](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038481783).
 - Expanded the structural accessibility checker to normalize common HTML character references before deciding whether image alternative text, link text, `aria-label`, or referenced label content is blank. Added regression coverage for entity-encoded whitespace in image alt text, link text, and `aria-label`.
 - These are automated structural heuristics only; they do not replace parsing by a browser, assistive-technology testing, or the manual WCAG review.
+
+
+## Referenced accessible-name whitespace regression — 2026-10-17 15:56 CEST
+
+- Commit `4f6edf91b181e32159c5070d3f35122ba5652693` passed CI on Node.js 22 and 24: [run 39038569079](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038569079).
+- Added a regression for `aria-labelledby` referencing an element whose text is whitespace encoded as HTML character references. The structural accessibility suite now contains 30 cases covering ordinary and entity-encoded blank accessible names.
