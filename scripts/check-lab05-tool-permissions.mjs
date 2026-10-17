@@ -1,6 +1,16 @@
 import { readFile } from "node:fs/promises";
 import process from "node:process";
-const data = JSON.parse(await readFile(process.env.LAB05_FIXTURE_PATH ?? new URL("../fixtures/lab05-tool-permissions.json", import.meta.url), "utf8"));
+let data;
+try {
+  data = JSON.parse(await readFile(process.env.LAB05_FIXTURE_PATH ?? new URL("../fixtures/lab05-tool-permissions.json", import.meta.url), "utf8"));
+} catch (error) {
+  console.error(`LAB-05 tool permissions: no se pudo leer o interpretar JSON: ${error.message}`);
+  process.exit(1);
+}
+if (!data || typeof data !== "object" || Array.isArray(data)) {
+  console.error("LAB-05 tool permissions: la raíz debe ser un objeto JSON");
+  process.exit(1);
+}
 const errors = [];
 const nonempty = v => typeof v === "string" && v.trim().length > 0;
 const unique = (items, label, key = "id") => { const seen = new Set(); for (const item of items ?? []) { const value = item[key]; if (!nonempty(value) || seen.has(value)) errors.push(`${label}: valor vacío o duplicado ${value}`); seen.add(value); } };
