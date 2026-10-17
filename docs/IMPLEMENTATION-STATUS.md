@@ -81,3 +81,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Added `docs/references.md`, a curated source index grouped by all ten modules, and linked it from the README and content contract. CI passed for commit `bcccd7a` (run 39017877871).
 - Prepared draft PR [#46](https://github.com/raulferrer-ai/harness-engineering-course/pull/46) to link the reference index from all ten rendered module pages and enforce that link through the curriculum checker. Both branch CI runs passed (39018079003 and 39018071326). The PR remains unmerged because it changes rendered site pages; the documented Deploy Preview, manual accessibility/content review, and explicit production-release authorization remain required.
+
+- Netlify reported a successful Deploy Preview status for PR #46 at `https://deploy-preview-46--harnessengineeringcourse.netlify.app`. The automated CI runs for the PR head also passed. This is preview evidence only; manual inspection remains outstanding and the PR has not been merged.
