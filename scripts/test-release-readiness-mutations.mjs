@@ -26,8 +26,8 @@ const cases = [
   { label: "missing build evidence field", mutate: text => text.replace("| Resultado de build y checks | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Resultado de build y checks" },
   { label: "missing test evidence field", mutate: text => text.replace("| Evidencia de pruebas | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Evidencia de pruebas" },
   { label: "missing critical-failure field", mutate: text => text.replace("| Fallos críticos abiertos | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Fallos críticos abiertos" },
-  { label: "missing decision field", mutate: text => text.replace("| Decisión | |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Decisión" },
-  { label: "duplicate final decision field", mutate: text => text.replace("| Decisión | |", "| Decisión | |\n| Decisión | |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Decisión" },
+  { label: "missing decision field", mutate: text => text.replace("| Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |\n", ""), expectedDiagnostic: "falta campo en el registro de decisión: Decisión" },
+  { label: "duplicate final decision field", mutate: text => text.replace("| Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |", "| Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |\n| Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |"), expectedDiagnostic: "campo duplicado en el registro de decisión: Decisión" },
   { label: "missing independent diff review safeguard", mutate: text => text.replace("revisión independiente del diff", "revisión del cambio"), expectedDiagnostic: "falta regla o salvaguarda: revisión independiente del diff" }
 ];
 
