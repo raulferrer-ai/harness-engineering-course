@@ -96,6 +96,11 @@ try {
   });
   expectFail("no interpreta texto plano como atributo HTML", run(plainTextIdIsNotAnchor), "ancla no encontrada");
 
+  const commentedOutLink = await fixture("commented-out-link", {
+    "README.md": "<!-- [Destino inexistente](docs/no-existe.md) -->\n\n# Documentación válida\n"
+  });
+  expectPass("ignora enlaces dentro de comentarios HTML", run(commentedOutLink), "enlaces locales comprobados");
+
   const commentOnlyAnchor = await fixture("comment-only-anchor", {
     "README.md": '<!-- <section id="solo-comentario"></section> -->\n\n[Ancla falsa](#solo-comentario)\n'
   });
