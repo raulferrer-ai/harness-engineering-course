@@ -2,7 +2,7 @@
 
 ## Estado
 
-**Diseño inicial para revisión; no es todavía una especificación cerrada del proyecto.** La línea base aprobada reserva 40 horas al proyecto transversal. El repositorio de trabajo, su licencia, la matriz de herramientas/runtime y las reglas operativas de evaluación siguen pendientes de decisión. Este documento no selecciona esas opciones por cuenta propia.
+**Especificación operativa v1.0 para implementación y piloto.** La línea base curricular reserva 40 horas al proyecto transversal. Para acelerar la ejecución, se adoptan los valores por defecto de este documento; se deben revisar después del piloto antes de convertirlos en política sumativa definitiva. Las decisiones y sus límites quedan versionados aquí.
 
 ## Propósito
 
@@ -38,16 +38,26 @@ La distribución siguiente suma 40 horas y es orientativa; debe revisarse junto 
 
 No se deben convertir estas horas en límites rígidos ni afirmar que son tiempos validados hasta realizar un piloto con alumnos.
 
-## Requisitos del entorno por decidir
+## Decisiones operativas por defecto
 
-Antes de publicar el enunciado definitivo, el equipo debe acordar:
+Para no bloquear el curso esperando un repositorio único, cada participante selecciona un repositorio existente que cumpla el contrato de admisión. El docente puede ofrecer una opción de reserva, pero no se exige que toda la cohorte trabaje sobre el mismo proyecto.
 
-- repositorio de referencia, procedencia y licencia compatible con uso educativo;
-- lenguajes, runtimes, dependencias y comandos reproducibles;
-- herramientas de IA permitidas y alternativas sin suscripción de pago obligatoria;
-- política de uso de herramientas, red, almacenamiento y ejecución de código;
-- estrategia para secretos, datos personales y servicios externos;
-- condiciones de acceso para alumnos con hardware o cuentas limitadas.
+### Contrato de admisión del repositorio
+
+El repositorio debe: (1) tener licencia explícita compatible con el uso y las modificaciones previstos; se prefieren MIT, BSD-2/3-Clause o Apache-2.0; (2) poder clonarse y probarse sin credenciales personales ni acceso a producción; (3) incluir una forma documentada de ejecutar pruebas, lint o validaciones; (4) permitir delimitar un cambio de bajo o moderado riesgo; (5) no requerir datos personales ni secretos reales; y (6) permitir conservar la evidencia de forma segura. No admitir repositorios sin licencia clara, código propietario sin autorización, servicios críticos ni tareas destructivas.
+
+### Entorno y herramientas
+
+- Registrar sistema operativo, commit base, runtime, dependencias y comandos exactos.
+- Usar el runtime que el repositorio seleccionado requiera; preferir versiones LTS soportadas y fijar versiones cuando sea viable.
+- La herramienta de IA es opcional para realizar la especificación, las pruebas y la revisión; no se exige una suscripción de pago. Cuando se use IA, registrar proveedor/modelo y versión solo si se conocen, además de las intervenciones relevantes, sin copiar conversaciones privadas completas.
+- Ejecutar localmente por defecto. La red, los servicios externos y las acciones que escriben fuera del directorio de trabajo quedan desactivados salvo necesidad documentada y autorización explícita.
+- Usar datos sintéticos y credenciales ficticias. No introducir secretos, datos personales innecesarios ni código en servicios no autorizados.
+- Si una dependencia o servicio no está disponible, registrar el bloqueo y no declarar una prueba como superada.
+
+### Comparación y evidencias
+
+Comparar el resultado final con la línea base del mismo repositorio y la misma batería de pruebas. No exigir una comparación causal general «con IA vs. sin IA»: si el alumno realiza una comparación de métodos, debe mantener la tarea y los criterios constantes, registrar el orden y declarar los factores de confusión. La evidencia mínima incluye commit base/final, entorno, comandos y salidas, diff, pruebas positivas/negativas pertinentes, revisión independiente y registro de limitaciones. Conservar solo artefactos necesarios y saneados; borrarlos al terminar el periodo docente acordado.
 
 ## Evidencias que debería entregar el alumno
 
@@ -74,14 +84,14 @@ Antes de publicar el enunciado definitivo, el equipo debe acordar:
 
 Estos puntos son criterios propuestos para revisión; no constituyen todavía una rúbrica aprobada ni definen por sí solos el aprobado.
 
-## Decisiones de aprobación pendientes
+## Gates restantes antes del piloto formal
 
-- [ ] Seleccionar repositorio y verificar su licencia.
-- [ ] Aprobar matriz de herramientas, versiones y entorno reproducible.
-- [ ] Confirmar si se exige comparación con trabajo sin IA y cómo se controla la comparabilidad.
-- [ ] Aprobar formato y política de conservación de evidencias.
-- [ ] Aprobar rúbrica, ponderaciones, umbrales y reglas de fallos críticos de seguridad.
-- [ ] Probar la carga de trabajo en un piloto y ajustar las 40 horas según observaciones.
+- [ ] Cada repositorio elegido por un participante supera el contrato de admisión y tiene licencia verificada.
+- [ ] La persona responsable comunica la herramienta, el entorno y la política de datos aplicables a la cohorte.
+- [ ] Se ejecuta el procedimiento de principio a fin en un entorno limpio y se conservan resultados verificables.
+- [ ] La rúbrica v1.0 se calibra con al menos dos entregas de muestra; los desacuerdos quedan documentados.
+- [ ] El protocolo de privacidad, conservación y eliminación de evidencias se confirma antes de recoger datos de participantes.
+- [ ] El piloto registra tiempos y bloqueos reales; ajustar las 40 horas solo con evidencia y explicar la decisión.
 
 ## Rúbrica y defensa
 
