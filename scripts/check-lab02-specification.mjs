@@ -16,7 +16,7 @@ if (!data || typeof data !== "object" || Array.isArray(data)) {
 const errors = [];
 const requiredText = (value) => typeof value === "string" && value.trim().length > 0;
 if (data.schema_version !== 1) errors.push("schema_version debe ser 1");
-if (Object.keys(data).some(key => !["schema_version", "source_request", "blocking_questions", "scope", "acceptance_criteria", "stop_conditions", "deliverables"].includes(key))) errors.push("hay campos desconocidos en la raíz");
+if (Object.keys(data).some(key => !["schema_version", "status", "source_request", "blocking_questions", "assumptions", "scope", "acceptance_criteria", "stop_conditions", "decision"].includes(key))) errors.push("hay campos desconocidos en la raíz");
 if (!requiredText(data.source_request)) errors.push("falta source_request");
 if (!Array.isArray(data.blocking_questions) || data.blocking_questions.length < 1) errors.push("debe haber preguntas bloqueantes");
 else if (data.blocking_questions.some(question => !requiredText(question))) errors.push("cada pregunta bloqueante debe ser texto no vacío");
