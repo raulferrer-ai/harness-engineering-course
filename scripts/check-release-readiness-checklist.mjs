@@ -12,7 +12,7 @@ try {
 
 const failures = [];
 const requireText = (text, message = "falta texto obligatorio: " + text) => {
-  if (!markdown.includes(text)) failures.push(message);
+  if (!structuralMarkdown.includes(text)) failures.push(message);
 };
 
 const linesOutsideFences = markdown.split("\n");
