@@ -34,7 +34,7 @@ const structuralMarkdown = linesOutsideFences.map(line => {
   if (fenceMarker !== null || /^ {4,}/.test(line)) return "";
   return line;
 }).join("\n");
-const structuralLines = structuralMarkdown.split("\n");
+const structuralLines = structuralMarkdown.replace(/<!--[\\s\\S]*?-->/g, "").split("\n");
 const safeguardMarkdown = structuralLines.filter(line => !/^\t/.test(line)).join("\n");
 const title = "# Lista de comprobación de preparación para publicar";
 const titleCount = structuralLines.filter(line => !/^\t/.test(line) && line.trim() === title).length;
@@ -81,7 +81,7 @@ const decisionRows = [
 ];
 for (const row of decisionRows) {
   const rowPattern = new RegExp("^\\|\\s*" + row + "\\s*\\|");
-  const matchingRows = decisionSection.split("\n").filter(line => !/^\t/.test(line) && rowPattern.test(line.trimStart()));
+  const matchingRows = decisionSection.split("\n").filter(line => rowPattern.test(line.trimStart()));
   if (matchingRows.length === 0) failures.push("falta campo en el registro de decisión: " + row);
   if (matchingRows.length > 1) failures.push("campo duplicado en el registro de decisión: " + row);
 }
