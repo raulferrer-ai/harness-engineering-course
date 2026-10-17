@@ -82,6 +82,16 @@ try {
   });
   expectFail("percent-encoded Unicode path to missing file", encodedMissingPath, "broken local URL");
 
+  const traversalOutsideSite = await fixture("traversal-outside-site", {
+    "index.html": '<a href="/../../outside.html">Escape</a>\n'
+  });
+  expectFail("reject paths that escape the generated site", traversalOutsideSite, "Path escapes generated site");
+
+  const malformedPercentEncoding = await fixture("malformed-percent-encoding", {
+    "index.html": '<a href="/bad%ZZ/">Malformed URL</a>\n'
+  });
+  expectFail("report malformed percent encoding without crashing", malformedPercentEncoding, "URI malformed");
+
   const missingFile = await fixture("missing-file", {
     "index.html": '<a href="/missing/">Missing</a>\n'
   });
