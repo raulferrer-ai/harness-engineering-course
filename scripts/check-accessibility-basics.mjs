@@ -19,7 +19,7 @@ async function walk(directory) {
 }
 const attr = (tag, name) => {
   const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const match = tag.match(new RegExp(`(?:^|\\s)${escaped}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s>]+))`, "i"));
+  const match = tag.match(new RegExp(`(?:^|\s)${escaped}\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+))`, "i"));
   return match ? (match[1] ?? match[2] ?? match[3] ?? "") : null;
 };
 await walk(root);
@@ -40,11 +40,11 @@ for (const file of htmlFiles) {
   for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
     if (attr(image[0], "alt") === null) errors.push(`${relative}: img element is missing its alt attribute`);
   }
-  for (const anchor of html.matchAll(/<a\\b([^>]*)>([\\s\\S]*?)<\\/a>/gi)) {
+  for (const anchor of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)) {
     const attributes = anchor[1];
     const inner = anchor[2];
     const textContent = inner.replace(/<[^>]*>/g, "").replace(/&nbsp;|&#160;/gi, " ").trim();
-    const hasAccessibleName = Boolean(attr(attributes, "aria-label")?.trim() || attr(attributes, "aria-labelledby")?.trim() || textContent || [...inner.matchAll(/<img\\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim())));
+    const hasAccessibleName = Boolean(attr(attributes, "aria-label")?.trim() || attr(attributes, "aria-labelledby")?.trim() || textContent || [...inner.matchAll(/<img\b[^>]*>/gi)].some(image => Boolean(attr(image[0], "alt")?.trim())));
     if (!hasAccessibleName) errors.push(`${relative}: link has no detectable accessible name`);
   }
 }
