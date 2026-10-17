@@ -17,14 +17,17 @@ const requireText = (text, message = "falta texto obligatorio: " + text) => {
 
 const linesOutsideFences = markdown.split("\n");
 let fenceMarker = null;
+let fenceLength = 0;
 const structuralMarkdown = linesOutsideFences.map(line => {
-  const fence = line.match(/^ {0,3}(`{3,}|~{3,})/);
+  const fence = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
   if (fence) {
     const marker = fence[1][0];
     if (fenceMarker === null) {
       fenceMarker = marker;
-    } else if (marker === fenceMarker && fence[1].length >= 3) {
+      fenceLength = fence[1].length;
+    } else if (marker === fenceMarker && fence[1].length >= fenceLength && /^\s*$/.test(fence[2])) {
       fenceMarker = null;
+      fenceLength = 0;
     }
     return "";
   }
