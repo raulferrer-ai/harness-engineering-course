@@ -221,11 +221,11 @@ try {
       await writeFile(fixturePath, testCase.content, "utf8");
       const result = runValidator(lab, fixturePath);
       const output = result.stdout + result.stderr;
-      const diagnosticLines = output.split(/\\r?\\n/).filter(line => line.trim() && !/^(Validator regression suite|FAIL |PASS )/.test(line));
+      const diagnosticLines = output.split(/\r?\n/).filter(line => line.trim() && !/^(Validator regression suite|FAIL |PASS )/.test(line));
       const matchingLines = diagnosticLines.filter(line => testCase.expected.test(line));
       if (result.status !== 1 || matchingLines.length !== 1 || diagnosticLines.length !== 1) {
         failures++;
-        console.error(`FAIL ${lab.id} ${testCase.label}: expected exit 1 and exactly one diagnostic matching / ${testCase.expected.source} /\\nexit=${result.status}; diagnostics=${diagnosticLines.length}; matches=${matchingLines.length}\\n${output}`);
+        console.error(`FAIL ${lab.id} ${testCase.label}: expected exit 1 and exactly one diagnostic matching / ${testCase.expected.source} /\nexit=${result.status}; diagnostics=${diagnosticLines.length}; matches=${matchingLines.length}\n${output}`);
       } else {
         console.log(`PASS ${lab.id} rejects ${testCase.label} with the expected diagnostic`);
       }
@@ -239,4 +239,5 @@ if (failures) {
   process.exit(1);
 }
 const mutationCount = labs.reduce((total, lab) => total + lab.cases.length, 0);
-const malformedInputCount = labs.length * 2;\nconsole.log(`Validator regression suite OK: 10 canonical fixtures accepted; ${mutationCount} semantic mutations and ${malformedInputCount} malformed-input cases rejected for the expected reason.`);
+const malformedInputCount = labs.length * 2;
+console.log(`Validator regression suite OK: 10 canonical fixtures accepted; ${mutationCount} semantic mutations and ${malformedInputCount} malformed-input cases rejected for the expected reason.`);
