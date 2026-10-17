@@ -37,6 +37,14 @@ Los siguientes cruces son plausibles por tema, pero **no se consideran cobertura
 
 Estas relaciones deben convertirse en filas explícitas con resultados y evidencia solo después de validación; no deben interpretarse como una decisión cerrada.
 
+### Propuesta de asignación para M08/LAB-08 — pendiente de aprobación
+
+- **Candidata principal: COMP-05 — Agents and delegation (N3).** El resultado central es diseñar límites de confianza y permisos de herramientas, y demostrar que documentos o salidas de herramientas no amplían la autoridad del agente. Evidencia candidata: activos, fronteras de confianza, amenazas TH-01–TH-06 y pruebas SEC-T01–SEC-T06.
+- **Candidata secundaria: COMP-06 — Harness and execution control (N4).** Los casos que requieren denegar acciones fuera de política, validar argumentos en la capa de herramienta y comprobar la ausencia de efectos no autorizados aportan evidencia de controles externos al modelo. Evidencia candidata: fronteras TB-02/TB-03, criterios de aceptación y registros de denegación.
+- **Competencia de apoyo: COMP-07 — Testing, evals, and verification (N4).** El diseño de pruebas adversariales y la definición de resultados esperados apoyan esta competencia, pero la fixture no demuestra que las pruebas se hayan ejecutado ni que el entorno esté aislado.
+
+**Recomendación para la revisión curricular:** aprobar COMP-05 como asignación principal y COMP-06 como transversal secundaria; mantener COMP-07 como apoyo metodológico, no como asignación principal de M08. Antes de cerrar la relación, comprobar que los resultados de aprendizaje publicados, la actividad, la evidencia producida por el alumno y los criterios de aceptación cubren esos niveles de competencia. Hasta entonces, la fila M08 continúa marcada como pendiente.
+
 ## Cadena de trazabilidad que debe validarse por cada resultado
 
 | Campo | Requisito |
