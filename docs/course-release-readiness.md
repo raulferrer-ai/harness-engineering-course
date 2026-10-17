@@ -29,7 +29,7 @@ Esta lista distingue la compilación técnica de la preparación pedagógica. Un
 - [ ] Revisar contraste, ampliación de texto y ausencia de información transmitida solo por color.
 - [ ] Probar diseño adaptable en móvil y escritorio, incluyendo tablas y bloques de código.
 - [ ] Comprobar que los errores y estados vacíos ofrecen orientación comprensible.
-- [ ] Ejecutar `npm run check:a11y:structure`, que comprueba idioma del documento, un único `main`, un único `h1` y atributo `alt` en cada imagen generada.
+- [ ] Ejecutar `npm run check:a11y:structure`: comprueba idioma del documento, un único `main` y `h1`, atributos `alt`, IDs no vacíos y únicos, referencias `aria-labelledby` existentes con contenido y nombres accesibles básicos en enlaces generados.
 - [ ] Tratar el chequeo estructural como una barrera básica, no como una auditoría WCAG completa; realizar además revisión manual de teclado, contraste, zoom, lector de pantalla y móvil.
 
 ## 4. Calidad pedagógica
