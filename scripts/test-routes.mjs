@@ -99,6 +99,12 @@ try {
   });
   expectFail("missing fragment", missingFragment, 'missing fragment "#absent"');
 
+  const namedAnchor = await fixture("legacy-name-anchor", {
+    "index.html": '<a href="/guide/#legacy-section">Legacy section</a>\n',
+    "guide/index.html": '<a name="legacy-section"></a><p>Legacy content</p>\n'
+  });
+  expectPass("legacy named anchors remain valid", namedAnchor);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
