@@ -143,3 +143,6 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Latest verification: commit `8ffb9b4f02fcd776acded1a681a4a265f785035f` passed both CI jobs (Node.js 22 and Node.js 24), run [39034781119](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39034781119).
 - Release decision remains **not yet approved**: the real learner pilot, independent execution of all ten labs, manual WCAG/accessibility review, and approval of privacy/participant information are still outstanding. These require human review or participant activity and must not be represented as completed by CI.
+
+
+- Release-readiness checklist regression coverage: `scripts/test-release-readiness-mutations.mjs` now tests 13 semantic mutations (including duplicate accessibility and privacy decision fields), accepts LF/CRLF/CR-only and mixed line endings, and rejects unreadable input with a controlled diagnostic. Latest completed CI runs remain green for commits `5d59a8e` and `865f8c4`; these runs predate any subsequent changes and do not substitute for manual release approval.
