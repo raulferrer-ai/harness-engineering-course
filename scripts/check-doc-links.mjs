@@ -84,7 +84,7 @@ for (const file of markdownFiles) {
   const withoutCode = source
     .replace(/\x60\x60\x60[\s\S]*?\x60\x60\x60|~~~[\s\S]*?~~~/g, "")
     .replace(/(^|[^\x60])\x60+[^\x60\n]*\x60+(?!\x60)/g, "$1")
-    .replace(/<!--[\\s\\S]*?-->/g, "");
+    .replace(/<!--[\s\S]*?-->/g, "");
   const referenceDefinitions = new Map();
   for (const match of withoutCode.matchAll(/^\s{0,3}\[([^\]]+)\]:\s*<?([^\s>]+)>?/gm)) {
     referenceDefinitions.set(match[1].trim().toLowerCase(), match[2].trim());
