@@ -15,6 +15,7 @@ Esta lista convierte los artefactos de los laboratorios en una decisión de publ
 - [ ] Se registró el resultado de la línea base antes del cambio.
 - [ ] Se ejecutaron las pruebas pertinentes después del cambio; se conservan comando, código de salida y referencia al resultado.
 - [ ] Una revisión independiente del diff confirma que el cambio está dentro del alcance.
+- [ ] La revisión manual de accesibilidad aplicable está registrada con evidencia e incidencias resueltas o aceptadas formalmente.
 - [ ] Los fallos críticos no se ocultan mediante una puntuación media.
 
 ## 3. Herramientas, permisos y seguridad
@@ -23,6 +24,7 @@ Esta lista convierte los artefactos de los laboratorios en una decisión de publ
 - [ ] Las operaciones destructivas o externas requieren la autorización prevista por la política.
 - [ ] Los casos negativos comprueban rechazo y ausencia de efectos secundarios no autorizados.
 - [ ] Los registros se redactan antes de persistir; se probaron con secretos canario sintéticos.
+- [ ] La privacidad y el consentimiento de participantes se revisaron antes de recoger datos; finalidad, acceso, conservación y eliminación están definidos.
 - [ ] Se documentaron amenazas relevantes, controles, responsable y riesgo residual.
 
 ## 4. Operación y recuperación
@@ -44,6 +46,8 @@ Registrar una fila por publicación:
 | Resultado de build y checks | |
 | Evidencia de pruebas | |
 | Fallos críticos abiertos | |
+| Accesibilidad manual | |
+| Privacidad/consentimiento | |
 | Riesgo residual aceptado por | |
 | Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |
 | Condiciones, vencimiento y responsable | |

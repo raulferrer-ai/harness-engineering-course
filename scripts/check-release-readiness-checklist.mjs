@@ -41,6 +41,8 @@ const decisionRows = [
   "Resultado de build y checks",
   "Evidencia de pruebas",
   "Fallos críticos abiertos",
+  "Accesibilidad manual",
+  "Privacidad/consentimiento",
   "Decisión"
 ];
 for (const row of decisionRows) {
