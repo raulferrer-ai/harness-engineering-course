@@ -47,7 +47,7 @@ npm ci
 npm run check
 ```
 
-El comando `check` compila el sitio; ejecuta comprobaciones estructurales básicas de accesibilidad; verifica rutas y enlaces locales del HTML generado y de la documentación; valida la preparación para publicar y la trazabilidad curricular; y comprueba los diez fixtures de laboratorio con regresiones negativas. Un resultado verde no demuestra ejecución real de los laboratorios, conformidad WCAG completa, calidad pedagógica ni resultados de aprendizaje.
+El comando `check` compila el sitio; ejecuta comprobaciones estructurales básicas de accesibilidad; verifica rutas y enlaces locales del HTML generado y de la documentación; valida la preparación para publicar y la trazabilidad curricular; comprueba los diez fixtures de laboratorio con regresiones negativas; y realiza una instalación limpia y pruebas del proyecto de reserva con licencia MIT. Un resultado verde no demuestra ejecución real de los laboratorios, conformidad WCAG completa, calidad pedagógica ni resultados de aprendizaje.
 
 ## Próximas etapas
 
