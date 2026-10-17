@@ -115,6 +115,11 @@ try {
   });
   expectPass("ignore local links inside script content", ignoredScriptLink);
 
+  const ignoredStyleLink = await fixture("ignored-style-link", {
+    "index.html": '<style>/* <a href="/missing/">Example</a> */</style><h1>Real page</h1>\n'
+  });
+  expectPass("ignore local links inside style content", ignoredStyleLink);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
