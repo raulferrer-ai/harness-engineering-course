@@ -23,7 +23,7 @@ const allowed = {
 };
 
 if (data.schema_version !== 1) fail("schema_version debe ser 1");
-if (Object.keys(data).some(key => !["schema_version", "cases"].includes(key))) fail("campos desconocidos en la raíz");
+if (Object.keys(data).some(key => !["schema_version", "description", "output_schema", "cases"].includes(key))) fail("campos desconocidos en la raíz");
 if (!Array.isArray(data.cases) || data.cases.length < 5) { fail("se requieren al menos cinco casos"); process.exit(1); }
 const ids = new Set();
 const expectedIds = new Set();
