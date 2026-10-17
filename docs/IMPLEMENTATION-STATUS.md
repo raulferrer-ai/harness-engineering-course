@@ -76,3 +76,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - LAB-06 now rejects duplicate audit-record fields; LAB-07 rejects duplicate rubric dimensions; LAB-09 rejects duplicate signal names; LAB-10 rejects duplicate metric names. Each invariant has a corresponding negative mutation in the validator regression suite. CI passed for commits `bcae84f`, `4bdddd7`, `8996096` and `5aa6f84` (runs 39017289608, 39017314397, 39017339886 and 39017368189 respectively).
 
 - Repaired the traceability backlog, removing a malformed orphaned line and consolidating remaining gates into explicit actions: formal mapping review, learner evidence chains, real lab execution, repository admission, rubric calibration, manual accessibility/privacy/reproducibility review, and learner pilot. CI passed for commit `cee2dba` (run 39017454345).
+
+- Extended the curriculum gate to require the correct LAB ID/hour allocation on each module page and verify that each module's worked example and mapped lab validation pack actually exist. CI passed for commit `9a9bc96` (run 39017684142).
