@@ -27,7 +27,9 @@ const labs = [
       ["missing verification evidence", d => { delete d.acceptance_criteria[0].verification; }, /falta verification/],
       ["empty blocking question", d => { d.blocking_questions[0] = "   "; }, /cada pregunta bloqueante debe ser texto no vacío/],
       ["empty allowed scope item", d => { d.scope.allowed[0] = ""; }, /scope.allowed no puede contener elementos vacíos/],
-      ["empty stop condition", d => { d.stop_conditions[0] = ""; }, /cada condición de parada debe ser texto no vacío/]
+      ["empty stop condition", d => { d.stop_conditions[0] = ""; }, /cada condición de parada debe ser texto no vacío/],
+      ["duplicate blocking question", d => { d.blocking_questions[1] = d.blocking_questions[0]; }, /las preguntas bloqueantes no pueden estar duplicadas/],
+      ["scope item both allowed and forbidden", d => { d.scope.forbidden[0] = d.scope.allowed[0]; }, /scope no puede permitir y prohibir el mismo elemento/]
     ]
   },
   {
