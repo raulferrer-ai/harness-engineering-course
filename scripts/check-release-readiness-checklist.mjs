@@ -31,7 +31,7 @@ const structuralMarkdown = linesOutsideFences.map(line => {
     }
     return "";
   }
-  if (fenceMarker !== null || /^ {4,}/.test(line) || /^\t/.test(line)) return "";
+  if (fenceMarker !== null || /^ {4,}/.test(line) || (/^\t/.test(line) && !/^\t\|/.test(line))) return "";
   return line;
 }).join("\n");
 const commentFreeMarkdown = structuralMarkdown.replace(/<!--[\s\S]*?-->/g, "");
