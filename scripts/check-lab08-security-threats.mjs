@@ -7,6 +7,7 @@ if(data.schema_version!==1||data.lab_id!=="LAB-08"||data.topic!=="security-threa
 if(!ok(data.exercise_id)||!ok(data.purpose))errors.push("falta identificación o propósito");
 for(const [f,min] of [["assets",3],["trust_boundaries",3],["threats",5],["test_cases",5],["acceptance_criteria",4],["limitations",2]]){
  if(!Array.isArray(data[f])||data[f].length<min)errors.push(f+": se requieren al menos "+min+" elementos");
+ else if(f==="limitations"&&data[f].some(item=>!ok(item)))errors.push("limitations contiene elementos vacíos");
  if(["assets","trust_boundaries","threats","test_cases","acceptance_criteria"].includes(f))unique(data[f],f);
 }
 for(const x of data.threats??[])for(const f of ["scenario","control","expected"])if(!ok(x[f]))errors.push(x.id+": falta "+f);

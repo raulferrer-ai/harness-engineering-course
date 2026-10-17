@@ -88,7 +88,8 @@ const labs = [
       ["missing asset name", d => { delete d.assets[0].name; }, /activo sin nombre o impacto/],
       ["duplicate asset ID", d => { d.assets[1].id = d.assets[0].id; }, /ID vacío o duplicado/],
       ["duplicate asset reference", d => { d.threats[0].asset_ids.push(d.threats[0].asset_ids[0]); }, /asset_ids contiene referencias duplicadas/],
-      ["duplicate threat reference", d => { d.test_cases[0].threat_ids.push(d.test_cases[0].threat_ids[0]); }, /threat_ids contiene referencias duplicadas/]
+      ["duplicate threat reference", d => { d.test_cases[0].threat_ids.push(d.test_cases[0].threat_ids[0]); }, /threat_ids contiene referencias duplicadas/],
+      ["empty security limitation", d => { d.limitations[0] = " "; }, /limitations contiene elementos vacíos/]
     ]
   },
   {
