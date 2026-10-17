@@ -105,6 +105,16 @@ try {
   });
   expectPass("legacy named anchors remain valid", namedAnchor);
 
+  const ignoredCommentLink = await fixture("ignored-comment-link", {
+    "index.html": '<!-- <a href="/missing/">Example</a> --><h1>Real page</h1>\n'
+  });
+  expectPass("ignore local links inside HTML comments", ignoredCommentLink);
+
+  const ignoredScriptLink = await fixture("ignored-script-link", {
+    "index.html": '<script>const sample = \'<a href="/missing/">Example</a>\';</script><h1>Real page</h1>\n'
+  });
+  expectPass("ignore local links inside script content", ignoredScriptLink);
+
   const duplicateIds = await fixture("duplicate-ids", {
     "index.html": '<h2 id="same">First</h2><p id="same">Second</p>\n'
   });
