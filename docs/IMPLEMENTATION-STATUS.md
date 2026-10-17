@@ -65,3 +65,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Added negative mutation cases to `scripts/test-lab-validator-regressions.mjs` for the new invariants. The regression suite checks the canonical fixtures and requires each mutated fixture to fail for the expected diagnostic.
 - CI passed for commit `751109a` (run 39016507274), which includes the accumulated validator and regression changes through that commit.
 - These checks validate fixture contracts and validator behavior; they do not establish that a learner or model has completed the labs, nor that the instructional design has been piloted.
+
+- Added `scripts/check-accessibility-basics.mjs` and regression tests, integrated into `npm run check`. The structural check verifies document language, one main landmark, one h1, and image alt attributes across generated pages. CI passed for `e66c5e2` (run 39016637722). This is not a full WCAG audit; manual accessibility review remains a release gate.
