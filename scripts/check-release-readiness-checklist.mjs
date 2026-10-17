@@ -34,7 +34,7 @@ const structuralMarkdown = linesOutsideFences.map(line => {
   if (fenceMarker !== null || /^ {4,}/.test(line)) return "";
   return line;
 }).join("\n");
-const structuralLines = structuralMarkdown.replace(/<!--[\\s\\S]*?-->/g, "").split("\n");
+const structuralLines = structuralMarkdown.replace(/<!--[\s\S]*?-->/g, "").split("\n");
 const safeguardMarkdown = structuralLines.filter(line => !/^\t/.test(line)).join("\n");
 const title = "# Lista de comprobación de preparación para publicar";
 const titleCount = structuralLines.filter(line => !/^\t/.test(line) && line.trim() === title).length;
