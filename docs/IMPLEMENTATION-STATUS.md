@@ -188,3 +188,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Added `scripts/check-pilot-safeguards.mjs` and wired it into `npm run check` as `check:pilot-safeguards`. It checks that pilot and participant-information documents retain draft status, privacy prerequisites, voluntary participation language, and an explicit prohibition on data collection while required fields remain incomplete.
 - CI run [39036628356](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39036628356) passed on commit `24f8b9b80d9b8f9ca46fd075288148ce4f155308` for both Node.js 22 and Node.js 24.
 - This guard prevents accidental weakening of the written safeguards; it is not a legal/privacy approval and does not replace actual lab execution, manual accessibility review, or the learner pilot. Public release is not yet approved.
+
+
+## Current automated verification — 2026-10-17 15:28 CEST
+
+- Latest observed CI run: [39036687351](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39036687351), commit `6c7467339df0da0a759f21ba159e473814a19a68`. Both required jobs succeeded (Node.js 22 and Node.js 24).
+- The current `npm run check` pipeline includes build, accessibility structure and regression tests, routes and links, curriculum/traceability checks, validators for labs 1–10, release checklist mutation tests, and pilot safeguards.
+- Remaining release decision: do not publish as fully validated until a reviewer records clean-environment execution evidence for each lab, completes the manual accessibility checklist, approves participant/privacy materials before any pilot data collection, and reviews the results of a real formative pilot. These are not evidenced by green CI.
