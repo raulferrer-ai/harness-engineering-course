@@ -228,3 +228,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - El commit `f4e5be49394502c5f56adbd32b3942f36d061420` pasó la ejecución de CI [39038152879](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038152879) en Node.js 22 y Node.js 24. La suite de accesibilidad pasó con 26 regresiones, incluidas referencias `aria-labelledby` válidas, vacías, múltiples y rotas.
 - Se corrigió en el README la instrucción de entorno local: el mínimo declarado por el proyecto es Node.js 22, no Node.js 20.
 - Esto actualiza el estado de verificación automatizada; siguen pendientes las validaciones manuales y pedagógicas ya registradas.
+
+
+## Accessible-name entity regressions — 2026-10-17 15:55 CEST
+
+- Commit `3dfca29261aac58c85c53a6bc2031ee0c090fb7a` passed CI on Node.js 22 and 24: [run 39038481783](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038481783).
+- Expanded the structural accessibility checker to normalize common HTML character references before deciding whether image alternative text, link text, `aria-label`, or referenced label content is blank. Added regression coverage for entity-encoded whitespace in image alt text, link text, and `aria-label`.
+- These are automated structural heuristics only; they do not replace parsing by a browser, assistive-technology testing, or the manual WCAG review.
