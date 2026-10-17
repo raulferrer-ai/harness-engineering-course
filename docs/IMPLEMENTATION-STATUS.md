@@ -70,3 +70,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Added a structural accessibility gate and six regression scenarios, integrated into `npm run check`; its scope is intentionally limited and does not replace manual WCAG review.
 - Aligned the LAB-04 fixture with its worked example: the same `normalizeTags` task, scope restrictions, acceptance criteria, and positive/negative/regression cases are now represented consistently. CI passed for commit `d9c9b20` (run 39016760285).
+
+- Removed repeated `Ejemplo resuelto` sections from the LAB-01, LAB-02, LAB-04, LAB-05 and LAB-07 validation packs; the documentation link check and full CI passed for commit `828afb2` (run 39016860116).
