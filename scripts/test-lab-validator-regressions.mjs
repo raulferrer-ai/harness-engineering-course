@@ -46,7 +46,9 @@ const labs = [
     cases: [
       ["unknown acceptance criterion reference", d => { d.test_matrix[0].criterion = "AC-999"; }, /expectativa vacía o criterio desconocido/],
       ["duplicate test ID", d => { d.test_matrix[1].id = d.test_matrix[0].id; }, /tests: ID vacío o duplicado/],
-      ["invalid decision gate", d => { d.decision_gate.default = "ship_it"; }, /decisión inicial no válida/]
+      ["invalid decision gate", d => { d.decision_gate.default = "ship_it"; }, /decisión inicial no válida/],
+      ["empty review checklist item", d => { d.review_checklist[0] = " "; }, /checklist de revisión contiene controles vacíos/],
+      ["duplicate required baseline field", d => { d.baseline_record.required.push(d.baseline_record.required[0]); }, /campos requeridos duplicados/]
     ]
   },
   {

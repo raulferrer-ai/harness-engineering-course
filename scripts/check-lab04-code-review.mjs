@@ -29,10 +29,14 @@ for (const test of matrix) {
   if (!["positive", "negative", "regression"].includes(test.kind)) errors.push(`${test.id}: tipo de prueba no válido`);
   if (!text(test.expected) || !criteria.some(c => c.id === test.criterion)) errors.push(`${test.id}: expectativa vacía o criterio desconocido`);
 }
+const requiredBaselineFields = data.baseline_record?.required ?? [];
 for (const field of ["base_commit", "runtime_version", "install_command", "test_command", "test_output_before", "known_failures"]) {
-  if (!(data.baseline_record?.required ?? []).includes(field)) errors.push(`línea base: falta campo requerido ${field}`);
+  if (!requiredBaselineFields.includes(field)) errors.push(`línea base: falta campo requerido ${field}`);
 }
+if (new Set(requiredBaselineFields).size !== requiredBaselineFields.length) errors.push("línea base: campos requeridos duplicados");
+if (requiredBaselineFields.some(field => !text(field))) errors.push("línea base: campos requeridos vacíos");
 if (!Array.isArray(data.review_checklist) || data.review_checklist.length < 4) errors.push("checklist de revisión insuficiente");
+else if (data.review_checklist.some(item => !text(item))) errors.push("checklist de revisión contiene controles vacíos");
 if (!["accept", "request_changes", "reject", "blocked"].includes(data.decision_gate?.default)) errors.push("decisión inicial no válida");
 if (errors.length) {
   for (const error of errors) console.error(`LAB-04 review fixture: ${error}`);
