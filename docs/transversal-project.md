@@ -48,7 +48,7 @@ El repositorio debe: (1) tener licencia explícita compatible con el uso y las m
 
 ### Repositorio de reserva para el piloto
 
-Se incluye [`examples/transversal-project-starter/`](../examples/transversal-project-starter/README.md), un proyecto pequeño con licencia MIT, runtime Node.js 20+ y pruebas sin dependencias externas. Puede usarse como opción de reserva para ensayar instalación, línea base, cambio acotado, verificación y defensa. No sustituye la revisión de admisión y licencia de otros repositorios ni demuestra por sí solo que el diseño del proyecto de 40 horas esté validado.
+Se incluye [`examples/transversal-project-starter/`](../examples/transversal-project-starter/README.md), un proyecto pequeño con licencia MIT, runtime Node.js 20+ y pruebas sin dependencias externas. Puede usarse como opción de reserva para ensayar instalación, línea base, cambio acotado, verificación y defensa. CI comprueba la instalación limpia con `npm ci` y las pruebas con `npm test` de este starter. Esto verifica el contrato automatizado del repositorio de reserva, no una ejecución independiente por alumnos ni la reproducibilidad de repositorios elegidos por participantes. No sustituye la revisión de admisión y licencia de otros repositorios ni demuestra por sí solo que el diseño del proyecto de 40 horas esté validado.
 
 ### Entorno y herramientas
 

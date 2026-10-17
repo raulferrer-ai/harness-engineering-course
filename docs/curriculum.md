@@ -65,4 +65,4 @@ The 16-hour evaluation design includes conceptual assessment, individual practic
 
 ## Known implementation gates
 
-Still to be validated: lab-specific tool/runtime matrix; license/admission checks for selected repositories; clean-install reproducibility; independent execution of all ten labs; formal review of competency-to-outcome-to-activity-to-evidence traceability; accessibility validation; rubric calibration; privacy review; and a learner pilot with observed durations and outcomes. A successful build or fixture validator does not close these gates.
+Still to be validated: lab-specific tool/runtime matrix; license/admission checks for selected repositories; independent learner-run reproducibility (the MIT fallback starter already has clean-install and test checks in CI); independent execution of all ten labs; formal review of competency-to-outcome-to-activity-to-evidence traceability; accessibility validation; rubric calibration; privacy review; and a learner pilot with observed durations and outcomes. A successful build or fixture validator does not close these gates.

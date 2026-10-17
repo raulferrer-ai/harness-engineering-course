@@ -22,7 +22,7 @@ The ten modules total 104 hours: 40 hours of fundamentals and 64 hours of labs. 
 
 ## Work in progress
 
-- Validate the operational project brief with a candidate repository and document a clean setup.
+- The MIT fallback starter is checked in CI with a clean `npm ci` and `npm test`. Still pending: independent learner-run validation and admission/license checks for any participant-selected repository.
 - Calibrate the provisional rubric against sample submissions before summative use.
 - Complete and independently execute all lab instructions, recording environment and evidence.
 - Validate competency-to-outcome-to-activity-to-evidence traceability.
