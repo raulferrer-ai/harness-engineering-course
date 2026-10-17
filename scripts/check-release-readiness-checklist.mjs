@@ -31,7 +31,7 @@ const structuralMarkdown = linesOutsideFences.map(line => {
     }
     return "";
   }
-  if (fenceMarker !== null || /^ {4,}/.test(line) || (/^\t/.test(line) && !/^\t\|/.test(line))) return "";
+  if (fenceMarker !== null || /^ {4,}/.test(line) || /^\t/.test(line)) return "";
   return line;
 }).join("\n");
 const commentFreeMarkdown = structuralMarkdown.replace(/<!--[\s\S]*?-->/g, "");
@@ -83,7 +83,7 @@ const decisionRows = [
 ];
 for (const row of decisionRows) {
   const rowPattern = new RegExp("^\\|\\s*" + row + "\\s*\\|");
-  const matchingRows = decisionSection.split("\n").filter(line => rowPattern.test(line.trimStart()));
+  const matchingRows = decisionSection.split("\n").filter(line => rowPattern.test(line.replace(/^ {0,3}/, "")));
   if (matchingRows.length === 0) failures.push("falta campo en el registro de decisión: " + row);
   if (matchingRows.length > 1) failures.push("campo duplicado en el registro de decisión: " + row);
 }
