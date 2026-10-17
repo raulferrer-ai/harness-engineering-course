@@ -68,3 +68,6 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Removed repeated `Ejemplo resuelto` sections from the LAB-01, LAB-02, LAB-04, LAB-05 and LAB-07 validation packs; the documentation link check and full CI passed for commit `828afb2` (run 39016860116).
 
 - The curriculum checker now verifies that every module page contains observable learning outcomes, acceptance criteria, analysis/reflection questions, learner evidence/deliverables, its own worked example, the evidence template, and the traceability matrix. CI passed for commit `ad81111` (run 39017001312).
+
+- The module curriculum gate now checks the expected LAB ID and laboratory-hour allocation in each page, in addition to learning outcomes, acceptance criteria, reflection questions, evidence/deliverables and required resources. CI passed for commit `ee435ec` (run 39017109243).
+- Aligned the LAB-03 context fixture with its worked example: current API documentation, archived API v1, and an untrusted external note are now the shared scenario. CI passed for commit `a82364f` (run 39017189645).
