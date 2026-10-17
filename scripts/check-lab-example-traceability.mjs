@@ -56,11 +56,18 @@ for (const contract of contracts) {
     continue;
   }
   for (const id of ids) {
-    const escapedId = id.replace(/[.*+?^${}()|[\\]\\\\]/g, "\\\\  for (const id of ids) {
-    if (!example.includes(id)) errors.push(`${contract.lab}: ${contract.example} does not reference fixture ID ${id}`);
-  }");
-    const exactId = new RegExp("(^|[^A-Za-z0-9_-])" + escapedId + "($|[^A-Za-z0-9_-])");
-    if (!exactId.test(example)) errors.push(`${contract.lab}: ${contract.example} does not reference fixture ID ${id}`);
+    let exactMatch = false;
+    let offset = example.indexOf(id);
+    while (offset !== -1) {
+      const before = offset === 0 ? "" : example[offset - 1];
+      const after = example[offset + id.length] ?? "";
+      if (!/[A-Za-z0-9_-]/.test(before) && !/[A-Za-z0-9_-]/.test(after)) {
+        exactMatch = true;
+        break;
+      }
+      offset = example.indexOf(id, offset + id.length);
+    }
+    if (!exactMatch) errors.push(`${contract.lab}: ${contract.example} does not reference fixture ID ${id}`);
   }
 }
 if (errors.length) {
