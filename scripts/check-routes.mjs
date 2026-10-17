@@ -19,6 +19,27 @@ function browserPath(file) {
     : `/${relative}`;
 }
 
+function extractStartTags(markup) {
+  const tags = [];
+  for (let index = 0; index < markup.length; index++) {
+    if (markup[index] !== "<" || !/[a-z]/i.test(markup[index + 1] ?? "")) continue;
+    const start = index;
+    let quote = null;
+    for (index++; index < markup.length; index++) {
+      const character = markup[index];
+      if (quote) {
+        if (character === quote) quote = null;
+      } else if (character === '"' || character === "'") {
+        quote = character;
+      } else if (character === ">") {
+        tags.push(markup.slice(start, index + 1));
+        break;
+      }
+    }
+  }
+  return tags;
+}
+
 function resolveLocalUrl(value, sourcePath) {
   const parsed = new URL(value, `https://route-check.invalid${sourcePath}`);
   if (parsed.origin !== "https://route-check.invalid") return null;
@@ -45,8 +66,8 @@ async function htmlAnchorsIn(file) {
       .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, "");
     const ids = new Set();
     const duplicates = new Set();
-    for (const tag of html.matchAll(/<[a-z][^>]*>/gi)) {
-      for (const match of tag[0].matchAll(/\b(id|name)\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s"'=<> \x60]+))/gi)) {
+    for (const tag of extractStartTags(html)) {
+      for (const match of tag.matchAll(/\b(id|name)\s*=\s*(?:"([^"]+)"|'([^']+)'|([^\s"'=<> \x60]+))/gi)) {
         const value = match[2] ?? match[3] ?? match[4];
         if (match[1].toLowerCase() === "id") {
           if (ids.has(value)) duplicates.add(value);
@@ -71,8 +92,8 @@ for (const file of htmlFiles) {
     .replace(/<!--[\s\S]*?-->/g, "")
     .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, "");
   const attributes = [];
-  for (const tag of markup.matchAll(/<[a-z][^>]*>/gi)) {
-    for (const attribute of tag[0].matchAll(/\b(href|src)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<> \x60]+))/gi)) {
+  for (const tag of extractStartTags(markup)) {
+    for (const attribute of tag.matchAll(/\b(href|src)\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<> \x60]+))/gi)) {
       attributes.push({ name: attribute[1].toLowerCase(), value: attribute[2] ?? attribute[3] ?? attribute[4] });
     }
   }
