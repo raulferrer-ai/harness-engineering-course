@@ -34,7 +34,8 @@ const structuralMarkdown = linesOutsideFences.map(line => {
   if (fenceMarker !== null || /^ {4,}/.test(line)) return "";
   return line;
 }).join("\n");
-const structuralLines = structuralMarkdown.replace(/<!--[\s\S]*?-->/g, "").split("\n");
+const commentFreeMarkdown = structuralMarkdown.replace(/<!--[\s\S]*?-->/g, "");
+const structuralLines = commentFreeMarkdown.split("\n");
 const safeguardMarkdown = structuralLines.filter(line => !/^\t/.test(line)).join("\n");
 const title = "# Lista de comprobación de preparación para publicar";
 const titleCount = structuralLines.filter(line => !/^\t/.test(line) && line.trim() === title).length;
@@ -63,10 +64,10 @@ for (const phrase of [
   "no demuestra por sí sola la seguridad"
 ]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
-const decisionStart = structuralMarkdown.indexOf("## 5. Decisión");
-const limitsStart = structuralMarkdown.indexOf("## Límites");
+const decisionStart = commentFreeMarkdown.indexOf("## 5. Decisión");
+const limitsStart = commentFreeMarkdown.indexOf("## Límites");
 const decisionSection = decisionStart >= 0 && limitsStart > decisionStart
-  ? structuralMarkdown.slice(decisionStart, limitsStart)
+  ? commentFreeMarkdown.slice(decisionStart, limitsStart)
   : "";
 
 const decisionRows = [
