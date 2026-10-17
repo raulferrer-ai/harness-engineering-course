@@ -40,15 +40,15 @@ npm ci
 npm run check
 ```
 
-El comando `check` compila el sitio, verifica las rutas y los enlaces locales del HTML generado, y comprueba los enlaces Markdown locales de la documentación. No sustituye las revisiones manuales de accesibilidad, teclado, diseño adaptable, calidad pedagógica o reproducibilidad de los laboratorios.
+El comando `check` compila el sitio; ejecuta comprobaciones estructurales básicas de accesibilidad; verifica rutas y enlaces locales del HTML generado y de la documentación; valida la preparación para publicar y la trazabilidad curricular; y comprueba los diez fixtures de laboratorio con regresiones negativas. Un resultado verde no demuestra ejecución real de los laboratorios, conformidad WCAG completa, calidad pedagógica ni resultados de aprendizaje.
 
 ## Próximas etapas
 
-1. Revisar navegación, enlaces y presentación en móvil y escritorio.
-2. Desarrollar progresivamente el contenido de los diez módulos y sus laboratorios.
-3. Ejecutar los diez laboratorios en entornos limpios y conservar evidencias reales de cada ejecución.
-4. Completar la revisión formal de trazabilidad curricular y calibrar la rúbrica con evaluadores.
-5. Realizar revisión manual de accesibilidad, reproducibilidad y un piloto con estudiantes.
+1. Ejecutar los diez laboratorios en entornos limpios, registrar versiones y conservar evidencias reales, incluidos los fallos.
+2. Completar la revisión formal de trazabilidad curricular y calibrar la rúbrica con evaluadores y muestras reales.
+3. Confirmar la admisión, licencia y reproducibilidad del repositorio que se use para el proyecto transversal.
+4. Realizar revisión manual de accesibilidad, privacidad, navegación, teclado, lector de pantalla y diseño adaptable.
+5. Pilotar el curso con participantes y registrar duración observada, incidencias, claridad y resultados antes de decidir la publicación final.
 
 El proyecto mantiene el flujo de trabajo basado en ramas revisables, controles automatizados y revisión humana antes de integrar cambios.
 
