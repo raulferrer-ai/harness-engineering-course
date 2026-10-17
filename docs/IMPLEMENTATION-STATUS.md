@@ -73,3 +73,5 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Aligned the LAB-03 context fixture with its worked example: current API documentation, archived API v1, and an untrusted external note are now the shared scenario. CI passed for commit `a82364f` (run 39017189645).
 
 - LAB-06 now rejects duplicate audit-record fields; LAB-07 rejects duplicate rubric dimensions; LAB-09 rejects duplicate signal names; LAB-10 rejects duplicate metric names. Each invariant has a corresponding negative mutation in the validator regression suite. CI passed for commits `bcae84f`, `4bdddd7`, `8996096` and `5aa6f84` (runs 39017289608, 39017314397, 39017339886 and 39017368189 respectively).
+
+- Repaired the traceability backlog, removing a malformed orphaned line and consolidating remaining gates into explicit actions: formal mapping review, learner evidence chains, real lab execution, repository admission, rubric calibration, manual accessibility/privacy/reproducibility review, and learner pilot. CI passed for commit `cee2dba` (run 39017454345).
