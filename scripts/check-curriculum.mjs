@@ -82,6 +82,15 @@ for (const [index, module] of modules.entries()) {
     try {
       await access(pagePath);
       const pageContent = await readFile(pagePath, "utf8");
+      const requiredLearningSections = [
+        [/Resultados de aprendizaje/i, "observable learning outcomes"],
+        [/Criterios de aceptación/i, "acceptance criteria"],
+        [/Preguntas de (?:análisis|reflexión)/i, "reflection or analysis questions"],
+        [/(?:Evidencias requeridas|Registro de evidencia|Entregables(?: y evidencia)?)/i, "learner evidence or deliverables"]
+      ];
+      for (const [pattern, label] of requiredLearningSections) {
+        if (!pattern.test(pageContent)) errors.push(`${where}: module page is missing ${label}.`);
+      }
       const exampleName = `${String(module.labId ?? "").toLowerCase().replace("-", "")}-worked-example.md`;
       for (const [resource, label] of [
         [`docs/${exampleName}`, "worked example for its own lab"],
