@@ -241,3 +241,10 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 
 - Commit `4f6edf91b181e32159c5070d3f35122ba5652693` passed CI on Node.js 22 and 24: [run 39038569079](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038569079).
 - Added a regression for `aria-labelledby` referencing an element whose text is whitespace encoded as HTML character references. The structural accessibility suite now contains 30 cases covering ordinary and entity-encoded blank accessible names.
+
+
+## Pilot safeguards regression tests — 2026-10-17 16:00 CEST
+
+- Commit `242c9e77009abe0fb5097515a69a785a94080740` passed [CI run 39038744275](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038744275) on Node.js 22 and Node.js 24.
+- Added mutation tests for the pilot safeguards checker and included them in `npm run check`. The tests verify that the gate rejects missing draft-status language, missing pre-collection approval, missing retention or voluntariness safeguards, unsupported claims that consent is approved, and a missing participant-information document.
+- PR [#46](https://github.com/raulferrer-ai/harness-engineering-course/pull/46) is marked ready for review after branch CI passed; it remains unmerged pending the required human accessibility/content review stated in the PR.
