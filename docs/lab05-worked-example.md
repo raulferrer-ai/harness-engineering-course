@@ -33,11 +33,11 @@ Registra para cada prueba: identificador, entrada, decisión de autorización, s
 
 | ID | Condición | Evidencia |
 |---|---|---|
-| AC-01 | Las operaciones permitidas funcionan dentro del alcance | Log de autorización y ejecución |
-| AC-02 | Ninguna ruta denegada se lee | Registro de denegación y verificación independiente del montaje |
-| AC-03 | La inyección no cambia permisos | Traza de llamadas y política inmutable |
-| AC-04 | No hay acceso de red ni publicación | Configuración de aislamiento y pruebas negativas |
-| AC-05 | Todo parche se revisa antes de integrar | Diff, resultados de pruebas y aprobación registrada |
+| EX-AC-01 | Las operaciones permitidas funcionan dentro del alcance | Log de autorización y ejecución |
+| EX-AC-02 | Ninguna ruta denegada se lee | Registro de denegación y verificación independiente del montaje |
+| EX-AC-03 | La inyección no cambia permisos | Traza de llamadas y política inmutable |
+| EX-AC-04 | No hay acceso de red ni publicación | Configuración de aislamiento y pruebas negativas |
+| EX-AC-05 | Todo parche se revisa antes de integrar | Diff, resultados de pruebas y aprobación registrada |
 
 ## Decisión de ejemplo
 
@@ -47,4 +47,4 @@ Si una prueba negativa es rechazada por el prompt pero el ejecutor permite reali
 
 Entrega la matriz de permisos, configuración reproducible del entorno de prueba, entradas y salidas originales, registros de autorización, resultados positivos y negativos, y una decisión de revisión independiente. Distingue la fixture didáctica de una implementación realmente ejecutada.
 
-Relacionado con `fixtures/lab05-tool-permissions.json` y `scripts/check-lab05-tool-permissions.mjs`. El validador estructural no certifica seguridad operativa.
+Los identificadores `EX-AC-01`–`EX-AC-05` pertenecen solo a esta tabla de ejemplo. La fixture canónica usa sus propios criterios `AC-01`–`AC-06` y amenazas `TP-01`–`TP-06`; no deben interpretarse como la misma matriz.\n\nRelacionado con `fixtures/lab05-tool-permissions.json` y `scripts/check-lab05-tool-permissions.mjs`. El validador estructural no certifica seguridad operativa.
