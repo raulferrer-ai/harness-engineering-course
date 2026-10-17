@@ -215,3 +215,9 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Latest observed workflow: [run 39037235173](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39037235173), commit `f17560f2217cb227e8357b8f0448161eee1e0c30`. Both `Build and verify (Node 24)` and `Build and verify (Node 22)` completed successfully.
 - Rechecked pilot artifacts: the protocol remains a proposal, observation and survey materials instruct minimal/non-identifying data collection, and the results report explicitly says it is an empty template rather than evidence of a completed pilot.
 - Next release work is evidence-driven: run the ten labs from a clean environment and attach logs, perform the manual keyboard/screen-reader/contrast checks, obtain accountable privacy/participant-material approval, then conduct and review a pilot only after approval. No synthetic evidence or fabricated pilot results should be added to close these gates.
+
+
+## Accessibility regression expansion — 2026-10-17 15:38 CEST
+
+- Added two regression cases to `scripts/test-accessibility-basics.mjs`: duplicate IDs expressed with single-quoted HTML attributes, and `aria-labelledby` containing multiple IDs when one referenced ID is missing. These target parser edge cases that can otherwise escape checks written only for common double-quoted markup.
+- Commit: `83a226912d7dab8bc60e2a0d1b189a2a0fd0be8e`. CI run [39037437809](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39037437809) was queued when recorded; verification is pending and must not be described as passed until both Node.js jobs finish successfully.
