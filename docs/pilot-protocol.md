@@ -20,6 +20,8 @@ No iniciar el piloto hasta que una persona responsable confirme:
 - [ ] Los comandos de validación se han ejecutado en un entorno limpio y sus salidas se han conservado.
 - [ ] La política de privacidad define qué datos se recogen, quién puede acceder, cuánto tiempo se conservan y cómo se eliminan.
 - [ ] Se ha explicado a participantes el objetivo, la carga estimada, la voluntariedad y el uso de sus observaciones.
+- [ ] La hoja de información/consentimiento se ha completado y aprobado: [`docs/pilot-participant-information.md`](pilot-participant-information.md).
+- [ ] Se han preparado la hoja de observación y la encuesta de cierre: [`docs/pilot-observation-template.md`](pilot-observation-template.md) y [`docs/pilot-exit-survey.md`](pilot-exit-survey.md).
 - [ ] Las adaptaciones de accesibilidad y los canales para comunicar bloqueos están disponibles.
 - [ ] La rúbrica, los fallos críticos y el procedimiento para resolver desacuerdos están versionados.
 - [ ] Se han separado errores conocidos, limitaciones aceptadas y elementos aún no validados.
