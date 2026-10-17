@@ -2,10 +2,21 @@ import { readFile } from "node:fs/promises";
 import process from "node:process";
 
 const path = process.env.LAB02_FIXTURE_PATH ?? new URL("../fixtures/lab02-specification.json", import.meta.url);
-const data = JSON.parse(await readFile(path, "utf8"));
+let data;
+try {
+  data = JSON.parse(await readFile(path, "utf8"));
+} catch (error) {
+  console.error(`LAB-02 specification: no se pudo leer o interpretar JSON: ${error.message}`);
+  process.exit(1);
+}
+if (!data || typeof data !== "object" || Array.isArray(data)) {
+  console.error("LAB-02 specification: la raíz debe ser un objeto JSON");
+  process.exit(1);
+}
 const errors = [];
 const requiredText = (value) => typeof value === "string" && value.trim().length > 0;
 if (data.schema_version !== 1) errors.push("schema_version debe ser 1");
+if (Object.keys(data).some(key => !["schema_version", "source_request", "blocking_questions", "scope", "acceptance_criteria", "stop_conditions", "deliverables"].includes(key))) errors.push("hay campos desconocidos en la raíz");
 if (!requiredText(data.source_request)) errors.push("falta source_request");
 if (!Array.isArray(data.blocking_questions) || data.blocking_questions.length < 1) errors.push("debe haber preguntas bloqueantes");
 else if (data.blocking_questions.some(question => !requiredText(question))) errors.push("cada pregunta bloqueante debe ser texto no vacío");
