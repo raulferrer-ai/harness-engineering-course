@@ -122,7 +122,8 @@ for (const [index, module] of modules.entries()) {
       for (const [resource, label] of [
         [`docs/${exampleName}`, "worked example for its own lab"],
         ["docs/lab-evidence-template.md", "lab evidence template"],
-        ["docs/traceability.md", "curriculum traceability matrix"]
+        ["docs/traceability.md", "curriculum traceability matrix"],
+        ["docs/references.md", "technical reference index"]
       ]) {
         if (!pageContent.includes(resource)) {
           errors.push(`${where}: module page must link to the ${label} (${resource}).`);
