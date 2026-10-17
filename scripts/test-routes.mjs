@@ -85,7 +85,7 @@ try {
   const traversalOutsideSite = await fixture("traversal-outside-site", {
     "index.html": '<a href="/../../outside.html">Escape</a>\n'
   });
-  expectFail("reject paths that escape the generated site", traversalOutsideSite, "Path escapes generated site");
+  expectFail("reject paths that escape the generated site", traversalOutsideSite, "broken local URL");
 
   const malformedPercentEncoding = await fixture("malformed-percent-encoding", {
     "index.html": '<a href="/bad%ZZ/">Malformed URL</a>\n'
