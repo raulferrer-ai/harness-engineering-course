@@ -20,13 +20,14 @@ try { lock = JSON.parse(lockText); } catch { errors.push("package-lock.json is n
 if (pkg) {
   if (pkg.name !== "transversal-project-starter") errors.push("unexpected starter package name");
   if (pkg.license !== "MIT") errors.push("starter package must declare the MIT license");
-  if (pkg.engines?.node !== ">=20") errors.push("starter must declare Node.js >=20");
+  if (pkg.engines?.node !== ">=22") errors.push("starter must declare Node.js >=22");
   if (pkg.scripts?.test !== "node --test") errors.push("starter must use the built-in Node.js test runner");
   if (Object.keys(pkg.dependencies ?? {}).length || Object.keys(pkg.devDependencies ?? {}).length) errors.push("starter must remain free of external dependencies");
 }
 if (lock) {
   if (lock.lockfileVersion !== 3) errors.push("starter lockfile must use lockfileVersion 3");
   if (lock.name !== pkg?.name || lock.version !== pkg?.version) errors.push("starter package-lock metadata does not match package.json");
+  if (lock.packages?.[""]?.engines?.node !== pkg?.engines?.node) errors.push("starter lockfile engine must match package.json");
   if (lock.packages?.[""]?.license !== "MIT") errors.push("starter lockfile must preserve the MIT license metadata");
 }
 if (!/MIT License/.test(license) || !/Permission is hereby granted/.test(license)) errors.push("MIT license text is incomplete");
@@ -38,4 +39,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log("PASS transversal starter contract: MIT license, Node.js >=20, lockfile, task instructions and built-in tests.");
+console.log("PASS transversal starter contract: MIT license, Node.js >=22, lockfile, task instructions and built-in tests.");
