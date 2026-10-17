@@ -79,7 +79,9 @@ const decisionRows = [
   "Fallos críticos abiertos",
   "Accesibilidad manual",
   "Privacidad/consentimiento",
-  "Decisión"
+  "Riesgo residual aceptado por",
+  "Decisión",
+  "Condiciones, vencimiento y responsable"
 ];
 for (const row of decisionRows) {
   const rowPattern = new RegExp("^\\|\\s*" + row + "\\s*\\|");
