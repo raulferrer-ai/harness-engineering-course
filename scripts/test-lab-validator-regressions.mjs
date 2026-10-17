@@ -76,6 +76,7 @@ const labs = [
     id: "LAB-07", env: "LAB07_FIXTURE_PATH", fixture: "fixtures/lab07-evaluation.json", validator: "scripts/check-lab07-evaluation.mjs",
     cases: [
       ["duplicate rubric ID", d => { d.rubric[1].id = d.rubric[0].id; }, /rúbrica: ID vacío o duplicado/],
+      ["duplicate rubric dimension", d => { d.rubric[1].dimension = d.rubric[0].dimension; }, /dimensión de rúbrica duplicada/],
       ["invalid score threshold", d => { d.scoring_protocol.pass_threshold_percent = 150; }, /umbral de aprobación debe estar entre 0 y 100/],
       ["fractional rubric score", d => { const dimension = d.rubric[0].dimension; d.scoring_protocol.decision_test_vectors[0].scores[dimension] = 2.5; }, /puntuación para .* debe ser un entero entre 0 y 4/],
       ["empty scoring step", d => { d.scoring_protocol.steps[0] = " "; }, /scoring_protocol.steps contiene elementos vacíos/],
