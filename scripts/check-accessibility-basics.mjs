@@ -27,13 +27,13 @@ const errors = [];
 for (const file of htmlFiles) {
   const relative = path.relative(root, file);
   const html = await readFile(file, "utf8");
-  const htmlTag = html.match(/<html\\b[^>]*>/i)?.[0];
+  const htmlTag = html.match(/<html\b[^>]*>/i)?.[0];
   if (!htmlTag || !attr(htmlTag, "lang")?.trim()) errors.push(`${relative}: <html> must declare a non-empty lang attribute`);
-  const mains = [...html.matchAll(/<main\\b[^>]*>/gi)];
+  const mains = [...html.matchAll(/<main\b[^>]*>/gi)];
   if (mains.length !== 1) errors.push(`${relative}: expected exactly one main landmark; found ${mains.length}`);
-  const h1Count = [...html.matchAll(/<h1\\b[^>]*>/gi)].length;
+  const h1Count = [...html.matchAll(/<h1\b[^>]*>/gi)].length;
   if (h1Count !== 1) errors.push(`${relative}: expected exactly one h1; found ${h1Count}`);
-  for (const image of html.matchAll(/<img\\b[^>]*>/gi)) {
+  for (const image of html.matchAll(/<img\b[^>]*>/gi)) {
     if (attr(image[0], "alt") === null) errors.push(`${relative}: img element is missing its alt attribute`);
   }
 }
