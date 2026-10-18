@@ -60,7 +60,7 @@ Antes de aplicar una referencia a un proyecto, comprueba la versión vigente, el
 
 - [OWASP GenAI Security Project: Top 10 for LLM and GenAI](https://genai.owasp.org/initiative/owasp-top-10-for-llm-and-genai/) — riesgos de seguridad de LLM y sistemas agentivos.
 - [MITRE ATLAS](https://atlas.mitre.org/) — base de conocimiento de tácticas y técnicas adversarias contra sistemas de IA.
-- [NIST AI RMF Generative AI Profile](https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-resources) — material de gestión de riesgos específico para IA generativa.
+- [NIST AI RMF Generative AI Profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf) — publicación oficial AI 600-1, perfil de gestión de riesgos para IA generativa.
 
 **Uso didáctico:** modelar activos y límites de confianza; relacionar amenazas con controles y pruebas; no ejecutar pruebas adversariales sobre sistemas sin autorización y aislamiento.
 
@@ -75,7 +75,7 @@ Antes de aplicar una referencia a un proyecto, comprueba la versión vigente, el
 ## M10 — Productividad, costes y gobernanza
 
 - [NIST AI RMF 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) — gobernanza, medición y gestión de riesgos.
-- [NIST Generative AI Profile (AI 600-1)](https://www.nist.gov/itl/ai-risk-management-framework/ai-risk-management-framework-resources) — riesgos y consideraciones para IA generativa.
+- [NIST Generative AI Profile (AI 600-1)](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf) — publicación oficial AI 600-1, perfil de gestión de riesgos para IA generativa.
 - [DORA research](https://dora.dev/research/) — investigación sobre rendimiento de entrega de software y prácticas organizativas.
 
 **Uso didáctico:** medir entregas aceptadas, defectos, esfuerzo humano y coste total; comparar ventanas y criterios equivalentes; no extrapolar datos sintéticos a resultados empíricos.
