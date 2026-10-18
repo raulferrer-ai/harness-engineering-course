@@ -48,7 +48,7 @@ for (const [index, module] of (Array.isArray(modules) ? modules : []).entries())
     errors.push(`${where}: module ID is outside the approved M01–M10 scope.`);
   }
 
-  if (module?.labId && !expectedLabIds.includes(module.labId)) {
+  if (typeof module?.labId === "string" && module.labId && !expectedLabIds.includes(module.labId)) {
     errors.push(`${where}: lab ID is outside the approved LAB-01–LAB-10 scope.`);
   }
 
@@ -72,10 +72,10 @@ for (const [index, module] of (Array.isArray(modules) ? modules : []).entries())
     errors.push(`${where}: hours must equal fundamentalsHours + labHours.`);
   }
 
-  if (module?.id && !curriculum.includes(module.id)) {
+  if (typeof module?.id === "string" && module.id && !curriculum.includes(module.id)) {
     errors.push(`${where}: ID is missing from docs/curriculum.md.`);
   }
-  if (module?.labId && !curriculum.includes(module.labId)) {
+  if (typeof module?.labId === "string" && module.labId && !curriculum.includes(module.labId)) {
     errors.push(`${where}: lab ID is missing from docs/curriculum.md.`);
   }
 
