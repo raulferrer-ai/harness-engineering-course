@@ -12,6 +12,7 @@ Construye un modelo de amenazas para una aplicación con IA y verifica controles
 ```sh
 npm run check:lab08
 npm run test:lab05-executable
+npm run test:lab08-security-cases
 ```
 
 La segunda orden verifica solo la lógica del simulador. No constituye una prueba de aislamiento real ni demuestra por sí sola que un producto esté protegido contra las amenazas del fixture.
