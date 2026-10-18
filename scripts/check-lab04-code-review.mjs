@@ -36,10 +36,10 @@ const matrix = data.test_matrix ?? [];
 if (matrix.length < 4) errors.push("se requieren casos positivos, negativos y regresión");
 unique(matrix, "tests");
 for (const test of matrix) {
-  if (!["positive", "negative", "regression"].includes(test.kind)) errors.push(`${test.id}: tipo de prueba no válido`);
+  if (!["positive", "negative", "edge", "regression"].includes(test.kind)) errors.push(`${test.id}: tipo de prueba no válido`);
   if (!text(test.expected) || !criteria.some(c => c.id === test.criterion)) errors.push(`${test.id}: expectativa vacía o criterio desconocido`);
 }
-for (const kind of ["positive", "negative", "regression"]) {
+for (const kind of ["positive", "negative", "edge", "regression"]) {
   if (!matrix.some(test => test.kind === kind)) errors.push(`falta al menos un caso de prueba de tipo ${kind}`);
 }
 const coveredCriteria = new Set(matrix.map(test => test.criterion).filter(id => criteria.some(criterion => criterion.id === id)));
@@ -60,4 +60,4 @@ if (errors.length) {
   for (const error of errors) console.error(`LAB-04 review fixture: ${error}`);
   process.exit(1);
 }
-console.log(`LAB-04 fixture OK: ${criteria.length} criterios, ${matrix.length} pruebas y ${data.review_checklist.length} controles de revisión.`);
+console.log(`LAB-04 fixture OK: ${criteria.length} criterios, ${matrix.length} pruebas (positivas, negativas, borde y regresión) y ${data.review_checklist.length} controles de revisión.`);
