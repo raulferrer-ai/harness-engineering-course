@@ -19,7 +19,7 @@ export function transitionRecoveryState(state, event) {
 }
 
 export function canPromote({ state, regressionPassed = false, artifactVerified = false, incidentClosed = false }) {
-  if (state !== "recovery_verified") return { allowed: false, reason: "recovery_not_verified" };
+  if (state !== "recovery_verified" && state !== "promotion_allowed") return { allowed: false, reason: "recovery_not_verified" };
   if (!regressionPassed) return { allowed: false, reason: "regression_not_passed" };
   if (!artifactVerified) return { allowed: false, reason: "artifact_not_verified" };
   if (!incidentClosed) return { allowed: false, reason: "incident_not_closed" };
