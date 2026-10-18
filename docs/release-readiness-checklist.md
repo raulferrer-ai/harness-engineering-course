@@ -56,17 +56,17 @@ Registrar una fila por publicación:
 
 | Campo | Valor |
 |---|---|
-| Revisión exacta | `65f5fff068ed04957bd72d092208f4da35d47075` (integrada en `main`) |
+| Revisión exacta | `16fc88bf86c4132135b9adff0ca541ec57699eee` (integrada en `main`) |
 | Responsable de la decisión | Pendiente de asignación nominal para la publicación final |
-| Resultado de build y checks | Build and verify Node 22 y Node 24: éxito en el commit integrado. |
-| Evidencia de pruebas | [CI de main, Node 22 y Node 24](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39113659943); [sitio público](https://harnessengineeringcourse.netlify.app/) |
+| Resultado de build y checks | Build y verificación de CI completados con éxito en Node 22 y Node 24 para la revisión indicada. |
+| Evidencia de pruebas | [CI de main, Node 22 y Node 24](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39116957934); [commit de referencias](https://github.com/raulferrer-ai/harness-engineering-course/commit/16fc88bf86c4132135b9adff0ca541ec57699eee); [sitio público](https://harnessengineeringcourse.netlify.app/) |
 | Fallos críticos abiertos | No identificados por las comprobaciones automatizadas disponibles; la revisión manual sigue pendiente. |
 | Accesibilidad manual | NO VERIFICADA: falta registrar revisión de los diez módulos en escritorio/móvil, navegación por teclado, foco visible y orden de lectura. |
-| Precisión editorial | Pendiente de revisar la vigencia y relevancia de las fuentes en los diez módulos, incluida la nota temporal de M07. |
+| Precisión editorial | La nota de vigencia de Evals en `docs/references.md` se contrastó con la documentación oficial el 18-10-2026. La revisión integral de vigencia y relevancia de las fuentes de los diez módulos sigue pendiente. |
 | Privacidad/consentimiento | No se ha identificado cambio de recopilación de datos en el alcance de esta integración; reevaluar si cambia el alcance. |
 | Riesgo residual aceptado por | Pendiente; no inferido de la autorización general del propietario. |
 | Decisión | BLOQUEAR la declaración de publicación final validada hasta completar y registrar la revisión humana. La integración en `main` ya está hecha. |
-| Condiciones, vencimiento y responsable | Revisar los diez módulos en escritorio y móvil; validar teclado, foco visible, orden de lectura y fuentes; asignar revisor nominal y registrar evidencias e incidencias antes de declarar completada la revisión de lanzamiento. |
+| Condiciones, vencimiento y responsable | Revisar los diez módulos en escritorio y móvil; validar teclado, foco visible y orden de lectura; completar la revisión de fuentes; asignar revisor nominal y registrar evidencias e incidencias antes de declarar completada la revisión de lanzamiento. |
 
 ### Reglas de decisión
 
