@@ -8,6 +8,10 @@ Diseña un circuito operativo que conecte señales, alertas, contención, revers
 npm run check:lab09
 ```
 
+## Ejercicio ejecutable
+
+Consulta [`docs/lab09-executable-exercise.md`](lab09-executable-exercise.md) y ejecuta `npm run test:lab09-recovery` para verificar la máquina de estados didáctica. Esta prueba no ejecuta rollback de infraestructura ni demuestra recuperación real.
+
 ## Procedimiento
 
 1. Ajusta los umbrales a una línea base observada; los valores de la fixture son ejemplos, no SLO aprobados.
