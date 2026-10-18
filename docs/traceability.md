@@ -33,7 +33,7 @@ Los siguientes cruces son plausibles por tema, pero **no se consideran cobertura
 - COMP-06 con M07/LAB-07 y M09/LAB-09: controles, verificación y operación.
 - COMP-07 con M04/LAB-04: revisión independiente y pruebas negativas. La relación de M08/LAB-08 con una competencia existente permanece pendiente de validación.
 - COMP-08 con M06/LAB-06 y M10/LAB-10: control de ejecución y gobernanza operativa.
-- COMP-09 con M05/LAB-05, M08/LAB-08 y M09/LAB-09: efectos de herramientas, riesgos y operación responsable.
+- COMP-09 con M05/LAB-05 y M09/LAB-09: efectos de herramientas y operación responsable. M08/LAB-08 queda fuera de las asignaciones confirmadas hasta que se apruebe formalmente su relación curricular.
 
 Estas relaciones deben convertirse en filas explícitas con resultados y evidencia solo después de validación; no deben interpretarse como una decisión cerrada.
 
