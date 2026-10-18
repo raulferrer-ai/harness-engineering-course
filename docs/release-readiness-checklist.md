@@ -52,20 +52,21 @@ Registrar una fila por publicación:
 | Decisión | BLOQUEAR / APROBAR CON CONDICIONES / APROBAR |
 | Condiciones, vencimiento y responsable | |
 
-## Registro de revisión — PR #46 (2026-10-18)
+## Registro de revisión — integración de referencias técnicas (2026-10-18)
 
 | Campo | Valor |
 |---|---|
-| Revisión exacta | `19e808aa3a2040aca9b210430fbe82371543643a` |
-| Responsable de la decisión | Pendiente de asignación nominal |
-| Resultado de build y checks | Build Node 22 y Node 24: éxito. Checks de Netlify (redirect rules, header rules, pages changed): `neutral`, no constituyen aprobación manual. |
-| Evidencia de pruebas | [Build Node 22](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39018079003/job/117354184318); [Build Node 24](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39018071326/job/117354160566); [Deploy Preview](https://deploy-preview-46--harnessengineeringcourse.netlify.app) |
-| Fallos críticos abiertos | No identificados por las comprobaciones automatizadas disponibles; revisión manual pendiente. |
+| Revisión exacta | `65f5fff068ed04957bd72d092208f4da35d47075` (integrada en `main`) |
+| Responsable de la decisión | Pendiente de asignación nominal para la publicación final |
+| Resultado de build y checks | Build and verify Node 22 y Node 24: éxito en el commit integrado. |
+| Evidencia de pruebas | [CI de main, Node 22 y Node 24](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39113659943); [sitio público](https://harnessengineeringcourse.netlify.app/) |
+| Fallos críticos abiertos | No identificados por las comprobaciones automatizadas disponibles; la revisión manual sigue pendiente. |
 | Accesibilidad manual | NO VERIFICADA: falta registrar revisión de los diez módulos en escritorio/móvil, navegación por teclado, foco visible y orden de lectura. |
-| Privacidad/consentimiento | No se ha identificado cambio de recopilación de datos en el alcance de esta PR; no sustituye una revisión de políticas si el alcance cambia. |
+| Precisión editorial | Pendiente de revisar la vigencia y relevancia de las fuentes en los diez módulos, incluida la nota temporal de M07. |
+| Privacidad/consentimiento | No se ha identificado cambio de recopilación de datos en el alcance de esta integración; reevaluar si cambia el alcance. |
 | Riesgo residual aceptado por | Pendiente; no inferido de la autorización general del propietario. |
-| Decisión | BLOQUEAR publicación/merge hasta documentar la revisión manual requerida. |
-| Condiciones, vencimiento y responsable | Revisar diez módulos en la vista previa, validar teclado/foco/orden de lectura y fuentes (incluida la nota temporal M07); asignar revisor nominal y registrar evidencia antes de aprobar. |
+| Decisión | BLOQUEAR la declaración de publicación final validada hasta completar y registrar la revisión humana. La integración en `main` ya está hecha. |
+| Condiciones, vencimiento y responsable | Revisar los diez módulos en escritorio y móvil; validar teclado, foco visible, orden de lectura y fuentes; asignar revisor nominal y registrar evidencias e incidencias antes de declarar completada la revisión de lanzamiento. |
 
 ### Reglas de decisión
 
