@@ -1,6 +1,6 @@
 # Referencias técnicas por módulo
 
-**Última revisión de enlaces y alcance:** 2026-10-17.  
+**Última revisión de enlaces y alcance:** 2026-10-18.  
 **Propósito:** ofrecer fuentes primarias y marcos reconocidos para ampliar los temas del curso. Esta lista no sustituye el juicio técnico, no implica respaldo comercial y no convierte una recomendación en un requisito universal.
 
 Antes de aplicar una referencia a un proyecto, comprueba la versión vigente, el ámbito de aplicación y la licencia. Las páginas de proveedores describen sus propias herramientas; las normas y marcos voluntarios no sustituyen obligaciones legales o políticas de la organización.
@@ -52,7 +52,7 @@ Antes de aplicar una referencia a un proyecto, comprueba la versión vigente, el
 - [NIST AI RMF 1.0](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10) — enfoque de riesgo y evaluación contextual.
 - [OpenAI API docs: Working with evals](https://developers.openai.com/api/docs/guides/evals) — ejemplo específico de evaluación de salidas mediante criterios definidos.
 
-**Nota de vigencia (revisada el 17-10-2026):** la documentación de OpenAI indica que la plataforma Evals pasa a solo lectura el 31 de octubre de 2026 y tiene cierre programado para el 30 de noviembre de 2026. Trátala como referencia histórica, no como dependencia para nuevos proyectos; consulta el aviso vigente antes de cualquier uso. El laboratorio es agnóstico al proveedor y no requiere esa API.
+**Nota de vigencia (verificada el 18-10-2026):** la [guía de Evals](https://developers.openai.com/api/docs/guides/evals) y el [aviso oficial de obsolescencias de OpenAI](https://developers.openai.com/api/docs/deprecations#2026-06-03-evals-platform) indican que la plataforma Evals pasa a solo lectura el 31 de octubre de 2026 y que el panel y la API tienen cierre programado para el 30 de noviembre de 2026. Trátala como referencia histórica, no como dependencia para nuevos proyectos; vuelve a comprobar el aviso antes de cualquier uso. El laboratorio es agnóstico al proveedor y no requiere esa API.
 
 **Uso didáctico:** versionar casos, rúbricas y umbrales antes de puntuar; conservar salidas originales, evidencias y fallos críticos sin ocultarlos con una media.
 
