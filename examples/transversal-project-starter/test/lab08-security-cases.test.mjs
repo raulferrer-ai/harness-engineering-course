@@ -38,3 +38,16 @@ test("SEC-T06: alternate tools cannot bypass default-deny policy", () => {
   assert.equal(blocked.decision, "deny");
   assert.equal(alternate.decision, "deny");
 });
+
+test("SEC-T07: network access is denied even when an approval flag is supplied", () => {
+  const decision = authorizeToolOperation({
+    tool: "run_unit_tests",
+    operation: "run_preapproved_test",
+    resource: "workspace",
+    networkEnabled: true,
+    approved: true,
+    approvalValid: true
+  });
+  assert.equal(decision.decision, "deny");
+  assert.equal(decision.reason, "network_execution_not_implemented");
+});
