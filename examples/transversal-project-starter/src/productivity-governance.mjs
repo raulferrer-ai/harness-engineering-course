@@ -1,0 +1,54 @@
+export function calculateProductivityComparison(comparison) {
+  const errors = [];
+  const groups = {};
+  for (const key of ["baseline", "assisted"]) {
+    const g = comparison?.[key];
+    if (!g || !Number.isFinite(g.tasks_completed) || g.tasks_completed <= 0 ||
+        !Number.isFinite(g.accepted_deliveries) || g.accepted_deliveries <= 0 ||
+        !Number.isFinite(g.human_minutes_per_task) || g.human_minutes_per_task < 0 ||
+        !Number.isFinite(g.infra_cost) || g.infra_cost < 0 ||
+        !Number.isFinite(g.model_cost) || g.model_cost < 0 ||
+        !Number.isFinite(g.defects_found) || g.defects_found < 0) {
+      errors.push(`${key}: datos insuficientes o inválidos`);
+      continue;
+    }
+    const failureCost = comparison.expected_failure_cost?.[key];
+    if (!Number.isFinite(failureCost) || failureCost < 0) {
+      errors.push(`${key}: expected_failure_cost ausente o inválido`);
+      continue;
+    }
+    groups[key] = {
+      acceptedDeliveryRate: g.accepted_deliveries / g.tasks_completed,
+      humanLaborCost: g.human_minutes_per_task * g.tasks_completed / 60 * comparison.labor_cost_per_hour,
+      totalCost: g.model_cost + g.infra_cost +
+        g.human_minutes_per_task * g.tasks_completed / 60 * comparison.labor_cost_per_hour + failureCost,
+      costPerAcceptedDelivery: (g.model_cost + g.infra_cost +
+        g.human_minutes_per_task * g.tasks_completed / 60 * comparison.labor_cost_per_hour + failureCost) / g.accepted_deliveries,
+      defectsPerAcceptedDelivery: g.defects_found / g.accepted_deliveries
+    };
+  }
+  if (errors.length) return { complete: false, errors };
+  const b = groups.baseline, a = groups.assisted;
+  return {
+    complete: true,
+    groups,
+    deltas: {
+      costPerAcceptedDeliveryPercent: (a.costPerAcceptedDelivery / b.costPerAcceptedDelivery - 1) * 100,
+      acceptedDeliveryRatePercentagePoints: (a.acceptedDeliveryRate - b.acceptedDeliveryRate) * 100,
+      defectsPerAcceptedDeliveryPercent: (a.defectsPerAcceptedDelivery / b.defectsPerAcceptedDelivery - 1) * 100
+    }
+  };
+}
+
+export function recommendAdoption({ comparison, calculation, qualityNonInferior = false, humanApproval = false }) {
+  if (!calculation?.complete) return { decision: "inconclusive", reason: "measurement_incomplete" };
+  const c = comparison?.comparability;
+  if (!c || c.task_definition_match !== true || c.acceptance_criteria_version_match !== true ||
+      c.observation_window_days_match !== true || c.source_data_verified !== true) {
+    return { decision: "inconclusive", reason: "comparability_or_source_unverified" };
+  }
+  if (!qualityNonInferior) return { decision: "do_not_expand", reason: "quality_non_inferiority_not_demonstrated" };
+  if (calculation.deltas.costPerAcceptedDeliveryPercent >= 0) return { decision: "do_not_expand", reason: "unit_cost_not_lower" };
+  if (!humanApproval) return { decision: "hold_for_human_approval", reason: "approval_required" };
+  return { decision: "expand_cautiously", reason: "gates_passed" };
+}
