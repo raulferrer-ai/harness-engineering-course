@@ -52,7 +52,7 @@ for (const [index, module] of (Array.isArray(modules) ? modules : []).entries())
     errors.push(`${where}: lab ID is outside the approved LAB-01–LAB-10 scope.`);
   }
 
-  if (module?.id && module?.labId) {
+  if (typeof module?.id === "string" && typeof module?.labId === "string" && module.id && module.labId) {
     const expectedLabId = `LAB-${module.id.slice(1)}`;
     if (module.labId !== expectedLabId) {
       errors.push(`${where}: expected associated lab ${expectedLabId}, found ${module.labId}.`);
