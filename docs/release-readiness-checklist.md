@@ -56,10 +56,10 @@ Registrar una fila por publicación:
 
 | Campo | Valor |
 |---|---|
-| Revisión exacta | `c33ca6cd9a3cf1434dbf534d2be9cd9f271b1236` (integrada en `main`) |
+| Revisión exacta | `19ff1d7d29decc809369cedb1b8c4547b93447b9` (integrada en `main`) |
 | Responsable de la decisión | Pendiente de asignación nominal para la publicación final |
-| Resultado de build y checks | Build y verificación de CI completados con éxito en Node 22 y Node 24; ejecución de esta revisión: `39156934712`, completada correctamente. |
-| Evidencia de pruebas | [CI de main, Node 22 y Node 24](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39156934712); [commit de integración del registro](https://github.com/raulferrer-ai/harness-engineering-course/commit/c33ca6cd9a3cf1434dbf534d2be9cd9f271b1236); [sitio público](https://harnessengineeringcourse.netlify.app/) |
+| Resultado de build y checks | Build y verificación de CI completados con éxito en Node 22 y Node 24; ejecución de esta revisión: `39160414866`, completada correctamente. |
+| Evidencia de pruebas | [CI de main, Node 22 y Node 24](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39160414866); [commit de integración del registro](https://github.com/raulferrer-ai/harness-engineering-course/commit/19ff1d7d29decc809369cedb1b8c4547b93447b9); [sitio público](https://harnessengineeringcourse.netlify.app/) |
 | Fallos críticos abiertos | No identificados por las comprobaciones automatizadas disponibles; la revisión manual sigue pendiente. |
 | Accesibilidad manual | NO VERIFICADA: falta registrar revisión de los diez módulos en escritorio/móvil, navegación por teclado, foco visible y orden de lectura. |
 | Precisión editorial | La nota de vigencia de Evals en `docs/references.md` se contrastó con la documentación oficial el 18-10-2026. La revisión integral de vigencia y relevancia de las fuentes de los diez módulos sigue pendiente. |
