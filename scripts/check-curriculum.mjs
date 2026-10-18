@@ -79,7 +79,7 @@ for (const [index, module] of (Array.isArray(modules) ? modules : []).entries())
     errors.push(`${where}: lab ID is missing from docs/curriculum.md.`);
   }
 
-  if (module?.id && [module?.fundamentalsHours, module?.labHours, module?.hours].every(Number.isFinite)) {
+  if (typeof module?.id === "string" && expectedModuleIds.includes(module.id) && [module?.fundamentalsHours, module?.labHours, module?.hours].every(Number.isFinite)) {
     const rowPattern = "^\\|\\s*" + module.id + "\\s*\\|[^\\n]*?\\|\\s*(\\d+)\\s*h\\s*\\|\\s*(\\d+)\\s*h\\s*\\|\\s*(\\d+)\\s*h\\s*\\|";
     const row = new RegExp(rowPattern, "m").exec(curriculum);
     if (!row) {
