@@ -8,7 +8,10 @@ Preparar una recomendación de adopción de IA basada en resultados comparables,
 
 ```sh
 npm run check:lab10
+npm run test:lab10-productivity
 ```
+
+El validador comprueba la estructura de la fixture. Las pruebas ejecutables recalculan coste laboral y coste por entrega aceptada, y verifican que datos ausentes o no verificados impidan recomendar una expansión automática.
 
 ## Procedimiento
 
