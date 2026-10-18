@@ -70,7 +70,7 @@
     },
     {
       "id": "T-02",
-      "kind": "negative",
+      "kind": "edge",
       "input": " , , ",
       "expected": "[]",
       "criterion": "AC-02"
