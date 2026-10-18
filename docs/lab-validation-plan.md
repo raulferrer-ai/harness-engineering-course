@@ -84,7 +84,7 @@ Usa esta tabla para localizar el ejemplo complementario y ejecutar el chequeo es
 
 ### Ejecución conjunta
 
-Desde la raíz del repositorio, con Node.js 20 o posterior y dependencias instaladas:
+Desde la raíz del repositorio, con Node.js 22 o posterior y dependencias instaladas:
 
 ```bash
 npm ci
