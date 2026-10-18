@@ -13,6 +13,8 @@ test("limits reads to workspace and denies secret paths", () => {
   assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "outside/.env" }).decision, "deny");
   assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace/../outside.txt" }).decision, "deny");
   assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace/src/../../outside.txt" }).decision, "deny");
+  assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace//secret.txt" }).decision, "deny");
+  assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace/./secret.txt" }).decision, "deny");
   assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace/config/.env.production" }).decision, "deny");
   assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "write", resource: "workspace/src/index.mjs" }).decision, "deny");
 });
@@ -27,6 +29,7 @@ test("allows only the preapproved test operation and keeps network off by defaul
 test("requires explicit approval for destructive or external effects", () => {
   for (const tool of ["delete_file", "publish_release", "send_external_data"]) {
     assert.equal(authorizeToolOperation({ tool, operation: "execute", resource: "workspace" }).decision, "deny");
-    assert.equal(authorizeToolOperation({ tool, operation: "execute", resource: "workspace", approved: true }).decision, "allow");
+    assert.equal(authorizeToolOperation({ tool, operation: "execute", resource: "workspace", approved: true }).reason, "approval_missing_or_invalid");
+    assert.equal(authorizeToolOperation({ tool, operation: "execute", resource: "workspace", approved: true, approvalValid: true }).decision, "allow");
   }
 });
