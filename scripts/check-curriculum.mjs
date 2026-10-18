@@ -31,7 +31,7 @@ if (!Array.isArray(modules) || modules.length !== expectedModuleIds.length) {
   errors.push(`Expected exactly 10 approved modules (M01–M10); found ${Array.isArray(modules) ? modules.length : "non-array"}.`);
 }
 
-for (const [index, module] of modules.entries()) {
+for (const [index, module] of (Array.isArray(modules) ? modules : []).entries()) {
   const where = module?.id ?? `modules[${index}]`;
   for (const key of ["id", "slug", "labId"]) {
     const value = module?.[key];
