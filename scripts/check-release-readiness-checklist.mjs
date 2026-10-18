@@ -66,9 +66,11 @@ for (const phrase of [
 
 const decisionMarkdown = commentFreeMarkdown;
 const decisionStart = decisionMarkdown.indexOf("## 5. Decisión");
+const templateEnd = decisionMarkdown.indexOf("## Registro de revisión", decisionStart);
 const limitsStart = decisionMarkdown.indexOf("## Límites");
-const decisionSection = decisionStart >= 0 && limitsStart > decisionStart
-  ? decisionMarkdown.slice(decisionStart, limitsStart)
+const decisionEnd = templateEnd > decisionStart ? templateEnd : limitsStart;
+const decisionSection = decisionStart >= 0 && decisionEnd > decisionStart
+  ? decisionMarkdown.slice(decisionStart, decisionEnd)
   : "";
 
 const decisionRows = [
