@@ -17,3 +17,9 @@ test("returns an empty array for an empty string", () => {
 test("preserves duplicate tags rather than silently deduplicating", () => {
   assert.deepEqual(normalizeTags("a,a"), ["a", "a"]);
 });
+
+test("rejects non-string input with TypeError", () => {
+  for (const input of [null, undefined, 42, {}, ["alpha"]]) {
+    assert.throws(() => normalizeTags(input), TypeError);
+  }
+});
