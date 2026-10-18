@@ -44,7 +44,7 @@ for (const [index, module] of (Array.isArray(modules) ? modules : []).entries())
     }
   }
 
-  if (module?.id && !expectedModuleIds.includes(module.id)) {
+  if (typeof module?.id === "string" && !expectedModuleIds.includes(module.id)) {
     errors.push(`${where}: module ID is outside the approved M01–M10 scope.`);
   }
 
