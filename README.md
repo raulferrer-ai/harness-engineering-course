@@ -59,7 +59,7 @@ El comando `check` compila el sitio; ejecuta comprobaciones estructurales básic
 4. Realizar revisión manual de accesibilidad, privacidad, navegación, teclado, lector de pantalla y diseño adaptable.
 5. Pilotar el curso con participantes y registrar duración observada, incidencias, claridad y resultados antes de decidir la publicación final.
 
-El proyecto mantiene el flujo de trabajo basado en ramas revisables, controles automatizados y revisión humana antes de integrar cambios.
+El mantenimiento actual integra los cambios directamente en `main`, sin crear nuevas pull requests, según la instrucción operativa vigente. Los cambios deben pasar los controles automatizados y las validaciones humanas que correspondan; integrar en `main` no equivale a autorizar la publicación final.
 
 ## Verificación local antes de publicar
 
