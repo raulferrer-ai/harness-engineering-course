@@ -6,10 +6,15 @@ Construye un modelo de amenazas para una aplicación con IA y verifica controles
 
 - `fixtures/lab08-security-threats.json`: activos, límites de confianza, amenazas, casos de prueba y criterios de aceptación.
 - `scripts/check-lab08-security-threats.mjs`: validador estructural.
+- `examples/transversal-project-starter/src/tool-policy.mjs`: simulador didáctico de decisiones de autorización compartido con LAB-05.
+- `examples/transversal-project-starter/test/tool-policy.test.mjs`: pruebas ejecutables de denegación por defecto, alcance de lectura, red y aprobación explícita.
 
 ```sh
 npm run check:lab08
+npm run test:lab05-executable
 ```
+
+La segunda orden verifica solo la lógica del simulador. No constituye una prueba de aislamiento real ni demuestra por sí sola que un producto esté protegido contra las amenazas del fixture.
 
 ## Procedimiento
 
