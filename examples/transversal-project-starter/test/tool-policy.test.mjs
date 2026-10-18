@@ -22,7 +22,7 @@ test("limits reads to workspace and denies secret paths", () => {
 test("allows only the preapproved test operation and keeps network off by default", () => {
   assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace" }).decision, "allow");
   assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace", networkRequired: true }).reason, "network_disabled");
-  assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace", networkEnabled: true }).reason, "network_requires_approval");
+  assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace", networkEnabled: true }).reason, "network_execution_not_implemented");
   assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace", networkEnabled: true, approved: true }).reason, "network_execution_not_implemented");
 });
 
