@@ -12,12 +12,16 @@ test("limits reads to workspace and denies secret paths", () => {
   assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace/src/index.mjs" }).decision, "allow");
   assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "outside/.env" }).decision, "deny");
   assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace/../outside.txt" }).decision, "deny");
+  assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace/src/../../outside.txt" }).decision, "deny");
+  assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "read", resource: "workspace/config/.env.production" }).decision, "deny");
+  assert.equal(authorizeToolOperation({ tool: "read_project_file", operation: "write", resource: "workspace/src/index.mjs" }).decision, "deny");
 });
 
 test("allows only the preapproved test operation and keeps network off by default", () => {
   assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace" }).decision, "allow");
   assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace", networkRequired: true }).reason, "network_disabled");
   assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace", networkEnabled: true }).reason, "network_requires_approval");
+  assert.equal(authorizeToolOperation({ tool: "run_unit_tests", operation: "run_preapproved_test", resource: "workspace", networkEnabled: true, approved: true }).reason, "network_execution_not_implemented");
 });
 
 test("requires explicit approval for destructive or external effects", () => {
