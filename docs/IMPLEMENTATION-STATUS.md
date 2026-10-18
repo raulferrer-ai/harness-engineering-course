@@ -247,7 +247,7 @@ For the current maintenance workflow, integrate changes directly into `main` as 
 
 - Commit `242c9e77009abe0fb5097515a69a785a94080740` passed [CI run 39038744275](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038744275) on Node.js 22 and Node.js 24; follow-up commit `840d921e3063e87b4961adfda9f4c407abea24e8` passed [CI run 39038781743](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39038781743).
 - Added mutation tests for the pilot safeguards checker and included them in `npm run check`. The tests verify that the gate rejects missing draft-status language, missing pre-collection approval, missing retention or voluntariness safeguards, unsupported claims that consent is approved, and a missing participant-information document.
-- PR [#46](https://github.com/raulferrer-ai/harness-engineering-course/pull/46) is marked ready for review after branch CI passed; it remains unmerged pending the required human accessibility/content review stated in the PR.
+- Historical workflow note (superseded for current maintenance): PR [#46](https://github.com/raulferrer-ai/harness-engineering-course/pull/46) was marked ready for review after branch CI passed. The current instruction is to integrate requested maintenance changes directly into `main` without creating new PRs. This historical PR entry does not mean the current changes are awaiting merge.
 
 
 ## Regression inventory accuracy — 2026-10-17
