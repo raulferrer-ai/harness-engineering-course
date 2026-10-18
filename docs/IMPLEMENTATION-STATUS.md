@@ -31,7 +31,7 @@ The ten modules total 104 hours: 40 hours of fundamentals and 64 hours of labs. 
 
 ## Release discipline
 
-Use reviewable branches and pull requests. Do not claim tests passed without an actual CI result. A successful build proves neither that educational content is complete nor that the entire user experience conforms to accessibility requirements. Keep unresolved curriculum decisions explicit until approved.
+For the current maintenance workflow, integrate changes directly into `main` as explicitly requested; do not create pull requests. Do not claim tests passed without an actual CI result, and verify the workflow result for each new commit before calling it validated. A successful build proves neither that educational content is complete nor that the entire user experience conforms to accessibility requirements. Keep unresolved curriculum decisions explicit until approved.
 
 
 ## Progress log — module resources and assessment protocol
