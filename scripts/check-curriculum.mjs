@@ -14,6 +14,9 @@ const seen = { id: new Set(), slug: new Set(), labId: new Set() };
 const expectedModuleIds = Array.from({ length: 10 }, (_, i) => `M${String(i + 1).padStart(2, "0")}`);
 const expectedLabIds = Array.from({ length: 10 }, (_, i) => `LAB-${String(i + 1).padStart(2, "0")}`);
 const expectedCompetencyIds = Array.from({ length: 9 }, (_, i) => `COMP-${String(i + 1).padStart(2, "0")}`);
+
+const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\const expectedCompetencyIds = Array.from({ length: 9 }, (_, i) => `COMP-${String(i + 1).padStart(2, "0")}`);
+");
 const labPackById = {
   "LAB-01": "lab01-validation-pack.md",
   "LAB-02": "lab02-validation-pack.md",
@@ -94,7 +97,7 @@ for (const [index, module] of (Array.isArray(modules) ? modules : []).entries())
     try {
       await access(pagePath);
       const pageContent = await readFile(pagePath, "utf8");
-      const labHeadingPattern = new RegExp(String.raw`${module.labId}\s*·\s*${module.labHours}\s*HORAS`, "i");
+      const labHeadingPattern = new RegExp(`${escapeRegExp(module.labId)}\\s*·\\s*${module.labHours}\\s*HORAS`, "i");
       if (!labHeadingPattern.test(pageContent)) {
         errors.push(`${where}: lab section must identify ${module.labId} and its ${module.labHours}-hour allocation.`);
       }
