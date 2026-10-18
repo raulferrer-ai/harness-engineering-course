@@ -7,7 +7,7 @@ Esta lista distingue la compilación técnica de la preparación pedagógica. Un
 - [ ] Los diez módulos enlazan con sus lecciones y laboratorios correspondientes.
 - [ ] Cada laboratorio declara objetivo, prerrequisitos, procedimiento, entregables y criterios de aceptación.
 - [ ] Los ejemplos resueltos están enlazados desde el material correspondiente y desde el [índice de ejemplos](worked-examples-index.md).
-- [ ] Cada módulo enlaza al índice de fuentes técnicas y referencias; la propuesta para las páginas publicadas está en el [PR de referencias](https://github.com/raulferrer-ai/harness-engineering-course/pull/46), pendiente de revisión y publicación.
+- [ ] Verificar en las diez páginas publicadas que cada módulo enlaza al índice de fuentes técnicas y referencias ([docs/references.md](references.md)); la existencia de una pull request histórica no sustituye esta comprobación del sitio publicado.
 - [ ] Los datos sintéticos, supuestos y resultados ilustrativos están identificados explícitamente.
 - [ ] Las instrucciones no presentan ejemplos simulados como ejecuciones reales ni como resultados de producción.
 - [ ] Las decisiones docentes pendientes están marcadas como propuestas, no como políticas aprobadas.
