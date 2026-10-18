@@ -15,7 +15,8 @@ const expectedModuleIds = Array.from({ length: 10 }, (_, i) => `M${String(i + 1)
 const expectedLabIds = Array.from({ length: 10 }, (_, i) => `LAB-${String(i + 1).padStart(2, "0")}`);
 const expectedCompetencyIds = Array.from({ length: 9 }, (_, i) => `COMP-${String(i + 1).padStart(2, "0")}`);
 
-const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\const expectedCompetencyIds = Array.from({ length: 9 }, (_, i) => `COMP-${String(i + 1).padStart(2, "0")}`);
+const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\const escapeRegExp = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\const expectedCompetencyIds = Array.from({ length: 9 }, (_, i) => `COMP-${String(i + 1).padStart(2, "0")}`);");
+const expectedCompetencyIds = Array.from({ length: 9 }, (_, i) => `COMP-${String(i + 1).padStart(2, "0")}`);
 ");
 const labPackById = {
   "LAB-01": "lab01-validation-pack.md",
