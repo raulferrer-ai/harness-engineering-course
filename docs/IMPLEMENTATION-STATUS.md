@@ -256,3 +256,11 @@ Use reviewable branches and pull requests. Do not claim tests passed without an 
 - Updated the documented runtime requirement from Node.js 20+ to Node.js 22+, consistent with `package.json` and the CI matrix (Node.js 22 and 24).
 - CI for commit `af1ba1ee85a791f83d3eaed65179f757ab1e5299` passed on both Node.js 22 and 24: [run 39039042071](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39039042071).
 - This is documentation alignment and automated regression verification only. It does not establish independent execution of all ten labs, a learner pilot, human rubric calibration, or completion of manual accessibility/privacy review; those remain release gates.
+
+
+## Progress log — evidence refresh (2026-10-18)
+
+- Refreshed the release-readiness record to commit `4cd9def`; GitHub Actions run [39146948823](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39146948823) completed successfully for that revision.
+- Refreshed the five traceability-gate evidence links from the older run to run [39146948823](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39146948823).
+- The current `main` revision is `3fab1eaeac2dbe299d951be9f3c8d748726d2273`. Its workflow run [39147011164](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39147011164) was still in progress at the time of this update; do not infer its result from the prior successful run.
+- Remaining non-automated gates are unchanged: formal curriculum mapping, evidence from actual execution of all ten labs, manual accessibility review, rubric calibration, and a participant pilot.
