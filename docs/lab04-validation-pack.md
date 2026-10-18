@@ -9,7 +9,7 @@ Este paquete define un cambio didáctico pequeño para practicar la línea base,
 
 ## Ejecución
 
-Requiere Node.js 20 o posterior:
+Requiere Node.js 22 o posterior (coherente con `package.json` y la CI del curso):
 
 ```sh
 npm run check:lab04
