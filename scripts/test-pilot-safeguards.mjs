@@ -131,6 +131,7 @@ try {
   }
 
   for (const [index, missingFile] of [
+    "docs/pilot-protocol.md",
     "docs/pilot-participant-information.md",
     "docs/pilot-observation-template.md",
     "docs/pilot-exit-survey.md",
