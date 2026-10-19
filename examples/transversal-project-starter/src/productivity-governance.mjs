@@ -67,7 +67,10 @@ export function recommendAdoption({ comparison, calculation, qualityNonInferior 
       c.observation_window_days_match !== true || c.source_data_verified !== true) {
     return { decision: "inconclusive", reason: "comparability_or_source_unverified" };
   }
-  if (!qualityNonInferior) return { decision: "do_not_expand", reason: "quality_non_inferiority_not_demonstrated" };
+  if (!qualityNonInferior || calculation.deltas.defectsPerAcceptedDeliveryPercent > 0 ||
+      calculation.deltas.acceptedDeliveryRatePercentagePoints < 0) {
+    return { decision: "do_not_expand", reason: "quality_non_inferiority_not_demonstrated" };
+  }
   if (calculation.deltas.costPerAcceptedDeliveryPercent >= 0) return { decision: "do_not_expand", reason: "unit_cost_not_lower" };
   if (!humanApproval) return { decision: "hold_for_human_approval", reason: "approval_required" };
   return { decision: "expand_cautiously", reason: "gates_passed" };
