@@ -15,7 +15,7 @@ export function calculateProductivityComparison(comparison) {
       errors.push(`${key}: datos insuficientes o inválidos`);
       continue;
     }
-    const failureCost = comparison.expected_failure_cost?.[key];
+    const failureCost = comparison?.expected_failure_cost?.[key];
     if (!Number.isFinite(failureCost) || failureCost < 0) {
       errors.push(`${key}: expected_failure_cost ausente o inválido`);
       continue;
