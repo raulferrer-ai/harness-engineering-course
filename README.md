@@ -28,6 +28,7 @@ La web inicial está publicada. Esto confirma el despliegue de la estructura del
 - [Plan de validación reproducible de los laboratorios](docs/lab-validation-plan.md)
 - [Registro maestro de ejecución práctica y evidencia por laboratorio](docs/lab-execution-register.md)
 - [Lista de revisión manual de accesibilidad WCAG 2.2 AA](docs/accessibility-review-checklist.md)
+- [Registro de revisión manual de accesibilidad y cobertura por módulo](docs/accessibility-review-register.md)
 - [Plantilla de evidencia para cada ejecución](docs/lab-evidence-template.md)
 - [Repositorio de reserva del proyecto transversal (MIT)](examples/transversal-project-starter/README.md)
 - [Proyecto transversal: rúbrica y defensa](docs/transversal-project-rubric.md)
