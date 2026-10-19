@@ -158,3 +158,8 @@ Los siguientes estados se refieren a ejecución práctica independiente, no a la
 | LAB-10 | No evaluado | Fórmulas repetidas y datos sintéticos separados de mediciones empíricas |
 
 Para actualizar un estado, adjunta una copia completa de la plantilla `docs/lab-evidence-template.md` con commit, entorno, comandos, salidas originales, criterios de aceptación, fallos y decisión del revisor. Una CI verde solo prueba los checks automatizados configurados y no cambia por sí misma este estado.
+
+
+## Registro central de ejecución
+
+La fuente operativa para los estados prácticos por laboratorio y las plantillas de evidencia es [`docs/lab-execution-register.md`](lab-execution-register.md). Los diez laboratorios permanecen **No evaluado** hasta que se incorpore evidencia real y una decisión de revisión; la CI no modifica estos estados.
