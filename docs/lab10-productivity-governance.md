@@ -11,7 +11,7 @@ npm run check:lab10
 npm run test:lab10-productivity
 ```
 
-El validador comprueba la estructura de la fixture. Las pruebas ejecutables recalculan coste laboral y coste por entrega aceptada, y verifican que datos ausentes o no verificados impidan recomendar una expansión automática.
+Ejecuta los comandos desde la raíz del repositorio. El validador comprueba la estructura de la fixture. Las pruebas ejecutables recalculan coste laboral y coste por entrega aceptada, y verifican que datos ausentes o no verificados impidan recomendar una expansión automática. También rechazan tarifas laborales inválidas, más entregas aceptadas que tareas completadas y porcentajes indefinidos cuando la referencia es cero. En este último caso debe informarse el valor absoluto y justificar otra comparación, no inventar una variación porcentual.
 
 ## Procedimiento
 
