@@ -279,3 +279,11 @@ For the current maintenance workflow, integrate changes directly into `main` as 
 - GitHub Actions run 39206020332 passed for commit 321faa4 on Node.js 22 and Node.js 24.
 - This validates repository automation only. LAB-10's fixture remains synthetic; empirical productivity, quality, cost and uncertainty evidence is still required before making real adoption claims.
 - Course-wide release blockers remain: independently execute and record all ten labs, complete competency-to-outcome-to-activity-to-evidence review, conduct manual accessibility checks, calibrate the rubric with real submissions, and pilot with learners.
+
+
+## Progress log — 2026-10-19 (LAB-10 gate verified)
+
+- The LAB-10 approval-gate fixture was corrected so its intended positive scenario satisfies the measured acceptance-rate and defect-rate gates; human approval remains a separate required gate.
+- GitHub Actions run 39206020332 passed on Node.js 22 and 24. Run 39206730692 also passed for commit 186d27e.
+- LAB-10 remains a synthetic, reproducible calculation exercise, not evidence of real savings or quality improvement.
+- Release readiness remains below 100%: independent execution of all ten labs, human competency/evidence traceability review, manual accessibility audit, rubric calibration with real submissions, and a learner pilot remain open.
