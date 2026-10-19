@@ -111,14 +111,20 @@ try {
     expectFail(testCase.label, run(project), testCase.expected);
   }
 
-  const missingDocumentProject = await setup("missing-document");
-  await rm(join(missingDocumentProject, "docs/pilot-participant-information.md"));
-  const missingDocumentResult = run(missingDocumentProject);
-  expectFail(
-    "missing participant-information document",
-    missingDocumentResult,
-    "No se pudo leer un documento de salvaguardas del piloto"
-  );
+  for (const [index, missingFile] of [
+    "docs/pilot-participant-information.md",
+    "docs/pilot-observation-template.md",
+    "docs/pilot-exit-survey.md"
+  ].entries()) {
+    const missingDocumentProject = await setup("missing-document-" + index);
+    await rm(join(missingDocumentProject, missingFile));
+    const missingDocumentResult = run(missingDocumentProject);
+    expectFail(
+      "missing required pilot document: " + missingFile,
+      missingDocumentResult,
+      "No se pudo leer un documento de salvaguardas del piloto"
+    );
+  }
 } finally {
   await rm(temp, { recursive: true, force: true });
 }
