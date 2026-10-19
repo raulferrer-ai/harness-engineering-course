@@ -269,3 +269,13 @@ For the current maintenance workflow, integrate changes directly into `main` as 
 - Follow-up verification: CI run [39147103426](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39147103426) completed successfully for commit `3e7fc9563f53d5502cd1db48da1130b6189030ac` (Node.js 22 and 24). This confirms the documentation correction; it does not close the manual, curricular, or learner-execution gates.
 
 - Follow-up verification (2026-10-18): CI run [39147355477](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39147355477) completed successfully for commit `34c27b96b0e6e51176a57303b6ad14fe21852408`. The release checklist evidence was refreshed in commit `2becf7cbf81166c9d7f40219d097e3e0e126666b`; its own CI run [39147412114](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39147412114) subsequently completed successfully. Continue to verify each commit independently. Remaining release gates: approved curriculum mapping, actual execution evidence for all ten labs, manual accessibility review, rubric calibration, and participant pilot.
+
+
+## Progress log — 2026-10-19 (LAB-10 adoption gate)
+
+- Hardened the LAB-10 productivity evaluator to recompute all reported deltas from the source comparison and reject manipulated or non-finite derived metrics.
+- Adoption is blocked when measured defects per accepted delivery increase or accepted-delivery rate falls, even if an external quality attestation says quality is non-inferior.
+- Fixed the approval-gate regression scenario so it satisfies the measured quality gates before asserting that human approval is still required.
+- GitHub Actions run 39206020332 passed for commit 321faa4 on Node.js 22 and Node.js 24.
+- This validates repository automation only. LAB-10's fixture remains synthetic; empirical productivity, quality, cost and uncertainty evidence is still required before making real adoption claims.
+- Course-wide release blockers remain: independently execute and record all ten labs, complete competency-to-outcome-to-activity-to-evidence review, conduct manual accessibility checks, calibrate the rubric with real submissions, and pilot with learners.
