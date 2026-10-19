@@ -38,6 +38,9 @@ test("worse quality blocks expansion even when cost falls", () => {
 
 test("verified comparable evidence still requires human approval before expansion", () => {
   const verified = { ...structuredClone(comparison), comparability: { task_definition_match: true, acceptance_criteria_version_match: true, observation_window_days_match: true, source_data_verified: true } };
+  // Construct a deliberately favorable, verified scenario for the approval-gate test.
+  verified.assisted.accepted_deliveries = 37;
+  verified.assisted.defects_found = 5;
   const calculation = calculateProductivityComparison(verified);
   assert.equal(recommendAdoption({ comparison: verified, calculation, qualityNonInferior: true, humanApproval: false }).decision, "hold_for_human_approval");
   assert.equal(recommendAdoption({ comparison: verified, calculation, qualityNonInferior: true, humanApproval: true }).decision, "expand_cautiously");
