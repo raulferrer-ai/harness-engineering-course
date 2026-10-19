@@ -10,22 +10,22 @@ A green CI run proves only that the configured automation passed for that commit
 
 ## Current register
 
-| Lab | Hands-on status | Evidence needed before marking validated |
-|---|---|---|
-| LAB-01 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-02 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-03 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-04 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-05 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-06 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-07 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-08 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-09 | Not evaluated | Learner follows the lab from a clean checkout; record environment, exact commands, outputs, and review. |
-| LAB-10 | Not evaluated | Execute productivity-governance examples and tests, verify adoption gates against measured inputs, and record environment, exact commands, outputs, and review. |
+| Lab | Hands-on status | Existing automated check (contract/fixture only) | Evidence needed before marking validated |
+|---|---|---|---|
+| LAB-01 | Not evaluated | `npm run check:lab01` and `npm run test:lab01-evaluator` | Run the learner experiment using actual model outputs; preserve prompt, model/version, parameters, raw outputs, scoring and reviewer decision. |
+| LAB-02 | Not evaluated | `npm run check:lab02` | Have a learner independently produce and apply the specification from a clean checkout; record unanswered questions, acceptance criteria and whether oral clarification was needed. |
+| LAB-03 | Not evaluated | `npm run check:lab03` | Run the controlled A/B experiment with one variable changed; preserve paired inputs/outputs, model/version, scoring method and limitations. |
+| LAB-04 | Not evaluated | `npm run check:lab04` | Execute baseline and changed code in a clean environment; preserve base/final commits, diff, positive/negative/regression test outputs and independent review. |
+| LAB-05 | Not evaluated | `npm run check:lab05` and `npm run test:lab05-executable` | Test allowed and denied tool operations in a disposable environment with externally enforced permissions; preserve logs and verify no unauthorized side effects. |
+| LAB-06 | Not evaluated | `npm run check:lab06` | Exercise allow/deny release-gate cases in a real practice pipeline; demonstrate that the control blocks promotion, and record the exact artifact/commit checked. |
+| LAB-07 | Not evaluated | `npm run check:lab07` | Evaluate a declared set of actual outputs, preserve scoring inputs and calculations, test missing/critical cases, and record independent human calibration. |
+| LAB-08 | Not evaluated | `npm run check:lab08` and `npm run test:lab08-security-cases` | Run benign adversarial cases in an isolated environment; capture expected/observed denials, external controls and evidence of no unauthorized effects. |
+| LAB-09 | Not evaluated | `npm run check:lab09` and `npm run test:lab09-recovery` | Trigger a controlled failure in a sandbox/staging pipeline; preserve telemetry, alert, containment and recovery/rollback evidence. |
+| LAB-10 | Not evaluated | `npm run check:lab10` and `npm run test:lab10-productivity` | Recalculate costs and quality metrics from disclosed inputs; separate synthetic demonstrations from measured observations and document uncertainty and adoption decision. |
 
 ## Per-lab evidence template
 
-Copy this section for each actual validation; do not fill in expected outputs as if they were observed.
+Use a copy of the [full evidence template](lab-evidence-template.md) for each execution. Copy the compact fields below only when they are sufficient for the case. For each actual validation; do not fill in expected outputs as if they were observed.
 
 - **Lab / scenario:**
 - **Status:** Not evaluated / Blocked / Validated
