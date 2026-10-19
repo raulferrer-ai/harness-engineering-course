@@ -95,3 +95,16 @@ test("rejects non-finite cost deltas rather than returning a decision", () => {
     });
   }
 });
+
+test("forged acceptance-rate or defect delta cannot authorize expansion", () => {
+  const verified = structuredClone(comparison);
+  verified.comparability = { task_definition_match: true, acceptance_criteria_version_match: true, observation_window_days_match: true, source_data_verified: true };
+  const original = calculateProductivityComparison(verified);
+  for (const metric of ["acceptedDeliveryRatePercentagePoints", "defectsPerAcceptedDeliveryPercent"]) {
+    const manipulated = structuredClone(original);
+    manipulated.deltas[metric] = metric === "defectsPerAcceptedDeliveryPercent" ? -99 : 99;
+    assert.deepEqual(recommendAdoption({ comparison: verified, calculation: manipulated, qualityNonInferior: true, humanApproval: true }), {
+      decision: "inconclusive", reason: "calculation_not_reproducible"
+    });
+  }
+});
