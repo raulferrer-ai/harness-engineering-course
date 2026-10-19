@@ -32,6 +32,16 @@ const files = [
     forbidden: ["recoger todas las conversaciones privadas"]
   },
   {
+    path: new URL("../docs/pilot-results-report-template.md", import.meta.url),
+    required: [
+      "No contiene resultados ni certifica que se haya realizado un piloto",
+      "Completar solo después de ejecutar el protocolo aprobado",
+      "No incluir nombres, contactos ni datos que permitan identificar participantes",
+      "Si una condición previa no se cumplió"
+    ],
+    forbidden: ["Piloto aprobado y ejecutado", "Resultados empíricos confirmados"]
+  },
+  {
     path: new URL("../docs/pilot-exit-survey.md", import.meta.url),
     required: [
       "responder es voluntario",

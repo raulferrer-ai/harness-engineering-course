@@ -10,7 +10,8 @@ const sourceFiles = [
   "docs/pilot-protocol.md",
   "docs/pilot-participant-information.md",
   "docs/pilot-observation-template.md",
-  "docs/pilot-exit-survey.md"
+  "docs/pilot-exit-survey.md",
+  "docs/pilot-results-report-template.md"
 ];
 const mutations = [
   {
@@ -47,6 +48,24 @@ const mutations = [
     file: "docs/pilot-observation-template.md",
     label: "missing privacy safeguard in observation template",
     mutate: text => text.replace("No incluyas nombres, correo, cuentas ni conversaciones privadas completas.", "Registra las conversaciones completas."),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-results-report-template.md",
+    label: "missing draft-status safeguard in results report",
+    mutate: text => text.replace("No contiene resultados ni certifica que se haya realizado un piloto", "Informe de resultados validado"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-results-report-template.md",
+    label: "missing privacy safeguard in results report",
+    mutate: text => text.replace("No incluir nombres, contactos ni datos que permitan identificar participantes.", "Incluir nombres y contactos de participantes."),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-results-report-template.md",
+    label: "missing prerequisite-failure handling in results report",
+    mutate: text => text.replace("Si una condición previa no se cumplió", "Aunque no se cumpla ninguna condición previa"),
     expected: "falta salvaguarda requerida"
   },
   {
@@ -114,7 +133,8 @@ try {
   for (const [index, missingFile] of [
     "docs/pilot-participant-information.md",
     "docs/pilot-observation-template.md",
-    "docs/pilot-exit-survey.md"
+    "docs/pilot-exit-survey.md",
+    "docs/pilot-results-report-template.md"
   ].entries()) {
     const missingDocumentProject = await setup("missing-document-" + index);
     await rm(join(missingDocumentProject, missingFile));
