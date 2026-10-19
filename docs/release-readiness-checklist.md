@@ -41,7 +41,7 @@ Antes de considerar completa la preparación del curso, revisar el [registro mae
 
 ## Requisitos previos del piloto
 
-Antes de invitar participantes o recoger datos, revisar el [protocolo del piloto](pilot-protocol.md), la [información para participantes](pilot-participant-information.md), la [plantilla de observación](pilot-observation-template.md) y la [encuesta de salida](pilot-exit-survey.md). Ejecutar los validadores y pruebas de mutación de salvaguardas del repositorio, pero no tratarlos como aprobación legal o ética.
+Antes de invitar participantes o recoger datos, revisar el [protocolo del piloto](pilot-protocol.md), la [información para participantes](pilot-participant-information.md), la [plantilla de observación](pilot-observation-template.md) y la [encuesta de salida](pilot-exit-survey.md) y la [plantilla del informe de resultados](pilot-results-report-template.md). Ejecutar los validadores y pruebas de mutación de salvaguardas del repositorio, pero no tratarlos como aprobación legal o ética.
 
 - [ ] Responsable del piloto asignado nominalmente.
 - [ ] Finalidad, base aplicable, minimización, conservación y eliminación de datos revisadas por la persona responsable.
