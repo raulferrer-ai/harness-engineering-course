@@ -115,3 +115,26 @@ test("rejects finite inputs whose derived costs overflow", () => {
   input.baseline.human_minutes_per_task = Number.MAX_VALUE;
   assert.equal(calculateProductivityComparison(input).complete, false);
 });
+
+
+test("does not expand when measured quality regresses despite a positive attestation", () => {
+  const verified = structuredClone(comparison);
+  verified.comparability = { task_definition_match: true, acceptance_criteria_version_match: true, observation_window_days_match: true, source_data_verified: true };
+  verified.assisted.defects_found = verified.baseline.defects_found + 10;
+  const calculation = calculateProductivityComparison(verified);
+  assert.equal(calculation.complete, true);
+  assert.deepEqual(recommendAdoption({ comparison: verified, calculation, qualityNonInferior: true, humanApproval: true }), {
+    decision: "do_not_expand", reason: "quality_non_inferiority_not_demonstrated"
+  });
+});
+
+test("does not expand when acceptance rate falls despite a positive quality attestation", () => {
+  const verified = structuredClone(comparison);
+  verified.comparability = { task_definition_match: true, acceptance_criteria_version_match: true, observation_window_days_match: true, source_data_verified: true };
+  verified.assisted.accepted_deliveries = verified.assisted.accepted_deliveries - 1;
+  const calculation = calculateProductivityComparison(verified);
+  assert.equal(calculation.complete, true);
+  assert.deepEqual(recommendAdoption({ comparison: verified, calculation, qualityNonInferior: true, humanApproval: true }), {
+    decision: "do_not_expand", reason: "quality_non_inferiority_not_demonstrated"
+  });
+});
