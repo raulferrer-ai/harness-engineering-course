@@ -38,7 +38,8 @@
 
 ## Relación con otros documentos
 
-- Registro de ejecución: [plantilla de evidencias](lab-evidence-template.md).
+- Registro maestro de estados y evidencias: [registro de ejecución por laboratorio](lab-execution-register.md).
+- Plantilla por ejecución: [plantilla de evidencias](lab-evidence-template.md).
 - Criterios y estado de ejecución: [plan de validación de laboratorios](lab-validation-plan.md).
 - Admisión de repositorios para el proyecto: [proyecto transversal](transversal-project.md).
 - Estado de gates y evidencia requerida: [matriz de trazabilidad](traceability.md).
