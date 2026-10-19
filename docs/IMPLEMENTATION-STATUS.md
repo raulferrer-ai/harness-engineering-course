@@ -302,3 +302,11 @@ For the current maintenance workflow, integrate changes directly into `main` as 
 - Current `npm run check` includes build, structural accessibility checks, route and documentation links, release-readiness and curriculum checks, LAB-01 through LAB-10 validators, LAB-04/05/08/09/10 executable tests, and mutation regressions.
 - A passing CI run is evidence that those automated checks passed on that commit; it is not evidence that every learner lab has been executed or piloted.
 - Release gates still open: independent hands-on evidence for all ten labs; formal review of curriculum competency/evidence traceability; manual accessibility audit; rubric calibration using real learner submissions; and a learner pilot with recorded outcomes.
+
+
+## Progress log — 2026-10-19 (independent evidence register)
+
+- Added `docs/lab-execution-register.md` to track LAB-01 through LAB-10 individually without treating documentation or CI as proof of hands-on execution.
+- The register starts all labs at `No evaluado` until an execution record includes the tested commit, environment, exact commands, raw outputs, acceptance criteria, failures, and independent reviewer decision.
+- Latest observed CI run: 39209096894, completed successfully for commit a1a214e.
+- This is a process improvement, not a claim that any previously unexecuted lab has been completed. Release remains blocked on learner-style execution evidence and human review.
