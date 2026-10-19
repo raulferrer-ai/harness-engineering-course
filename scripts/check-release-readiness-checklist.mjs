@@ -58,15 +58,15 @@ for (const heading of [
 }
 
 for (const phrase of [
-  "La CI del commit",
-  "No sustituye los gates de evidencia práctica",
-  "responsable",
+  "no inferir éxito",
+  "no demuestra por sí sola la seguridad",
   "fallo crítico",
   "revisión independiente del diff",
   "no se ejecutó",
   "BLOQUEAR / APROBAR CON CONDICIONES / APROBAR",
-  "responsable",
-  "no demuestra por sí sola la seguridad"
+  "La CI del commit",
+  "No sustituye los gates de evidencia práctica",
+  "responsable"
 ]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
 const decisionMarkdown = commentFreeMarkdown;
