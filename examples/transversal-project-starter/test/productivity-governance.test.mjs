@@ -108,3 +108,10 @@ test("forged acceptance-rate or defect delta cannot authorize expansion", () => 
     });
   }
 });
+
+test("rejects finite inputs whose derived costs overflow", () => {
+  const input = structuredClone(comparison);
+  input.labor_cost_per_hour = Number.MAX_VALUE;
+  input.baseline.human_minutes_per_task = Number.MAX_VALUE;
+  assert.equal(calculateProductivityComparison(input).complete, false);
+});
