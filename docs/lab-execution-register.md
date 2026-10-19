@@ -1,48 +1,48 @@
-# Lab execution register
+# Registro de ejecución de laboratorios
 
-**Purpose:** record reproducible, learner-style execution evidence for all ten labs. This register separates automated repository checks from practical validation by a learner or reviewer.
+**Objetivo:** registrar evidencia reproducible de ejecución práctica de los diez laboratorios, con una experiencia similar a la de una persona participante. Este registro separa las comprobaciones automatizadas del repositorio de la validación práctica por una persona participante o revisora.
 
-## Evidence standard
+## Estándar de evidencia
 
-For each lab, record the exact commit SHA, date, operating system/runtime and versions, setup prerequisites, exact commands, raw output or linked artifact, failures and remediation, and reviewer decision. Distinguish automated contract/fixture tests from actual hands-on execution. Do not describe simulated policies as operating-system isolation, and do not present synthetic productivity figures as measured savings.
+Para cada laboratorio, registrar el SHA exacto del commit, la fecha, el sistema operativo y las versiones de runtime y herramientas, los requisitos previos de configuración, los comandos exactos, la salida original o el artefacto enlazado, los fallos y su resolución, y la decisión de revisión. Diferenciar las pruebas automatizadas de contratos/fixtures de la ejecución práctica real. No describir políticas simuladas como aislamiento del sistema operativo ni presentar cifras sintéticas de productividad como ahorros medidos.
 
-A green CI run proves only that the configured automation passed for that commit. It does not establish that a learner completed the lab successfully. Until evidence is attached and reviewed, the status remains **Not evaluated**.
+Una CI verde solo demuestra que la automatización configurada pasó para ese commit. No demuestra que una persona participante completara el laboratorio con éxito. Hasta que la evidencia se adjunte y revise, el estado debe seguir siendo **No evaluado**.
 
-## Current register
+## Registro actual
 
-| Lab | Hands-on status | Existing automated check (contract/fixture only) | Evidence needed before marking validated |
+| Laboratorio | Estado práctico | Comprobación automatizada existente (solo contrato/fixture) | Evidencia necesaria antes de marcar como validado |
 |---|---|---|---|
-| LAB-01 | Not evaluated | `npm run check:lab01` and `npm run test:lab01-evaluator` | Run the learner experiment using actual model outputs; preserve prompt, model/version, parameters, raw outputs, scoring and reviewer decision. |
-| LAB-02 | Not evaluated | `npm run check:lab02` | Have a learner independently produce and apply the specification from a clean checkout; record unanswered questions, acceptance criteria and whether oral clarification was needed. |
-| LAB-03 | Not evaluated | `npm run check:lab03` | Run the controlled A/B experiment with one variable changed; preserve paired inputs/outputs, model/version, scoring method and limitations. |
-| LAB-04 | Not evaluated | `npm run check:lab04` | Execute baseline and changed code in a clean environment; preserve base/final commits, diff, positive/negative/regression test outputs and independent review. |
-| LAB-05 | Not evaluated | `npm run check:lab05` and `npm run test:lab05-executable` (contract/unit tests only; they do not prove OS-level enforcement) | Test allowed and denied tool operations in a disposable environment with externally enforced permissions; preserve logs and verify no unauthorized side effects. |
-| LAB-06 | Not evaluated | `npm run check:lab06` (fixture/contract check; does not execute a real release pipeline) | Exercise allow/deny release-gate cases in a real practice pipeline; demonstrate that the control blocks promotion, and record the exact artifact/commit checked. |
-| LAB-07 | Not evaluated | `npm run check:lab07` | Evaluate a declared set of actual outputs, preserve scoring inputs and calculations, test missing/critical cases, and record independent human calibration. |
-| LAB-08 | Not evaluated | `npm run check:lab08` and `npm run test:lab08-security-cases` (threat-model/fixture and bounded test cases; not a full security assessment) | Run benign adversarial cases in an isolated environment; capture expected/observed denials, external controls and evidence of no unauthorized effects. |
-| LAB-09 | Not evaluated | `npm run check:lab09` and `npm run test:lab09-recovery` (example recovery-gate tests; not proof of production recovery) | Trigger a controlled failure in a sandbox/staging pipeline; preserve telemetry, alert, containment and recovery/rollback evidence. |
-| LAB-10 | Not evaluated | `npm run check:lab10` and `npm run test:lab10-productivity` (synthetic-data/logic tests; not empirical productivity evidence) | Recalculate costs and quality metrics from disclosed inputs; separate synthetic demonstrations from measured observations and document uncertainty and adoption decision. |
+| LAB-01 | No evaluado | `npm run check:lab01` y `npm run test:lab01-evaluator` | Ejecutar el experimento con salidas reales del modelo; conservar prompt, modelo/versión, parámetros, salidas originales, puntuación y decisión de revisión. |
+| LAB-02 | No evaluado | `npm run check:lab02` | Pedir a una persona que aplique la especificación de forma independiente desde un checkout limpio; registrar dudas, criterios de aceptación y si necesitó aclaraciones orales. |
+| LAB-03 | No evaluado | `npm run check:lab03` | Ejecutar el experimento A/B controlado cambiando una sola variable; conservar entradas/salidas emparejadas, modelo/versión, método de puntuación y limitaciones. |
+| LAB-04 | No evaluado | `npm run check:lab04` | Ejecutar el código base y el modificado en un entorno limpio; conservar commits base/final, diff, salidas de pruebas positivas/negativas/de regresión y revisión independiente. |
+| LAB-05 | No evaluado | `npm run check:lab05` y `npm run test:lab05-executable` (solo pruebas de contrato/unidad; no demuestran aplicación de controles a nivel del sistema operativo) | Probar operaciones permitidas y denegadas en un entorno desechable con permisos aplicados externamente; conservar logs y verificar que no haya efectos secundarios no autorizados. |
+| LAB-06 | No evaluado | `npm run check:lab06` (comprobación de fixture/contrato; no ejecuta un pipeline de publicación real) | Probar casos permitidos/denegados del gate en un pipeline de práctica real; demostrar que el control bloquea la promoción y registrar el artefacto/commit exacto evaluado. |
+| LAB-07 | No evaluado | `npm run check:lab07` | Evaluar un conjunto declarado de salidas reales, conservar entradas y cálculos de puntuación, probar casos ausentes/críticos y registrar calibración humana independiente. |
+| LAB-08 | No evaluado | `npm run check:lab08` y `npm run test:lab08-security-cases` (modelo de amenazas/fixtures y casos acotados; no es una evaluación de seguridad completa) | Ejecutar casos adversariales benignos en un entorno aislado; capturar denegaciones esperadas/observadas, controles externos y evidencia de ausencia de efectos no autorizados. |
+| LAB-09 | No evaluado | `npm run check:lab09` y `npm run test:lab09-recovery` (pruebas de ejemplo de los gates de recuperación; no demuestran recuperación en producción) | Provocar un fallo controlado en un pipeline sandbox/staging; conservar telemetría, alerta, contención y evidencia de recuperación/rollback. |
+| LAB-10 | No evaluado | `npm run check:lab10` y `npm run test:lab10-productivity` (pruebas con datos sintéticos y de lógica; no son evidencia empírica de productividad) | Recalcular costes y métricas de calidad a partir de entradas declaradas; separar demostraciones sintéticas de observaciones medidas y documentar incertidumbre y decisión de adopción. |
 
-## Per-lab evidence template
+## Plantilla de evidencia por laboratorio
 
-Use a copy of the [full evidence template](lab-evidence-template.md) for each execution. Copy the compact fields below only when they are sufficient for the case. For each actual validation; do not fill in expected outputs as if they were observed.
+Usar una copia de la [plantilla completa de evidencia](lab-evidence-template.md) para cada ejecución. Los campos compactos siguientes solo deben usarse cuando sean suficientes para el caso. No completar los resultados esperados como si fueran observaciones reales.
 
-- **Lab / scenario:**
-- **Status:** Not evaluated / Blocked / Validated
-- **Commit SHA:**
-- **Date and reviewer:**
-- **Environment:** OS, architecture, runtime/tool versions
-- **Prerequisites and setup:**
-- **Exact commands:**
-- **Observed output / artifact:**
-- **Failures and remediation:**
-- **Decision and rationale:**
-- **Known limitations:**
+- **Laboratorio / escenario:**
+- **Estado:** No evaluado / Bloqueado / Validado
+- **SHA del commit:**
+- **Fecha y persona revisora:**
+- **Entorno:** sistema operativo, arquitectura y versiones de runtime/herramientas
+- **Requisitos previos y configuración:**
+- **Comandos exactos:**
+- **Salida observada / artefacto:**
+- **Fallos y resolución:**
+- **Decisión y justificación:**
+- **Limitaciones conocidas:**
 
-## Relationship to other validation documents
+## Relación con otros documentos de validación
 
-- [Lab validation plan](lab-validation-plan.md) describes the evidence gaps and validation approach.
-- [Lab runtime matrix](lab-runtime-matrix.md) describes runtime and release-evidence expectations.
-- [Implementation status](IMPLEMENTATION-STATUS.md) tracks repository changes and CI observations.
+- El [plan de validación de laboratorios](lab-validation-plan.md) describe las carencias de evidencia y el método de validación.
+- La [matriz de runtime de laboratorios](lab-runtime-matrix.md) describe las expectativas de runtime y evidencia de publicación.
+- El [estado de implementación](IMPLEMENTATION-STATUS.md) registra cambios del repositorio y observaciones de CI.
 
-**Release rule:** do not mark a lab as hands-on validated without reproducible execution evidence and a recorded review decision.
+**Regla de publicación:** no marcar un laboratorio como validado en la práctica sin evidencia de ejecución reproducible y una decisión de revisión registrada.
