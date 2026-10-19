@@ -49,8 +49,13 @@ export function calculateProductivityComparison(comparison) {
 export function recommendAdoption({ comparison, calculation, qualityNonInferior = false, humanApproval = false }) {
   if (!calculation?.complete) return { decision: "inconclusive", reason: "measurement_incomplete" };
   const independentlyCalculated = calculateProductivityComparison(comparison);
-  if (!independentlyCalculated.complete || !Number.isFinite(calculation?.deltas?.costPerAcceptedDeliveryPercent) ||
-      calculation.deltas.costPerAcceptedDeliveryPercent !== independentlyCalculated.deltas.costPerAcceptedDeliveryPercent) {
+  if (!independentlyCalculated.complete ||
+      !Number.isFinite(calculation?.deltas?.costPerAcceptedDeliveryPercent) ||
+      !Number.isFinite(calculation?.deltas?.acceptedDeliveryRatePercentagePoints) ||
+      !Number.isFinite(calculation?.deltas?.defectsPerAcceptedDeliveryPercent) ||
+      calculation.deltas.costPerAcceptedDeliveryPercent !== independentlyCalculated.deltas.costPerAcceptedDeliveryPercent ||
+      calculation.deltas.acceptedDeliveryRatePercentagePoints !== independentlyCalculated.deltas.acceptedDeliveryRatePercentagePoints ||
+      calculation.deltas.defectsPerAcceptedDeliveryPercent !== independentlyCalculated.deltas.defectsPerAcceptedDeliveryPercent) {
     return { decision: "inconclusive", reason: "calculation_not_reproducible" };
   }
   const c = comparison?.comparability;
