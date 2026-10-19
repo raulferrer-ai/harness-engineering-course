@@ -37,7 +37,7 @@ Esta lista convierte los artefactos de los laboratorios en una decisión de publ
 
 ## Evidencia práctica de los diez laboratorios
 
-Antes de considerar completa la preparación del curso, revisar el [registro maestro de ejecución por laboratorio](lab-execution-register.md) junto con el [plan de validación](lab-validation-plan.md). Los estados iniciales son «No evaluado» y solo pueden cambiar con logs de ejecución reproducibles y una decisión de revisión documentada. CI, fixtures y validadores de contrato no sustituyen la ejecución por participantes.
+Antes de considerar completa la preparación del curso, revisar el [registro maestro de ejecución por laboratorio](lab-execution-register.md) junto con el [plan de validación](lab-validation-plan.md). La revisión manual de accesibilidad debe registrarse en el [registro de revisión de accesibilidad](accessibility-review-register.md); la lista de comprobación por sí sola no es evidencia de que la revisión se haya ejecutado. Los estados iniciales son «No evaluado» y solo pueden cambiar con logs de ejecución reproducibles y una decisión de revisión documentada. CI, fixtures y validadores de contrato no sustituyen la ejecución por participantes.
 
 ## 5. Decisión
 
