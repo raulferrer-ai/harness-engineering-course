@@ -82,3 +82,16 @@ test("forged favorable cost delta cannot authorize expansion", () => {
     decision: "inconclusive", reason: "calculation_not_reproducible"
   });
 });
+
+test("rejects non-finite cost deltas rather than returning a decision", () => {
+  const verified = structuredClone(comparison);
+  verified.comparability = { task_definition_match: true, acceptance_criteria_version_match: true, observation_window_days_match: true, source_data_verified: true };
+  const calculation = calculateProductivityComparison(verified);
+  for (const delta of [NaN, Infinity, -Infinity]) {
+    const manipulated = structuredClone(calculation);
+    manipulated.deltas.costPerAcceptedDeliveryPercent = delta;
+    assert.deepEqual(recommendAdoption({ comparison: verified, calculation: manipulated, qualityNonInferior: true, humanApproval: true }), {
+      decision: "inconclusive", reason: "calculation_not_reproducible"
+    });
+  }
+});
