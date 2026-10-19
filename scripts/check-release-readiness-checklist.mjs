@@ -46,6 +46,9 @@ for (const heading of [
   "## 2. Cambio y verificación",
   "## 3. Herramientas, permisos y seguridad",
   "## 4. Operación y recuperación",
+  "## Evidencia práctica de los diez laboratorios",
+  "## Requisitos previos del piloto",
+  "## Evidencia de publicación y decisión trazable",
   "## 5. Decisión",
   "## Límites"
 ]) {
