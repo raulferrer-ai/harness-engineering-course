@@ -85,6 +85,10 @@ No sustituir «Bloqueado» por «Aprobado» basándose únicamente en enlaces ex
 
 Los gates anteriores son condiciones de aceptación, no resultados ya observados. Mantener un único SHA candidato por decisión y volver a comprobar CI si cambia `main`. El estado «Bloqueado» se conserva hasta que la evidencia exigida esté enlazada y revisada; «No evaluado» indica que aún no se ha realizado la comprobación. No convertir un resultado de pruebas documentales en aprobación del piloto, revisión manual de accesibilidad o validación práctica de laboratorios.
 
+## Última verificación automática documentada
+
+El commit `6c064a1a3c496f692dfe6e6b47655fc26108e687` pasó la [ejecución de CI 39234051385](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39234051385). Este resultado corresponde exclusivamente a ese SHA y no reemplaza los gates de evidencia práctica y revisión humana indicados arriba. Si el candidato de publicación cambia, registrar una nueva ejecución de CI para el nuevo SHA.
+
 ## 5. Decisión
 
 Registrar una fila por publicación:
