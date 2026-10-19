@@ -29,21 +29,25 @@ export function calculateProductivityComparison(comparison) {
         g.human_minutes_per_task * g.tasks_completed / 60 * comparison.labor_cost_per_hour + failureCost) / g.accepted_deliveries,
       defectsPerAcceptedDelivery: g.defects_found / g.accepted_deliveries
     };
+    if (!Object.values(groups[key]).every(Number.isFinite)) {
+      delete groups[key];
+      errors.push(`${key}: el cálculo produce valores no finitos`);
+    }
   }
   if (errors.length) return { complete: false, errors };
   const b = groups.baseline, a = groups.assisted;
   if (b.costPerAcceptedDelivery === 0 || b.defectsPerAcceptedDelivery === 0) {
     return { complete: false, errors: ["baseline: denominador cero para variaciones porcentuales"] };
   }
-  return {
-    complete: true,
-    groups,
-    deltas: {
-      costPerAcceptedDeliveryPercent: (a.costPerAcceptedDelivery / b.costPerAcceptedDelivery - 1) * 100,
-      acceptedDeliveryRatePercentagePoints: (a.acceptedDeliveryRate - b.acceptedDeliveryRate) * 100,
-      defectsPerAcceptedDeliveryPercent: (a.defectsPerAcceptedDelivery / b.defectsPerAcceptedDelivery - 1) * 100
-    }
+  const deltas = {
+    costPerAcceptedDeliveryPercent: (a.costPerAcceptedDelivery / b.costPerAcceptedDelivery - 1) * 100,
+    acceptedDeliveryRatePercentagePoints: (a.acceptedDeliveryRate - b.acceptedDeliveryRate) * 100,
+    defectsPerAcceptedDeliveryPercent: (a.defectsPerAcceptedDelivery / b.defectsPerAcceptedDelivery - 1) * 100
   };
+  if (!Object.values(deltas).every(Number.isFinite)) {
+    return { complete: false, errors: ["las variaciones calculadas no son finitas"] };
+  }
+  return { complete: true, groups, deltas };
 }
 
 export function recommendAdoption({ comparison, calculation, qualityNonInferior = false, humanApproval = false }) {
