@@ -48,6 +48,11 @@ export function calculateProductivityComparison(comparison) {
 
 export function recommendAdoption({ comparison, calculation, qualityNonInferior = false, humanApproval = false }) {
   if (!calculation?.complete) return { decision: "inconclusive", reason: "measurement_incomplete" };
+  const independentlyCalculated = calculateProductivityComparison(comparison);
+  if (!independentlyCalculated.complete || !Number.isFinite(calculation?.deltas?.costPerAcceptedDeliveryPercent) ||
+      calculation.deltas.costPerAcceptedDeliveryPercent !== independentlyCalculated.deltas.costPerAcceptedDeliveryPercent) {
+    return { decision: "inconclusive", reason: "calculation_not_reproducible" };
+  }
   const c = comparison?.comparability;
   if (!c || c.task_definition_match !== true || c.acceptance_criteria_version_match !== true ||
       c.observation_window_days_match !== true || c.source_data_verified !== true) {
