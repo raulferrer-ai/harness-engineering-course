@@ -58,7 +58,9 @@ for (const heading of [
 }
 
 for (const phrase of [
-  "no inferir éxito",
+  "La CI del commit",
+  "No sustituye los gates de evidencia práctica",
+  "responsable",
   "fallo crítico",
   "revisión independiente del diff",
   "no se ejecutó",
