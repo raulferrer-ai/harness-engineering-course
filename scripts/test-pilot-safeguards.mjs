@@ -51,6 +51,24 @@ const mutations = [
     expected: "falta salvaguarda requerida"
   },
   {
+    file: "docs/pilot-observation-template.md",
+    label: "missing immediate stop on sensitive-data exposure",
+    mutate: text => text.replace("Detén la actividad ante exposición de secretos/datos personales", "Continúa la actividad ante exposición de secretos/datos personales"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-exit-survey.md",
+    label: "missing voluntary survey safeguard",
+    mutate: text => text.replace(/responder es voluntario/giu, "responder es obligatorio"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-protocol.md",
+    label: "missing critical prerequisite blocking rule",
+    mutate: text => text.replace("Si una condición crítica no se cumple", "Aunque una condición crítica no se cumpla"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
     file: "docs/pilot-results-report-template.md",
     label: "forbidden empirical-results claim in draft report",
     mutate: text => text + "\nRESULTADOS   EMPÍRICOS CONFIRMADOS\n",
