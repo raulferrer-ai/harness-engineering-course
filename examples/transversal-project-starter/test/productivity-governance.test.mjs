@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { calculateProductivityComparison, recommendAdoption } from "../src/productivity-governance.mjs";
 
-const fixture = JSON.parse(await readFile(new URL("../../../../fixtures/lab10-productivity-governance.json", import.meta.url), "utf8"));
+const fixture = JSON.parse(await readFile(new URL("../../../fixtures/lab10-productivity-governance.json", import.meta.url), "utf8"));
 const comparison = fixture.comparison;
 
 test("calculates complete costs and quality ratios from the fixture", () => {
