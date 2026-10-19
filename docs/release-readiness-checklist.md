@@ -39,6 +39,20 @@ Esta lista convierte los artefactos de los laboratorios en una decisión de publ
 
 Antes de considerar completa la preparación del curso, revisar el [registro maestro de ejecución por laboratorio](lab-execution-register.md) junto con el [plan de validación](lab-validation-plan.md). La revisión manual de accesibilidad debe registrarse en el [registro de revisión de accesibilidad](accessibility-review-register.md); la lista de comprobación por sí sola no es evidencia de que la revisión se haya ejecutado. Los estados iniciales son «No evaluado» y solo pueden cambiar con logs de ejecución reproducibles y una decisión de revisión documentada. CI, fixtures y validadores de contrato no sustituyen la ejecución por participantes.
 
+## Requisitos previos del piloto
+
+Antes de invitar participantes o recoger datos, revisar el [protocolo del piloto](pilot-protocol.md), la [información para participantes](pilot-participant-information.md), la [plantilla de observación](pilot-observation-template.md) y la [encuesta de salida](pilot-exit-survey.md). Ejecutar los validadores y pruebas de mutación de salvaguardas del repositorio, pero no tratarlos como aprobación legal o ética.
+
+- [ ] Responsable del piloto asignado nominalmente.
+- [ ] Finalidad, base aplicable, minimización, conservación y eliminación de datos revisadas por la persona responsable.
+- [ ] Información para participantes y consentimiento aprobados para el contexto real; no usar plantillas sin completar.
+- [ ] Alcance de observación y encuesta limitado a datos necesarios; no recopilar credenciales, conversaciones privadas completas ni datos personales innecesarios.
+- [ ] Procedimiento de parada, contención, notificación y borrado definido.
+- [ ] Commit del curso, cohorte, criterios de aceptación y canal para incidencias registrados.
+- [ ] Decisión de inicio documentada por la persona responsable.
+
+**Regla de bloqueo:** si cualquier elemento anterior está pendiente, no iniciar la recogida de datos del piloto. Una CI verde solo demuestra que los checks configurados pasaron; no aprueba el tratamiento de datos ni autoriza el piloto.
+
 ## 5. Decisión
 
 Registrar una fila por publicación:
