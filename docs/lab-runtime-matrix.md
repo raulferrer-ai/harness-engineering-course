@@ -42,3 +42,8 @@
 - Criterios y estado de ejecución: [plan de validación de laboratorios](lab-validation-plan.md).
 - Admisión de repositorios para el proyecto: [proyecto transversal](transversal-project.md).
 - Estado de gates y evidencia requerida: [matriz de trazabilidad](traceability.md).
+
+
+## Release evidence rule
+
+A green repository CI run is necessary but not sufficient for course release. For each LAB-01 through LAB-10, the release record must link to a learner-style execution log containing the tested commit, environment, exact commands, raw outputs, observed failures, and reviewer decision. Automated fixture validators must be labeled as fixture/contract checks; simulated policies must not be described as operating-system isolation; and synthetic productivity figures must not be reported as measured savings. If any critical step cannot be executed, preserve the explicit status `blocked` or `not evaluated` and identify the missing prerequisite. The release owner must review the completed evidence records before declaring the full course available for learning and practice.
