@@ -58,6 +58,18 @@ const mutations = [
   },
   {
     file: "docs/pilot-results-report-template.md",
+    label: "forbidden executed-pilot claim in draft report",
+    mutate: text => text + "\nPILOTO   APROBADO Y EJECUTADO\n",
+    expected: "afirmación de aprobación no permitida"
+  },
+  {
+    file: "docs/pilot-results-report-template.md",
+    label: "missing approved-protocol prerequisite in results report",
+    mutate: text => text.replace("Completar solo después de ejecutar el protocolo aprobado", "Completar antes de aprobar el protocolo"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-results-report-template.md",
     label: "missing draft-status safeguard in results report",
     mutate: text => text.replace("No contiene resultados ni certifica que se haya realizado un piloto", "Informe de resultados validado"),
     expected: "falta salvaguarda requerida"
