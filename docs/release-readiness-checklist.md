@@ -66,6 +66,21 @@ Este registro describe el estado de las salvaguardas documentales, no autoriza a
 | Consentimiento e información adaptados al contexto real | Pendiente; no utilizar las plantillas sin completar. |
 | Decisión de inicio del piloto | BLOQUEADA hasta que se cumplan y documenten todos los requisitos previos. |
 
+## Evidencia de publicación y decisión trazable
+
+Para emitir una decisión, registrar en una copia de esta sección el SHA exacto de `main`, fecha, persona responsable, enlaces a la CI de ese SHA, al [registro de laboratorios](lab-execution-register.md), al [registro de accesibilidad](accessibility-review-register.md) y a las evidencias del piloto. Los resultados de un commit anterior no certifican automáticamente uno posterior.
+
+| Gate | Estado inicial | Evidencia necesaria |
+|---|---|---|
+| CI del SHA candidato | No evaluado | URL de la ejecución completa y resultado de cada runtime |
+| LAB-01 a LAB-10 | Bloqueado | Diez ejecuciones prácticas y decisiones de revisión documentadas |
+| Accesibilidad manual | Bloqueado | Cobertura y resultados observados en el registro de accesibilidad |
+| Calibración de rúbrica | Bloqueado | Evaluaciones independientes, discrepancias y decisión de calibración |
+| Piloto con participantes | Bloqueado | Aprobación previa, ejecución, incidencias y cierre documentado |
+| Decisión final | No autorizada | Responsable, fecha, SHA y justificación de cada gate |
+
+No sustituir «Bloqueado» por «Aprobado» basándose únicamente en enlaces existentes o en CI verde.
+
 ## 5. Decisión
 
 Registrar una fila por publicación:
