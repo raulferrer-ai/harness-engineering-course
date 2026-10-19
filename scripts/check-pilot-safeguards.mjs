@@ -21,6 +21,24 @@ const files = [
       "Participar es voluntario"
     ],
     forbidden: ["Aviso de privacidad aprobado", "Consentimiento aprobado"]
+  },
+  {
+    path: new URL("../docs/pilot-observation-template.md", import.meta.url),
+    required: [
+      "No incluyas nombres, correo, cuentas ni conversaciones privadas completas",
+      "Consentimiento/política comprobados por la persona responsable",
+      "Detén la actividad ante exposición de secretos/datos personales"
+    ],
+    forbidden: ["recoger todas las conversaciones privadas"]
+  },
+  {
+    path: new URL("../docs/pilot-exit-survey.md", import.meta.url),
+    required: [
+      "responder es voluntario",
+      "No incluyas información personal ni datos confidenciales",
+      "No pedir nombre, correo, edad exacta, empresa, cuenta de proveedor"
+    ],
+    forbidden: ["es obligatorio responder todas las preguntas"]
   }
 ];
 
