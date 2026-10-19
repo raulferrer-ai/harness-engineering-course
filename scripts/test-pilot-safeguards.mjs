@@ -8,7 +8,9 @@ const root = fileURLToPath(new URL("..", import.meta.url));
 const sourceFiles = [
   "scripts/check-pilot-safeguards.mjs",
   "docs/pilot-protocol.md",
-  "docs/pilot-participant-information.md"
+  "docs/pilot-participant-information.md",
+  "docs/pilot-observation-template.md",
+  "docs/pilot-exit-survey.md"
 ];
 const mutations = [
   {
@@ -40,6 +42,18 @@ const mutations = [
     label: "forbidden approved-consent claim with altered case and whitespace",
     mutate: text => text + "\nCONSENTIMIENTO   APROBADO\n",
     expected: "afirmación de aprobación no permitida"
+  },
+  {
+    file: "docs/pilot-observation-template.md",
+    label: "missing privacy safeguard in observation template",
+    mutate: text => text.replace("No incluyas nombres, correo, cuentas ni conversaciones privadas completas.", "Registra las conversaciones completas."),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-exit-survey.md",
+    label: "missing personal-data warning in exit survey",
+    mutate: text => text.replace("No incluyas información personal ni datos confidenciales.", "Incluye información personal y datos confidenciales."),
+    expected: "falta salvaguarda requerida"
   }
 ];
 
