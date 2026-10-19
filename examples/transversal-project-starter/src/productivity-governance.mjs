@@ -1,14 +1,17 @@
 export function calculateProductivityComparison(comparison) {
   const errors = [];
+  if (!Number.isFinite(comparison?.labor_cost_per_hour) || comparison.labor_cost_per_hour < 0) {
+    errors.push("labor_cost_per_hour ausente o inválido");
+  }
   const groups = {};
   for (const key of ["baseline", "assisted"]) {
     const g = comparison?.[key];
-    if (!g || !Number.isFinite(g.tasks_completed) || g.tasks_completed <= 0 ||
-        !Number.isFinite(g.accepted_deliveries) || g.accepted_deliveries <= 0 ||
+    if (!g || !Number.isInteger(g.tasks_completed) || g.tasks_completed <= 0 ||
+        !Number.isInteger(g.accepted_deliveries) || g.accepted_deliveries <= 0 || g.accepted_deliveries > g.tasks_completed ||
         !Number.isFinite(g.human_minutes_per_task) || g.human_minutes_per_task < 0 ||
         !Number.isFinite(g.infra_cost) || g.infra_cost < 0 ||
         !Number.isFinite(g.model_cost) || g.model_cost < 0 ||
-        !Number.isFinite(g.defects_found) || g.defects_found < 0) {
+        !Number.isInteger(g.defects_found) || g.defects_found < 0) {
       errors.push(`${key}: datos insuficientes o inválidos`);
       continue;
     }
@@ -29,6 +32,9 @@ export function calculateProductivityComparison(comparison) {
   }
   if (errors.length) return { complete: false, errors };
   const b = groups.baseline, a = groups.assisted;
+  if (b.costPerAcceptedDelivery === 0 || b.defectsPerAcceptedDelivery === 0) {
+    return { complete: false, errors: ["baseline: denominador cero para variaciones porcentuales"] };
+  }
   return {
     complete: true,
     groups,
