@@ -65,3 +65,9 @@ test("rejects undefined percentage changes from zero baseline", () => {
   assert.equal(calculateProductivityComparison(input).complete, false);
   assert.match(calculateProductivityComparison(input).errors.join(" "), /denominador cero/);
 });
+
+test("missing comparison returns an incomplete measurement without throwing", () => {
+  const result = calculateProductivityComparison(undefined);
+  assert.equal(result.complete, false);
+  assert.match(result.errors.join(" "), /labor_cost_per_hour/);
+});
