@@ -42,3 +42,26 @@ test("verified comparable evidence still requires human approval before expansio
   assert.equal(recommendAdoption({ comparison: verified, calculation, qualityNonInferior: true, humanApproval: false }).decision, "hold_for_human_approval");
   assert.equal(recommendAdoption({ comparison: verified, calculation, qualityNonInferior: true, humanApproval: true }).decision, "expand_cautiously");
 });
+
+test("rejects missing or negative labor rate", () => {
+  for (const rate of [undefined, -1, NaN]) {
+    const input = structuredClone(comparison);
+    input.labor_cost_per_hour = rate;
+    const result = calculateProductivityComparison(input);
+    assert.equal(result.complete, false);
+    assert.match(result.errors.join(" "), /labor_cost_per_hour/);
+  }
+});
+
+test("rejects impossible accepted delivery counts", () => {
+  const input = structuredClone(comparison);
+  input.assisted.accepted_deliveries = input.assisted.tasks_completed + 1;
+  assert.equal(calculateProductivityComparison(input).complete, false);
+});
+
+test("rejects undefined percentage changes from zero baseline", () => {
+  const input = structuredClone(comparison);
+  input.baseline.defects_found = 0;
+  assert.equal(calculateProductivityComparison(input).complete, false);
+  assert.match(calculateProductivityComparison(input).errors.join(" "), /denominador cero/);
+});
