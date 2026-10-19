@@ -71,3 +71,14 @@ test("missing comparison returns an incomplete measurement without throwing", ()
   assert.equal(result.complete, false);
   assert.match(result.errors.join(" "), /labor_cost_per_hour/);
 });
+
+test("forged favorable cost delta cannot authorize expansion", () => {
+  const verified = structuredClone(comparison);
+  verified.comparability = { task_definition_match: true, acceptance_criteria_version_match: true, observation_window_days_match: true, source_data_verified: true };
+  const calculation = calculateProductivityComparison(verified);
+  const forged = structuredClone(calculation);
+  forged.deltas.costPerAcceptedDeliveryPercent = -99;
+  assert.deepEqual(recommendAdoption({ comparison: verified, calculation: forged, qualityNonInferior: true, humanApproval: true }), {
+    decision: "inconclusive", reason: "calculation_not_reproducible"
+  });
+});
