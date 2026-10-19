@@ -138,3 +138,23 @@ Las mutaciones cubren, según el contrato de cada laboratorio, campos obligatori
 
 Esta cobertura es un conjunto dirigido de regresiones, no una prueba exhaustiva de todos los campos ni una garantía de corrección semántica. Los casos no incluidos deben considerarse no probados, no aprobados por inferencia.
 
+
+
+## Estado maestro de evidencia independiente (2026-10-19)
+
+Los siguientes estados se refieren a ejecución práctica independiente, no a la presencia de documentación ni a CI automatizada. No se ha adjuntado en este plan evidencia suficiente para marcar ningún laboratorio como completado.
+
+| Laboratorio | Estado práctico | Evidencia necesaria para cerrar |
+|---|---|---|
+| LAB-01 | No evaluado | Repetición de casos en entorno elegido, versiones y variabilidad observada |
+| LAB-02 | No evaluado | Ejecución por una persona no autora sin instrucciones orales adicionales |
+| LAB-03 | No evaluado | Comparación controlada con una sola dimensión variable y mediciones disponibles |
+| LAB-04 | No evaluado | Checkout limpio, línea base, diff, regresiones y reproducción |
+| LAB-05 | No evaluado | Casos de permisos y efectos secundarios en entorno aislado |
+| LAB-06 | No evaluado | Evidencia de que los controles se aplican fuera de las instrucciones del modelo |
+| LAB-07 | No evaluado | Métricas recalculadas y resultados negativos/no evaluables tratados correctamente |
+| LAB-08 | No evaluado | Pruebas adversariales aisladas y verificación de ausencia de efectos no autorizados |
+| LAB-09 | No evaluado | Pipeline ejecutado desde cero, fallo provocado y recuperación observada |
+| LAB-10 | No evaluado | Fórmulas repetidas y datos sintéticos separados de mediciones empíricas |
+
+Para actualizar un estado, adjunta una copia completa de la plantilla `docs/lab-evidence-template.md` con commit, entorno, comandos, salidas originales, criterios de aceptación, fallos y decisión del revisor. Una CI verde solo prueba los checks automatizados configurados y no cambia por sí misma este estado.
