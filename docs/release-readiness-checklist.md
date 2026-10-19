@@ -35,6 +35,10 @@ Esta lista convierte los artefactos de los laboratorios en una decisión de publ
 - [ ] La recuperación o rollback se verifica mediante evidencia, no solo por una declaración de éxito.
 - [ ] Los artefactos necesarios para auditar la decisión están protegidos y tienen retención definida.
 
+## Evidencia práctica de los diez laboratorios
+
+Antes de considerar completa la preparación del curso, revisar el [registro maestro de ejecución por laboratorio](lab-execution-register.md) junto con el [plan de validación](lab-validation-plan.md). Los estados iniciales son «No evaluado» y solo pueden cambiar con logs de ejecución reproducibles y una decisión de revisión documentada. CI, fixtures y validadores de contrato no sustituyen la ejecución por participantes.
+
 ## 5. Decisión
 
 Registrar una fila por publicación:
