@@ -310,3 +310,10 @@ For the current maintenance workflow, integrate changes directly into `main` as 
 - The register starts all labs at `No evaluado` until an execution record includes the tested commit, environment, exact commands, raw outputs, acceptance criteria, failures, and independent reviewer decision.
 - Latest observed CI run: 39209096894, completed successfully for commit a1a214e.
 - This is a process improvement, not a claim that any previously unexecuted lab has been completed. Release remains blocked on learner-style execution evidence and human review.
+
+
+## Progress log — 2026-10-19 (register linked)
+
+- The master execution register is now present at [`docs/lab-execution-register.md`](lab-execution-register.md) and linked from the validation plan.
+- The register and validation plan keep all ten labs marked `Not evaluated` until learner-style execution evidence and review are recorded.
+- The register creation triggered GitHub Actions run 39210144551 for commit `4dab118276f47762d97e9ba79217cead0d08564a`; the subsequent validation-plan link is commit `b4d5a4885d1004c99b752f0b5d2491ffacf83aee`. CI status must be checked against the latest commit, not inferred from earlier green runs.
