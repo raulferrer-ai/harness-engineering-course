@@ -52,6 +52,12 @@ const mutations = [
   },
   {
     file: "docs/pilot-results-report-template.md",
+    label: "forbidden empirical-results claim in draft report",
+    mutate: text => text + "\nRESULTADOS   EMPÍRICOS CONFIRMADOS\n",
+    expected: "afirmación de aprobación no permitida"
+  },
+  {
+    file: "docs/pilot-results-report-template.md",
     label: "missing draft-status safeguard in results report",
     mutate: text => text.replace("No contiene resultados ni certifica que se haya realizado un piloto", "Informe de resultados validado"),
     expected: "falta salvaguarda requerida"
