@@ -89,6 +89,10 @@ Los gates anteriores son condiciones de aceptación, no resultados ya observados
 
 El commit `6c064a1a3c496f692dfe6e6b47655fc26108e687` pasó la [ejecución de CI 39234051385](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39234051385). Este resultado corresponde exclusivamente a ese SHA y no reemplaza los gates de evidencia práctica y revisión humana indicados arriba. Si el candidato de publicación cambia, registrar una nueva ejecución de CI para el nuevo SHA.
 
+## Evidencia de CI y alcance de la verificación
+
+La CI del commit candidato debe quedar enlazada en el registro de decisión. Esta comprobación verifica únicamente los controles automatizados configurados para ese SHA. No sustituye los gates de evidencia práctica, revisión independiente del diff, accesibilidad manual ni aprobación de privacidad/consentimiento. La persona responsable debe comprobar el resultado de cada runtime y registrar explícitamente cualquier fallo crítico o prueba que no se ejecutó.
+
 ## 5. Decisión
 
 Registrar una fila por publicación:
