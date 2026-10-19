@@ -287,3 +287,10 @@ For the current maintenance workflow, integrate changes directly into `main` as 
 - GitHub Actions run 39206020332 passed on Node.js 22 and 24. Run 39206730692 also passed for commit 186d27e.
 - LAB-10 remains a synthetic, reproducible calculation exercise, not evidence of real savings or quality improvement.
 - Release readiness remains below 100%: independent execution of all ten labs, human competency/evidence traceability review, manual accessibility audit, rubric calibration with real submissions, and a learner pilot remain open.
+
+
+## Progress log — 2026-10-19 (latest verification)
+
+- GitHub Actions run 39207031779 completed successfully for commit 727b591.
+- The verified checks cover automated repository tests in the configured Node.js matrix; they do not substitute for independently running each learner-facing lab or human review.
+- Release remains gated on recorded hands-on evidence for LAB-01 through LAB-10, final curriculum traceability approval, manual accessibility review, rubric calibration against real submissions, and a learner pilot.
