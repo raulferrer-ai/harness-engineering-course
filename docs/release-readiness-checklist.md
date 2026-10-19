@@ -81,6 +81,10 @@ Para emitir una decisión, registrar en una copia de esta sección el SHA exacto
 
 No sustituir «Bloqueado» por «Aprobado» basándose únicamente en enlaces existentes o en CI verde.
 
+## Interpretación de estados del release
+
+Los gates anteriores son condiciones de aceptación, no resultados ya observados. Mantener un único SHA candidato por decisión y volver a comprobar CI si cambia `main`. El estado «Bloqueado» se conserva hasta que la evidencia exigida esté enlazada y revisada; «No evaluado» indica que aún no se ha realizado la comprobación. No convertir un resultado de pruebas documentales en aprobación del piloto, revisión manual de accesibilidad o validación práctica de laboratorios.
+
 ## 5. Decisión
 
 Registrar una fila por publicación:
