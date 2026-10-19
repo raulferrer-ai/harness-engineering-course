@@ -66,6 +66,7 @@ for (const phrase of [
   "BLOQUEAR / APROBAR CON CONDICIONES / APROBAR",
   "La CI del commit",
   "No sustituye los gates de evidencia práctica",
+  "plantilla del informe de resultados",
   "responsable"
 ]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
