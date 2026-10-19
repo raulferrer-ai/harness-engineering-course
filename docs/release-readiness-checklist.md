@@ -53,6 +53,19 @@ Antes de invitar participantes o recoger datos, revisar el [protocolo del piloto
 
 **Regla de bloqueo:** si cualquier elemento anterior está pendiente, no iniciar la recogida de datos del piloto. Una CI verde solo demuestra que los checks configurados pasaron; no aprueba el tratamiento de datos ni autoriza el piloto.
 
+## Registro de preparación del piloto (2026-10-19)
+
+Este registro describe el estado de las salvaguardas documentales, no autoriza a comenzar el piloto ni la recogida de datos.
+
+| Comprobación | Evidencia / estado |
+|---|---|
+| Salvaguardas automatizadas | [CI de `5009f86`](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39223361050): satisfactoria, con pruebas de mutación de documentos del piloto. |
+| Pruebas de ausencia de documentos | [CI de `5322d27`](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39229074783): satisfactoria. |
+| Requisitos previos de lanzamiento | [CI de `23e0b30`](https://github.com/raulferrer-ai/harness-engineering-course/actions/runs/39229676056): satisfactoria; comprueba el repositorio, no aprueba el tratamiento de datos. |
+| Responsable nominal y revisión de privacidad | Pendiente; no hay aprobación documentada. |
+| Consentimiento e información adaptados al contexto real | Pendiente; no utilizar las plantillas sin completar. |
+| Decisión de inicio del piloto | BLOQUEADA hasta que se cumplan y documenten todos los requisitos previos. |
+
 ## 5. Decisión
 
 Registrar una fila por publicación:
