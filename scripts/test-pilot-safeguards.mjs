@@ -63,6 +63,18 @@ const mutations = [
     expected: "falta salvaguarda requerida"
   },
   {
+    file: "docs/pilot-exit-survey.md",
+    label: "missing prohibition on collecting identifying survey fields",
+    mutate: text => text.replace("No pedir nombre, correo, edad exacta, empresa, cuenta de proveedor", "Pedir nombre, correo, edad exacta, empresa, cuenta de proveedor"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-participant-information.md",
+    label: "forbidden approved privacy notice claim",
+    mutate: text => text + "\nAVISO DE PRIVACIDAD APROBADO\n",
+    expected: "afirmación de aprobación no permitida"
+  },
+  {
     file: "docs/pilot-protocol.md",
     label: "missing critical prerequisite blocking rule",
     mutate: text => text.replace("Si una condición crítica no se cumple", "Aunque una condición crítica no se cumpla"),
