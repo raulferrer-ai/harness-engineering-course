@@ -88,6 +88,18 @@ const mutations = [
   },
   {
     file: "docs/pilot-protocol.md",
+    label: "missing clean pilot environment prerequisite",
+    mutate: text => text.replace(/entorno limpio/giu, "entorno sin preparar"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-participant-information.md",
+    label: "missing lawful purpose and basis field",
+    mutate: text => text.replace("Finalidad exacta y base aplicable", "Finalidad pendiente de definir"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-protocol.md",
     label: "missing critical prerequisite blocking rule",
     mutate: text => text.replace("Si una condición crítica no se cumple", "Aunque una condición crítica no se cumpla"),
     expected: "falta salvaguarda requerida"
