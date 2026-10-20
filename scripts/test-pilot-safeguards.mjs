@@ -75,6 +75,18 @@ const mutations = [
     expected: "afirmación de aprobación no permitida"
   },
   {
+    file: "docs/pilot-participant-information.md",
+    label: "missing no-collection-before-completion rule",
+    mutate: text => text.replace("No iniciar la recogida de datos mientras estos campos sigan vacíos", "Iniciar la recogida de datos aunque estos campos sigan vacíos"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
+    file: "docs/pilot-observation-template.md",
+    label: "missing verified consent and policy field",
+    mutate: text => text.replace("Consentimiento/política comprobados por la persona responsable", "Consentimiento/política pendientes de comprobación"),
+    expected: "falta salvaguarda requerida"
+  },
+  {
     file: "docs/pilot-protocol.md",
     label: "missing critical prerequisite blocking rule",
     mutate: text => text.replace("Si una condición crítica no se cumple", "Aunque una condición crítica no se cumpla"),
