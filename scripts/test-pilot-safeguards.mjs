@@ -197,7 +197,10 @@ try {
     const path = join(project, testCase.file);
     const original = await readFile(path, "utf8");
     const mutated = testCase.mutate(original);
-    assert(mutated !== original, testCase.label + ": la mutación no alteró el documento");
+    if (mutated === original) {
+      assert(false, testCase.label + ": la mutación no alteró el documento");
+      continue;
+    }
     await writeFile(path, mutated, "utf8");
     expectFail(testCase.label, run(project), testCase.expected);
   }
