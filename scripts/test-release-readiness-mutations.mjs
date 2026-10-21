@@ -10,6 +10,7 @@ const validatorPath = join(root, "scripts/check-release-readiness-checklist.mjs"
 const canonical = await readFile(checklistPath, "utf8");
 const cases = [
   { label: "missing pilot results report reference", mutate: text => text.replace("la [plantilla del informe de resultados](pilot-results-report-template.md)", "un informe futuro"), expectedDiagnostic: "falta regla o salvaguarda: plantilla del informe de resultados" },
+  { label: "broken pilot results report link target", mutate: text => text.replace("](pilot-results-report-template.md)", "](pilot-results-template-missing.md)"), expectedDiagnostic: "falta regla o salvaguarda: ](pilot-results-report-template.md)" },
   { label: "missing decision section", mutate: text => text.replace("## 5. Decisión", "## 5. Resultado"), expectedDiagnostic: "falta sección: ## 5. Decisión" },
   { label: "heading text only inside a sentence", mutate: text => text.replace("## 5. Decisión", "Texto de ejemplo: ## 5. Decisión"), expectedDiagnostic: "falta sección: ## 5. Decisión" },
   { label: "duplicate decision section", mutate: text => text.replace("## 5. Decisión", "## 5. Decisión\n\n## 5. Decisión"), expectedDiagnostic: "sección duplicada: ## 5. Decisión" },
