@@ -67,6 +67,7 @@ for (const phrase of [
   "La CI del commit",
   "No sustituye los gates de evidencia práctica",
   "plantilla del informe de resultados",
+  "](pilot-results-report-template.md)",
   "responsable"
 ]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
