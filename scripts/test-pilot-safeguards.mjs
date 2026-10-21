@@ -187,6 +187,10 @@ function expectFail(label, result, expected) {
 try {
   const canonical = await setup("canonical");
   expectPass("pilot safeguards canonical templates", run(canonical));
+  const forbiddenNormalized = await setup("forbidden-normalized");
+  const forbiddenPath = join(forbiddenNormalized, "docs/pilot-protocol.md");
+  await writeFile(forbiddenPath, (await readFile(forbiddenPath, "utf8")) + "\nPILOTO  APROBADO\nY EJECUTADO\n", "utf8");
+  expectFail("rejects forbidden approval with irregular whitespace and case", run(forbiddenNormalized), "afirmación de aprobación no permitida");
   const normalizedRequired = await setup("normalized-required");
   const normalizedPath = join(normalizedRequired, "docs/pilot-protocol.md");
   const normalizedOriginal = await readFile(normalizedPath, "utf8");
