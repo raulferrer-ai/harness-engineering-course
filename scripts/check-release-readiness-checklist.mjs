@@ -57,6 +57,10 @@ for (const heading of [
   if (matches > 1) failures.push("sección duplicada: " + heading);
 }
 
+if (!/\[[^\]]+\]\(pilot-results-report-template\.md\)/.test(safeguardMarkdown)) {
+  failures.push("falta regla o salvaguarda: ](pilot-results-report-template.md)");
+}
+
 for (const phrase of [
   "no inferir éxito",
   "no demuestra por sí sola la seguridad",
@@ -67,7 +71,6 @@ for (const phrase of [
   "La CI del commit",
   "No sustituye los gates de evidencia práctica",
   "plantilla del informe de resultados",
-  "](pilot-results-report-template.md)",
   "responsable"
 ]) requireText(phrase, "falta regla o salvaguarda: " + phrase);
 
