@@ -218,7 +218,7 @@ try {
     expectFail(
       "missing required pilot document: " + missingFile,
       missingDocumentResult,
-      "No se pudo leer un documento de salvaguardas del piloto"
+      missingFile.split("/").pop() + ": No se pudo leer un documento de salvaguardas del piloto"
     );
   }
 } finally {
