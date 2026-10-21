@@ -58,7 +58,7 @@ for (const file of files) {
   try {
     content = await readFile(file.path, "utf8");
   } catch {
-    failures.push("No se pudo leer un documento de salvaguardas del piloto.");
+    failures.push(`${file.path.pathname.split("/").pop()}: No se pudo leer un documento de salvaguardas del piloto.`);
     continue;
   }
   const normalizedContent = content.normalize("NFC").toLocaleLowerCase("es").replace(/\s+/gu, " ");
