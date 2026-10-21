@@ -1,4 +1,5 @@
-import { readFile } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 
 const checklistPath = process.env.RELEASE_CHECKLIST_PATH || new URL("../docs/release-readiness-checklist.md", import.meta.url);
 let markdown;
@@ -59,6 +60,13 @@ for (const heading of [
 
 if (!/\[[^\]]+\]\(pilot-results-report-template\.md\)/.test(safeguardMarkdown)) {
   failures.push("falta regla o salvaguarda: ](pilot-results-report-template.md)");
+}
+else {
+  try {
+    await access(resolve(dirname(String(checklistPath)), "pilot-results-report-template.md"));
+  } catch {
+    failures.push("falta archivo enlazado: pilot-results-report-template.md");
+  }
 }
 
 for (const phrase of [
